@@ -6,7 +6,7 @@ prev_page:
   url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
   title: 'Exploring Condominiums in Singapore'
 next_page:
-  url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM.ipynb
+  url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
   title: 'Recommendation Systems for Articles with IBM'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

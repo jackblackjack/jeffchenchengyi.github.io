@@ -7,7 +7,7 @@ prev_page:
   url: /portfolio/portfolio
   title: 'Portfolio'
 next_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm.ipynb
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
   title: 'Exploring Condominiums in Singapore'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

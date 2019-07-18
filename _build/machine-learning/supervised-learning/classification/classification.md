@@ -7,7 +7,7 @@ prev_page:
   url: /machine-learning/supervised-learning/what-is-supervised-learning
   title: 'Supervised Learning'
 next_page:
-  url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier.ipynb
+  url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier
   title: 'Bayes Optimal Classifier'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

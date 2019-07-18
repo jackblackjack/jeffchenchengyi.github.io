@@ -115,6 +115,6 @@ This calls `app.run(host='0.0.0.0', port=3001, debug=True)` which does 2 things:
     - Wrangle data in a file (aka Python module). In this case, the file is called wrangling.py. The wrangling.py has a function that returns the clean data.
     - Execute this function in routes.py to get the data in routes.py
     - Pass the data to the front-end (index.html file) using the render_template method.
-    - Inside of index.html, you can access the data variable with the squiggly bracket syntax {{ }}
+    - Inside of index.html, you can access the data variable with the squiggly bracket syntax "{{ }}"
 2. Connects the `app` you've initialized to port: `3001`
 

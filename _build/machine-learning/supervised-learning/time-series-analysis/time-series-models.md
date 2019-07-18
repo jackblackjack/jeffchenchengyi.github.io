@@ -7,7 +7,7 @@ prev_page:
   url: /machine-learning/supervised-learning/ensemble/ensemble
   title: 'Ensembles'
 next_page:
-  url: /machine-learning/supervised-learning/what-is-unsupervised-learning
+  url: /machine-learning/unsupervised-learning/what-is-unsupervised-learning
   title: 'Unsupervised Learning'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
