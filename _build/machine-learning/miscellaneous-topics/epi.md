@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Elements of Programming Interviews (Python)'
 prev_page:
-  url: /machine-learning/miscellaneous-topics/how-flask-app-works
-  title: 'How to start a Flask App?'
+  url: /machine-learning/miscellaneous-topics/linear-algebra-review
+  title: 'Linear Algebra Review'
 next_page:
   url: /machine-learning/miscellaneous-topics/leetcode
   title: 'Leetcode (Python)'

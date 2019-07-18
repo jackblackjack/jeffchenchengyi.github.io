@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/miscellaneous-topics/handling-missing-data
   title: 'How do we handle Missing Data?'
 next_page:
-  url: /machine-learning/miscellaneous-topics/how-flask-app-works
-  title: 'How to start a Flask App?'
+  url: /machine-learning/miscellaneous-topics/epi
+  title: 'Elements of Programming Interviews (Python)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
