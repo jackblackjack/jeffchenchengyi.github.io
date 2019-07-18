@@ -188,12 +188,12 @@ for X, y in generate_context_word_pairs(corpus=wids, window_size=window_size, vo
 Math:
 $$
 \begin{eqnarray}
-\textbf{h} = & W^T\overline{\textbf{x}}\hspace{2.8cm}  \nonumber \\
-\textbf{u} = & W'^T W^T\overline{\textbf{x}} \hspace{2cm}  \nonumber \\
-\textbf{y} = & \mathbb{S}\textrm{oftmax}\left( W'^T W^T\overline{\textbf{x}}\right) \hspace{0cm}  \nonumber \\
+\textbf{h} = & W^T\overline{\textbf{x} }\hspace{2.8cm}  \nonumber \\
+\textbf{u} = & W'^T W^T\overline{\textbf{x} } \hspace{2cm}  \nonumber \\
+\textbf{y} = & \mathbb{S}\textrm{oftmax}\left( W'^T W^T\overline{\textbf{x} }\right) \hspace{0cm}  \nonumber \\
 \mathcal{L} = & -u_{j^*} + \log \sum_i \exp{(u_i)} \hspace{0cm} \nonumber \\
-\frac{\partial\mathcal{L}}{\partial W'} =  & (W^T\overline{\textbf{x}}) \otimes \textbf{e} \hspace{2.0cm} \nonumber\\
-\frac{\partial \mathcal{L}}{\partial W} = & \overline{\textbf{x}}\otimes(W'\textbf{e})
+\frac{\partial\mathcal{L} }{\partial W'} =  & (W^T\overline{\textbf{x} }) \otimes \textbf{e} \hspace{2.0cm} \nonumber\\
+\frac{\partial \mathcal{L} }{\partial W} = & \overline{\textbf{x} }\otimes(W'\textbf{e})
  \hspace{2.0cm} \nonumber
 \end{eqnarray}
 $$
@@ -201,8 +201,8 @@ $$
 Gradient Descent Updates:
 $$
 \begin{eqnarray}
-W_{\textrm{new}} = W_{\textrm{old}} - \eta \frac{\partial \mathcal{L}}{\partial W} \nonumber \\
-W'_{\textrm{new}} = W'_{\textrm{old}} - \eta \frac{\partial \mathcal{L}}{\partial W'} \nonumber \\
+W_{\textrm{new} } = W_{\textrm{old} } - \eta \frac{\partial \mathcal{L} }{\partial W} \nonumber \\
+W'_{\textrm{new} } = W'_{\textrm{old} } - \eta \frac{\partial \mathcal{L} }{\partial W'} \nonumber \\
 \end{eqnarray}
 $$
 
@@ -214,7 +214,7 @@ $$\underbrace{
 \begin{bmatrix} x_{1,0} \\ \vdots \\ x_{1,V-1} \end{bmatrix},
 \begin{bmatrix} x_{2,0} \\ \vdots \\ x_{2,V-1} \end{bmatrix},
 ...,
-\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix}}_{\text{Input Layer after Embedding Layer's One hot Encoding }}$$
+\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix} }_{\text{Input Layer after Embedding Layer's One hot Encoding } }$$
 
 Embedding Layer :
 - Rows of the Embedding Matrix are the vector representation of each unique word in our text corpus
@@ -225,20 +225,20 @@ $$
 {w}_{1,0} & {w}_{1,1} & ... & {w}_{1,N-1} \\
 \vdots & \vdots & \vdots & \vdots \\
 {w}_{V-1,0} & {w}_{V-1,1} & ... & {w}_{V-1,N-1} \\
-\end{bmatrix}}^\top}_{\text{Embedding Matrix / Layer } \mathbf{W}^\top_{N \times V}}
+\end{bmatrix} }^\top}_{\text{Embedding Matrix / Layer } \mathbf{W}^\top_{N \times V} }
 \cdot
 {\begin{bmatrix} x_{0,0} \\ \vdots \\ x_{0,V-1} \end{bmatrix},
 \begin{bmatrix} x_{1,0} \\ \vdots \\ x_{1,V-1} \end{bmatrix},
 \begin{bmatrix} x_{2,0} \\ \vdots \\ x_{2,V-1} \end{bmatrix},
 ...,
-\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix}}
+\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix} }
 =
 \underbrace{
 \begin{bmatrix} {w}_{0,0} \\ \vdots \\ {w}_{0,N-1} \end{bmatrix},
 \begin{bmatrix} {w}_{1,0} \\ \vdots \\ {w}_{1,N-1} \end{bmatrix},
 \begin{bmatrix} {w}_{2,0} \\ \vdots \\ {w}_{2,N-1} \end{bmatrix},
 ...,
-\begin{bmatrix} {w}_{C-1,0} \\ \vdots \\ {w}_{C-1,N-1} \end{bmatrix}}_{\text{Word embedding vectors for each context word extracted from Embedding matrix}}
+\begin{bmatrix} {w}_{C-1,0} \\ \vdots \\ {w}_{C-1,N-1} \end{bmatrix} }_{\text{Word embedding vectors for each context word extracted from Embedding matrix} }
 $$
 - The Embedding Layer in Keras will convert each word index from the input layer to a one-hot binary vector and "look up" the word embedding vector from the Embedding Matrix and pass it to the Lambda Layer.
 - Input Shape: $($ $V=$`vocab_size` $\times $ $N=$`embed_size`$)$

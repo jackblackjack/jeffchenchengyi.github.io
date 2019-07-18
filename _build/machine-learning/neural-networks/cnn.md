@@ -29,7 +29,7 @@ $$
     0 & x_{n1} & x_{n2} & x_{n3} & \dots & x_{nn} & 0 \\
     0 & 0 & 0 & 0 & \dots & 0 & 0
 \end{bmatrix}
-}_{\,{n}_{H}^{[l-1]} \times {n}_{W}^{[l-1]}\,\times {n}_{c}^{[l-1]}=\text{# of Channels (RGB Image: }{n}_{c}^{[l-1]} = 3\,\text{) Image with }\,{p}^{[l]}\,{ Padding}}
+}_{\,{n}_{H}^{[l-1]} \times {n}_{W}^{[l-1]}\,\times {n}_{c}^{[l-1]}=\text{# of Channels (RGB Image: }{n}_{c}^{[l-1]} = 3\,\text{) Image with }\,{p}^{[l]}\,{ Padding} }
 \,\circledast\,
 \underbrace{
 {
@@ -40,18 +40,18 @@ $$
     w_{f1} & \dots & w_{ff}
 \end{bmatrix}
 }
-}_{{f}^{[l]} \times {f}^{[l]}\,\times {n}_{c}^{[l-1]}=\text{# of Channels (RGB Image: }{n}_{c}^{[l-1]} = 3\,\text{) Filter / Kernel}}
+}_{ {f}^{[l]} \times {f}^{[l]}\,\times {n}_{c}^{[l-1]}=\text{# of Channels (RGB Image: }{n}_{c}^{[l-1]} = 3\,\text{) Filter / Kernel} }
 =
 \underbrace{
 {
 \begin{bmatrix}
-    x'_{11} & x'_{12} & x'_{13} & \dots  & x'_{1 \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor} \\
-    x'_{21} & x'_{22} & x'_{23} & \dots  & x'_{2 \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor} \\
+    x'_{11} & x'_{12} & x'_{13} & \dots  & x'_{1 \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor} \\
+    x'_{21} & x'_{22} & x'_{23} & \dots  & x'_{2 \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor} \\
     \vdots & \vdots & \vdots & \ddots & \vdots \\
-    x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor 1} & x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor 2} & x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor 3} & \dots  & x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor}
+    x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor 1} & x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor 2} & x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor 3} & \dots  & x'_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor}
 \end{bmatrix}
 }
-}_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor \times \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor\,\times {{n}_{c}^{[l]} = \text{# of Filters / Kernels}}\,\text{ Output Image}}
+}_{\lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor \times \lfloor\frac{({n}^{[l-1]} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor\,\times { {n}_{c}^{[l]} = \text{# of Filters / Kernels} }\,\text{ Output Image} }
 $$
 
 ### Shapes Summary
@@ -61,7 +61,7 @@ $$
 {p}^{[l]}\,&=\,\text{padding} \\
 {s}^{[l]}\,&=\,\text{stride} \\
 {n}^{[l]}_{c}\,&=\,\text{Number of filters / Number of Channels when}\,{l = 1} \\
-\text{Size of Output}\,&=\lfloor\frac{({n}^{[l-1]}_{H} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor\times\lfloor\frac{({n}^{[l-1]}_{W} + 2{p}^{[l]} - {f}^{[l]})}{{s}^{[l]}} + 1\rfloor\times{n}^{[l]}_{c}\\
+\text{Size of Output}\,&=\lfloor\frac{({n}^{[l-1]}_{H} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor\times\lfloor\frac{({n}^{[l-1]}_{W} + 2{p}^{[l]} - {f}^{[l]})}{ {s}^{[l]} } + 1\rfloor\times{n}^{[l]}_{c}\\
 \text{Each filter is}&:{f}^{[l]}\times{f}^{[l]}\times{n}^{[l-1]}_{c} \\
 \text{Activations}&:{A}^{[l]} = m\times{n}^{[l]}_{H}\times{n}^{[l]}_{W}\times{n}^{[l]}_{c} \\
 \text{Weights}&:{W}^{[l]} = {f}^{[l]}\times{f}^{[l]}\times{n}^{[l-1]}_{c}\times{n}^{[l]}_{c} \\
@@ -93,7 +93,7 @@ Hyperparameters:
 
 ### Shapes Summary
 $$
-\text{Output Size}\,=\,\lfloor\frac{{n}_{H} - f}{s}+1\rfloor\times\lfloor\frac{{n}_{W} - f}{s}+1\rfloor\times{n}_{c}
+\text{Output Size}\,=\,\lfloor\frac{ {n}_{H} - f}{s}+1\rfloor\times\lfloor\frac{ {n}_{W} - f}{s}+1\rfloor\times{n}_{c}
 $$
 
 

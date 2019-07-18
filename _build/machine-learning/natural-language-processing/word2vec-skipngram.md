@@ -140,7 +140,7 @@ $$\underbrace{
 \begin{bmatrix} x_{1,0} \\ \vdots \\ x_{1,V-1} \end{bmatrix},
 \begin{bmatrix} x_{2,0} \\ \vdots \\ x_{2,V-1} \end{bmatrix},
 ...,
-\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix}}_{\text{Input Layer after Embedding Layer's One hot Encoding }}$$
+\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix} }_{\text{Input Layer after Embedding Layer's One hot Encoding } }$$
 
 Embedding Layer :
 - Rows of the Embedding Matrix are the vector representation of each unique word in our text corpus
@@ -151,20 +151,20 @@ $$
 {w}_{1,0} & {w}_{1,1} & ... & {w}_{1,N-1} \\
 \vdots & \vdots & \vdots & \vdots \\
 {w}_{V-1,0} & {w}_{V-1,1} & ... & {w}_{V-1,N-1} \\
-\end{bmatrix}}^\top}_{\text{Embedding Matrix / Layer } \mathbf{W}^\top_{N \times V}}
+\end{bmatrix} }^\top}_{\text{Embedding Matrix / Layer } \mathbf{W}^\top_{N \times V} }
 \cdot
 {\begin{bmatrix} x_{0,0} \\ \vdots \\ x_{0,V-1} \end{bmatrix},
 \begin{bmatrix} x_{1,0} \\ \vdots \\ x_{1,V-1} \end{bmatrix},
 \begin{bmatrix} x_{2,0} \\ \vdots \\ x_{2,V-1} \end{bmatrix},
 ...,
-\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix}}
+\begin{bmatrix} x_{C-1,0} \\ \vdots \\ x_{C-1,V-1} \end{bmatrix} }
 =
 \underbrace{
 \begin{bmatrix} {w}_{0,0} \\ \vdots \\ {w}_{0,N-1} \end{bmatrix},
 \begin{bmatrix} {w}_{1,0} \\ \vdots \\ {w}_{1,N-1} \end{bmatrix},
 \begin{bmatrix} {w}_{2,0} \\ \vdots \\ {w}_{2,N-1} \end{bmatrix},
 ...,
-\begin{bmatrix} {w}_{C-1,0} \\ \vdots \\ {w}_{C-1,N-1} \end{bmatrix}}_{\text{Word embedding vectors for each context word extracted from Embedding matrix}}
+\begin{bmatrix} {w}_{C-1,0} \\ \vdots \\ {w}_{C-1,N-1} \end{bmatrix} }_{\text{Word embedding vectors for each context word extracted from Embedding matrix} }
 $$
 - The Embedding Layer in Keras will convert each word index from the input layer to a one-hot binary vector and "look up" the word embedding vector from the Embedding Matrix and pass it to the Lambda Layer.
 - Input Shape: $($ $V=$`vocab_size` $\times $ $N=$`embed_size`$)$

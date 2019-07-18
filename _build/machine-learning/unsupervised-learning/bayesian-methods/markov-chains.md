@@ -42,11 +42,11 @@ import numpy as np
 
 $$
 S_0 = 
-\stackrel{\mbox{$A\,\,\,\,\,\neg A$}}
+\stackrel{\mbox{$A\,\,\,\,\,\neg A$} }
 {\underset{1\,\times\,2}
 {\begin{bmatrix}
   0.1 & 0.9 \\
-\end{bmatrix}}}
+\end{bmatrix} }}
 $$
 
 
@@ -87,14 +87,14 @@ A \\
 \neg A \\
 \end{cases}
 \overbrace{
-\stackrel{\mbox{$A\,\,\,\,\,\neg A$}}
+\stackrel{\mbox{$A\,\,\,\,\,\neg A$} }
 {
 \underset{2\,\times\,2}{
 \begin{bmatrix}
   0.8 & 0.2 \\
   0.6 & 0.4 \\
-\end{bmatrix}}}
-}^{\text{Next State}}
+\end{bmatrix} }}
+}^{\text{Next State} }
 $$
 
 
@@ -132,9 +132,9 @@ After 1 week:
 $$
 \begin{aligned}
 S_1 &= S_0 \cdot P^1 \\
-&= \underset{1\,\times\,2}{\begin{bmatrix} 0.1 & 0.9 \\ \end{bmatrix}}
-\cdot \underset{2\,\times\,2}{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix}} \\
-&= \underset{1\,\times\,2}{\begin{bmatrix} 0.62 & 0.38 \\ \end{bmatrix}}
+&= \underset{1\,\times\,2}{\begin{bmatrix} 0.1 & 0.9 \\ \end{bmatrix} }
+\cdot \underset{2\,\times\,2}{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix} } \\
+&= \underset{1\,\times\,2}{\begin{bmatrix} 0.62 & 0.38 \\ \end{bmatrix} }
 \end{aligned}
 $$
 
@@ -172,9 +172,9 @@ After 1 week:
 $$
 \begin{aligned}
 S_1 &= S_0 \cdot P^2 \\
-&= \underset{1\,\times\,2}{\begin{bmatrix} 0.1 & 0.9 \\ \end{bmatrix}}
-\cdot \underset{2\,\times\,2}{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix}} \cdot \underset{2\,\times\,2}{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix}} \\
-&= \underset{1\,\times\,2}{\begin{bmatrix} 0.724 & 0.276 \\ \end{bmatrix}}
+&= \underset{1\,\times\,2}{\begin{bmatrix} 0.1 & 0.9 \\ \end{bmatrix} }
+\cdot \underset{2\,\times\,2}{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix} } \cdot \underset{2\,\times\,2}{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix} } \\
+&= \underset{1\,\times\,2}{\begin{bmatrix} 0.724 & 0.276 \\ \end{bmatrix} }
 \end{aligned}
 $$
 
@@ -214,11 +214,11 @@ After $n$ weeks:
 $$
 \begin{aligned}
 S_n &= S_0 \cdot P^n \\
-&= \underset{1\,\times\,2}{\begin{bmatrix} 0.1 & 0.9 \\ \end{bmatrix}}
+&= \underset{1\,\times\,2}{\begin{bmatrix} 0.1 & 0.9 \\ \end{bmatrix} }
 \cdot \underset{2\,\times\,2}{
-{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix}}^n
+{\begin{bmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \\ \end{bmatrix} }^n
 } \\
-&= \underset{1\,\times\,2}{\begin{bmatrix} 0.75 & 0.25 \\ \end{bmatrix}}
+&= \underset{1\,\times\,2}{\begin{bmatrix} 0.75 & 0.25 \\ \end{bmatrix} }
 \end{aligned}
 $$
 
@@ -315,9 +315,9 @@ E.g.
 $$
 \begin{aligned}
 \pi \cdot P &= \pi \\
-{\begin{bmatrix} s_1 & s_2 \end{bmatrix}} \cdot 
-{\begin{bmatrix} 0.6 & 0.4 \\ 0.2 & 0.8 \end{bmatrix}}
-&= {\begin{bmatrix} s_1 & s_2 \end{bmatrix}} \\
+{\begin{bmatrix} s_1 & s_2 \end{bmatrix} } \cdot 
+{\begin{bmatrix} 0.6 & 0.4 \\ 0.2 & 0.8 \end{bmatrix} }
+&= {\begin{bmatrix} s_1 & s_2 \end{bmatrix} } \\
 \vdots \\
 0.6s_1 + 0.2s_2 &= s_1 \\
 0.4s_1 + 0.8s_2 &= s_2 \\
@@ -357,7 +357,7 @@ P =
 &C \\
 &D \\
 \end{aligned}
-\stackrel{\mbox{$A\,\,\,\,\,\,\,\,\,B\,\,\,\,\,\,\,\,\,C\,\,\,\,\,\,\,\,\,D$}}
+\stackrel{\mbox{$A\,\,\,\,\,\,\,\,\,B\,\,\,\,\,\,\,\,\,C\,\,\,\,\,\,\,\,\,D$} }
 {
 \begin{bmatrix}
     0.0 & 0.3 & 0.3 & 0.4 \\
@@ -367,7 +367,7 @@ P =
 \end{bmatrix}
 }
 \,
-\underset{\text{Standardize}}{\rightarrow}
+\underset{\text{Standardize} }{\rightarrow}
 \,
 \begin{aligned}
 &B \\
@@ -375,7 +375,7 @@ P =
 &A \\
 &D \\
 \end{aligned}
-\stackrel{\mbox{$B\,\,\,\,\,\,\,\,\,C\,\,\,\,\,\,\,\,\,A\,\,\,\,\,\,\,\,\,D$}}
+\stackrel{\mbox{$B\,\,\,\,\,\,\,\,\,C\,\,\,\,\,\,\,\,\,A\,\,\,\,\,\,\,\,\,D$} }
 {
 \begin{bmatrix}
     1.0 & 0.0 & 0.0 & 0.0 \\

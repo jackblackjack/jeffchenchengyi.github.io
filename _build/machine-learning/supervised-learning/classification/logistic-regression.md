@@ -27,7 +27,7 @@ $$
 , let's model this directly:
 
 $$
-P(y\mid\mathbf{x}_i;\theta=\mathbf{w}, b)=\frac{1}{1+e^{-y(\mathbf{w}^T \mathbf{x}_i+b)}}
+P(y\mid\mathbf{x}_i;\theta=\mathbf{w}, b)=\frac{1}{1+e^{-y(\mathbf{w}^T \mathbf{x}_i+b)} }
 $$
 
 
@@ -72,19 +72,19 @@ $$\begin{aligned}
 </p>
 
 $$\begin{aligned}
-\hat{\mathbf{w}}_{MLE} &= \operatorname*{argmax}_{\mathbf{w}} -\sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i})\\
-&=\operatorname*{argmin}_{\mathbf{w}}\sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i})
+\hat{\mathbf{w} }_{MLE} &= \operatorname*{argmax}_{\mathbf{w} } -\sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i})\\
+&=\operatorname*{argmin}_{\mathbf{w} }\sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i})
 \end{aligned}$$
-<p>We need to estimate the parameters <span class="math inline">\(\mathbf{w}\)</span>. To find the values of the parameters at minimum, we can try to find solutions for <span class="math inline">\(\nabla_{\mathbf{w}} \sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i}) =0\)</span>. This equation has no closed form solution, so we will use <a href="http://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote07.html">Gradient Descent</a> on the  <i>negative log likelihood</i> $\ell(\mathbf{w})=\sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i})$.</br> </p>
+<p>We need to estimate the parameters <span class="math inline">\(\mathbf{w}\)</span>. To find the values of the parameters at minimum, we can try to find solutions for <span class="math inline">\(\nabla_{\mathbf{w} } \sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i}) =0\)</span>. This equation has no closed form solution, so we will use <a href="http://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote07.html">Gradient Descent</a> on the  <i>negative log likelihood</i> $\ell(\mathbf{w})=\sum_{i=1}^n \log(1+e^{-y_i \mathbf{w}^T \mathbf{x}_i})$.</br> </p>
 
 
 <h3 id="map-estimate">Maximum a Posteriori (MAP) Estimate</h3>
 <p>
-In the MAP estimate we treat $\mathbf{w}$ as a random variable and can specify a prior belief distribution over it. We may use: <span class="math inline">\(\mathbf{w} \sim \mathbf{\mathcal{N}}(\mathbf 0,\sigma^2 I)\)</span>. This is the Gaussian approximation for LR.</p>
+In the MAP estimate we treat $\mathbf{w}$ as a random variable and can specify a prior belief distribution over it. We may use: <span class="math inline">\(\mathbf{w} \sim \mathbf{\mathcal{N} }(\mathbf 0,\sigma^2 I)\)</span>. This is the Gaussian approximation for LR.</p>
 <p>Our goal in MAP is to find the <i>most likely</i> model parameters  <i>given the data</i>, i.e., the parameters that <b>maximaize the posterior</b>.  
 <span class="math display">\[\begin{aligned}
 P(\mathbf{w} \mid D) = P(\mathbf{w} \mid X, \mathbf y) & \propto P(\mathbf y \mid X, \mathbf{w}) \; P(\mathbf{w})\\
-\hat{\mathbf{w}}_{MAP} = \operatorname*{argmax}_{\mathbf{w}} \log \, \left(P(\mathbf y \mid X, \mathbf{w}) P(\mathbf{w})\right) &= \operatorname*{argmin}_{\mathbf{w}} \sum_{i=1}^n \log(1+e^{-y_i\mathbf{w}^T \mathbf{x}_i})+\lambda\mathbf{w}^\top\mathbf{w},
+\hat{\mathbf{w} }_{MAP} = \operatorname*{argmax}_{\mathbf{w} } \log \, \left(P(\mathbf y \mid X, \mathbf{w}) P(\mathbf{w})\right) &= \operatorname*{argmin}_{\mathbf{w} } \sum_{i=1}^n \log(1+e^{-y_i\mathbf{w}^T \mathbf{x}_i})+\lambda\mathbf{w}^\top\mathbf{w},
 \end{aligned},
 \]</span></p>
 <p> where $\lambda = \frac{1}{2\sigma^2}$. 

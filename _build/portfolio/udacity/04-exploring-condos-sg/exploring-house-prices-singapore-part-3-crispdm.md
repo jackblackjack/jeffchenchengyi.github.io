@@ -1745,7 +1745,7 @@ def get_transactions(X, districts=[9, 10]):
                 'outSr': '4326', 
                 'outFields': 'name,lu_desc,lu_dt_cd,gpr_num,region_n,pln_area_n,subzone_n',
                 'inSr': '4326',
-                'geometry': str({'x': float(x), 'y': float(y), 'spatialReference': {'wkid': 4326}}),
+                'geometry': str({'x': float(x), 'y': float(y), 'spatialReference': {'wkid': 4326} }),
                 'geometryType': 'esriGeometryPoint',
                 'spatialRel': 'esriSpatialRelWithin', 
                 'f':'json'
@@ -2182,7 +2182,7 @@ plt.show();
     'outSr': '4326', 
     'outFields': 'name,lu_desc,lu_dt_cd,gpr_num,region_n,pln_area_n,subzone_n',
     'inSr': '4326',
-    'geometry': str({'x': float(103.82947), 'y': float(1.3027), 'spatialReference': {'wkid': 4326}}),
+    'geometry': str({'x': float(103.82947), 'y': float(1.3027), 'spatialReference': {'wkid': 4326} }),
     'geometryType': 'esriGeometryPoint',
     'spatialRel': 'esriSpatialRelWithin', 
     'f':'json'

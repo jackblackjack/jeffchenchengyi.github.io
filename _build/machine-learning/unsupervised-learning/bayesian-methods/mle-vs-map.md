@@ -21,7 +21,7 @@ We will go through the differences in MLE and MAP here which will be very helpfu
 
 In supervised Machine learning you are provided with training data $D$. You use this data to train a model, represented by its parameters $\theta$. With this model you want to make predictions on a test point $x_t$. Recall that 
 
-$${p(Y|X) = \frac{p(X|Y) * p(Y)}{p(X)}}, p(X) = \sum^{\text{Set of distinct labels} Y}_{\text{label }y\,\in\,\text{Set of distinct labels} Y} p(X|y) * p(y)$$
+$${p(Y|X) = \frac{p(X|Y) * p(Y)}{p(X)} }, p(X) = \sum^{\text{Set of distinct labels} Y}_{\text{label }y\,\in\,\text{Set of distinct labels} Y} p(X|y) * p(y)$$
 
 <li>
     When we estimate 
@@ -172,7 +172,7 @@ Now, we can look at $P(\theta \mid D) = \frac{P(D\mid \theta) P(\theta)}{P(D)}$ 
 <p>
 A natural choice for the prior $P(\theta$) is the <a href="https://en.wikipedia.org/wiki/Beta_distribution">Beta distribution</a>:
 \begin{align}
-P(\theta) = \frac{\theta^{\alpha - 1}(1 - \theta)^{\beta - 1}}{B(\alpha, \beta)}
+P(\theta) = \frac{\theta^{\alpha - 1}(1 - \theta)^{\beta - 1} }{B(\alpha, \beta)}
 \end{align}
 where $B(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha+\beta)}$ is the normalization constant (if this looks scary don't worry about it, it is just there to make sure everything sums to $1$ and to scare children at Halloween). Note that here we only need a distribution over a singly binary random variable $\theta$. (The multivariate generalization of the Beta distribution is the <a href="https://en.wikipedia.org/wiki/Dirichlet_distribution">Dirichlet distribution</a>.)
 </p>
@@ -289,14 +289,14 @@ Near the maximum likelihood estimate, low Fisher information therefore indicates
 ## Cramer-Rao Lower Bound
 
 $$
-Var(\hat{\theta}) \geq {\mathcal{I}}^{-1},\,\hat{\theta}=\text{MLE estimate of }\theta
+Var(\hat{\theta}) \geq {\mathcal{I} }^{-1},\,\hat{\theta}=\text{MLE estimate of }\theta
 $$
 
 ## How do we quantify degree of uncertainty of our MLE estimate?
 
 Using the Cramer-Rao Lower Bound and the Central Limit Theorem, we can say that:
 $$
-\hat{\theta} \sim \mathcal{N}(\theta_0, {\mathcal{I}}^{-1}), \theta_0 = \text{True parameter}
+\hat{\theta} \sim \mathcal{N}(\theta_0, {\mathcal{I} }^{-1}), \theta_0 = \text{True parameter}
 $$
 
 

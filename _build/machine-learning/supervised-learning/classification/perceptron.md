@@ -40,7 +40,7 @@ Assumption:
 ---
 # Training
 
-1. Initialize ${\mathbf{w}}$ as ${\vec{0}}$
+1. Initialize ${\mathbf{w} }$ as ${\vec{0} }$
 2. Calculate the un-normalized cosine similarities / inner product / dot product between ${\mathbf{w}^\top}$ and every other data point ${\mathbf{w}^\top \cdot \mathbf{x}_i}$.
 $$
 \text{similarity} = 
@@ -51,7 +51,7 @@ $$
     \begin{bmatrix} x_0 \\ \vdots \\ x_n \\ 1 \end{bmatrix}
 \right\rangle =
 {\mathbf{w}^\top \cdot \mathbf{x}_i} = \sum_{i=1}^n w_i x_i = w_0 x_0 + \cdots + w_n x_n }
-{ {\|\mathbf{w}\|}_2 {\|\mathbf{x}\|}_2 = \sqrt{\sum\limits_{i=1}^{n}{w_i^2}}\sqrt{\sum\limits_{i=1}^{n}{x_i^2}} }$$
+{ {\|\mathbf{w}\|}_2 {\|\mathbf{x}\|}_2 = \sqrt{\sum\limits_{i=1}^{n}{w_i^2} }\sqrt{\sum\limits_{i=1}^{n}{x_i^2} } }$$
 
 3. Check what the value of $y_i \mathbf{w}^\top \mathbf{x}_i$ is. If datapoint is correctly classified, $y_i(\mathbf{w}^\top \mathbf{x}_i) > 0$, while misclassified points are $y_i(\mathbf{w}^\top \mathbf{x}_i) \leq 0$
     - For each misclassified datapoint ${(y_i = \{+1 / -1\}) \cdot (\mathbf{w}^\top = \begin{bmatrix} w_0, w_1 ... b \end{bmatrix}) \cdot (\mathbf{x}_i} = \begin{bmatrix} x_0\\x_1\\ .\\1\end{bmatrix}) \leq 0$, we update $\mathbf{w}$ by 
@@ -71,7 +71,7 @@ $$\mathbf{w} \leftarrow \mathbf{w} + y_i\mathbf{x}_i$$
 ---
 # Prediction
 
-Just plug in ${\mathbf{x}_{test}}$ with the trained / fitted ${\mathbf{w}^\top}$ in ${\hat{y} = \mathbf{w}^\top \cdot \mathbf{x}_{test}}$
+Just plug in ${\mathbf{x}_{test} }$ with the trained / fitted ${\mathbf{w}^\top}$ in ${\hat{y} = \mathbf{w}^\top \cdot \mathbf{x}_{test} }$
 
 
 
@@ -92,13 +92,13 @@ Just plug in ${\mathbf{x}_{test}}$ with the trained / fitted ${\mathbf{w}^\top}$
 # Advantages
 
 - Convergence Guarantee
-    - We can prove that if the data set is linearly separable, we can find a hyperplane that separates the positive and negative data points by at most ${\frac{1}{\gamma^2}}$ iterations, where ${\gamma}$ is the minimum distance from hyperplane ${\mathbf{w}^*}$ to the closest data point, $\gamma = \min_{(\mathbf{x}_i, y_i) \in D}|\mathbf{x}_i^\top \mathbf{w}^*| > 0$.
+    - We can prove that if the data set is linearly separable, we can find a hyperplane that separates the positive and negative data points by at most ${\frac{1}{\gamma^2} }$ iterations, where ${\gamma}$ is the minimum distance from hyperplane ${\mathbf{w}^*}$ to the closest data point, $\gamma = \min_{(\mathbf{x}_i, y_i) \in D}|\mathbf{x}_i^\top \mathbf{w}^*| > 0$.
         1. Suppose $\exists \mathbf{w}^*: y_i(\mathbf{x}^\top \mathbf{w}^*  ) > 0 \forall (\mathbf{x}_i, y_i) \in D$ (*One of the many hyperplanes that linearly separates the positive and negative datapoints. Recall also that $y_i(\mathbf{w}^\top \mathbf{x}_i) > 0$ means correctly classified and $y_i(\mathbf{w}^\top \mathbf{x}_i) \leq 0$ means incorrectly classified*)
-        2. Rescale __(A).__ $\mathbf{w}^*$ and __(B).__ all the $\mathbf{x}_i$ so that $\large{\vert\vert\mathbf{w}^*\vert\vert = {1}} \text{ and } ||\mathbf{x}_i|| \le 1\forall \mathbf{x}_i \in D$ by $\mathbf{x}_i \leftarrow \frac{\mathbf{x}_i}{\max_j{||\mathbf{x}_j||}}$.
+        2. Rescale __(A).__ $\mathbf{w}^*$ and __(B).__ all the $\mathbf{x}_i$ so that $\large{\vert\vert\mathbf{w}^*\vert\vert = {1} } \text{ and } ||\mathbf{x}_i|| \le 1\forall \mathbf{x}_i \in D$ by $\mathbf{x}_i \leftarrow \frac{\mathbf{x}_i}{\max_j{||\mathbf{x}_j||} }$.
         3. Update $\mathbf{w} \leftarrow \mathbf{w} + y_i\mathbf{x}_i$ when $y_i(\mathbf{w}^\top \mathbf{x}_i) \leq 0$.
             1. To measure how much of an effect the update has made, we have to consider $\mathbf{w}^\top \mathbf{w}^*$ (This value increases if we correctly made an update and will be highest and angle between vectors $\theta=0$, AKA $= {\|\mathbf{w}^*\|}^2_2$), and ensure that $\mathbf{w}^\top \mathbf{w}$ does not grow really fast because $\mathbf{w}^\top \mathbf{w}^*$ can trivially increase by scaling, i.e. $\mathbf{w} \leftarrow 2 * \mathbf{w}$.
             2. After one update:
-                1. $\mathbf{w}^\top \mathbf{w}^* \leftarrow ({\mathbf{w} + y\mathbf{x}})^\top \mathbf{w}^*$
+                1. $\mathbf{w}^\top \mathbf{w}^* \leftarrow ({\mathbf{w} + y\mathbf{x} })^\top \mathbf{w}^*$
                     - $= \mathbf{w}^\top \mathbf{w}^* + y(\mathbf{x}^\top  \mathbf{w}^*) \ge \mathbf{w}^\top \mathbf{w}^* + \gamma$, because we defined $\gamma = \min_{(\mathbf{x}_i, y_i) \in D}|\mathbf{x}_i^\top \mathbf{w}^*| > 0$. Also, $y(\mathbf{x}^\top  \mathbf{w}^*) > 0$ because we defined $\mathbf{w}^*$ as a hyperplane that linearly separates the positive and negative datapoints. 
                     - Therefore, after one update, our $\mathbf{w}^\top \mathbf{w}^*$ grows by __at least__ $\gamma$.
 $$\mathbf{w}^\top\mathbf{w}^*\geq M\gamma$$
@@ -112,7 +112,7 @@ $$\mathbf{w}^\top \mathbf{w}\leq M$$
         &= |\mathbf{w}^\top \mathbf{w}^*| &&\text{Simply because $M\gamma \geq 0$} \\
         &\le ||\mathbf{w}||\  ||\mathbf{w}^*|| &&\text{By Cauchy-Schwartz inequality$^*$} \\
         &= ||\mathbf{w}|| &&\text{As $||\mathbf{w}^*|| = 1$} \\
-        &= \sqrt{\mathbf{w}^\top \mathbf{w}} && \text{by definition of $\|\mathbf{w}\|$} \\
+        &= \sqrt{\mathbf{w}^\top \mathbf{w} } && \text{by definition of $\|\mathbf{w}\|$} \\
         &\le \sqrt{M} &&\text{By (2)} \\ 
         & \textrm{ }\\
         &\Rightarrow M\gamma \le \sqrt{M} \\

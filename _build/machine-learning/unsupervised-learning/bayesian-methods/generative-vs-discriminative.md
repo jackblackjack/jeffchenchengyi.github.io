@@ -30,7 +30,7 @@ $$
 ---
 # What's the Difference?
 
-Bayes Rule: $${p(y|x) = \frac{p(x|y) * p(y)}{p(x)}}$$
+Bayes Rule: $${p(y|x) = \frac{p(x|y) * p(y)}{p(x)} }$$
 
 - Generative
     - When we estimate $P(X,Y)=P(X|Y)P(Y)$ or $P(Y|X)P(X)$ (Not bayes rule, just law of conditional probability), then we call it generative learning. **(When we find the joint probability of features and labels)**

@@ -39,7 +39,7 @@ Euclidean Norm:
 - $\|\vec{x}\|_2 = \sqrt{x_1^2 + \cdots + x_n^2}$
 
 Cosine similarity:
-- $cos\theta = \frac{\vec{a} \cdot \vec{b}}{\|\vec{a}\|_2 \|\vec{b}\|_2}$
+- $cos\theta = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2 \|\vec{b}\|_2}$
 
 Dot Product:
 - $\vec{a} \cdot \vec{b} = \mathbf{a}^\top \mathbf{b}$
@@ -53,8 +53,8 @@ Inner Product:
 $$\therefore \text{Un-normalized Cosine Similarity} <=> \text{Dot Product} <=> \text{Inner Product}$$
 
 Projections:
-- Scalar Projection of $\vec{b}$ onto $\vec{a}$, AKA component of $\vec{b}$ in direction of $\vec{a}$ $\rightarrow comp_{\vec{a}}\vec{b} = \|\vec{b}\|_2cos\theta = \frac{\vec{a} \cdot \vec{b}}{\|\vec{a}\|_2}$
-- Vector Projection of $\vec{b}$ onto $\vec{a}$ is just the scalar projection multiplied by the unit vector of $\vec{a}$ $\rightarrow projection_{\vec{a}}\vec{b} = \|\vec{b}\|_2cos\theta * \frac{\vec{a}}{\|\vec{a}\|_2} = \frac{\vec{a} \cdot \vec{b}}{\|\vec{a}\|_2} * \frac{\vec{a}}{\|\vec{a}\|_2}$
+- Scalar Projection of $\vec{b}$ onto $\vec{a}$, AKA component of $\vec{b}$ in direction of $\vec{a}$ $\rightarrow comp_{\vec{a} }\vec{b} = \|\vec{b}\|_2cos\theta = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2}$
+- Vector Projection of $\vec{b}$ onto $\vec{a}$ is just the scalar projection multiplied by the unit vector of $\vec{a}$ $\rightarrow projection_{\vec{a} }\vec{b} = \|\vec{b}\|_2cos\theta * \frac{\vec{a} }{\|\vec{a}\|_2} = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2} * \frac{\vec{a} }{\|\vec{a}\|_2}$
 
 
 
@@ -92,9 +92,9 @@ $$
 
 However, now in the world of linear algebra, we learn that the general form of any hyperplane (*A subspace of one dimension less than its ambient space, e.g. line in 2-D is a hyperplane, plane in 3-D is a hyperplane too*) is 
 $$
-{w_n}{x_n} + {w_{n - 1}{x_{n - 1}}} + ... + {w_0}{x_0} = 
-\begin{bmatrix} {w_n}, {w_{n - 1}}, ..., {w_0} \end{bmatrix}
-\begin{bmatrix} {x_n} \\ {x_{n - 1}} \\ \vdots \\ {x_0} \end{bmatrix} = \mathbf{w}^\top\mathbf{x} = 0
+{w_n}{x_n} + {w_{n - 1}{x_{n - 1} }} + ... + {w_0}{x_0} = 
+\begin{bmatrix} {w_n}, {w_{n - 1} }, ..., {w_0} \end{bmatrix}
+\begin{bmatrix} {x_n} \\ {x_{n - 1} } \\ \vdots \\ {x_0} \end{bmatrix} = \mathbf{w}^\top\mathbf{x} = 0
 $$
 
 Hence,

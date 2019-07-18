@@ -95,7 +95,7 @@ H_{\alpha} &: \mu < 50
 \end{aligned}
 $$ at $\alpha=0.09$
 
-1. For what values of $Z = \frac{\bar{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}$ will we reject $H_0$?
+1. For what values of $Z = \frac{\bar{X}-\mu_0}{\frac{\sigma}{\sqrt{n} }}$ will we reject $H_0$?
 
 
 
@@ -258,7 +258,7 @@ plot_H0_true_dist_and_actual_dist(ax=ax, H0_mean=50, actual_mean=43, std=21, n=3
 
 
 
-$P(\bar{X} > 45.31 \mid \mu=43)=$ The Shaded region $\underset{\text{Standardize}}{\rightarrow} P(Z > \frac{45.31 - 43}{\frac{21}{\sqrt{36}}}) = P(Z > 0.66) = 0.255 = \beta$ . 
+$P(\bar{X} > 45.31 \mid \mu=43)=$ The Shaded region $\underset{\text{Standardize} }{\rightarrow} P(Z > \frac{45.31 - 43}{\frac{21}{\sqrt{36} }}) = P(Z > 0.66) = 0.255 = \beta$ . 
 
 $$
 \therefore \beta = 0.255 \\
@@ -307,7 +307,7 @@ plt.show();
 
 
 
-### As $n$ increases, both distributions become sharper $\because S.E.M. = \frac{\sigma}{\sqrt{n}}$
+### As $n$ increases, both distributions become sharper $\because S.E.M. = \frac{\sigma}{\sqrt{n} }$
 
 
 
@@ -337,7 +337,7 @@ plt.show();
 
 
 
-### As $\sigma$ decreases, both distributions become sharper $\because S.E.M. = \frac{\sigma}{\sqrt{n}}$
+### As $\sigma$ decreases, both distributions become sharper $\because S.E.M. = \frac{\sigma}{\sqrt{n} }$
 
 
 
@@ -380,22 +380,22 @@ plt.show();
 # 3. Classification Metrics
 
 ## False Positive Rate:
-- Ratio of false positives to total negatives, $\frac{\text{FP}}{\text{N}}=\frac{\text{FP}}{\text{FP + TN}}$
+- Ratio of false positives to total negatives, $\frac{\text{FP} }{\text{N} }=\frac{\text{FP} }{\text{FP + TN} }$
 
 ## False Negative Rate:
-- Ratio of false negatives to total positives, $\frac{\text{FN}}{\text{P}}=\frac{\text{FN}}{\text{FN + TP}}$
+- Ratio of false negatives to total positives, $\frac{\text{FN} }{\text{P} }=\frac{\text{FN} }{\text{FN + TP} }$
 
 ## Precision:
-- Ratio of true positives to total positives and false positives, $\frac{\text{TP}}{\text{TP + FP}}$
+- Ratio of true positives to total positives and false positives, $\frac{\text{TP} }{\text{TP + FP} }$
 
 ## Recall:
-- Ratio of true positives to total positives and false negatives, $\frac{\text{TP}}{\text{TP + FN}}$
+- Ratio of true positives to total positives and false negatives, $\frac{\text{TP} }{\text{TP + FN} }$
 
 ## Accuracy:
-- Ratio of correct classifications to total classifications, $\frac{\text{TP + TN}}{\text{TP + FP + TN + FN}}$
+- Ratio of correct classifications to total classifications, $\frac{\text{TP + TN} }{\text{TP + FP + TN + FN} }$
 
 ## F-beta:
-- Weighted Harmonic Mean of precision and recall, $(1 + \beta^2) \times \frac{\text{precision } \times \text{ recall}}{\beta^2 \times \text{precision } + \text{ recall}}$
+- Weighted Harmonic Mean of precision and recall, $(1 + \beta^2) \times \frac{\text{precision } \times \text{ recall} }{\beta^2 \times \text{precision } + \text{ recall} }$
 
 ## ROC-AUC:
 

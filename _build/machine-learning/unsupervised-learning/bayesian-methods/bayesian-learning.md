@@ -195,8 +195,8 @@ In Optical Character Recognition (OCR), when we're given a handwritten word to r
 
 $$
 \begin{aligned}
-p(\mathbf{y} \mid \mathbf{X}) &= \prod_k p(y_k \mid \mathbf{x}_k ) = \prod_k \frac{e^{(a^{[L + 1]})}}{Z(\mathbf{x}_k)} \\
-&= \frac{e^{\sum_k a^{[L + 1]} {(\mathbf{x}_k)}_{y_k}}}{\prod_k Z(\mathbf{x}_k)}
+p(\mathbf{y} \mid \mathbf{X}) &= \prod_k p(y_k \mid \mathbf{x}_k ) = \prod_k \frac{e^{(a^{[L + 1]})} }{Z(\mathbf{x}_k)} \\
+&= \frac{e^{\sum_k a^{[L + 1]} {(\mathbf{x}_k)}_{y_k} }}{\prod_k Z(\mathbf{x}_k)}
 \end{aligned}
 $$
 

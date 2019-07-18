@@ -131,14 +131,14 @@ is not affected by the assumption.
 
 $$
 \begin{aligned}
-    \hat{\theta_{MLE}} &= \operatorname*{argmax}_\theta P(\mathcal{Data}=X=\mathbf{x}, Y=y;\theta) \\
+    \hat{\theta_{MLE} } &= \operatorname*{argmax}_\theta P(\mathcal{Data}=X=\mathbf{x}, Y=y;\theta) \\
     &= \operatorname*{argmax}_\theta P(X=\mathbf{x}|Y=y) * P(Y=y) \\
     &= \operatorname*{argmax}_\theta \prod_{\alpha=1}^{d} P(x_\alpha | y) P(y) \\
     &= \operatorname*{argmax}_\theta \sum_{\alpha = 1}^{d} \log(P(x_\alpha | y)) + \log(P(y))
 \end{aligned}
 $$
 
-$\hat{\theta^{(1)}_{MLE}} =P(y = c) $:
+$\hat{\theta^{(1)}_{MLE} } =P(y = c) $:
 
 $$
 P(y = c)  = \frac{\sum_{i=1}^{n} I(y_i = c)}{n} = \hat\pi_c
@@ -164,7 +164,7 @@ And the constraint indicates that $x_{\alpha}$ must have one of the categories $
 
 <u>Parameter estimation:</u>
 
-$$\hat{\theta^{(2)}_{MLE}} = P(x_{\alpha} = j | y=c) = [\theta_{jc}]_{\alpha} \text{ and } \sum_{j=1}^{K_\alpha} [\theta_{jc}]_{\alpha} = 1$$ where $[\theta_{jc}]_{\alpha}$ is the probability of feature $\alpha$ (e.g. transportation mode $\alpha$) having the value $j$ (e.g. $j = \text{ bus, train, taxi, car }, K_\alpha = 4 $), given that the label is $c$ (e.g. $c = \text{ person is late, person is early, person is on time}$). And the constraint indicates that $x_\alpha$ must have one of the categories $\{1,\ldots,K_\alpha\}$:
+$$\hat{\theta^{(2)}_{MLE} } = P(x_{\alpha} = j | y=c) = [\theta_{jc}]_{\alpha} \text{ and } \sum_{j=1}^{K_\alpha} [\theta_{jc}]_{\alpha} = 1$$ where $[\theta_{jc}]_{\alpha}$ is the probability of feature $\alpha$ (e.g. transportation mode $\alpha$) having the value $j$ (e.g. $j = \text{ bus, train, taxi, car }, K_\alpha = 4 $), given that the label is $c$ (e.g. $c = \text{ person is late, person is early, person is on time}$). And the constraint indicates that $x_\alpha$ must have one of the categories $\{1,\ldots,K_\alpha\}$:
 
 $$
 \begin{align}
@@ -176,7 +176,7 @@ where $x_{i\alpha} = [\mathbf{x}_i]_\alpha$ and $l$ is a smoothing parameter. By
 
 <p>In words (without the $l$ hallucinated samples) this means
   $$
-\frac{\text{# of samples with label c that have feature } \alpha \text{ with value $j$ }}{\text{# of samples with label $c$}}.
+\frac{\text{# of samples with label c that have feature } \alpha \text{ with value $j$ } }{\text{# of samples with label $c$} }.
 $$
 
 <u>Prediction:</u>
@@ -207,13 +207,13 @@ So, we can use this to generate a spam email, i.e., a document $\mathbf{x}$ of c
 
 $$
 \begin{align}
-\hat{\theta^{(2)}_{MLE}} &= \hat\theta_{\alpha c} \\
+\hat{\theta^{(2)}_{MLE} } &= \hat\theta_{\alpha c} \\
 &= \frac{\sum_{i = 1}^{n} I(y_i = c) x_{i\alpha} + l}{\sum_{i=1}^{n} I(y_i = c) m_i + l \cdot d }
 \end{align}
 $$
 where $m_i=\sum_{\beta = 1}^{d} x_{i\beta}$ denotes the number of words in document $i$. The numerator sums up all counts for feature $x_\alpha$ and the denominator sums up all counts of all features across all data points. E.g.,
 $$
-\frac{\text{# of times word } \alpha \text{ appears in all spam emails}}{\text{# of words in all spam emails combined}}.
+\frac{\text{# of times word } \alpha \text{ appears in all spam emails} }{\text{# of words in all spam emails combined} }.
 $$
 Again, $l$ is the smoothing parameter. Adding $l$ in numerator says I've seen the word $\alpha$ at least $l$ times. Adding $l * d$ in the denominator accounts for seeing each of the $d$ words at least $l$ times
 </br> </br>
@@ -246,7 +246,7 @@ x_\alpha \in \mathbb{R} && \text{(each feature takes on a real value)}
 
 $$
 \begin{align}
-P(x_\alpha \mid y=c) = \mathcal{N}\left(\mu_{\alpha c}, \sigma^{2}_{\alpha c}\right) = \frac{1}{\sqrt{2 \pi} \sigma_{\alpha c}} e^{-\frac{1}{2} \left(\frac{x_\alpha - \mu_{\alpha c}}{\sigma_{\alpha c}}\right)^2} 
+P(x_\alpha \mid y=c) = \mathcal{N}\left(\mu_{\alpha c}, \sigma^{2}_{\alpha c}\right) = \frac{1}{\sqrt{2 \pi} \sigma_{\alpha c} } e^{-\frac{1}{2} \left(\frac{x_\alpha - \mu_{\alpha c} }{\sigma_{\alpha c} }\right)^2} 
 \end{align}
 $$
 
@@ -258,8 +258,8 @@ Note that the model specified above is based on our assumption about the data - 
 As always, we estimate the parameters of the distributions for each dimension and class independently. Gaussian distributions only have two parameters, the mean and variance. The mean $\mu_{\alpha,y}$ is estimated by the average feature value of dimension $\alpha$ from all samples with label $y$. The (squared) standard deviation is simply the variance of this estimate. 
 $$
 \begin{align}
-\hat{\theta^{(2a)}_{MLE}} = \mu_{\alpha c} &\leftarrow \frac{1}{n_c} \sum_{i = 1}^{n} I(y_i = c) x_{i\alpha} && \text{where $n_c = \sum_{i=1}^{n} I(y_i = c)$} \\
-\hat{\theta^{(2b)}_{MLE}} = \sigma_{\alpha c}^2 &\leftarrow \frac{1}{n_c} \sum_{i=1}^{n} I(y_i = c)(x_{i\alpha} - \mu_{\alpha c})^2
+\hat{\theta^{(2a)}_{MLE} } = \mu_{\alpha c} &\leftarrow \frac{1}{n_c} \sum_{i = 1}^{n} I(y_i = c) x_{i\alpha} && \text{where $n_c = \sum_{i=1}^{n} I(y_i = c)$} \\
+\hat{\theta^{(2b)}_{MLE} } = \sigma_{\alpha c}^2 &\leftarrow \frac{1}{n_c} \sum_{i=1}^{n} I(y_i = c)(x_{i\alpha} - \mu_{\alpha c})^2
 \end{align}
 </p>
 
@@ -287,7 +287,7 @@ $$
     \log P(y=+1) - \log P(y=-1) + \sum_{\alpha = 1}^d
 {x_\alpha} \log \left(\theta_{\alpha c=+1}\right) - \sum_{\alpha = 1}^d
 {x_\alpha} \log \left(\theta_{\alpha c=-1}\right) &> 0 \\
-    \underbrace{\log \frac{P(y=+1)}{P(y=-1)}}_{\vec{b}} + \sum_{\alpha = 1}^d {x_\alpha} \underbrace{\log \frac{\left(\theta_{\alpha c=+1}\right)}{\left(\theta_{\alpha c=-1}\right)}}_{\vec{w}} &> 0 \\
+    \underbrace{\log \frac{P(y=+1)}{P(y=-1)} }_{\vec{b} } + \sum_{\alpha = 1}^d {x_\alpha} \underbrace{\log \frac{\left(\theta_{\alpha c=+1}\right)}{\left(\theta_{\alpha c=-1}\right)} }_{\vec{w} } &> 0 \\
     \mathbf{w}^\top\mathbf{x} + b &> 0
 \end{aligned}
 $$
@@ -302,14 +302,14 @@ $$
     P(y=+1\mid x) &= \frac{P(y=+1)*P(x\mid y=+1)}{P(x)} \\
     &= \frac{P(y=+1)*P(x\mid y=+1)}{P(x,y=+1) + P(x,y=-1)} \because \text{ marginalization} \\
     &= \frac{P(y=+1)*P(x\mid y=+1)}{P(y=+1) * P(x \mid y=+1) + P(y=-1) * P(x \mid y=-1)} \\
-    &= \frac{1}{1 + \frac{P(y=-1) * P(x \mid y=-1)}{P(y=+1) * P(x \mid y=+1)}} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1) * P(x \mid y=-1)}{P(y=+1) * P(x \mid y=+1)}}} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\frac{P(x \mid y=-1)}{P(x \mid y=+1)}}} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\prod_{i=1}^{n}\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)}}} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \sum_{i=1}^{n}\ln\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)}}} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ldots }} \\
+    &= \frac{1}{1 + \frac{P(y=-1) * P(x \mid y=-1)}{P(y=+1) * P(x \mid y=+1)} } \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1) * P(x \mid y=-1)}{P(y=+1) * P(x \mid y=+1)} }} \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\frac{P(x \mid y=-1)}{P(x \mid y=+1)} }} \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\prod_{i=1}^{n}\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)} }} \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \sum_{i=1}^{n}\ln\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)} }} \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ldots } } \\
     &= \vdots \\
-    &= \frac{1}{1 + e^{yw^\top x}}
+    &= \frac{1}{1 + e^{yw^\top x} }
 \end{aligned}
 $$
 

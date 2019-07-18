@@ -85,8 +85,8 @@ The KL divergence tells us how well the probability distribution Q approximates 
 $$
 \therefore \text{KL Divergence}\,=\,\text{Cross Entropy}-\text{Entropy} \\
 {D}_{KL}(p \parallel q) = H(p, q) - H(p) \\
-{D}_{KL}(p \parallel q) = \sum_{i=1}^n \mathrm{p}(x_i) \log_b \frac{{\mathrm{p}(x_i)}}{\mathrm{q}(x_i)}\,\{\text{for discrete }x\} \\
-{D}_{KL}(p \parallel q) = \int_{x} {\mathrm{p}(x) \log_b \frac{\mathrm{p}(x)}{\mathrm{q}(x)}}{dx}\,\{\text{for continuous }x\} \\
+{D}_{KL}(p \parallel q) = \sum_{i=1}^n \mathrm{p}(x_i) \log_b \frac{ {\mathrm{p}(x_i)} }{\mathrm{q}(x_i)}\,\{\text{for discrete }x\} \\
+{D}_{KL}(p \parallel q) = \int_{x} {\mathrm{p}(x) \log_b \frac{\mathrm{p}(x)}{\mathrm{q}(x)} }{dx}\,\{\text{for continuous }x\} \\
 {D}_{KL}(p \parallel q) = \mathbb{E}_p \left(\log\frac{p}{q}\right)
 $$
 

@@ -97,7 +97,7 @@ $$
     &= \operatorname*{argmax}_{\theta} \,\prod_{i=1}^n \sum_{k=1}^K P(X_i=x, Z_i = k;\theta) \because \text{ Marginalization } \\
     &= \operatorname*{argmax}_{\theta} \,\prod_{i=1}^n \sum_{k=1}^K P(Z_i = k) P(X_i=x | Z_i = k;\theta) \because P(A, B) = P(A \mid B) \times P(B)\\
     &= \operatorname*{argmax}_{\theta} \,\prod_{i=1}^n \sum_{k=1}^K \pi_k N(x_i; \mu_k, \Sigma_k), \Sigma_k \succ 0 \\
-    &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \log \left( \sum_{k=1}^K \pi_k N(x_i;\mu_k, \Sigma_k) \right ) \because \href{https://en.wikipedia.org/wiki/Likelihood_function#Log-likelihood}{ \text{logarithms are strictly increasing}}
+    &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \log \left( \sum_{k=1}^K \pi_k N(x_i;\mu_k, \Sigma_k) \right ) \because \href{https://en.wikipedia.org/wiki/Likelihood_function#Log-likelihood}{ \text{logarithms are strictly increasing} }
 \end{aligned}
 $$
 Positive semi-definite to be valid covariance matrices, or we can relax this constraint by saying that the covariance matrices must be diagonal, meaning that the entries on the diagonal are > 0, while everything else in the matrix is 0 - this corresponds to having 0 covariances meaning that our ellipsoids will be aligned with the axis and not rotated. Now we can then train our model using SGD...
@@ -108,7 +108,7 @@ $$
     \frac{\partial}{\partial \mu_k}\,\sum_{i=1}^n \log \left( \sum_{k=1}^K \pi_k N(x_i;\mu_k, \Sigma_k) \right ) &= 0 \\
     \sum_{i=1}^n \frac{\partial}{\partial \mu_k}\,\log \left( \sum_{k=1}^K \pi_k N(x_i;\mu_k, \Sigma_k) \right ) &= 0 \\
     \sum_{i=1}^n \frac{1}{\sum_{k=1}^K \pi_k N(x_i;\mu_k, \Sigma_k)} \sum_{k=1}^K\pi_k \frac{\partial}{\partial \mu_k}\, N(x_i;\mu_k, \Sigma_k) &= 0 \\ 
-    \sum_{i=1}^n \frac{1}{\sum_{k=1}^K \pi_k N(x_i;\mu_k, \Sigma_k)} \sum_{k=1}^K\pi_k \sum_{i=1}^n {{\Sigma}^{-1}(x_i - \mu_k)} &= 0 \\
+    \sum_{i=1}^n \frac{1}{\sum_{k=1}^K \pi_k N(x_i;\mu_k, \Sigma_k)} \sum_{k=1}^K\pi_k \sum_{i=1}^n { {\Sigma}^{-1}(x_i - \mu_k)} &= 0 \\
     \vdots \\
     \text{Stuck because our parameters are coupled...}
 \end{aligned}
@@ -142,11 +142,11 @@ $$
 \begin{aligned}
     \hat{\theta}_{MLE} &= \operatorname*{argmax}_{\theta} \,P(\mathcal{Data}=X;\theta) \\
     &\approx \operatorname*{argmax}_{\theta} \,Q(\theta^{(t)}, \theta^{(t-1)}) \\
-    &= \operatorname*{argmax}_{\theta} \,E_{Z|X,\theta^{t-1}}\left [\log (P(X,Z;\theta^{(t)})) \right] \\
-    &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \sum_{k=1}^K E_{Z\mid X,\theta^{t-1}}\left [I(Z_i = k)\right]\left( \log ({\pi_k}^{(t)}) + \log (N(x_i;{\mu_k}^{(t)}, {\Sigma_k}^{(t)}) )\right) \\
+    &= \operatorname*{argmax}_{\theta} \,E_{Z|X,\theta^{t-1} }\left [\log (P(X,Z;\theta^{(t)})) \right] \\
+    &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \sum_{k=1}^K E_{Z\mid X,\theta^{t-1} }\left [I(Z_i = k)\right]\left( \log ({\pi_k}^{(t)}) + \log (N(x_i;{\mu_k}^{(t)}, {\Sigma_k}^{(t)}) )\right) \\
     &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \sum_{k=1}^K P(Z_i=k \mid X;\theta^{t-1}) \left( \log ({\pi_k}^{(t)}) + \log (N(x_i|{\mu_k}^{(t)}, {\Sigma_k}^{(t)}) )\right) \because E_{Z \mid X}[I(Z_i = k)] = P(Z_i=k \mid X) \\
     &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \sum_{k=1}^K \frac{P(X_i \mid Z_i = k; \theta^{(t-1)}) \times P(Z_i = k;\theta^{(t-1)})}{P(X_i;\theta^{(t-1)})} \left( \log ({\pi_k}^{(t)}) + \log (N(x_i|{\mu_k}^{(t)}, {\Sigma_k}^{(t)}) )\right) \\
-    &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \sum_{k=1}^K \frac{N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}) \times {\pi_k}^{(t-1)})}{\sum_{k=1}^K N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)})\times {\pi_k}^{(t-1)}} \left( \log ({\pi_k}^{(t)}) + \log (N(x_i|{\mu_k}^{(t)}, {\Sigma_k}^{(t)}) )\right)
+    &= \operatorname*{argmax}_{\theta} \,\sum_{i=1}^n \sum_{k=1}^K \frac{N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}) \times {\pi_k}^{(t-1)})}{\sum_{k=1}^K N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)})\times {\pi_k}^{(t-1)} } \left( \log ({\pi_k}^{(t)}) + \log (N(x_i|{\mu_k}^{(t)}, {\Sigma_k}^{(t)}) )\right)
 \end{aligned}
 $$
 
@@ -156,28 +156,28 @@ $$
 ### Step 2: Maximization Step
 - With $P(Z_i=k |X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})$ fixed, maximize the expected complete log-likelihood above with respect to ${\mu_k}^{(t)}, {\Sigma_k}^{(t)}, {\pi_k}^{(t)}$
 
-$\hat{{\pi_k}^{(t)}_{MLE}}$:
+$\hat{ {\pi_k}^{(t)}_{MLE} }$:
 $$
 \begin{aligned}
-    \frac{\partial}{\partial {\pi_k}^{(t)}} \sum_{i=1}^n \sum_{k=1}^K P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \left( \log ({\pi_k}^{(t)}) + \log (N(x_i\mid{\mu_k}^{(t)}, {\Sigma_k}^{(t)})\right) &= 0 \\
-    \sum_{i=1}^n \sum_{k=1}^K P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \frac{\partial}{\partial {\pi_k}^{(t)}} \log ({\pi_k}^{(t)}) &= 0 \\
-    \sum_{i=1}^n \sum_{k=1}^K \frac{P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})}{{\pi_k}^{(t)}} &= 0 \\
-    \hat{{\pi_k}^{(t)}_{MLE}} &= \frac{1}{n} \sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \\
-    &= \frac{1}{n} \sum^{n}_{i=1} \frac{N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}) \times {\pi_k}^{(t-1)})}{\sum_{k=1}^K N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)})\times {\pi_k}^{(t-1)}}
+    \frac{\partial}{\partial {\pi_k}^{(t)} } \sum_{i=1}^n \sum_{k=1}^K P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \left( \log ({\pi_k}^{(t)}) + \log (N(x_i\mid{\mu_k}^{(t)}, {\Sigma_k}^{(t)})\right) &= 0 \\
+    \sum_{i=1}^n \sum_{k=1}^K P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \frac{\partial}{\partial {\pi_k}^{(t)} } \log ({\pi_k}^{(t)}) &= 0 \\
+    \sum_{i=1}^n \sum_{k=1}^K \frac{P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})}{ {\pi_k}^{(t)} } &= 0 \\
+    \hat{ {\pi_k}^{(t)}_{MLE} } &= \frac{1}{n} \sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \\
+    &= \frac{1}{n} \sum^{n}_{i=1} \frac{N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}) \times {\pi_k}^{(t-1)})}{\sum_{k=1}^K N(x_i|{\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)})\times {\pi_k}^{(t-1)} }
 \end{aligned}
 $$
 
-$\hat{{\mu_k}^{(t)}_{MLE}}$:
+$\hat{ {\mu_k}^{(t)}_{MLE} }$:
 $$
 \begin{aligned}
-    \hat{{\mu_k}^{(t)}_{MLE}} &= \frac{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \times x_i}{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})} \\
+    \hat{ {\mu_k}^{(t)}_{MLE} } &= \frac{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \times x_i}{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})} \\
 \end{aligned}
 $$
 
-$\hat{{\Sigma_k}^{(t)}_{MLE}}$:
+$\hat{ {\Sigma_k}^{(t)}_{MLE} }$:
 $$
 \begin{aligned}
-    \hat{{\mu_k}^{(t)}_{MLE}} &= \frac{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \times (x_i - {\mu_i}^{(t)}){(x_i - {\mu_i}^{(t)})}^\top}{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})} \\
+    \hat{ {\mu_k}^{(t)}_{MLE} } &= \frac{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)}) \times (x_i - {\mu_i}^{(t)}){(x_i - {\mu_i}^{(t)})}^\top}{\sum^{n}_{i=1} P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})} \\
 \end{aligned}
 $$
 

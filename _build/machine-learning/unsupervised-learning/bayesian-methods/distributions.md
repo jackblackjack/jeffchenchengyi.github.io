@@ -139,7 +139,7 @@ $$
 - Multivariate Generalization of **Beta**
 - Beta : Dirichlet :: Binomial : Multinomial :: Gamma : Wishart
 - Conjugate Prior of Multinomial and Categorical
-- When $\alpha=1$, Dirichlet is essentially a uniform distribution as it gives each $x_i$ equally probability of $\frac{1}{\text{normalizing constant}\,{\mathrm{B}(\boldsymbol\alpha)}}$, this is called a flat Dirichlet distribution
+- When $\alpha=1$, Dirichlet is essentially a uniform distribution as it gives each $x_i$ equally probability of $\frac{1}{\text{normalizing constant}\,{\mathrm{B}(\boldsymbol\alpha)} }$, this is called a flat Dirichlet distribution
 - Distribution over vectors whose values are all in the interval [0, 1] and sum of values in the vector = 1, AKA a probability simplex
     - e.g. 
 

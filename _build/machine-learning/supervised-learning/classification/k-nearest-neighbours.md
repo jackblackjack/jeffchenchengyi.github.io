@@ -30,7 +30,7 @@ Assumption:
 
 Distance Measures: 
 - Minkowski
-$${\text{dist}(\mathbf{x},\mathbf{z})=\left(\sum_{r=1}^d |x_r-z_r|^p\right)^{1/p}}$$
+$${\text{dist}(\mathbf{x},\mathbf{z})=\left(\sum_{r=1}^d |x_r-z_r|^p\right)^{1/p} }$$
     1. ${p \to 1:}$ Manhatten / Taxicab / L1 distance
     2. ${p \to 2:}$ Euclidean / L2 distance
     3. ${p \to \infty:}$ Maximum distance
