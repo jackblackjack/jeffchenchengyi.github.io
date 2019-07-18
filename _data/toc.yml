@@ -1,0 +1,315 @@
+# This file contains the order and numbering for all sections in the book.
+#
+# Each entry has the following schema:
+#
+# - title: mytitle   # Title of chapter or section
+#   url: /myurl  # URL of section relative to the /content/ folder.
+#   sections:  # Contains a list of more entries that make up the chapter's sections
+#   not_numbered: true  # if the section shouldn't have a number in the sidebar
+#     (e.g. Introduction or appendices)
+#   expand_sections: true  # if you'd like the sections of this chapter to always
+#     be expanded in the sidebar.
+#   external: true  # Whether the URL is an external link or points to content in the book
+#
+# Below are some special values that trigger specific behavior:
+# - search: true  # Will provide a link to a search page
+# - divider: true  # Will insert a divider in the sidebar
+# - header: My Header  # Will insert a header with no link in the sidebar
+
+#################################################
+#################### SETTINGS ###################
+#################################################
+- title: Home
+  url: /intro
+  not_numbered: true
+
+- title: Search
+  search: true
+
+- title: About Me
+  url: /aboutme
+  not_numbered: true
+
+- title: Portfolio
+  url: /portfolio/portfolio
+  not_numbered: true
+  expand_sections: true
+  sections:
+  - title: Udacity
+    url: /portfolio/udacity/udacity
+    not_numbered: true
+    expand_sections: false
+    subsections:
+      - title: Exploring Condominiums in Singapore
+        url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
+        not_numbered: true
+      - title: Disaster Response
+        url: /portfolio/udacity/05-disaster-response/README
+        not_numbered: true
+        expand_sections: false
+        subsections:
+          - title: ETL Pipeline
+            url: /portfolio/udacity/05-disaster-response/workspace/ETL Pipeline Preparation
+            not_numbered: true
+          - title: ML Pipeline
+            url: /portfolio/udacity/05-disaster-response/workspace/ML Pipeline Preparation
+            not_numbered: true
+      - title: Recommendation Systems for Articles with IBM
+        url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
+        not_numbered: true
+
+- title: GitHub repository
+  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
+  external: true
+  not_numbered: true
+
+- divider: true
+- header: Machine Learning | Deep Learning | Data Science Notes
+
+- title: Supervised Learning
+  url: /machine-learning/supervised-learning/what-is-supervised-learning
+  not_numbered: true
+  sections:
+  - title: Classification
+    url: /machine-learning/supervised-learning/classification/classification
+    subsections:
+    - title: Bayes Optimal Classifier
+      url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier
+    - title: K-Nearest Neighbours
+      url: /machine-learning/supervised-learning/classification/k-nearest-neighbours
+    - title: Perceptron
+      url: /machine-learning/supervised-learning/classification/perceptron
+    - title: Linear Support Vector Classifiers (SVC)
+      url: /machine-learning/supervised-learning/classification/linear-support-vector-classifiers
+    - title: Naive Bayes Classifier
+      url: /machine-learning/supervised-learning/classification/naivebayes
+    - title: Logistic Regression
+      url: /machine-learning/supervised-learning/classification/logistic-regression
+    - title: Multi-Label Classification
+      url: /machine-learning/supervised-learning/classification/multilabel-classification
+  - title: Regression
+    url: /machine-learning/supervised-learning/regression/regression
+    subsections:
+    - title: Linear Regression
+      url: /machine-learning/supervised-learning/regression/linear-regression
+  - title: Ensembles
+    url: /machine-learning/supervised-learning/ensemble/ensemble
+  - title: Time Series Analysis
+    url: /machine-learning/supervised-learning/time-series-analysis/time-series-models
+
+- title: Unsupervised Learning
+  url: /machine-learning/unsupervised-learning/what-is-unsupervised-learning
+  not_numbered: true
+  sections:
+  - title: Clustering
+    url: /machine-learning/unsupervised-learning/clustering/clustering
+    subsections:
+    - title: K-Means
+      url: /machine-learning/unsupervised-learning/clustering/k-means
+    - title: Gaussian Mixture Models
+      url: /machine-learning/unsupervised-learning/clustering/gmm
+  - title: Bayesian Methods
+    url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-methods
+    subsections:
+    - title: Generative Vs Discriminative
+      url: /machine-learning/unsupervised-learning/bayesian-methods/generative-vs-discriminative
+    - title: Probability Distributions
+      url: /machine-learning/unsupervised-learning/bayesian-methods/distributions
+    - title: Multivariate Gaussian Distribution
+      url: /machine-learning/unsupervised-learning/bayesian-methods/multivariate-gaussian
+    - title: Kullback-Liebler Divergence
+      url: /machine-learning/unsupervised-learning/bayesian-methods/kl-divergence
+    - title: Maximum Likelihood Estimation Vs Maximum A Priori
+      url: /machine-learning/unsupervised-learning/bayesian-methods/mle-vs-map
+    - title: Probabilistic Graphical Models
+      url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-learning
+    - title: Markov Chains
+      url: /machine-learning/unsupervised-learning/bayesian-methods/markov-chains
+    - title: Hidden Markov Models
+      url: /machine-learning/unsupervised-learning/bayesian-methods/hmm
+
+- title: Neural Networks
+  url: /machine-learning/neural-networks/what-are-neural-networks
+  not_numbered: true
+  sections:
+  - title: Backpropagation
+    url: /machine-learning/neural-networks/backpropagation
+  - title: Convolutional Neural Networks
+    url: /machine-learning/neural-networks/cnn
+
+- title: Dimensionality Reduction
+  url: /machine-learning/dimensionality-reduction/main-dimensionality-reduction-technqiues
+
+- title: Natural Language Processing
+  url: /machine-learning/natural-language-processing/what-is-natural-language-processing
+  not_numbered: true
+  sections:
+  - title: Natural Language Processing Pipeline
+    url: /machine-learning/natural-language-processing/nlp-pipeline
+  - title: Word2Vec Part I - Continuous Bag of Words
+    url: /machine-learning/natural-language-processing/word2vec-cbow
+  - title: Word2Vec Part II - Skip N-gram
+    url: /machine-learning/natural-language-processing/word2vec-skipngram
+  - title: Sequence Models
+    url: /machine-learning/natural-language-processing/sequence-models
+
+- title: Amazon Web Services
+  url: /machine-learning/aws/what-is-aws
+  not_numbered: true
+  sections:
+  - title: AWS Big Data Specialty Exam
+    url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
+    subsections:
+    - title: Analysis
+      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-analysis
+    - title: Collections
+      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-collection
+    - title: Processing
+      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-processing
+    - title: Storage
+      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-storage
+    - title: Visualization
+      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-visualization
+  - title: AWS Machine Learning Specialty Exam
+    url: /machine-learning/aws/aws-machine-learning/aws-machine-learning-specialty-exam
+    subsections:
+    - title: Sample Exam Questions
+      url: /machine-learning/aws/aws-machine-learning/aws-ml-sample-exam-questions
+
+- title: Miscellaneous Topics
+  url: /machine-learning/miscellaneous-topics/README
+  not_numbered: true
+  sections:
+  - title: Statistics
+    url: /machine-learning/miscellaneous-topics/statistics
+  - title: Empirical Risk Minimization
+    url: /machine-learning/miscellaneous-topics/empirical-risk-minimization
+  - title: ETL Pipelines
+    url: /machine-learning/miscellaneous-topics/etl-pipelines
+  - title: How do we handle Class Imbalance?
+    url: /machine-learning/miscellaneous-topics/handling-class-imbalance
+  - title: Feature Importance
+    url: /machine-learning/miscellaneous-topics/feature-importance
+  - title: How do we handle Missing Data?
+    url: /machine-learning/miscellaneous-topics/handling-missing-data
+  - title: Linear Algebra Review
+    url: /machine-learning/miscellaneous-topics/linear-algebra-review
+  - title: How to start a Flask App?
+    url: /machine-learning/miscellaneous-topics/how-flask-app-works
+  - title: Elements of Programming Interviews (Python)
+    url: /machine-learning/miscellaneous-topics/epi
+  - title: Leetcode (Python)
+    url: /machine-learning/miscellaneous-topics/leetcode
+
+#################################################
+#################### TEMPLATE ###################
+#################################################
+# - title: Home
+#   url: /intro
+#   not_numbered: true
+# - title: Search
+#   search: true
+
+# - title: Getting started
+#   url: /guide/01_overview
+#   not_numbered: true
+#   expand_sections: true
+#   sections:
+#   - title: Create your book
+#     url: /guide/02_create
+#   - title: Build and publish your book
+#     url: /guide/03_build
+#   - title: FAQ
+#     url: /guide/04_faq
+#   - title: How-to and advanced topics
+#     url: /guide/05_advanced
+
+# - title: Features and customization
+#   url: /features/features
+#   not_numbered: true
+#   expand_sections: true
+#   sections:
+#   - title: Markdown files
+#     url: /features/markdown
+#     not_numbered: true
+#   - title: Jupyter notebooks
+#     url: /features/notebooks
+#     not_numbered: true
+#   - title: Hiding code blocks or entire cells
+#     url: /features/hiding
+#     not_numbered: true
+#   - title: Connecting content with JupyterHub and Binder
+#     url: /features/interact
+#     not_numbered: true
+#   - title: Adding interactivity to your book pages
+#     url: /features/interactive_cells
+#     not_numbered: true
+#   - title: Citations and bibliographies
+#     url: /features/citations
+#     not_numbered: true
+#   - title: Searching your book
+#     url: /features/search
+#     not_numbered: true
+#   - title: Feature Limits
+#     url: /features/limits
+#     not_numbered: true
+
+
+# - title: GitHub repository
+#   url: https://github.com/jupyter/jupyter-book
+#   external: true
+#   not_numbered: true
+
+# - divider: true
+# - header: Demo textbook
+
+# - title: Data Science
+#   url: /01/what-is-data-science
+#   sections:
+#   - title: Introduction
+#     url: /01/1/intro
+#   - title: Why Data Science?
+#     url: /01/2/why-data-science
+#   - title: Plotting the Classics
+#     url: /01/3/Plotting_the_Classics
+#     subsections:
+#     - title: Subsection Demo 1
+#       url: /01/3/subsection/subsections
+#     - title: Subsection Demo 2
+#       url: /01/3/subsection/subsectiontwo
+
+# - title: Causality and Experiments
+#   url: /02/causality-and-experiments
+#   sections:
+#   - title: John Snow and the Broad Street Pump
+#     url: /02/1/observation-and-visualization-john-snow-and-the-broad-street-pump
+#   - title: "Snow\u2019s \u201CGrand Experiment\u201D"
+#     url: /02/2/snow-s-grand-experiment
+#   - title: Establishing Causality
+#     url: /02/3/establishing-causality
+#   - title: Randomization
+#     url: /02/4/randomization
+#   - title: Endnote
+#     url: /02/5/endnote
+
+# - title: Programming in Python
+#   url: /03/programming-in-python
+#   sections:
+#   - title: Expressions
+#     url: /03/1/Expressions
+#   - title: Names
+#     url: /03/2/Names
+#   - title: Call Expressions
+#     url: /03/3/Calls
+#   - title: Introduction to Tables
+#     url: /03/4/Introduction_to_Tables
+
+# - title: Data Types
+#   url: /04/Types
+#   sections:
+#   - title: Numbers
+#     url: /04/1/Numbers
+#   - title: Strings
+#     url: /04/2/Strings
+#   - title: Comparisons
+#     url: /04/3/Comparison
