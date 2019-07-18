@@ -1184,7 +1184,7 @@ array([[0., 0., 0., ..., 0., 0., 0.],
 
 ## TF-IDF
 
-$${w}_{x, y}={tf}_{x, y} \times log(\frac{N + 1}{{df}_{x} + 1}) + 1$$
+$${w}_{x, y}={tf}_{x, y} \times log(\frac{N + 1}{ {df}_{x} + 1}) + 1$$
 
 - ${w}_{x, y}$ = TF-IDF weight of token $x$ within document $y$
 - ${tf}_{x, y}$ = Frequency of token $x$ in document $y$
