@@ -2,6 +2,18 @@
 <html lang="en">
   {% include google_analytics.html %}
   {% include head.html %}
+  <!-- Mathjax for Latex support -->
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+  </script>
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+  </script>
   <body>
     <!-- .js-show-sidebar shows sidebar by default -->
     <div id="js-textbook" class="c-textbook {% if site.show_sidebar %}js-show-sidebar{% endif %}">
