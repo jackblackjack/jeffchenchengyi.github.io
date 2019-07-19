@@ -137,6 +137,9 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - content/*
+include:
+  - content/**/*.ipynb
 
 plugins:
   - jekyll-redirect-from

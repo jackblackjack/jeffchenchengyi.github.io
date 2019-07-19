@@ -40,7 +40,8 @@ Cross-Industry Standard Process for Data Mining (CRISP-DM)
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```# General Utilities for Web Scraping
+```python
+# General Utilities for Web Scraping
 import re
 import sys
 import os
@@ -202,7 +203,8 @@ Business Questions:
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```# cleaned_dataset = pd.read_csv('./data/99.co/cleaned_dataset_{}.csv'.format(date.today().strftime("%Y_%m_%d")), index_col=[0])
+```python
+# cleaned_dataset = pd.read_csv('./data/99.co/cleaned_dataset_{}.csv'.format(date.today().strftime("%Y_%m_%d")), index_col=[0])
 cleaned_dataset = pd.read_csv('./data/99.co/cleaned_dataset_{}.csv'.format('2019_07_11'), index_col=[0])
 cleaned_dataset.head()
 
@@ -392,7 +394,8 @@ cleaned_dataset.head()
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```# These features are either unrequired for our
+```python
+# These features are either unrequired for our
 # predictive models / will be used later in other analyses
 special_feats = ['District', 'type', 'link']
 
@@ -424,7 +427,8 @@ Let's take a look at the number of observations we have for each property type.
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```plt.rcParams['figure.dpi'] = 300
+```python
+plt.rcParams['figure.dpi'] = 300
 plt.rcParams['figure.figsize'] = (18, 12)
 
 ```
@@ -436,7 +440,8 @@ plt.rcParams['figure.figsize'] = (18, 12)
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```property_type_counts = cleaned_dataset['type'].value_counts()
+```python
+property_type_counts = cleaned_dataset['type'].value_counts()
 plt.bar(property_type_counts.index, property_type_counts, color=get_colors(len(property_type_counts)))
 plt.grid()
 plt.title('Property Type Counts');
@@ -462,7 +467,8 @@ How about the district breakdown?
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```property_district_counts = sorted(cleaned_dataset['District'].value_counts().items(), key=lambda kv: int(kv[0][1:]))
+```python
+property_district_counts = sorted(cleaned_dataset['District'].value_counts().items(), key=lambda kv: int(kv[0][1:]))
 districts, counts = list(zip(*property_district_counts))
 plt.bar(districts, counts, color=get_colors(len(property_district_counts)))
 plt.grid()
@@ -489,7 +495,8 @@ Let's see the property type breakdown by district.
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```unstacked_district_counts_df = cleaned_dataset.groupby(['District', 'type']).count().iloc[:,0].unstack().loc[[*districts], :]
+```python
+unstacked_district_counts_df = cleaned_dataset.groupby(['District', 'type']).count().iloc[:,0].unstack().loc[[*districts], :]
 unstacked_district_counts_df.plot(
     kind='bar', 
     title='District breakdown by Property Types',
@@ -521,7 +528,8 @@ We do seem to have an overwhelmingly larger portion of condominium observations 
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condo_X = cleaned_dataset[cleaned_dataset['type'] == 'condo']
+```python
+condo_X = cleaned_dataset[cleaned_dataset['type'] == 'condo']
 
 ```
 </div>
@@ -532,7 +540,8 @@ We do seem to have an overwhelmingly larger portion of condominium observations 
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```ax = plt.subplot()
+```python
+ax = plt.subplot()
 
 condo_X.groupby(['District']).count().loc[[*districts], 'price'].plot(
     kind='bar', 
@@ -568,7 +577,8 @@ Let's take a look at the heat map of the features of our condominiums to get a s
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```sns.heatmap(condo_X.drop(landed_specific_feats + special_feats + availability_feats, axis=1).corr());
+```python
+sns.heatmap(condo_X.drop(landed_specific_feats + special_feats + availability_feats, axis=1).corr());
 
 ```
 </div>
@@ -591,7 +601,8 @@ Seems like there are no features that are correlated with `price`, but there are
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```sns.heatmap(condo_X.drop([
+```python
+sns.heatmap(condo_X.drop([
     'num_baths', 
     'num_beds',
     'months_before_tenancy_lease_expiry',
@@ -629,7 +640,8 @@ Seems like there are no features that are correlated with `price`, but there are
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```X_scaler, y_scaler = StandardScaler(), StandardScaler()
+```python
+X_scaler, y_scaler = StandardScaler(), StandardScaler()
 
 X = condo_X.drop([
     'num_baths', 
@@ -657,7 +669,8 @@ y_scaled = y_scaler.fit_transform(np.array(cleaned_dataset[cleaned_dataset['type
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```pca = {}
+```python
+pca = {}
 X_pca = {}
 total_variance_explained = []
 for n in range(1, len(X_scaled.drop(['price'], axis=1).columns)):    
@@ -719,7 +732,8 @@ Total variance explained by 23 components: 99.99801195270108%
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```def scree_plot(pca):
+```python
+def scree_plot(pca):
     '''
     Function:
     ---------
@@ -801,7 +815,8 @@ Will the housing clusters generated by the data correspond to the [28 designated
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```def plot_pareto_frontier(X, Y, n_clusters, ax, maxX=True, maxY=True):
+```python
+def plot_pareto_frontier(X, Y, n_clusters, ax, maxX=True, maxY=True):
     """
     Function:
     ---------
@@ -1077,7 +1092,8 @@ def visualize_clusters(X, silhouette_avg, cluster_labels, clusterer):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```range_n_clusters = list(range(2, 30))
+```python
+range_n_clusters = list(range(2, 30))
 print('Cluster Analysis with selected scaled raw features of each condominium')
 print(''.join(['-' for i in range(100)]))
 print(''.join(['-' for i in range(100)]))
@@ -1159,7 +1175,8 @@ k: 29 MSE: 0.04848855486549388 MAE: 0.1694574470798035
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```def top_k_districts(condo_cluster, condo_counts_by_district, cluster, k=5):
+```python
+def top_k_districts(condo_cluster, condo_counts_by_district, cluster, k=5):
     """
     Function:
     ---------
@@ -1253,7 +1270,8 @@ def cluster_district_breakdown(df, condo_X):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```cluster_district_breakdown(clustered_df, condo_X)
+```python
+cluster_district_breakdown(clustered_df, condo_X)
 
 ```
 </div>
@@ -1327,7 +1345,8 @@ Out of the physical features of the property we have gathered in our dataset, ar
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```X_train, X_test, y_train, y_test = train_test_split(X_scaled.drop(['price'], axis=1), 
+```python
+X_train, X_test, y_train, y_test = train_test_split(X_scaled.drop(['price'], axis=1), 
                                                     y_scaled, 
                                                     test_size=0.33, random_state=42)
 
@@ -1340,7 +1359,8 @@ Out of the physical features of the property we have gathered in our dataset, ar
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```rf = RandomForestRegressor(n_estimators=100)
+```python
+rf = RandomForestRegressor(n_estimators=100)
 rf.fit(X_train, y_train)
 
 ```
@@ -1370,7 +1390,8 @@ RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```y_pred = rf.predict(X_test)
+```python
+y_pred = rf.predict(X_test)
 mean_squared_error(y_true=y_scaler.inverse_transform(y_test), 
                    y_pred=y_scaler.inverse_transform(y_pred))**0.5
 
@@ -1395,7 +1416,8 @@ mean_squared_error(y_true=y_scaler.inverse_transform(y_test),
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```np.mean(np.abs(y_scaler.inverse_transform(y_test)-y_scaler.inverse_transform(y_pred)))
+```python
+np.mean(np.abs(y_scaler.inverse_transform(y_test)-y_scaler.inverse_transform(y_pred)))
 
 ```
 </div>
@@ -1418,7 +1440,8 @@ mean_squared_error(y_true=y_scaler.inverse_transform(y_test),
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```Xy_test_pred = pd.concat([X_test, 
+```python
+Xy_test_pred = pd.concat([X_test, 
                           pd.Series(y_test, name='y_test', index=X_test.index), 
                           pd.Series(y_pred, name='y_pred', index=X_test.index)], axis=1)
 
@@ -1433,7 +1456,8 @@ outlier_pred_idxs = Xy_test_pred[Xy_test_pred['y_pred'] > 1][['sqft', 'y_test', 
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```y_pred = rf.predict(X_test.drop(outlier_pred_idxs.index, axis=0))
+```python
+y_pred = rf.predict(X_test.drop(outlier_pred_idxs.index, axis=0))
 mean_squared_error(y_true=y_scaler.inverse_transform(pd.Series(y_test, index=X_test.index).drop(outlier_pred_idxs.index, axis=0)), 
                    y_pred=y_scaler.inverse_transform(y_pred))**0.5
 
@@ -1458,7 +1482,8 @@ mean_squared_error(y_true=y_scaler.inverse_transform(pd.Series(y_test, index=X_t
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```np.mean(np.abs(y_scaler.inverse_transform(pd.Series(y_test, 
+```python
+np.mean(np.abs(y_scaler.inverse_transform(pd.Series(y_test, 
                                                     index=X_test.index).drop(outlier_pred_idxs.index, 
                                                                              axis=0))-y_scaler.inverse_transform(y_pred)))
 
@@ -1483,7 +1508,8 @@ mean_squared_error(y_true=y_scaler.inverse_transform(pd.Series(y_test, index=X_t
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```fig, ax = plt.subplots(1, 1)
+```python
+fig, ax = plt.subplots(1, 1)
 
 ax.scatter(X_test.drop(outlier_pred_idxs.index, axis=0)['sqft'], pd.Series(y_test, index=X_test.index).drop(outlier_pred_idxs.index, axis=0), c='r', label='y_test')
 ax.scatter(X_test.drop(outlier_pred_idxs.index, axis=0)['sqft'], y_pred, c='b', alpha=0.3, label='y_pred')
@@ -1511,7 +1537,8 @@ plt.show();
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```def k_feature_plot(importances, columns, k=5):
+```python
+def k_feature_plot(importances, columns, k=5):
     ''' 
     Function:
     ---------
@@ -1559,7 +1586,8 @@ plt.show();
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```k_feature_plot(rf.feature_importances_, X_scaled.drop(['price'], axis=1).columns)
+```python
+k_feature_plot(rf.feature_importances_, X_scaled.drop(['price'], axis=1).columns)
 
 ```
 </div>
@@ -1584,7 +1612,8 @@ Let's zoom in and take a look at the transaction history of some houses that piq
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```import re
+```python
+import re
 import urllib
 import pickle
 from imp import reload
@@ -1602,7 +1631,8 @@ reload(webscraper_99co);
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```class TransactionHistory():
+```python
+class TransactionHistory():
     """
     Purpose:
     --------
@@ -1691,7 +1721,8 @@ def get_transactions(X, districts=[9, 10]):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condo_transaction_history = get_transactions(condo_X, districts=[9, 10, 11])
+```python
+condo_transaction_history = get_transactions(condo_X, districts=[9, 10, 11])
 
 ```
 </div>
@@ -1702,7 +1733,8 @@ def get_transactions(X, districts=[9, 10]):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condo_transaction_history_saved = pickle.load(open("./data/99.co/transaction_history.pkl", "rb"))
+```python
+condo_transaction_history_saved = pickle.load(open("./data/99.co/transaction_history.pkl", "rb"))
 
 ```
 </div>
@@ -1713,7 +1745,8 @@ def get_transactions(X, districts=[9, 10]):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```def get_property_dev_shape(url):
+```python
+def get_property_dev_shape(url):
     """
     Function:
     ---------
@@ -1808,7 +1841,8 @@ def get_development_gdf(condo_transaction_history_saved):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```development_gdf = get_development_gdf(condo_transaction_history_saved)
+```python
+development_gdf = get_development_gdf(condo_transaction_history_saved)
 
 ```
 </div>
@@ -1819,7 +1853,8 @@ def get_development_gdf(condo_transaction_history_saved):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```fontprops = fm.FontProperties(size=18)
+```python
+fontprops = fm.FontProperties(size=18)
 fig, ax = plt.subplots(1, 1, sharex=True)
 
 for cluster_id, row in development_gdf[['name', 'geometry']].iterrows():
@@ -1874,7 +1909,8 @@ plt.show();
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condo_of_interest = 'paterson-suites'
+```python
+condo_of_interest = 'paterson-suites'
 condo_of_interest_transaction_history = None
 for condo_cluster_id, transaction_history_data in condo_transaction_history_saved.items():
     if transaction_history_data.url.split('/')[-1] == condo_of_interest:
@@ -1889,7 +1925,8 @@ for condo_cluster_id, transaction_history_data in condo_transaction_history_save
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condo_of_interest_transaction_history.sale.index = pd.to_datetime(condo_of_interest_transaction_history.sale.index)
+```python
+condo_of_interest_transaction_history.sale.index = pd.to_datetime(condo_of_interest_transaction_history.sale.index)
 
 ```
 </div>
@@ -1919,7 +1956,8 @@ for condo_cluster_id, transaction_history_data in condo_transaction_history_save
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condo_of_interest_transaction_history.sale['Price (psf)'].apply(lambda val: float(val[2:-1])).describe()
+```python
+condo_of_interest_transaction_history.sale['Price (psf)'].apply(lambda val: float(val[2:-1])).describe()
 
 ```
 </div>
@@ -1935,7 +1973,8 @@ for condo_cluster_id, transaction_history_data in condo_transaction_history_save
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```def get_prices(row):
+```python
+def get_prices(row):
     if len(re.sub('[^0-9\.]', '', row['Price (psf)'])) > 0 and len(re.sub('[^0-9]', '', row['Unit'])) > 0:
         price = float(re.sub('[^0-9\.]', '', row['Price (psf)']))
         area = float(row['Area'].split()[0].replace(',', ''))
@@ -1965,7 +2004,8 @@ for condo_cluster_id, transaction_history_data in condo_transaction_history_save
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condos_of_interest = {
+```python
+condos_of_interest = {
     'boulevard-vue': None, 
     'orchard-view': None, 
     'skyline-orchard-boulevard': None, 
@@ -1983,7 +2023,8 @@ for condo_cluster_id, transaction_history_data in condo_transaction_history_save
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```condos_of_interest_transaction_history = {}
+```python
+condos_of_interest_transaction_history = {}
 
 for key in tqdm(condos_of_interest.keys()):
     cluster_id = get_cluster_id('https://www.99.co/singapore/condos-apartments/{}'.format(key))
@@ -2014,7 +2055,8 @@ for key in tqdm(condos_of_interest.keys()):
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```fig, ax = plt.subplots(2, 2)
+```python
+fig, ax = plt.subplots(2, 2)
 
 # Get a set of all the days since transactions for 
 # each condo of interest
@@ -2091,7 +2133,8 @@ plt.show();
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```get_development_gdf(condos_of_interest_transaction_history)
+```python
+get_development_gdf(condos_of_interest_transaction_history)
 
 ```
 </div>
@@ -2176,7 +2219,8 @@ plt.show();
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```params = {
+```python
+params = {
     'returnGeometry': 'true', 
     'where': '1=1',
     'outSr': '4326', 
@@ -2214,7 +2258,8 @@ Polygon(json.loads(ura_res.text)['features'][0]['geometry']['rings'][0])
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```get_property_dev_shape('https://www.99.co/singapore/condos-apartments/boulevard-vue')
+```python
+get_property_dev_shape('https://www.99.co/singapore/condos-apartments/boulevard-vue')
 
 ```
 </div>
@@ -2235,7 +2280,8 @@ Polygon(json.loads(ura_res.text)['features'][0]['geometry']['rings'][0])
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```get_property_dev_shape('https://www.99.co/singapore/condos-apartments/twentyone-angullia-park')
+```python
+get_property_dev_shape('https://www.99.co/singapore/condos-apartments/twentyone-angullia-park')
 
 ```
 </div>
@@ -2256,7 +2302,8 @@ Polygon(json.loads(ura_res.text)['features'][0]['geometry']['rings'][0])
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
-```fontprops = fm.FontProperties(size=18)
+```python
+fontprops = fm.FontProperties(size=18)
 fig, ax = plt.subplots(1, 1, sharex=True)
 
 get_development_gdf(condos_of_interest_transaction_history)['geometry'].plot(ax=ax)

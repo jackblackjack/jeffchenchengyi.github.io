@@ -92,14 +92,14 @@ Just plug in ${\mathbf{x}_{test} }$ with the trained / fitted ${\mathbf{w}^\top}
 # Advantages
 
 - Convergence Guarantee
-    - We can prove that if the data set is linearly separable, we can find a hyperplane that separates the positive and negative data points by at most ${\frac{1}{\gamma^2} }$ iterations, where ${\gamma}$ is the minimum distance from hyperplane ${\mathbf{w}^*}$ to the closest data point, $\gamma = \min_{(\mathbf{x}_i, y_i) \in D}|\mathbf{x}_i^\top \mathbf{w}^*| > 0$.
+    - We can prove that if the data set is linearly separable, we can find a hyperplane that separates the positive and negative data points by at most ${\frac{1}{\gamma^2} }$ iterations, where ${\gamma}$ is the minimum distance from hyperplane ${\mathbf{w}^*}$ to the closest data point, $\gamma = \min_{(\mathbf{x}_i, y_i) \in D}\mid\mathbf{x}_i^\top \mathbf{w}^*\mid > 0$.
         1. Suppose $\exists \mathbf{w}^*: y_i(\mathbf{x}^\top \mathbf{w}^*  ) > 0 \forall (\mathbf{x}_i, y_i) \in D$ (*One of the many hyperplanes that linearly separates the positive and negative datapoints. Recall also that $y_i(\mathbf{w}^\top \mathbf{x}_i) > 0$ means correctly classified and $y_i(\mathbf{w}^\top \mathbf{x}_i) \leq 0$ means incorrectly classified*)
-        2. Rescale __(A).__ $\mathbf{w}^*$ and __(B).__ all the $\mathbf{x}_i$ so that $\large{\vert\vert\mathbf{w}^*\vert\vert = {1} } \text{ and } ||\mathbf{x}_i|| \le 1\forall \mathbf{x}_i \in D$ by $\mathbf{x}_i \leftarrow \frac{\mathbf{x}_i}{\max_j{||\mathbf{x}_j||} }$.
+        2. Rescale __(A).__ $\mathbf{w}^*$ and __(B).__ all the $\mathbf{x}_i$ so that $\large{\vert\vert\mathbf{w}^*\vert\vert = {1} } \text{ and } \mid\mid\mathbf{x}_i\mid\mid \le 1\forall \mathbf{x}_i \in D$ by $\mathbf{x}_i \leftarrow \frac{\mathbf{x}_i}{\max_j{\mid\mid\mathbf{x}_j\mid\mid} }$.
         3. Update $\mathbf{w} \leftarrow \mathbf{w} + y_i\mathbf{x}_i$ when $y_i(\mathbf{w}^\top \mathbf{x}_i) \leq 0$.
-            1. To measure how much of an effect the update has made, we have to consider $\mathbf{w}^\top \mathbf{w}^*$ (This value increases if we correctly made an update and will be highest and angle between vectors $\theta=0$, AKA $= {\|\mathbf{w}^*\|}^2_2$), and ensure that $\mathbf{w}^\top \mathbf{w}$ does not grow really fast because $\mathbf{w}^\top \mathbf{w}^*$ can trivially increase by scaling, i.e. $\mathbf{w} \leftarrow 2 * \mathbf{w}$.
+            1. To measure how much of an effect the update has made, we have to consider $\mathbf{w}^\top \mathbf{w}^*$ (This value increases if we correctly made an update and will be highest and angle between vectors $\theta=0$, AKA $= {\mid\mathbf{w}^*\mid}^2_2$), and ensure that $\mathbf{w}^\top \mathbf{w}$ does not grow really fast because $\mathbf{w}^\top \mathbf{w}^*$ can trivially increase by scaling, i.e. $\mathbf{w} \leftarrow 2 * \mathbf{w}$.
             2. After one update:
                 1. $\mathbf{w}^\top \mathbf{w}^* \leftarrow ({\mathbf{w} + y\mathbf{x} })^\top \mathbf{w}^*$
-                    - $= \mathbf{w}^\top \mathbf{w}^* + y(\mathbf{x}^\top  \mathbf{w}^*) \ge \mathbf{w}^\top \mathbf{w}^* + \gamma$, because we defined $\gamma = \min_{(\mathbf{x}_i, y_i) \in D}|\mathbf{x}_i^\top \mathbf{w}^*| > 0$. Also, $y(\mathbf{x}^\top  \mathbf{w}^*) > 0$ because we defined $\mathbf{w}^*$ as a hyperplane that linearly separates the positive and negative datapoints. 
+                    - $= \mathbf{w}^\top \mathbf{w}^* + y(\mathbf{x}^\top  \mathbf{w}^*) \ge \mathbf{w}^\top \mathbf{w}^* + \gamma$, because we defined $\gamma = \min_{(\mathbf{x}_i, y_i) \in D}\mid\mathbf{x}_i^\top \mathbf{w}^*\mid > 0$. Also, $y(\mathbf{x}^\top  \mathbf{w}^*) > 0$ because we defined $\mathbf{w}^*$ as a hyperplane that linearly separates the positive and negative datapoints. 
                     - Therefore, after one update, our $\mathbf{w}^\top \mathbf{w}^*$ grows by __at least__ $\gamma$.
 $$\mathbf{w}^\top\mathbf{w}^*\geq M\gamma$$
                 - $\mathbf{w}^\top \mathbf{w} \leftarrow (\mathbf{w} + y\mathbf{x})^\top   (\mathbf{w} + y\mathbf{x})$ 
@@ -107,18 +107,20 @@ $$\mathbf{w}^\top\mathbf{w}^*\geq M\gamma$$
                     - Therefore, after one update, our $\mathbf{x}^\top  \mathbf{x}$ grows by __at most__ 1.
 $$\mathbf{w}^\top \mathbf{w}\leq M$$
         4. After $M$ updates,
+        $$
         \begin{align}
         M\gamma &\le \mathbf{w}^\top \mathbf{w}^* &&\text{By (1)} \\
-        &= |\mathbf{w}^\top \mathbf{w}^*| &&\text{Simply because $M\gamma \geq 0$} \\
-        &\le ||\mathbf{w}||\  ||\mathbf{w}^*|| &&\text{By Cauchy-Schwartz inequality$^*$} \\
-        &= ||\mathbf{w}|| &&\text{As $||\mathbf{w}^*|| = 1$} \\
-        &= \sqrt{\mathbf{w}^\top \mathbf{w} } && \text{by definition of $\|\mathbf{w}\|$} \\
+        &= \mid\mathbf{w}^\top \mathbf{w}^*\mid &&\text{Simply because $M\gamma \geq 0$} \\
+        &\le \mid\mid\mathbf{w}\mid\mid\  \mid\mid\mathbf{w}^*\mid\mid &&\text{By Cauchy-Schwartz inequality$^*$} \\
+        &= \mid\mid\mathbf{w}\mid\mid &&\text{As $\mid\mid\mathbf{w}^*\mid\mid = 1$} \\
+        &= \sqrt{\mathbf{w}^\top \mathbf{w} } && \text{by definition of $\mid\mathbf{w}\mid$} \\
         &\le \sqrt{M} &&\text{By (2)} \\ 
         & \textrm{ }\\
         &\Rightarrow M\gamma \le \sqrt{M} \\
         &\Rightarrow M^2\gamma^2 \le M \\
         &\Rightarrow M \le \frac{1}{\gamma^2} && \text{And hence, the number of updates $M$ is bounded from above by a constant.}
         \end{align}
+        $$
         
 ![rescaled_perceptron][rescaled_perceptron]
 
