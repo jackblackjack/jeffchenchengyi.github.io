@@ -6,7 +6,7 @@ kernel_name: python3
 has_widgets: false
 title: 'Recommendation Systems for Articles with IBM'
 prev_page:
-  url: /portfolio/udacity/05-disaster-response/README
+  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
   title: 'Disaster Response'
 next_page:
   url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io

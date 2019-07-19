@@ -37,17 +37,11 @@
   - title: Udacity
     url: /portfolio/udacity/udacity
     not_numbered: true
-    sections:
+    subsections:
       - title: Exploring Condominiums in Singapore
         url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
       - title: Disaster Response
-        url: /portfolio/udacity/05-disaster-response/README
-        not_numbered: true
-        subsections:
-          - title: ETL Pipeline
-            url: /portfolio/udacity/05-disaster-response/workspace/ETL_Pipeline_Preparation
-          - title: ML Pipeline
-            url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
+        url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
       - title: Recommendation Systems for Articles with IBM
         url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
 

@@ -7,7 +7,7 @@ prev_page:
   url: /portfolio/udacity/udacity
   title: 'Udacity'
 next_page:
-  url: /portfolio/udacity/05-disaster-response/README
+  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
   title: 'Disaster Response'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
