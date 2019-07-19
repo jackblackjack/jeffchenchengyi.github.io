@@ -39,20 +39,15 @@
     subsections:
       - title: Exploring Condominiums in Singapore
         url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
-        not_numbered: true
       - title: Disaster Response
         url: /portfolio/udacity/05-disaster-response/README
-        not_numbered: true
         subsections:
           - title: ETL Pipeline
             url: /portfolio/udacity/05-disaster-response/workspace/ETL_Pipeline_Preparation
-            not_numbered: true
           - title: ML Pipeline
             url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
-            not_numbered: true
       - title: Recommendation Systems for Articles with IBM
         url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
-        not_numbered: true
 
 - title: GitHub repository
   url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
@@ -63,7 +58,6 @@
 - header: Machine Learning | Deep Learning | Data Science Notes
 - title: Supervised Learning
   url: /machine-learning/supervised-learning/what-is-supervised-learning
-  not_numbered: true
   sections:
   - title: Classification
     url: /machine-learning/supervised-learning/classification/classification
@@ -93,7 +87,6 @@
     url: /machine-learning/supervised-learning/time-series-analysis/time-series-models
 - title: Unsupervised Learning
   url: /machine-learning/unsupervised-learning/what-is-unsupervised-learning
-  not_numbered: true
   expand_sections: false
   sections:
   - title: Clustering
@@ -124,7 +117,6 @@
       url: /machine-learning/unsupervised-learning/bayesian-methods/hmm
 - title: Neural Networks
   url: /machine-learning/neural-networks/what-are-neural-networks
-  not_numbered: true
   expand_sections: false
   sections:
   - title: Backpropagation
@@ -133,10 +125,8 @@
     url: /machine-learning/neural-networks/cnn
 - title: Dimensionality Reduction
   url: /machine-learning/dimensionality-reduction/main-dimensionality-reduction-technqiues
-  not_numbered: true
 - title: Natural Language Processing
   url: /machine-learning/natural-language-processing/what-is-natural-language-processing
-  not_numbered: true
   sections:
   - title: Natural Language Processing Pipeline
     url: /machine-learning/natural-language-processing/nlp-pipeline
@@ -148,7 +138,6 @@
     url: /machine-learning/natural-language-processing/sequence-models
 - title: Amazon Web Services
   url: /machine-learning/aws/what-is-aws
-  not_numbered: true
   sections:
   - title: AWS Big Data Specialty Exam
     url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
@@ -170,7 +159,6 @@
       url: /machine-learning/aws/aws-machine-learning/aws-ml-sample-exam-questions
 - title: Miscellaneous Topics
   url: /machine-learning/miscellaneous-topics/README
-  not_numbered: true
   sections:
   - title: Statistics
     url: /machine-learning/miscellaneous-topics/statistics
