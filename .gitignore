@@ -1,3 +1,15 @@
+# Ignore these files in base
+base/**/*.ipynb_checkpoints
+base/**/__pycache__/
+base/**/*.pkl
+base/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
+base/portfolio/udacity/05-disaster-response/flask_exercise/
+base/portfolio/udacity/05-disaster-response/disaster_response.pem
+base/machine-learning/aws/aws-big-data/AWSCertBigData-Materials/
+base/machine-learning/aws/aws-big-data/BigData.pem
+base/machine-learning/aws/aws-machine-learning/AmazonSageMakerCourse-master/
+base/machine-learning/supervised-learning/classification/data/
+
 # Ignore these files in content
 content/**/*.ipynb_checkpoints
 content/**/__pycache__/
