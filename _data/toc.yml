@@ -66,7 +66,7 @@
   - title: Classification
     url: /machine-learning/supervised-learning/classification/classification
     not_numbered: true
-    sections:
+    subsections:
     - title: Bayes Optimal Classifier
       url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier
     - title: K-Nearest Neighbours
@@ -84,7 +84,7 @@
   - title: Regression
     url: /machine-learning/supervised-learning/regression/regression
     not_numbered: true
-    sections:
+    subsections:
     - title: Linear Regression
       url: /machine-learning/supervised-learning/regression/linear-regression
   - title: Ensembles
@@ -99,7 +99,7 @@
   - title: Clustering
     url: /machine-learning/unsupervised-learning/clustering/clustering
     not_numbered: true
-    sections:
+    subsections:
     - title: K-Means
       url: /machine-learning/unsupervised-learning/clustering/k-means
     - title: Gaussian Mixture Models
@@ -107,7 +107,7 @@
   - title: Bayesian Methods
     url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-methods
     not_numbered: true
-    sections:
+    subsections:
     - title: Generative Vs Discriminative
       url: /machine-learning/unsupervised-learning/bayesian-methods/generative-vs-discriminative
     - title: Probability Distributions
@@ -158,7 +158,7 @@
   - title: AWS Big Data Specialty Exam
     url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
     not_numbered: true
-    sections:
+    subsections:
     - title: Analysis
       url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-analysis
     - title: Collections

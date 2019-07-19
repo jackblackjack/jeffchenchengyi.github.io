@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Neural Networks'
 prev_page:
-  url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-methods
-  title: 'Bayesian Methods'
+  url: /machine-learning/unsupervised-learning/bayesian-methods/hmm
+  title: 'Hidden Markov Models'
 next_page:
   url: /machine-learning/neural-networks/backpropagation
   title: 'Backpropagation'

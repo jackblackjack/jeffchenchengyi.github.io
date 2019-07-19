@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/aws/what-is-aws
   title: 'Amazon Web Services'
 next_page:
-  url: /machine-learning/aws/aws-machine-learning/aws-machine-learning-specialty-exam
-  title: 'AWS Machine Learning Specialty Exam'
+  url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-analysis
+  title: 'Analysis'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

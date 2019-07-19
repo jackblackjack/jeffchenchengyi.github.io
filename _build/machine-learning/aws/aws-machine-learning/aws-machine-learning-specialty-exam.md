@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'AWS Machine Learning Specialty Exam'
 prev_page:
-  url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
-  title: 'AWS Big Data Specialty Exam'
+  url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-visualization
+  title: 'Visualization'
 next_page:
   url: /machine-learning/miscellaneous-topics/README
   title: 'Miscellaneous Topics'
