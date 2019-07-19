@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Ensembles'
 prev_page:
-  url: /machine-learning/supervised-learning/regression/linear-regression
-  title: 'Linear Regression'
+  url: /machine-learning/supervised-learning/regression/regression
+  title: 'Regression'
 next_page:
   url: /machine-learning/supervised-learning/time-series-analysis/time-series-models
   title: 'Time Series Analysis'

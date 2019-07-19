@@ -4,11 +4,11 @@ kernel_name: python3
 has_widgets: false
 title: 'Bayesian Methods'
 prev_page:
-  url: /machine-learning/unsupervised-learning/clustering/gmm
-  title: 'Gaussian Mixture Models'
+  url: /machine-learning/unsupervised-learning/clustering/clustering
+  title: 'Clustering'
 next_page:
-  url: /machine-learning/unsupervised-learning/bayesian-methods/generative-vs-discriminative
-  title: 'Generative Vs Discriminative'
+  url: /machine-learning/neural-networks/what-are-neural-networks
+  title: 'Neural Networks'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

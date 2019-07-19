@@ -36,12 +36,14 @@
   sections:
   - title: Udacity
     url: /portfolio/udacity/udacity
-    subsections:
+    not_numbered: true
+    sections:
       - title: Exploring Condominiums in Singapore
         url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
       - title: Disaster Response
         url: /portfolio/udacity/05-disaster-response/README
-        subsections:
+        not_numbered: true
+        sections:
           - title: ETL Pipeline
             url: /portfolio/udacity/05-disaster-response/workspace/ETL_Pipeline_Preparation
           - title: ML Pipeline
@@ -56,12 +58,15 @@
 
 - divider: true
 - header: Machine Learning | Deep Learning | Data Science Notes
+
 - title: Supervised Learning
   url: /machine-learning/supervised-learning/what-is-supervised-learning
+  not_numbered: true
   sections:
   - title: Classification
     url: /machine-learning/supervised-learning/classification/classification
-    subsections:
+    not_numbered: true
+    sections:
     - title: Bayes Optimal Classifier
       url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier
     - title: K-Nearest Neighbours
@@ -78,27 +83,31 @@
       url: /machine-learning/supervised-learning/classification/multilabel-classification
   - title: Regression
     url: /machine-learning/supervised-learning/regression/regression
-    subsections:
+    not_numbered: true
+    sections:
     - title: Linear Regression
       url: /machine-learning/supervised-learning/regression/linear-regression
   - title: Ensembles
     url: /machine-learning/supervised-learning/ensemble/ensemble
   - title: Time Series Analysis
     url: /machine-learning/supervised-learning/time-series-analysis/time-series-models
+
 - title: Unsupervised Learning
   url: /machine-learning/unsupervised-learning/what-is-unsupervised-learning
-  expand_sections: false
+  not_numbered: true
   sections:
   - title: Clustering
     url: /machine-learning/unsupervised-learning/clustering/clustering
-    subsections:
+    not_numbered: true
+    sections:
     - title: K-Means
       url: /machine-learning/unsupervised-learning/clustering/k-means
     - title: Gaussian Mixture Models
       url: /machine-learning/unsupervised-learning/clustering/gmm
   - title: Bayesian Methods
     url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-methods
-    subsections:
+    not_numbered: true
+    sections:
     - title: Generative Vs Discriminative
       url: /machine-learning/unsupervised-learning/bayesian-methods/generative-vs-discriminative
     - title: Probability Distributions
@@ -115,18 +124,23 @@
       url: /machine-learning/unsupervised-learning/bayesian-methods/markov-chains
     - title: Hidden Markov Models
       url: /machine-learning/unsupervised-learning/bayesian-methods/hmm
+
 - title: Neural Networks
   url: /machine-learning/neural-networks/what-are-neural-networks
-  expand_sections: false
+  not_numbered: true
   sections:
   - title: Backpropagation
     url: /machine-learning/neural-networks/backpropagation
   - title: Convolutional Neural Networks
     url: /machine-learning/neural-networks/cnn
+
 - title: Dimensionality Reduction
   url: /machine-learning/dimensionality-reduction/main-dimensionality-reduction-technqiues
+  not_numbered: true
+
 - title: Natural Language Processing
   url: /machine-learning/natural-language-processing/what-is-natural-language-processing
+  not_numbered: true
   sections:
   - title: Natural Language Processing Pipeline
     url: /machine-learning/natural-language-processing/nlp-pipeline
@@ -136,12 +150,15 @@
     url: /machine-learning/natural-language-processing/word2vec-skipngram
   - title: Sequence Models
     url: /machine-learning/natural-language-processing/sequence-models
+
 - title: Amazon Web Services
   url: /machine-learning/aws/what-is-aws
+  not_numbered: true
   sections:
   - title: AWS Big Data Specialty Exam
     url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
-    subsections:
+    not_numbered: true
+    sections:
     - title: Analysis
       url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-analysis
     - title: Collections
@@ -154,11 +171,14 @@
       url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-visualization
   - title: AWS Machine Learning Specialty Exam
     url: /machine-learning/aws/aws-machine-learning/aws-machine-learning-specialty-exam
-    subsections:
+    not_numbered: true
+    sections:
     - title: Sample Exam Questions
       url: /machine-learning/aws/aws-machine-learning/aws-ml-sample-exam-questions
+
 - title: Miscellaneous Topics
   url: /machine-learning/miscellaneous-topics/README
+  not_numbered: true
   sections:
   - title: Statistics
     url: /machine-learning/miscellaneous-topics/statistics

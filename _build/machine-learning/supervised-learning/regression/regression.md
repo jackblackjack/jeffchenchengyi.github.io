@@ -4,11 +4,11 @@ kernel_name: python3
 has_widgets: false
 title: 'Regression'
 prev_page:
-  url: /machine-learning/supervised-learning/classification/multilabel-classification
-  title: 'Multi-Label Classification'
+  url: /machine-learning/supervised-learning/classification/classification
+  title: 'Classification'
 next_page:
-  url: /machine-learning/supervised-learning/regression/linear-regression
-  title: 'Linear Regression'
+  url: /machine-learning/supervised-learning/ensemble/ensemble
+  title: 'Ensembles'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/supervised-learning/what-is-supervised-learning
   title: 'Supervised Learning'
 next_page:
-  url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier
-  title: 'Bayes Optimal Classifier'
+  url: /machine-learning/supervised-learning/regression/regression
+  title: 'Regression'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
