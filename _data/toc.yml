@@ -37,7 +37,7 @@
   - title: Udacity
     url: /portfolio/udacity/udacity
     not_numbered: true
-    subsections:
+    sections:
       - title: Exploring Condominiums in Singapore
         url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
       - title: Disaster Response
