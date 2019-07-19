@@ -158,7 +158,7 @@
   - title: AWS Big Data Specialty Exam
     url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
     not_numbered: true
-    expand_subsections: true
+    expand_subsections: false
     subsections:
     - title: Analysis
       url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-analysis
