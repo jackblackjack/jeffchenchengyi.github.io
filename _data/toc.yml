@@ -33,7 +33,7 @@
 - title: Portfolio
   url: /portfolio/portfolio
   not_numbered: true
-  expand_sections: true
+  expand_sections: false
   sections:
   - title: Udacity
     url: /portfolio/udacity/udacity
@@ -46,7 +46,7 @@
       - title: Disaster Response
         url: /portfolio/udacity/05-disaster-response/README
         not_numbered: true
-        expand_sections: false
+        expand_sections: true
         subsections:
           - title: ETL Pipeline
             url: /portfolio/udacity/05-disaster-response/workspace/ETL_Pipeline_Preparation
@@ -69,10 +69,11 @@
 - title: Supervised Learning
   url: /machine-learning/supervised-learning/what-is-supervised-learning
   not_numbered: true
-  expand_sections: true
+  expand_sections: false
   sections:
   - title: Classification
     url: /machine-learning/supervised-learning/classification/classification
+    expand_sections: true
     subsections:
     - title: Bayes Optimal Classifier
       url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier
@@ -90,6 +91,7 @@
       url: /machine-learning/supervised-learning/classification/multilabel-classification
   - title: Regression
     url: /machine-learning/supervised-learning/regression/regression
+    expand_sections: true
     subsections:
     - title: Linear Regression
       url: /machine-learning/supervised-learning/regression/linear-regression
@@ -101,10 +103,11 @@
 - title: Unsupervised Learning
   url: /machine-learning/unsupervised-learning/what-is-unsupervised-learning
   not_numbered: true
-  expand_sections: true
+  expand_sections: false
   sections:
   - title: Clustering
     url: /machine-learning/unsupervised-learning/clustering/clustering
+    expand_sections: true
     subsections:
     - title: K-Means
       url: /machine-learning/unsupervised-learning/clustering/k-means
@@ -112,6 +115,7 @@
       url: /machine-learning/unsupervised-learning/clustering/gmm
   - title: Bayesian Methods
     url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-methods
+    expand_sections: true
     subsections:
     - title: Generative Vs Discriminative
       url: /machine-learning/unsupervised-learning/bayesian-methods/generative-vs-discriminative
@@ -133,7 +137,7 @@
 - title: Neural Networks
   url: /machine-learning/neural-networks/what-are-neural-networks
   not_numbered: true
-  expand_sections: true
+  expand_sections: false
   sections:
   - title: Backpropagation
     url: /machine-learning/neural-networks/backpropagation
@@ -147,7 +151,7 @@
 - title: Natural Language Processing
   url: /machine-learning/natural-language-processing/what-is-natural-language-processing
   not_numbered: true
-  expand_sections: true
+  expand_sections: false
   sections:
   - title: Natural Language Processing Pipeline
     url: /machine-learning/natural-language-processing/nlp-pipeline
@@ -161,7 +165,7 @@
 - title: Amazon Web Services
   url: /machine-learning/aws/what-is-aws
   not_numbered: true
-  expand_sections: true
+  expand_sections: false
   sections:
   - title: AWS Big Data Specialty Exam
     url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
@@ -185,7 +189,7 @@
 - title: Miscellaneous Topics
   url: /machine-learning/miscellaneous-topics/README
   not_numbered: true
-  expand_sections: true
+  expand_sections: false
   sections:
   - title: Statistics
     url: /machine-learning/miscellaneous-topics/statistics
