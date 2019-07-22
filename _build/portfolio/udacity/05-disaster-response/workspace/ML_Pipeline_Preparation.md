@@ -96,26 +96,6 @@ from mlxtend.classifier import StackingClassifier
 ```
 </div>
 
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-{:.output_stream}
-```
-[nltk_data] Downloading package punkt to
-[nltk_data]     /Users/jeffchenchengyi/nltk_data...
-[nltk_data]   Package punkt is already up-to-date!
-[nltk_data] Downloading package stopwords to
-[nltk_data]     /Users/jeffchenchengyi/nltk_data...
-[nltk_data]   Package stopwords is already up-to-date!
-[nltk_data] Downloading package wordnet to
-[nltk_data]     /Users/jeffchenchengyi/nltk_data...
-[nltk_data]   Package wordnet is already up-to-date!
-[nltk_data] Downloading package averaged_perceptron_tagger to
-[nltk_data]     /Users/jeffchenchengyi/nltk_data...
-[nltk_data]   Package averaged_perceptron_tagger is already up-to-
-[nltk_data]       date!
-```
-</div>
-</div>
 </div>
 
 
@@ -162,23 +142,6 @@ X.head()
 ```
 </div>
 
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-
-
-{:.output_data_text}
-```
-0    Weather update - a cold front from Cuba that c...
-1              Is the Hurricane over or is it not over
-2                      Looking for someone but no name
-3    UN reports Leogane 80-90 destroyed. Only Hospi...
-4    says: west side of Haiti, rest of the country ...
-Name: message, dtype: object
-```
-
-
-</div>
-</div>
 </div>
 
 
@@ -282,8 +245,8 @@ sclf = StackingClassifier(classifiers=chains,
                           meta_classifier=meta_clf)
 
 # Resample dataset to be balanced
-# print('Initializing SMOTE to balance dataset...')
-# sm = SMOTE(random_state=42)
+print('Initializing SMOTE to balance dataset...')
+sm = SMOTE(random_state=42)
 
 # Final Pipeline
 print('Building Pipeline...')
@@ -294,7 +257,7 @@ pipeline = Pipeline([
         ]))#,
 #         ('starting_verb', StartingVerbExtractor())
     ])),
-#     ('smote', sm),
+    ('smote', sm),
     ('sclf', sclf)
 ])
 
