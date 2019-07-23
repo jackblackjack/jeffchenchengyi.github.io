@@ -21,80 +21,6 @@
   </script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> -->
 
-  {% include fb_tags.html %}
-
-  <script type="application/ld+json">
-  {% include metadata.json %}
-  </script>
-  <link rel="stylesheet" href="{{ site.css_url | relative_url }}/styles.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
-  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
-
-  <!-- <link rel="manifest" href="/manifest.json"> -->
-  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-  <meta name="theme-color" content="#233947">
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ site.favicon_path | relative_url }}">
-
-  <!-- MathJax Config -->
-  {% include js/mathjax.html %}
-  <!-- DOM updating function -->
-  {% include js/dom-update.html %}
-
-  <!-- Define some javascript variables that will be useful in other javascript -->
-  <script>
-    const site_basename = '{{ site.baseurl | strip / }}';
-  </script>
-
-  <!-- Add AnchorJS to let headers be linked -->
-  <script src="{{ '/assets/js/anchor.min.js' | relative_url }}"  type="text/javascript"></script>
-  {% include js/anchors.html %}
-
-  <!-- Include Turbolinks to make page loads fast -->
-  <!-- https://github.com/turbolinks/turbolinks -->
-  <script src="{{ site.js_url | relative_url }}/turbolinks.js" async></script>
-  <meta name="turbolinks-cache-control" content="no-cache">
-
-  <!-- Load nbinteract for widgets -->
-  {% include js/nbinteract.html %}
-
-  <!-- Load Thebelab for interactive widgets -->
-  {% include js/thebelab.html %}
-
-  <!-- Load the auto-generating TOC -->
-  <script src="{{ '/assets/js/tocbot.min.js' | relative_url }}"  type="text/javascript"></script>
-  {% include js/tocbot.html %}
-
-  <!-- Google analytics -->
-  <script src="{{ site.js_url | relative_url }}/ga.js" async></script>
-
-  <!-- Clipboard copy button -->
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
-
-  <!-- Load JS that depends on site variables -->
-  {% include js/copy-button.html %}
-
-  <!-- Hide cell code -->
-  {% include js/hide-cell.html %}
-
-  <!-- Load custom website scripts -->
-  <script src="{{ site.js_url | relative_url }}/scripts.js" async></script>
-
-  <!-- Load custom user CSS and JS  -->
-  <script src="{{ site.custom_static_url | relative_url }}/custom.js" async></script>
-  <link rel="stylesheet" href="{{ site.custom_static_url | relative_url }}/custom.css">
-
   <!-- Load Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -102,13 +28,20 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <style>
+    /*BODY*/
+    body {
+      background: #16222A;
+      background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
+      background: linear-gradient(59deg, #3A6073, #16222A);
+    }
+
     /*FOOTER*/
     footer {
       background: #16222A;
       background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
       background: linear-gradient(59deg, #3A6073, #16222A);
       color: white;
-      margin-top:100px;
+      /*margin-top:100px;*/
     }
 
     footer a {
@@ -214,6 +147,80 @@
       background-color: #F9F9F9;
     }
   </style>
+
+  {% include fb_tags.html %}
+
+  <script type="application/ld+json">
+  {% include metadata.json %}
+  </script>
+  <link rel="stylesheet" href="{{ site.css_url | relative_url }}/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ site.favicon_path | relative_url }}">
+
+  <!-- MathJax Config -->
+  {% include js/mathjax.html %}
+  <!-- DOM updating function -->
+  {% include js/dom-update.html %}
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '{{ site.baseurl | strip / }}';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="{{ '/assets/js/anchor.min.js' | relative_url }}"  type="text/javascript"></script>
+  {% include js/anchors.html %}
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="{{ site.js_url | relative_url }}/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  {% include js/nbinteract.html %}
+
+  <!-- Load Thebelab for interactive widgets -->
+  {% include js/thebelab.html %}
+
+  <!-- Load the auto-generating TOC -->
+  <script src="{{ '/assets/js/tocbot.min.js' | relative_url }}"  type="text/javascript"></script>
+  {% include js/tocbot.html %}
+
+  <!-- Google analytics -->
+  <script src="{{ site.js_url | relative_url }}/ga.js" async></script>
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
+
+  <!-- Load JS that depends on site variables -->
+  {% include js/copy-button.html %}
+
+  <!-- Hide cell code -->
+  {% include js/hide-cell.html %}
+
+  <!-- Load custom website scripts -->
+  <script src="{{ site.js_url | relative_url }}/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="{{ site.custom_static_url | relative_url }}/custom.js" async></script>
+  <link rel="stylesheet" href="{{ site.custom_static_url | relative_url }}/custom.css">
 
   <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
   {% include js/interact-update.html %}
