@@ -3,11 +3,12 @@
   {% include google_analytics.html %}
   {% include head.html %}
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-bottom: 20px;">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 20px;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#"><img src="../_build/images/logo/brand_logo.png"></a>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -27,6 +28,7 @@
         </form>
       </div>
     </nav>
+
     <!-- .js-show-sidebar shows sidebar by default -->
     <div id="js-textbook" class="c-textbook {% if site.show_sidebar %}js-show-sidebar{% endif %}">
       {% if site.show_sidebar == true %}{% include sidebar.html %}{% endif %}
@@ -50,6 +52,8 @@
         </div>
       </main>
     </div>
+
+    <!-- FOOTER -->
     <footer class="mainfooter" role="contentinfo">
       <div class="footer-middle">
       <div class="container">
