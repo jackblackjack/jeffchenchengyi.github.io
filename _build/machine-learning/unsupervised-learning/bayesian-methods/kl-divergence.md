@@ -42,17 +42,21 @@ Case 2:
 - We have 8 events, 
 - uniform probability $\therefore$ each happening with $p = \frac{1}{8}$
 - Minimum number of bits required: 
-    - $3 \text{ bits} = {log}_{2} (8 \text{ events}) = -{log}_{2} (p = \frac{1}{8})$
+
+$$3 \text{ bits} = {log}_{2} (8 \text{ events}) = -{log}_{2} (p = \frac{1}{8})$$
 
 Case 3: 
 - We have 2 events, 
 - event 1 happens with $p_1 = 0.75$, event 2 happens with $p_2 = 0.25$
 - Average / Minimum number of bits required: 
-    - $
-    (p_1 = 0.75) \times -{log}_{2} (p_1 = 0.75) + (p_1 = 0.25) \times -{log}_{2} (p_1 = 0.25) \\
-    = (p_1 = 0.75) \times 0.41 + (p_1 = 0.25) \times 2 \\
-    = 0.81 \text{ bits}
-    $
+
+$$
+\begin{aligned}
+&(p_1 = 0.75) \times -{log}_{2} (p_1 = 0.75) + (p_1 = 0.25) \times -{log}_{2} (p_1 = 0.25) \\
+&= (p_1 = 0.75) \times 0.41 + (p_1 = 0.25) \times 2 \\
+&= 0.81 \text{ bits}
+\end{aligned}
+$$
     
 $$\therefore \text{Entropy: } H(p) = -\sum_{i=1}^n {\mathrm{p}(x_i) \log_b \mathrm{p}(x_i)}\,\{\text{for discrete }x\} \\ = -\int_{x} {\mathrm{p}(x) \log_b \mathrm{p}(x)}{dx}\,\{\text{for continuous }x\}$$
 - $[ {b = 2:}\text{ bits},  {b = e:}\text{ nats}, {b = 10:}\text{ bans} ]$
@@ -90,9 +94,11 @@ $$
 {D}_{KL}(p \parallel q) = \mathbb{E}_p \left(\log\frac{p}{q}\right)
 $$
 
-- Non-negative: ${D}_{KL}(p \parallel q) \geq 0 \because -{D}_{KL}(p \parallel q) = \mathbb{E}_p \left(-\log \frac{p}{q}\right) = \mathbb{E}_p \left(\log \frac{q}{p}\right) \leq \log\left(\mathbb{E}_p \frac{q}{p}\right) = \log\int p(x) \frac{q(x)}{p(x)} dx = \log(1) = 0$
-- Asymmetric: ${D}_{KL}(p \parallel q) \neq {D}_{KL}(q \parallel p)$
-- ${D}_{KL}(p \parallel p) = 0$
+- Non-negative: 
+$${D}_{KL}(p \parallel q) \geq 0 \because -{D}_{KL}(p \parallel q) = \mathbb{E}_p \left(-\log \frac{p}{q}\right) = \mathbb{E}_p \left(\log \frac{q}{p}\right) \leq \log\left(\mathbb{E}_p \frac{q}{p}\right) = \log\int p(x) \frac{q(x)}{p(x)} dx = \log(1) = 0$$
+- Asymmetric: 
+$${D}_{KL}(p \parallel q) \neq {D}_{KL}(q \parallel p)$$
+- $${D}_{KL}(p \parallel p) = 0$$
 - You can think of KL Divergence as a mean of the difference in probabilities at each point $x_i$ in the log scale.
 
 

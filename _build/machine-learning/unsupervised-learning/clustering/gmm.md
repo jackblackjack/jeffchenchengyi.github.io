@@ -154,7 +154,7 @@ $$
 - Choose initial values for ${\mu_k}^{(t-1=0)}, {\Sigma_k}^{(t-1=0)}, {\pi_k}^{(t-1=0)}$ and use these in the E-step to evaluate the **Responsibilities**: $P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1=0)}, {\Sigma_k}^{(t-1=0)}, {\pi_k}^{(t-1=0)})$
 
 ### Step 2: Maximization Step
-- With $P(Z_i=k |X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})$ fixed, maximize the expected complete log-likelihood above with respect to ${\mu_k}^{(t)}, {\Sigma_k}^{(t)}, {\pi_k}^{(t)}$
+- With $P(Z_i=k \mid X; \theta^{(t-1)}={\mu_k}^{(t-1)}, {\Sigma_k}^{(t-1)}, {\pi_k}^{(t-1)})$ fixed, maximize the expected complete log-likelihood above with respect to ${\mu_k}^{(t)}, {\Sigma_k}^{(t)}, {\pi_k}^{(t)}$
 
 $\hat{ {\pi_k}^{(t)}_{MLE} }$:
 $$

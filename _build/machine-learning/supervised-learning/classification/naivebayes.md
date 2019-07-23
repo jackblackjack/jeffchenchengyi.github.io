@@ -303,10 +303,10 @@ $$
     &= \frac{P(y=+1)*P(x\mid y=+1)}{P(x,y=+1) + P(x,y=-1)} \because \text{ marginalization} \\
     &= \frac{P(y=+1)*P(x\mid y=+1)}{P(y=+1) * P(x \mid y=+1) + P(y=-1) * P(x \mid y=-1)} \\
     &= \frac{1}{1 + \frac{P(y=-1) * P(x \mid y=-1)}{P(y=+1) * P(x \mid y=+1)} } \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1) * P(x \mid y=-1)}{P(y=+1) * P(x \mid y=+1)} }} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\frac{P(x \mid y=-1)}{P(x \mid y=+1)} }} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\prod_{i=1}^{n}\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)} }} \\
-    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \sum_{i=1}^{n}\ln\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)} }} \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1) * P(x \mid y=-1)}{P(y=+1) * P(x \mid y=+1)} } } \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\frac{P(x \mid y=-1)}{P(x \mid y=+1)} } } \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ln\prod_{i=1}^{n}\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)} } } \\
+    &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \sum_{i=1}^{n}\ln\frac{P(x_i \mid y=-1)}{P(x_i \mid y=+1)} } } \\
     &= \frac{1}{1 + {e}^{\ln\frac{P(y=-1)}{P(y=+1)} + \ldots } } \\
     &= \vdots \\
     &= \frac{1}{1 + e^{yw^\top x} }

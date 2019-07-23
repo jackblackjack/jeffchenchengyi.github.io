@@ -46,7 +46,7 @@ S_0 =
 {\underset{1\,\times\,2}
 {\begin{bmatrix}
   0.1 & 0.9 \\
-\end{bmatrix} }}
+\end{bmatrix} } }
 $$
 
 
@@ -93,7 +93,7 @@ A \\
 \begin{bmatrix}
   0.8 & 0.2 \\
   0.6 & 0.4 \\
-\end{bmatrix} }}
+\end{bmatrix} } }
 }^{\text{Next State} }
 $$
 

@@ -92,7 +92,7 @@ $$
 
 However, now in the world of linear algebra, we learn that the general form of any hyperplane (*A subspace of one dimension less than its ambient space, e.g. line in 2-D is a hyperplane, plane in 3-D is a hyperplane too*) is 
 $$
-{w_n}{x_n} + {w_{n - 1}{x_{n - 1} }} + ... + {w_0}{x_0} = 
+{w_n}{x_n} + {w_{n - 1}{x_{n - 1} } } + ... + {w_0}{x_0} = 
 \begin{bmatrix} {w_n}, {w_{n - 1} }, ..., {w_0} \end{bmatrix}
 \begin{bmatrix} {x_n} \\ {x_{n - 1} } \\ \vdots \\ {x_0} \end{bmatrix} = \mathbf{w}^\top\mathbf{x} = 0
 $$
