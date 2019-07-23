@@ -8,7 +8,7 @@ from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Bar, Pie, Histogram
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
@@ -84,6 +84,36 @@ def index():
                 },
                 'xaxis': {
                     'title': "Count"
+                }
+            }
+        },
+        {
+            'data': [
+                Pie(
+                    labels=genre_names, 
+                    values=genre_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Pie Chart of Genres'
+            }
+        },
+        {
+            'data': [
+                Histogram(
+                    x=cat_counts.sort_values(by='count', ascending=False)['category'],
+                    y=cat_counts.sort_values(by='count', ascending=False)['count']
+                )
+            ],
+
+            'layout': {
+                'title': 'Histogram of Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category"
                 }
             }
         }
