@@ -17,11 +17,11 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 
 
-The Bayes Optimal Classifier assumes you know the posterior distribution $\mathrm{P}(y|\mathbf{x})$. For example, say you've seen the entire universe of SPAM emails and have derived the conditional probabilities as such for a particular sentence (set of features):
+The Bayes Optimal Classifier assumes you know the posterior distribution $\mathrm{P}(y\mid\mathbf{x})$. For example, say you've seen the entire universe of SPAM emails and have derived the conditional probabilities as such for a particular sentence (set of features):
 
 $$
-\mathrm{P}(\text{SPAM}| \mathbf{x} = \text{"There are currently 30 hot single ladies in your area waiting to see you!"})=0.8\\
-\mathrm{P}(\text{NOT SPAM}| \mathbf{x} = \text{"There are currently 30 hot single ladies in your area waiting to see you!"})=0.2\\
+\mathrm{P}(\text{SPAM}\mid \mathbf{x} = \text{"There are currently 30 hot single ladies in your area waiting to see you!"})=0.8\\
+\mathrm{P}(\text{NOT SPAM}\mid \mathbf{x} = \text{"There are currently 30 hot single ladies in your area waiting to see you!"})=0.2\\
 $$
 
 In other words, 80% of all emails in the universe that only contained "There are currently 30 hot single ladies in your area waiting to see you!" are in fact spam, while 20% of the rest were not spam, but actually legitimate information, lol.
