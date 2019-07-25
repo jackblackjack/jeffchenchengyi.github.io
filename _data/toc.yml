@@ -45,6 +45,8 @@
         url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
       - title: Recommendation Systems for Articles with IBM
         url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
+      - title: Predicting Churn Rates for "Sparkify"
+        url: /portfolio/udacity/07-datascience-capstone/Sparkify
 
 - title: GitHub repository
   url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io

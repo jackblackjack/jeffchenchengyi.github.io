@@ -17,6 +17,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 ---
 ### Hi there, I'm Jeff!
+<br>
 <img src='./images/header.jpg'>
 
 ---

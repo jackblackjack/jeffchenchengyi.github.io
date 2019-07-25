@@ -9,8 +9,8 @@ prev_page:
   url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
   title: 'Disaster Response'
 next_page:
-  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
-  title: 'GitHub repository'
+  url: /portfolio/udacity/07-datascience-capstone/Sparkify
+  title: 'Predicting Churn Rates for "Sparkify"'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

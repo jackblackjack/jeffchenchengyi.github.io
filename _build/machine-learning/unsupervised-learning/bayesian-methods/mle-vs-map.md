@@ -81,6 +81,7 @@ $${p(Y|X) = \frac{p(X|Y) * p(Y)}{p(X)} }, p(X) = \sum^{\text{Set of distinct lab
 
 
 ---
+
 # MLE (Maximum Likelihood Estimation) - Frequentist Statistics
 
 Goal:
@@ -138,6 +139,7 @@ $$
 
 
 ---
+
 # How to account for situations with little data?
 
 In our coin toss example, what if we had never seen any heads before? This would get us a probability of 0 for seeing heads, which we might believe is ridiculous. To correct for this, we have two approaches.
@@ -197,6 +199,7 @@ So far, we have a distribution over $\theta$. How can we get an estimate for $\t
 
 
 ---
+
 # MAP (Maximum A Posteriori) - Bayesian Statistics
 
 For example, we can choose $\hat{\theta}$ to be the <u>most likely $\theta$ given the data</u>.
@@ -230,6 +233,7 @@ A few comments:
 
 
 ---
+
 # "True" Bayesian approach
 
 <p>Note that MAP is only one way to get an estimator. There is much more information in $P(\theta \mid D)$, and it seems like a shame to simply compute the mode and throw away all other information. A true Bayesian approach is to use the posterior predictive distribution directly to make prediction about the label $Y$ of a test sample with features $X$:
@@ -261,6 +265,7 @@ Here, we used the fact that we defined $P(heads \mid D, \theta)= P(heads \mid \t
 
 
 ---
+
 # Fisher Information
 
 The likelihood / log-likelihood function is a curve.
@@ -302,6 +307,7 @@ $$
 
 
 ---
+
 ## Resources:
 - [Kilian Weinberger's Estimating Probabilities from data lecture](http://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote05.html)
 - [Mihaela van der Schaar's Generative VS Discriminative Notes](http://www.stats.ox.ac.uk/~flaxman/HT17_lecture5.pdf)
