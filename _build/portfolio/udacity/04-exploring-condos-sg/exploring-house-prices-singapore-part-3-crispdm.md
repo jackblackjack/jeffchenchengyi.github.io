@@ -2838,6 +2838,410 @@ top_k_largest_land_plots
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
+development_gdf_sorted = development_gdf.sort_values('area', ascending=False)
+
+pd.concat([development_gdf_sorted[:50], 
+           pd.Series(np.arange(50), index=development_gdf_sorted[:50].index)], axis=1)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+
+<div markdown="0" class="output output_html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>geometry</th>
+      <th>area</th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>dexBL54KXwLzrouFwRDi3hN7</th>
+      <td>wilshire-residences</td>
+      <td>POLYGON ((30864.27887503527 31052.52227500042,...</td>
+      <td>115716.593256</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>deqZxRuu57uzrKmn4Ens5J36</th>
+      <td>regency-park</td>
+      <td>POLYGON ((27256.02700003375 30869.03209999915,...</td>
+      <td>47087.735977</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>deF68BvbTj2wLYXpAj7dczwn</th>
+      <td>hillcrest-arcadia</td>
+      <td>POLYGON ((25416.56400003488 35198.50999999946,...</td>
+      <td>42056.124362</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>dew7TKjVatAm5hFhmjKLdX7M</th>
+      <td>valley-park</td>
+      <td>POLYGON ((27551.09300003419 30793.11299999955,...</td>
+      <td>39980.056713</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>deuaJk2pf8VRU9SMeXmiwDEe</th>
+      <td>yong-an-park</td>
+      <td>POLYGON ((28045.51162503337 30927.67840000017,...</td>
+      <td>36974.237415</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>de9nYaVhEPfhbNsjBHpDAF66</th>
+      <td>ardmore-park</td>
+      <td>POLYGON ((27606.33570003401 32578.22629999893,...</td>
+      <td>32011.124393</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>deFd5qdc9n8hLashEVsHZHMm</th>
+      <td>aspen-heights</td>
+      <td>POLYGON ((28896.49600003314 30847.51899999905,...</td>
+      <td>31986.958901</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>deVCdvkVV4jAfqfD7ADWXpha</th>
+      <td>ue-square</td>
+      <td>POLYGON ((29030.28200003355 30662.6758999989, ...</td>
+      <td>29451.902802</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>deMkfRvrfJxgcNDUD88bZZr4</th>
+      <td>duchess-crest</td>
+      <td>POLYGON ((24714.44400003357 34142.49999999967,...</td>
+      <td>29194.881756</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>deDvLbh3PZNsQDf8eU8RayE5</th>
+      <td>four-seasons-park</td>
+      <td>POLYGON ((27528.63000003443 31865.73899999973,...</td>
+      <td>27849.010938</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>deBdXMF9jHqZsWyBhAvRCa5M</th>
+      <td>rivergate</td>
+      <td>POLYGON ((28346.65200003377 30560.27399999987,...</td>
+      <td>27314.108611</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>defodSmXzEoqBaA4zshQ6zEm</th>
+      <td>the-tessarina</td>
+      <td>POLYGON ((23221.28857503369 34917.71904999913,...</td>
+      <td>26803.759250</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>deuGUxmbqiTLaNzojps4gQhT</th>
+      <td>goodwood-residence</td>
+      <td>POLYGON ((28356.82400003443 33081.13099999882,...</td>
+      <td>24847.641976</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>dewsGYWhq5evJtGMgomfGVvU</th>
+      <td>spring-grove</td>
+      <td>POLYGON ((27427.16100003391 31245.6109999992, ...</td>
+      <td>24482.291340</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>deAXZibNCJ8ctpYcp62Wvr9H</th>
+      <td>belle-vue-residences</td>
+      <td>POLYGON ((29024.32300003441 31099.14599999937,...</td>
+      <td>23016.656333</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>dejBigVZWsWRgeZTd2d2KtnM</th>
+      <td>dleedon</td>
+      <td>POLYGON ((24552.24100003411 33181.35299999976,...</td>
+      <td>22977.799497</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>decBLjHdGkqjic7CVLFFxHaF</th>
+      <td>the-claymore</td>
+      <td>POLYGON ((27846.59100003378 32435.01400000013,...</td>
+      <td>22864.225707</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>deD6oC7GUYHr3GrvtgRWgjGg</th>
+      <td>nassim-park-residences</td>
+      <td>POLYGON ((26965.55100003329 32184.46000000052,...</td>
+      <td>22843.050973</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>deAGLpf2jaMvYzpgqaidR6Y6</th>
+      <td>parvis</td>
+      <td>POLYGON ((24321.20060003381 32561.48819999924,...</td>
+      <td>22605.698107</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>deZuKN9pYhCTy8LpaBbKav27</th>
+      <td>the-nassim</td>
+      <td>POLYGON ((26793.22200003375 32280.92999999935,...</td>
+      <td>22000.107561</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>deWMKjqeYhExbQQfGfHD75fS</th>
+      <td>the-shelford</td>
+      <td>POLYGON ((25542.46510003378 34274.82799999935,...</td>
+      <td>21599.152687</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>devGGphgYa2gSXi4t9KSakrj</th>
+      <td>midtown-bay</td>
+      <td>POLYGON ((30745.37605003366 31154.37674999949,...</td>
+      <td>21437.064839</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>deMCHWqYYLTQib8UAZjW3VPn</th>
+      <td>park-infinia-wee-nam</td>
+      <td>POLYGON ((29130.88400003368 33098.40699999932,...</td>
+      <td>20859.397759</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>deCVNkLq8EEZvB8Hw3YVusET</th>
+      <td>glentrees</td>
+      <td>POLYGON ((22630.67800003427 33300.49300000034,...</td>
+      <td>20631.851869</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>de54iQoJQq8jpJKGKHAAgsb8</th>
+      <td>horizon-towers</td>
+      <td>POLYGON ((28013.78320003394 31110.93229999916,...</td>
+      <td>19030.230374</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>deyhDdb9PrNGBzZ9AUFBMUiW</th>
+      <td>120-grange</td>
+      <td>POLYGON ((27840.39717503393 31901.83412499871,...</td>
+      <td>18649.585186</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>der4QDjqEPRUJ2kGW9oPtSDH</th>
+      <td>the-orchard-residences</td>
+      <td>POLYGON ((27840.39717503393 31901.83412499871,...</td>
+      <td>18649.585186</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>deBhYU8diNDt6RpaGZCAsS3H</th>
+      <td>the-trizon</td>
+      <td>POLYGON ((21921.10800003582 33221.22799999984,...</td>
+      <td>18155.161200</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>dejbqYpj7rE63GWVpdsP3hqb</th>
+      <td>sky-eleven</td>
+      <td>POLYGON ((28838.94070003406 34766.41410000031,...</td>
+      <td>17073.118907</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>deiB7PNt9YuoB4iwH7o6GF78</th>
+      <td>tanglin-hill-condominium</td>
+      <td>POLYGON ((26301.48240003422 31510.04099999894,...</td>
+      <td>16933.604630</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>deYtztrsP6T6v7pF6hCGwx95</th>
+      <td>fyve-derbyshire</td>
+      <td>POLYGON ((29203.3156000327 33608.07080000049, ...</td>
+      <td>16768.201291</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>devBccS2NKDRAiJ7xsa4LAem</th>
+      <td>fourth-avenue-residences</td>
+      <td>POLYGON ((23962.04202503444 34785.76152499916,...</td>
+      <td>16752.771975</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>denahNTyio3Kz7ccwceCmRvZ</th>
+      <td>gallop-gables</td>
+      <td>POLYGON ((25281.01700003423 32917.37499999964,...</td>
+      <td>16474.760812</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>deoLYhmPUeFN5dBZhRoABcRA</th>
+      <td>the-sixth-avenue-residences</td>
+      <td>POLYGON ((23481.38000003402 34427.02700000033,...</td>
+      <td>16056.964643</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>derjk2a5yZokjVVzgWUYuGQk</th>
+      <td>martin-modern</td>
+      <td>POLYGON ((28482.45400003335 30697.33899999934,...</td>
+      <td>15932.145784</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>deCrr3gTcRhYepVhwysk8v5M</th>
+      <td>the-glyndebourne</td>
+      <td>POLYGON ((27015.94100003427 33833.77399999988,...</td>
+      <td>15863.840333</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>deJUtFkqxPoiinFM5wp56YC6</th>
+      <td>8-mount-sophia</td>
+      <td>POLYGON ((29440.17810003455 31546.10179999995,...</td>
+      <td>15801.152852</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>de2N2BWSZziKW4rqmKzFuLcP</th>
+      <td>sophia-residence</td>
+      <td>POLYGON ((29723.49370003406 31557.22299999899,...</td>
+      <td>15289.673387</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th>deNKmXtF4ncqrqmqrDYBHjsj</th>
+      <td>belmond-green</td>
+      <td>POLYGON ((27825.67500003413 33134.6170000002, ...</td>
+      <td>15225.105701</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>de6DUYWzwGE3JqpqdqR7Y8g5</th>
+      <td>the-draycott</td>
+      <td>POLYGON ((27825.02290003409 32714.05890000021,...</td>
+      <td>14971.453790</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <th>dessrBwHLsL4dZZ9WjepW6k6</th>
+      <td>cairnhill-crest</td>
+      <td>POLYGON ((28649.43600003399 32014.76899999906,...</td>
+      <td>14508.364835</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>de2WZRDYyLayorUHcQ83pE46</th>
+      <td>st-regis-residences-singapore</td>
+      <td>POLYGON ((27232.19700003383 32056.72299999891,...</td>
+      <td>14231.535480</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>deeJLKXrkPRxjHAGpq79gMpg</th>
+      <td>draycott-8</td>
+      <td>POLYGON ((27852.7230000338 32662.71599999961, ...</td>
+      <td>14214.558419</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>de9A83rhqSAMSoLuKAZF94DY</th>
+      <td>duchess-residences</td>
+      <td>POLYGON ((24360.52730003348 33991.25459999931,...</td>
+      <td>14124.429448</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <th>def8mPzTx6CHzFCEB4DqSuyT</th>
+      <td>beverly-hill</td>
+      <td>POLYGON ((27147.06090003438 31292.01730000007,...</td>
+      <td>13830.534232</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <th>de5wX3BfHEGktkEVydZPzap9</th>
+      <td>leonie-gardens</td>
+      <td>POLYGON ((27979.23300003359 31248.71699999987,...</td>
+      <td>13534.430389</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>des64ic2dN5dUibYK3jSNPM6</th>
+      <td>riviere</td>
+      <td>POLYGON ((28241.45105003459 30377.3530999996, ...</td>
+      <td>13476.952057</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>detpccvTCXEvCTFP87CVJ2bH</th>
+      <td>rv-altitude</td>
+      <td>POLYGON ((30860.545925034 31055.98782500031, 3...</td>
+      <td>13333.663318</td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <th>deBfyPZMNCKVa6AKnVsM23MQ</th>
+      <td>gallop-green</td>
+      <td>POLYGON ((25297.77400003488 33016.53499999979,...</td>
+      <td>13317.125663</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <th>deWMAF2fBr8GAGckfBMHrjR8</th>
+      <td>waterfall-gardens</td>
+      <td>POLYGON ((24907.89497503285 32744.63367499935,...</td>
+      <td>13187.163262</td>
+      <td>49</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
 fontprops = fm.FontProperties(size=18)
 fig, ax = plt.subplots(1, 1, sharex=True)
 
@@ -2874,7 +3278,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm_69_0.png)
+![png](../../../images/portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm_70_0.png)
 
 </div>
 </div>
@@ -3044,7 +3448,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm_73_0.png)
+![png](../../../images/portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm_74_0.png)
 
 </div>
 </div>

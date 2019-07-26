@@ -134,15 +134,15 @@ spark.sparkContext.getConf().getAll()
 
 {:.output_data_text}
 ```
-[('spark.driver.port', '62451'),
+[('spark.driver.host', '10.0.1.103'),
+ ('spark.app.id', 'local-1564120183879'),
+ ('spark.driver.port', '49924'),
  ('spark.rdd.compress', 'True'),
  ('spark.app.name', 'Sparkify'),
  ('spark.serializer.objectStreamReset', '100'),
  ('spark.master', 'local[*]'),
  ('spark.executor.id', 'driver'),
  ('spark.submit.deployMode', 'client'),
- ('spark.driver.host', 'chengyis-mbp'),
- ('spark.app.id', 'local-1564027595471'),
  ('spark.ui.showConsoleProgress', 'true')]
 ```
 
@@ -150,6 +150,31 @@ spark.sparkContext.getConf().getAll()
 </div>
 </div>
 </div>
+
+
+
+# Preliminaries
+
+What could cause users to **CHURN**? There can be multiple reasons why users would churn, including the following:
+1. Ineffective Recommendation System of Sparkify
+    - e.g. Users listen to mostly rock genres, but recommendation system recommends songs way too out of the scope of rock 
+2. Bad UI / UX Design of Sparkify
+    - e.g. Navigation through the application might be tedious, causing some users to churn and turn to substitutes
+3. Users might be interested in listening to songs that are not available on Sparkify
+    - e.g. If the main demographic that's churning are parents that only want to have Sesame  Street and Baby songs on their phones, they might end up churning because Sparkify does not support those songs
+4. The Premium tier of Sparkify might be too expensive, while the free tier might support fewer services than alternatives
+
+Depending on which of these problems (or combination of problems) caused the customer to churn, it would affect 
+1. How we predict whether a customer will churn
+    - We could formulate this as either a binary classification task like "**Will** a user churn or not?"
+    - We could further ask "**When** a user will churn if they will churn at all
+        - Furthermore, instead of predicting a single value as to when the customer will churn, we can predict a probability distribution such as [exponential](https://www.digitalmarketer.com/blog/customer-retention-rates/) to model how long it'll take for the customer to churn given past behavior
+    - Also, we could further adapt this with a probablistic perspective - "**What** is the probability that a user will churn given his/her past activity"
+2. Solution to reduce churn rates
+    - If the problem was related to 1 or 2, we might use an A/B Test to see whether changing the UI / UX  or Recommendation System might decrease churn rates
+    - If the problem was more of 3, we could possibly add support for those songs if the demographic is large enough or provide family plan discounts to entice them to continue with the service
+    
+Because of how complicated we can frame the problem, we will first build a simplified model - a soft classification as to whether a customer will churn or not. Subsequently, if we have the time, we will build a model that'll [predict a probability distribution](https://icml.cc/Conferences/2005/proceedings/papers/015_Predicting_CarneyEtAl.pdf) as to when the customer will churn - give probabilities as to whether a customer will churn as time passes
 
 
 
@@ -534,7 +559,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_19_0.png)
+![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_20_0.png)
 
 </div>
 </div>
@@ -645,14 +670,321 @@ This way, we've only included `userId`s that have a valid value.
 
 
 
-We also want to distinguish a user's activity before and after a particular event such as `Submit Downgrade`.
+# Exploratory Data Analysis
+When you're working with the full dataset, perform EDA by loading a small subset of the data and doing basic manipulations within Spark. In this workspace, you are already provided a small subset of data you can explore.
+
+### Define Churn
+
+Once you've done some preliminary analysis, create a column `Churn` to use as the label for your model. I suggest using the `Cancellation Confirmation` events to define your churn, which happen for both paid and free users. As a bonus task, you can also look into the `Downgrade` events.
+
+### Explore Data
+Once you've defined churn, perform some exploratory data analysis to observe the behavior for users who stayed vs users who churned. You can start by exploring aggregates on these two groups of users, observing how much of a specific action they experienced per a certain time unit or number of songs played.
+
+
+
+We want to distinguish a user's activity before and after a particular event such as `Cancellation Confirmation` and `Submit Downgrade`.
+
+
+
+### Churn Rate Part 1: `Cancellation Confirmation`
+
+We will utilize the `Cancellation Confirmation` event to define our churn rate.
 
 
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-# Find all users that have downgraded their service
+# Find all users that have confirmed to cancel the service
+user_log_valid.filter("page = 'Cancellation Confirmation'").show(5)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+---------+---------+------+-------------+--------+------+-----+--------------------+------+--------------------+-------------+---------+----+------+-------------+--------------------+------+----+
+|artist|     auth|firstName|gender|itemInSession|lastName|length|level|            location|method|                page| registration|sessionId|song|status|           ts|           userAgent|userId|hour|
++------+---------+---------+------+-------------+--------+------+-----+--------------------+------+--------------------+-------------+---------+----+------+-------------+--------------------+------+----+
+|  null|Cancelled|   Adriel|     M|          104| Mendoza|  null| paid|  Kansas City, MO-KS|   GET|Cancellation Conf...|1535623466000|      514|null|   200|1538943990000|"Mozilla/5.0 (Mac...|    18|   4|
+|  null|Cancelled|    Diego|     M|           56|   Mckee|  null| paid|Phoenix-Mesa-Scot...|   GET|Cancellation Conf...|1537167593000|      540|null|   200|1539033046000|"Mozilla/5.0 (iPh...|    32|   5|
+|  null|Cancelled|    Mason|     M|           10|    Hart|  null| free|  Corpus Christi, TX|   GET|Cancellation Conf...|1533157139000|      174|null|   200|1539318918000|"Mozilla/5.0 (Mac...|   125|  12|
+|  null|Cancelled|Alexander|     M|          332|  Garcia|  null| paid|Indianapolis-Carm...|   GET|Cancellation Conf...|1536817381000|      508|null|   200|1539375441000|Mozilla/5.0 (Wind...|   105|   4|
+|  null|Cancelled|    Kayla|     F|          273| Johnson|  null| paid|Philadelphia-Camd...|   GET|Cancellation Conf...|1538333829000|      797|null|   200|1539465584000|Mozilla/5.0 (Wind...|    17|   5|
++------+---------+---------+------+-------------+--------+------+-----+--------------------+------+--------------------+-------------+---------+----+------+-------------+--------------------+------+----+
+only showing top 5 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+How many users have cancelled the service?
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Number of users that have cancelled the service
+user_log_valid \
+    .filter("page = 'Cancellation Confirmation'") \
+    .select("userId") \
+    .dropDuplicates() \
+    .count()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+52
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+Let's take a look at Adriel's activity using Spark Dataframes to understand why he cancelled the service.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+adriel_log = user_log_valid.select([
+        "userId", 
+        "sessionId",
+        "firstName", 
+        "page", 
+        "level", 
+        "hour"]) \
+    .where(user_log_valid.userId == "18") \
+    .withColumn("row_num", 
+                row_number().over(Window.partitionBy("userId").orderBy("userId"))) \
+    .withColumn("prev_hour",
+                lag(user_log_valid.hour.cast("float"), count=1).over(Window.partitionBy("userId").orderBy("row_num"))) \
+    .fillna(1.0) \
+    .withColumn("change_hour_row_num", (col("hour") != col("prev_hour")).cast("float") * col("row_num")) \
+    .filter(col("change_hour_row_num") != 0.0) \
+    .withColumn("change_hour_row_num_prev",
+                lag(col("change_hour_row_num").cast("float"), count=1).over(Window.partitionBy("userId").orderBy("row_num"))) \
+    .fillna(0.0) \
+    .withColumn("total_songs_per_hour", 
+                lag(col("change_hour_row_num") - col("change_hour_row_num_prev"), count=-1).over(Window.partitionBy("userId").orderBy("row_num"))) \
+    .fillna(1.0) \
+    .drop("prev_hour").drop("change_hour_row_num").drop("change_hour_row_num_prev")
+
+adriel_log.show()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+---------+---------+---------------+-----+----+-------+--------------------+
+|userId|sessionId|firstName|           page|level|hour|row_num|total_songs_per_hour|
++------+---------+---------+---------------+-----+----+-------+--------------------+
+|    18|      242|   Adriel|       NextSong| paid|   2|     19|                19.0|
+|    18|      242|   Adriel|       NextSong| paid|   3|     38|                16.0|
+|    18|      242|   Adriel|       NextSong| paid|   4|     54|                20.0|
+|    18|      242|   Adriel|       NextSong| paid|   5|     74|                18.0|
+|    18|      360|   Adriel|       NextSong| paid|   6|     92|                17.0|
+|    18|      360|   Adriel|       NextSong| paid|   7|    109|                13.0|
+|    18|      363|   Adriel|       NextSong| paid|  14|    122|                 7.0|
+|    18|      363|   Adriel|       NextSong| paid|  15|    129|                15.0|
+|    18|      363|   Adriel|       NextSong| paid|  16|    144|                 8.0|
+|    18|      384|   Adriel|       NextSong| paid|  21|    152|                15.0|
+|    18|      384|   Adriel|       NextSong| paid|  22|    167|                15.0|
+|    18|      384|   Adriel|       NextSong| paid|  23|    182|                18.0|
+|    18|      384|   Adriel|Add to Playlist| paid|   0|    200|                12.0|
+|    18|      384|   Adriel|       NextSong| paid|   1|    212|                20.0|
+|    18|      409|   Adriel|       NextSong| paid|  13|    232|                 8.0|
+|    18|      409|   Adriel|       NextSong| paid|  14|    240|                13.0|
+|    18|      409|   Adriel|       NextSong| paid|  15|    253|                11.0|
+|    18|      409|   Adriel|       NextSong| paid|  16|    264|                19.0|
+|    18|      409|   Adriel|       NextSong| paid|  17|    283|                16.0|
+|    18|      409|   Adriel|       NextSong| paid|  18|    299|                17.0|
++------+---------+---------+---------------+-----+----+-------+--------------------+
+only showing top 20 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Create list of tuples
+# (hour, total songs in that hour)
+total_songs_each_hour = [
+    (int(row["hour"]), int(row["total_songs_per_hour"])) \
+    for row in adriel_log.select("hour", "total_songs_per_hour").collect()]
+
+# Find First hour user started using Sparkify
+# and prepend hours before that hour until 12 midnight
+first_hour_on_sparkify = total_songs_each_hour[0][0]
+
+# Find Last hour user started using Sparkify
+# and append hours after that hour until 12 midnight
+last_hour_on_sparkify = total_songs_each_hour[-1][0]
+
+total_songs_each_hour = [(hour, 0) for hour in list(np.arange(24))[:first_hour_on_sparkify]] \
+                        + total_songs_each_hour \
+                        + [(hour, 0) for hour in list(np.arange(24))[last_hour_on_sparkify+1:]] 
+
+# Insert tuples of (hour, 0)
+# for all the times user was inactive
+# on Sparkify
+hour = 0
+while True:
+    if hour < len(total_songs_each_hour):
+        if hour % 24 != total_songs_each_hour[hour][0]:
+            total_songs_each_hour.insert(hour, (hour % 24, 0))
+        hour += 1
+    else:
+        break
+        
+# Get the user activity from the first hour 
+# they started Sparkify
+hours, total_songs_per_hour = list(zip(*total_songs_each_hour))
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Plot the user activity per day
+n = 24 # Number of hours for each plot
+plt.rcParams['figure.figsize'] = (18, 18)
+fig, axs = plt.subplots(int(np.ceil(len(total_songs_per_hour) / n)), 1)
+
+for idx, ax in enumerate(axs):
+    if (idx+1)*n < len(total_songs_per_hour):
+        ax.plot(np.arange(n), total_songs_per_hour[idx*n:(idx+1)*n])
+        ax.set_xticks(np.arange(n))
+        ax.set_xticklabels(hours[idx*n:(idx+1)*n])
+    else:
+        ax.plot(np.arange(len(total_songs_per_hour[idx*n:])), total_songs_per_hour[idx*n:])
+        ax.set_xticks(np.arange(len(total_songs_per_hour[idx*n:])))
+        ax.set_xticklabels(hours[idx*n:])
+    ax.grid()
+    ax.set_xlabel("Hours in Day {}".format(idx+1))
+    ax.set_ylim(0, np.max(total_songs_per_hour))
+    ax.set_ylabel("Total Songs Played")
+    
+plt.tight_layout()
+plt.show();
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_35_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+Let's create a column `Churn` using Spark SQL (Both Spark SQL and Spark Data Frames use the Spark SQL Catalyst Optimizer to optimize queries) to use as the label for your model
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Create temporary SQL Table
+user_log_valid.createOrReplaceTempView("log_table")
+
+# Let's get all the users that have cancelled 
+# the service and add a boolean column with 1 
+# if they churned eventually and 0 if they did not
+user_churn_df = spark.sql(
+'''
+SELECT distinct_users.userId, 
+CASE 
+    WHEN CAST(churned_users.userId AS INT) IS NULL THEN 0
+    ELSE 1
+END AS churned
+FROM (
+    SELECT DISTINCT log_table.userId
+    FROM log_table
+    ORDER BY CAST(log_table.userId AS INT)
+) AS distinct_users
+FULL OUTER JOIN (
+    SELECT log_table.userId
+    FROM log_table
+    WHERE page = 'Cancellation Confirmation'
+    ORDER BY CAST(log_table.userId AS INT)
+) AS churned_users
+ON distinct_users.userId = churned_users.userId
+ORDER BY CAST(distinct_users.userId AS INT)
+'''
+)
+
+user_churn_df.show(5)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+
+|userId|churned|
++------+-------+
+|     2|      0|
+|     3|      1|
+|     4|      0|
+|     5|      0|
+|     6|      0|
++------+-------+
+only showing top 5 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+### Churn Rate Part 2: `Submit Downgrade`
+
+We will utilize the `Submit Downgrade` event to define our churn rate.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Find all users that have downgraded their service from paid tier to free
 user_log_valid.filter("page = 'Submit Downgrade'").show(5)
 
 ```
@@ -674,6 +1006,39 @@ user_log_valid.filter("page = 'Submit Downgrade'").show(5)
 only showing top 5 rows
 
 ```
+</div>
+</div>
+</div>
+
+
+
+How many users have downgraded their plan?
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Number of users that have downgraded the service
+user_log_valid \
+    .filter("page = 'Submit Downgrade'") \
+    .select("userId") \
+    .dropDuplicates() \
+    .count()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+49
+```
+
+
 </div>
 </div>
 </div>
@@ -828,7 +1193,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_30_0.png)
+![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_45_0.png)
 
 </div>
 </div>
@@ -840,18 +1205,6 @@ As seen from these patterns, Kael started listening to Sparkify songs generally 
 
 
 
-# Exploratory Data Analysis
-When you're working with the full dataset, perform EDA by loading a small subset of the data and doing basic manipulations within Spark. In this workspace, you are already provided a small subset of data you can explore.
-
-### Define Churn
-
-Once you've done some preliminary analysis, create a column `Churn` to use as the label for your model. I suggest using the `Cancellation Confirmation` events to define your churn, which happen for both paid and free users. As a bonus task, you can also look into the `Downgrade` events.
-
-### Explore Data
-Once you've defined churn, perform some exploratory data analysis to observe the behavior for users who stayed vs users who churned. You can start by exploring aggregates on these two groups of users, observing how much of a specific action they experienced per a certain time unit or number of songs played.
-
-
-
 # Feature Engineering
 Once you've familiarized yourself with the data, build out the features you find promising to train your model on. To work with the full dataset, you can follow the following steps.
 - Write a script to extract the necessary features from the smaller subset of data
@@ -859,6 +1212,334 @@ Once you've familiarized yourself with the data, build out the features you find
 - Try your script on the full data set, debugging your script if necessary
 
 If you are working in the classroom workspace, you can just extract features based on the small subset of data contained here. Be sure to transfer over this work to the larger dataset when you work on your Spark cluster.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Let's define the list of churn labels we have
+# as our data and sequentially add features to it
+user_churn_df.createOrReplaceTempView("data")
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Let's take a look at some of the 
+# pages we have avaialble
+spark.sql(
+    '''
+    SELECT DISTINCT log_table.page
+    FROM log_table
+    '''
+).show()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++--------------------+
+|                page|
++--------------------+
+|              Cancel|
+|    Submit Downgrade|
+|         Thumbs Down|
+|                Home|
+|           Downgrade|
+|         Roll Advert|
+|              Logout|
+|       Save Settings|
+|Cancellation Conf...|
+|               About|
+|            Settings|
+|     Add to Playlist|
+|          Add Friend|
+|            NextSong|
+|           Thumbs Up|
+|                Help|
+|             Upgrade|
+|               Error|
+|      Submit Upgrade|
++--------------------+
+
+```
+</div>
+</div>
+</div>
+
+
+
+## Feature 1a: Average Number of Thumbs Down / Day
+
+A user that frequently thumbs down songs is more likely to churn.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+spark.sql(
+    '''
+    WITH t4 AS (
+        WITH t2 AS (
+            WITH t1 AS (
+                SELECT 
+                    CAST(log_table.userId AS INT) AS userId, 
+                    DATE(TIMESTAMP(log_table.ts)) AS date,
+                    COUNT(*) AS count
+                FROM log_table
+                WHERE log_table.page = 'Thumbs Down'
+                GROUP BY 1, 2
+                ORDER BY 1, 2
+            )
+            SELECT 
+                t1.userId,
+                AVG(t1.count) AS avg_thumbs_down_per_day
+            FROM t1
+            GROUP BY 1
+            ORDER BY 1
+        )
+        SELECT 
+            t3.userId,
+            t2.avg_thumbs_down_per_day
+        FROM t2
+        FULL OUTER JOIN (
+            SELECT DISTINCT CAST(log_table.userId AS INT) AS userId
+            FROM log_table
+            ORDER BY 1
+        ) AS t3
+        ON t2.userId = t3.userId
+        ORDER BY 1
+    )
+    SELECT 
+        t4.userId,
+        CASE 
+            WHEN t4.avg_thumbs_down_per_day IS NULL THEN 0
+            ELSE t4.avg_thumbs_down_per_day
+        END AS avg_thumbs_down_per_day
+    FROM t4
+    '''
+).show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----------------------+
+|userId|avg_thumbs_down_per_day|
++------+-----------------------+
+|     2|                    1.0|
+|     3|                    1.0|
+|     4|                    1.0|
+|     5|                    0.0|
+|     6|                    1.0|
++------+-----------------------+
+only showing top 5 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+## Feature 1b: Total Number of Thumbs Down
+
+A user that frequently thumbs down songs is more likely to churn.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+spark.sql(
+    '''
+    SELECT CAST(log_table.userId AS INT), COUNT(*) AS total_thumbs_down
+    FROM log_table
+    WHERE log_table.page = 'Thumbs Down'
+    GROUP BY CAST(log_table.userId AS INT)
+    ORDER BY CAST(log_table.userId AS INT)
+    '''
+).show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----------------+
+|userId|total_thumbs_down|
++------+-----------------+
+|     2|                6|
+|     3|                3|
+|     4|               26|
+|     6|               31|
+|     7|                1|
++------+-----------------+
+only showing top 5 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+## Feature 2a: Average Number of Thumbs Up / Day
+
+This is not exactly correlated with `Average Number of Thumbs Down / Day` as some users might prefer to give positive responses rather than negative.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+spark.sql(
+    '''
+    WITH t4 AS (
+        WITH t2 AS (
+            WITH t1 AS (
+                SELECT 
+                    CAST(log_table.userId AS INT) AS userId, 
+                    DATE(TIMESTAMP(log_table.ts)) AS date,
+                    COUNT(*) AS count
+                FROM log_table
+                WHERE log_table.page = 'Thumbs Up'
+                GROUP BY 1, 2
+                ORDER BY 1, 2
+            )
+            SELECT 
+                t1.userId,
+                AVG(t1.count) AS avg_thumbs_up_per_day
+            FROM t1
+            GROUP BY 1
+            ORDER BY 1
+        )
+        SELECT 
+            t3.userId,
+            t2.avg_thumbs_up_per_day
+        FROM t2
+        FULL OUTER JOIN (
+            SELECT DISTINCT CAST(log_table.userId AS INT) AS userId
+            FROM log_table
+            ORDER BY 1
+        ) AS t3
+        ON t2.userId = t3.userId
+        ORDER BY 1
+    )
+    SELECT 
+        t4.userId,
+        CASE 
+            WHEN t4.avg_thumbs_up_per_day IS NULL THEN 0
+            ELSE t4.avg_thumbs_up_per_day
+        END AS avg_thumbs_up_per_day
+    FROM t4
+    '''
+).show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+---------------------+
+|userId|avg_thumbs_up_per_day|
++------+---------------------+
+|     2|                  1.0|
+|     3|                  1.0|
+|     4|                  1.0|
+|     5|                  1.0|
+|     6|                  1.0|
+|     7|                  1.0|
+|     8|   1.0666666666666667|
+|     9|                  1.0|
+|    10|                  1.0|
+|    11|                  1.0|
++------+---------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+## Feature 2b: Total Number of Thumbs Up
+
+This is not exactly correlated with `Total Number of Thumbs Down` as some users might prefer to give positive responses rather than negative.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+spark.sql(
+    '''
+    SELECT CAST(log_table.userId AS INT), COUNT(*) AS total_thumbs_down
+    FROM log_table
+    WHERE log_table.page = 'Thumbs Up'
+    GROUP BY CAST(log_table.userId AS INT)
+    ORDER BY CAST(log_table.userId AS INT)
+    '''
+).show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----------------+
+|userId|total_thumbs_down|
++------+-----------------+
+|     2|               29|
+|     3|               14|
+|     4|               95|
+|     5|               11|
+|     6|              165|
+|     7|                7|
+|     8|               16|
+|     9|              118|
+|    10|               37|
+|    11|               40|
++------+-----------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+## Feature 3: Total Number of Add Friend
+
+Users that interact more with their friends on the platform might be more likely to stay on the platform.
+
+
+
+## Feature 4: Total Number of Add Friend
+
+Users that interact more with their friends on the platform might be more likely to stay on the platform.
 
 
 
