@@ -933,18 +933,18 @@ CASE
     ELSE 1
 END AS churned
 FROM (
-    SELECT DISTINCT log_table.userId
+    SELECT DISTINCT CAST(log_table.userId AS INT)
     FROM log_table
-    ORDER BY CAST(log_table.userId AS INT)
+    ORDER BY 1
 ) AS distinct_users
 FULL OUTER JOIN (
-    SELECT log_table.userId
+    SELECT CAST(log_table.userId AS INT)
     FROM log_table
     WHERE page = 'Cancellation Confirmation'
-    ORDER BY CAST(log_table.userId AS INT)
+    ORDER BY 1
 ) AS churned_users
 ON distinct_users.userId = churned_users.userId
-ORDER BY CAST(distinct_users.userId AS INT)
+ORDER BY 1
 '''
 )
 
@@ -1279,7 +1279,33 @@ spark.sql(
 
 
 
-## Feature 1a: Average Number of Thumbs Down / Day
+## 1. Measures of User Familiarity and Experience on Sparkify
+
+
+
+### Feature 1a: Number of Days Online
+
+A user that accesses the application frequently is less likely to churn than one who uses it infrequently
+
+
+
+### Feature 1b: Total Days since Joining
+
+A long-time user might be less likely to churn than someone who just joined the application
+
+
+
+### Feature 1c: Percentage of Days Online out of Total Days since Joining
+
+
+
+
+
+## 2. Measures of User Satisfaction with Songs supported on Sparkify
+
+
+
+### Feature 2a: Average Number of Thumbs Down / Day
 
 A user that frequently thumbs down songs is more likely to churn.
 
@@ -1288,48 +1314,33 @@ A user that frequently thumbs down songs is more likely to churn.
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-spark.sql(
+avg_thumbs_down_per_day = spark.sql(
     '''
-    WITH t4 AS (
-        WITH t2 AS (
-            WITH t1 AS (
-                SELECT 
-                    CAST(log_table.userId AS INT) AS userId, 
-                    DATE(TIMESTAMP(log_table.ts)) AS date,
-                    COUNT(*) AS count
-                FROM log_table
-                WHERE log_table.page = 'Thumbs Down'
-                GROUP BY 1, 2
-                ORDER BY 1, 2
-            )
-            SELECT 
-                t1.userId,
-                AVG(t1.count) AS avg_thumbs_down_per_day
-            FROM t1
-            GROUP BY 1
-            ORDER BY 1
-        )
+    WITH t1 AS (
         SELECT 
-            t3.userId,
-            t2.avg_thumbs_down_per_day
-        FROM t2
-        FULL OUTER JOIN (
-            SELECT DISTINCT CAST(log_table.userId AS INT) AS userId
-            FROM log_table
-            ORDER BY 1
-        ) AS t3
-        ON t2.userId = t3.userId
-        ORDER BY 1
+            CAST(log_table.userId AS INT) AS userId, 
+            DATE(TIMESTAMP(log_table.ts)) AS date,
+            COUNT(*) AS count
+        FROM log_table
+        WHERE log_table.page = 'Thumbs Down'
+        GROUP BY 1, 2
+        ORDER BY 1, 2
+    ),
+    t2 AS (
+        SELECT 
+            log_table.userId,
+            COUNT()
     )
     SELECT 
-        t4.userId,
-        CASE 
-            WHEN t4.avg_thumbs_down_per_day IS NULL THEN 0
-            ELSE t4.avg_thumbs_down_per_day
-        END AS avg_thumbs_down_per_day
-    FROM t4
+        t1.userId,
+        AVG(t1.count) AS avg_thumbs_down_per_day
+    FROM t1
+    GROUP BY 1
+    ORDER BY 1
     '''
-).show(10)
+)
+
+avg_thumbs_down_per_day.show(10)
 
 ```
 </div>
@@ -1344,10 +1355,15 @@ spark.sql(
 |     2|                    1.0|
 |     3|                    1.0|
 |     4|                    1.0|
-|     5|                    0.0|
 |     6|                    1.0|
+|     7|                    1.0|
+|     8|                    1.0|
+|     9|                    1.0|
+|    10|                    1.0|
+|    11|                    1.0|
+|    12|                    1.0|
 +------+-----------------------+
-only showing top 5 rows
+only showing top 10 rows
 
 ```
 </div>
@@ -1356,24 +1372,19 @@ only showing top 5 rows
 
 
 
-## Feature 1b: Total Number of Thumbs Down
-
-A user that frequently thumbs down songs is more likely to churn.
-
-
-
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-spark.sql(
-    '''
-    SELECT CAST(log_table.userId AS INT), COUNT(*) AS total_thumbs_down
-    FROM log_table
-    WHERE log_table.page = 'Thumbs Down'
-    GROUP BY CAST(log_table.userId AS INT)
-    ORDER BY CAST(log_table.userId AS INT)
-    '''
-).show(10)
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    avg_thumbs_down_per_day, 
+    on=user_churn_df.userId == avg_thumbs_down_per_day.userId, 
+    how='left_outer') \
+    .drop(col('t1.userId')) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
 
 ```
 </div>
@@ -1382,16 +1393,21 @@ spark.sql(
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-----------------+
-|userId|total_thumbs_down|
-+------+-----------------+
-|     2|                6|
-|     3|                3|
-|     4|               26|
-|     6|               31|
-|     7|                1|
-+------+-----------------+
-only showing top 5 rows
++------+-------+-----------------------+
+|userId|churned|avg_thumbs_down_per_day|
++------+-------+-----------------------+
+|     2|      0|                    1.0|
+|     3|      1|                    1.0|
+|     4|      0|                    1.0|
+|     5|      0|                    0.0|
+|     6|      0|                    1.0|
+|     7|      0|                    1.0|
+|     8|      0|                    1.0|
+|     9|      0|                    1.0|
+|    10|      0|                    1.0|
+|    11|      0|                    1.0|
++------+-------+-----------------------+
+only showing top 10 rows
 
 ```
 </div>
@@ -1400,7 +1416,104 @@ only showing top 5 rows
 
 
 
-## Feature 2a: Average Number of Thumbs Up / Day
+### Feature 2b: Total Number of Thumbs Down
+
+A user that frequently thumbs down songs is more likely to churn.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+total_thumbs_down = spark.sql(
+    '''
+    SELECT 
+        CAST(log_table.userId AS INT) AS total_thumbs_down_userId, 
+        COUNT(*) AS total_thumbs_down
+    FROM log_table
+    WHERE log_table.page = 'Thumbs Down'
+    GROUP BY CAST(log_table.userId AS INT)
+    ORDER BY CAST(log_table.userId AS INT)
+    '''
+)
+
+total_thumbs_down.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------------------------+-----------------+
+|total_thumbs_down_userId|total_thumbs_down|
++------------------------+-----------------+
+|                       2|                6|
+|                       3|                3|
+|                       4|               26|
+|                       6|               31|
+|                       7|                1|
+|                       8|                3|
+|                       9|               32|
+|                      10|                4|
+|                      11|                9|
+|                      12|                9|
++------------------------+-----------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    total_thumbs_down, 
+    on=user_churn_df.userId == total_thumbs_down.total_thumbs_down_userId, 
+    how='left_outer') \
+    .drop(col('total_thumbs_down_userId')) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+-----------------------+-----------------+
+|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|
++------+-------+-----------------------+-----------------+
+|     2|      0|                    1.0|                6|
+|     3|      1|                    1.0|                3|
+|     4|      0|                    1.0|               26|
+|     5|      0|                    0.0|                0|
+|     6|      0|                    1.0|               31|
+|     7|      0|                    1.0|                1|
+|     8|      0|                    1.0|                3|
+|     9|      0|                    1.0|               32|
+|    10|      0|                    1.0|                4|
+|    11|      0|                    1.0|                9|
++------+-------+-----------------------+-----------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+### Feature 2c: Average Number of Thumbs Up / Day
 
 This is not exactly correlated with `Average Number of Thumbs Down / Day` as some users might prefer to give positive responses rather than negative.
 
@@ -1409,48 +1522,28 @@ This is not exactly correlated with `Average Number of Thumbs Down / Day` as som
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-spark.sql(
+avg_thumbs_up_per_day = spark.sql(
     '''
-    WITH t4 AS (
-        WITH t2 AS (
-            WITH t1 AS (
-                SELECT 
-                    CAST(log_table.userId AS INT) AS userId, 
-                    DATE(TIMESTAMP(log_table.ts)) AS date,
-                    COUNT(*) AS count
-                FROM log_table
-                WHERE log_table.page = 'Thumbs Up'
-                GROUP BY 1, 2
-                ORDER BY 1, 2
-            )
-            SELECT 
-                t1.userId,
-                AVG(t1.count) AS avg_thumbs_up_per_day
-            FROM t1
-            GROUP BY 1
-            ORDER BY 1
-        )
+    WITH t1 AS (
         SELECT 
-            t3.userId,
-            t2.avg_thumbs_up_per_day
-        FROM t2
-        FULL OUTER JOIN (
-            SELECT DISTINCT CAST(log_table.userId AS INT) AS userId
-            FROM log_table
-            ORDER BY 1
-        ) AS t3
-        ON t2.userId = t3.userId
-        ORDER BY 1
+            CAST(log_table.userId AS INT) AS userId, 
+            DATE(TIMESTAMP(log_table.ts)) AS date,
+            COUNT(*) AS count
+        FROM log_table
+        WHERE log_table.page = 'Thumbs Up'
+        GROUP BY 1, 2
+        ORDER BY 1, 2
     )
     SELECT 
-        t4.userId,
-        CASE 
-            WHEN t4.avg_thumbs_up_per_day IS NULL THEN 0
-            ELSE t4.avg_thumbs_up_per_day
-        END AS avg_thumbs_up_per_day
-    FROM t4
+        t1.userId,
+        AVG(t1.count) AS avg_thumbs_up_per_day
+    FROM t1
+    GROUP BY 1
+    ORDER BY 1
     '''
-).show(10)
+)
+
+avg_thumbs_up_per_day.show(10)
 
 ```
 </div>
@@ -1482,24 +1575,19 @@ only showing top 10 rows
 
 
 
-## Feature 2b: Total Number of Thumbs Up
-
-This is not exactly correlated with `Total Number of Thumbs Down` as some users might prefer to give positive responses rather than negative.
-
-
-
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-spark.sql(
-    '''
-    SELECT CAST(log_table.userId AS INT), COUNT(*) AS total_thumbs_down
-    FROM log_table
-    WHERE log_table.page = 'Thumbs Up'
-    GROUP BY CAST(log_table.userId AS INT)
-    ORDER BY CAST(log_table.userId AS INT)
-    '''
-).show(10)
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    avg_thumbs_up_per_day, 
+    on=user_churn_df.userId == avg_thumbs_up_per_day.userId, 
+    how='left_outer') \
+    .drop(col('t1.userId')) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
 
 ```
 </div>
@@ -1508,20 +1596,20 @@ spark.sql(
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-----------------+
-|userId|total_thumbs_down|
-+------+-----------------+
-|     2|               29|
-|     3|               14|
-|     4|               95|
-|     5|               11|
-|     6|              165|
-|     7|                7|
-|     8|               16|
-|     9|              118|
-|    10|               37|
-|    11|               40|
-+------+-----------------+
++------+-------+-----------------------+-----------------+---------------------+
+|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|
++------+-------+-----------------------+-----------------+---------------------+
+|     2|      0|                    1.0|                6|                  1.0|
+|     3|      1|                    1.0|                3|                  1.0|
+|     4|      0|                    1.0|               26|                  1.0|
+|     5|      0|                    0.0|                0|                  1.0|
+|     6|      0|                    1.0|               31|                  1.0|
+|     7|      0|                    1.0|                1|                  1.0|
+|     8|      0|                    1.0|                3|   1.0666666666666667|
+|     9|      0|                    1.0|               32|                  1.0|
+|    10|      0|                    1.0|                4|                  1.0|
+|    11|      0|                    1.0|                9|                  1.0|
++------+-------+-----------------------+-----------------+---------------------+
 only showing top 10 rows
 
 ```
@@ -1531,15 +1619,306 @@ only showing top 10 rows
 
 
 
-## Feature 3: Total Number of Add Friend
+### Feature 2d: Total Number of Thumbs Up
+
+This is not exactly correlated with `Total Number of Thumbs Down` as some users might prefer to give positive responses rather than negative.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+total_thumbs_up = spark.sql(
+    '''
+    SELECT 
+        CAST(log_table.userId AS INT) AS total_thumbs_up_userId, 
+        COUNT(*) AS total_thumbs_up
+    FROM log_table
+    WHERE log_table.page = 'Thumbs Up'
+    GROUP BY CAST(log_table.userId AS INT)
+    ORDER BY CAST(log_table.userId AS INT)
+    '''
+)
+
+total_thumbs_up.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++----------------------+---------------+
+|total_thumbs_up_userId|total_thumbs_up|
++----------------------+---------------+
+|                     2|             29|
+|                     3|             14|
+|                     4|             95|
+|                     5|             11|
+|                     6|            165|
+|                     7|              7|
+|                     8|             16|
+|                     9|            118|
+|                    10|             37|
+|                    11|             40|
++----------------------+---------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    total_thumbs_up, 
+    on=user_churn_df.userId == total_thumbs_up.total_thumbs_up_userId, 
+    how='left_outer') \
+    .drop(col('total_thumbs_up_userId')) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+-----------------------+-----------------+---------------------+---------------+
+|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|
++------+-------+-----------------------+-----------------+---------------------+---------------+
+|     2|      0|                    1.0|                6|                  1.0|             29|
+|     3|      1|                    1.0|                3|                  1.0|             14|
+|     4|      0|                    1.0|               26|                  1.0|             95|
+|     5|      0|                    0.0|                0|                  1.0|             11|
+|     6|      0|                    1.0|               31|                  1.0|            165|
+|     7|      0|                    1.0|                1|                  1.0|              7|
+|     8|      0|                    1.0|                3|   1.0666666666666667|             16|
+|     9|      0|                    1.0|               32|                  1.0|            118|
+|    10|      0|                    1.0|                4|                  1.0|             37|
+|    11|      0|                    1.0|                9|                  1.0|             40|
++------+-------+-----------------------+-----------------+---------------------+---------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+### Feature 2e: Total Number of Add to Playlist
+
+Users that curate their own playlists might be more likely to stay on Sparkify
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+total_add_to_playlist = spark.sql(
+    '''
+    SELECT CAST(log_table.userId AS INT) AS total_add_to_playlist_userId, COUNT(*) AS total_add_to_playlist
+    FROM log_table
+    WHERE log_table.page = 'Add to Playlist'
+    GROUP BY CAST(log_table.userId AS INT)
+    ORDER BY CAST(log_table.userId AS INT)
+    '''
+)
+
+total_add_to_playlist.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++----------------------------+---------------------+
+|total_add_to_playlist_userId|total_add_to_playlist|
++----------------------------+---------------------+
+|                           2|                   13|
+|                           3|                    4|
+|                           4|                   59|
+|                           5|                    8|
+|                           6|                   83|
+|                           7|                    5|
+|                           8|                    6|
+|                           9|                   77|
+|                          10|                    9|
+|                          11|                   20|
++----------------------------+---------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    total_add_to_playlist, 
+    on=user_churn_df.userId == total_add_to_playlist.total_add_to_playlist_userId, 
+    how='left_outer') \
+    .drop(col('total_add_to_playlist_userId')) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+-----------------------+-----------------+---------------------+---------------+----------------+---------------------+
+|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_friend|total_add_to_playlist|
++------+-------+-----------------------+-----------------+---------------------+---------------+----------------+---------------------+
+|     2|      0|                    1.0|                6|                  1.0|             29|              20|                   13|
+|     3|      1|                    1.0|                3|                  1.0|             14|               1|                    4|
+|     4|      0|                    1.0|               26|                  1.0|             95|              46|                   59|
+|     5|      0|                    0.0|                0|                  1.0|             11|               3|                    8|
+|     6|      0|                    1.0|               31|                  1.0|            165|              41|                   83|
+|     7|      0|                    1.0|                1|                  1.0|              7|               1|                    5|
+|     8|      0|                    1.0|                3|   1.0666666666666667|             16|               5|                    6|
+|     9|      0|                    1.0|               32|                  1.0|            118|              40|                   77|
+|    10|      0|                    1.0|                4|                  1.0|             37|              12|                    9|
+|    11|      0|                    1.0|                9|                  1.0|             40|               6|                   20|
++------+-------+-----------------------+-----------------+---------------------+---------------+----------------+---------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+### Feature 2f: Average Songs Played / Hour
+
+
+
+### Feature 2g: Average Songs Played / Day
+
+
+
+### Feature 2h: Total Songs Played
+
+
+
+## 3. Measure of User Satisfaction with Social Aspect of Application
+
+
+
+### Feature 3: Total Number of Add Friend
 
 Users that interact more with their friends on the platform might be more likely to stay on the platform.
 
 
 
-## Feature 4: Total Number of Add Friend
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+total_add_friend = spark.sql(
+    '''
+    SELECT CAST(log_table.userId AS INT) AS total_add_friend_userId, COUNT(*) AS total_add_friend
+    FROM log_table
+    WHERE log_table.page = 'Add Friend'
+    GROUP BY CAST(log_table.userId AS INT)
+    ORDER BY CAST(log_table.userId AS INT)
+    '''
+)
 
-Users that interact more with their friends on the platform might be more likely to stay on the platform.
+total_add_friend.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++-----------------------+----------------+
+|total_add_friend_userId|total_add_friend|
++-----------------------+----------------+
+|                      2|              20|
+|                      3|               1|
+|                      4|              46|
+|                      5|               3|
+|                      6|              41|
+|                      7|               1|
+|                      8|               5|
+|                      9|              40|
+|                     10|              12|
+|                     11|               6|
++-----------------------+----------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    total_add_friend, 
+    on=user_churn_df.userId == total_add_friend.total_add_friend_userId, 
+    how='left_outer') \
+    .drop(col('total_add_friend_userId')) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+-----------------------+-----------------+---------------------+---------------+----------------+
+|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_friend|
++------+-------+-----------------------+-----------------+---------------------+---------------+----------------+
+|     2|      0|                    1.0|                6|                  1.0|             29|              20|
+|     3|      1|                    1.0|                3|                  1.0|             14|               1|
+|     4|      0|                    1.0|               26|                  1.0|             95|              46|
+|     5|      0|                    0.0|                0|                  1.0|             11|               3|
+|     6|      0|                    1.0|               31|                  1.0|            165|              41|
+|     7|      0|                    1.0|                1|                  1.0|              7|               1|
+|     8|      0|                    1.0|                3|   1.0666666666666667|             16|               5|
+|     9|      0|                    1.0|               32|                  1.0|            118|              40|
+|    10|      0|                    1.0|                4|                  1.0|             37|              12|
+|    11|      0|                    1.0|                9|                  1.0|             40|               6|
++------+-------+-----------------------+-----------------+---------------------+---------------+----------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
 
 
 
