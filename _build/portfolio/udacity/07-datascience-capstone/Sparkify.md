@@ -948,7 +948,7 @@ ORDER BY 1
 '''
 )
 
-user_churn_df.show(5)
+user_churn_df.show(10)
 
 ```
 </div>
@@ -965,8 +965,13 @@ user_churn_df.show(5)
 |     4|      0|
 |     5|      0|
 |     6|      0|
+|     7|      0|
+|     8|      0|
+|     9|      0|
+|    10|      0|
+|    11|      0|
 +------+-------+
-only showing top 5 rows
+only showing top 10 rows
 
 ```
 </div>
@@ -1283,21 +1288,547 @@ spark.sql(
 
 
 
-### Feature 1a: Number of Days Online
+**Feature 1a: Number of Hours Online**
 
 A user that accesses the application frequently is less likely to churn than one who uses it infrequently
 
 
 
-### Feature 1b: Total Days since Joining
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+hours_online = spark.sql(
+    '''
+    WITH t1 AS (
+        SELECT
+            CAST(log_table.userId AS INT),
+            DATE_TRUNC('HOUR', DATE(TIMESTAMP(log_table.ts))) AS hour
+        FROM log_table
+        ORDER BY 1, 2
+    )
+    SELECT 
+        t1.userId,
+        COUNT(t1.hour) AS hours_online
+    FROM t1
+    GROUP BY 1
+    ORDER BY 1
+    '''
+)
+
+hours_online.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+------------+
+|userId|hours_online|
++------+------------+
+|     2|         899|
+|     3|         254|
+|     4|        2442|
+|     5|         218|
+|     6|        3761|
+|     7|         201|
+|     8|         334|
+|     9|        3191|
+|    10|         795|
+|    11|         848|
++------+------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    hours_online, 
+    on=user_churn_df.userId == hours_online.userId, 
+    how='left_outer') \
+    .drop(hours_online.userId) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+------------+
+|userId|churned|hours_online|
++------+-------+------------+
+|     2|      0|         899|
+|     3|      1|         254|
+|     4|      0|        2442|
+|     5|      0|         218|
+|     6|      0|        3761|
+|     7|      0|         201|
+|     8|      0|         334|
+|     9|      0|        3191|
+|    10|      0|         795|
+|    11|      0|         848|
++------+-------+------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+**Feature 1b: Number of Days Online**
+
+A user that accesses the application frequently is less likely to churn than one who uses it infrequently
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+days_online = spark.sql(
+    '''
+    WITH t1 AS (
+        SELECT DISTINCT
+            CAST(log_table.userId AS INT),
+            DATE(TIMESTAMP(log_table.ts)) AS date
+        FROM log_table
+        ORDER BY 1, 2
+    )
+    SELECT 
+        t1.userId,
+        COUNT(*) AS days_online
+    FROM t1
+    GROUP BY 1
+    ORDER BY 1
+    '''
+)
+
+days_online.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----------+
+|userId|days_online|
++------+-----------+
+|     2|        778|
+|     3|        230|
+|     4|       2138|
+|     5|        169|
+|     6|       3331|
+|     7|        168|
+|     8|        261|
+|     9|       2740|
+|    10|        693|
+|    11|        665|
++------+-----------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    days_online, 
+    on=user_churn_df.userId == days_online.userId, 
+    how='left_outer') \
+    .drop(days_online.userId) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+------------+-----------+
+|userId|churned|hours_online|days_online|
++------+-------+------------+-----------+
+|     2|      0|         899|        778|
+|     3|      1|         254|        230|
+|     4|      0|        2442|       2138|
+|     5|      0|         218|        169|
+|     6|      0|        3761|       3331|
+|     7|      0|         201|        168|
+|     8|      0|         334|        261|
+|     9|      0|        3191|       2740|
+|    10|      0|         795|        693|
+|    11|      0|         848|        665|
++------+-------+------------+-----------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+**Feature 1c: (Average Number Interactions / Hours Online) / Day Online**
+
+A user that accesses the application frequently is less likely to churn than one who uses it infrequently
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+avg_num_interactions_per_hour_online_per_day_online = spark.sql(
+    '''
+    WITH t1 AS (
+        SELECT
+            CAST(log_table.userId AS INT),
+            DATE_TRUNC('HOUR', DATE(TIMESTAMP(log_table.ts))) AS hour,
+            COUNT(*) AS num_interactions
+        FROM log_table
+        GROUP BY 1, 2
+        ORDER BY 1, 2
+    )
+    SELECT 
+        t1.userId,
+        AVG(t1.num_interactions) AS avg_num_interactions_per_hour_online_per_day_online
+    FROM t1
+    GROUP BY 1
+    ORDER BY 1
+    '''
+)
+
+avg_num_interactions_per_hour_online_per_day_online.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+---------------------------------------------------+
+|userId|avg_num_interactions_per_hour_online_per_day_online|
++------+---------------------------------------------------+
+|     2|                                 1.1555269922879177|
+|     3|                                 1.1043478260869566|
+|     4|                                 1.1421889616463985|
+|     5|                                 1.2899408284023668|
+|     6|                                  1.129090363254278|
+|     7|                                 1.1964285714285714|
+|     8|                                 1.2796934865900382|
+|     9|                                 1.1645985401459853|
+|    10|                                  1.147186147186147|
+|    11|                                  1.275187969924812|
++------+---------------------------------------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    avg_num_interactions_per_hour_online_per_day_online, 
+    on=user_churn_df.userId == avg_num_interactions_per_hour_online_per_day_online.userId, 
+    how='left_outer') \
+    .drop(avg_num_interactions_per_hour_online_per_day_online.userId) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+------------+-----------+---------------------------------------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|
++------+-------+------------+-----------+---------------------------------------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|
+|     3|      1|         254|        230|                                 1.1043478260869566|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|
+|     5|      0|         218|        169|                                 1.2899408284023668|
+|     6|      0|        3761|       3331|                                  1.129090363254278|
+|     7|      0|         201|        168|                                 1.1964285714285714|
+|     8|      0|         334|        261|                                 1.2796934865900382|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|
+|    10|      0|         795|        693|                                  1.147186147186147|
+|    11|      0|         848|        665|                                  1.275187969924812|
++------+-------+------------+-----------+---------------------------------------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+**Feature 1d: Total Days since Joining**
 
 A long-time user might be less likely to churn than someone who just joined the application
 
 
 
-### Feature 1c: Percentage of Days Online out of Total Days since Joining
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+days_since_joining = spark.sql(
+    '''
+    WITH t2 AS (
+        SELECT 
+            t1.userId,
+            t1.date,
+            ROW_NUMBER() OVER (
+                PARTITION BY t1.userId
+                ORDER BY t1.date ASC
+            ) AS row_num_1,
+            ROW_NUMBER() OVER (
+                PARTITION BY t1.userId
+                ORDER BY t1.date DESC
+            ) AS row_num_2
+        FROM (
+            SELECT DISTINCT
+                CAST(log_table.userId AS INT) AS userId,
+                DATE(TIMESTAMP(log_table.ts)) AS date
+            FROM log_table
+            ORDER BY 1, 2
+        ) AS t1
+        ORDER BY 1, 2
+    ),
+    t3 AS (
+        SELECT
+            t2.userId,
+            t2.date
+        FROM t2
+        WHERE t2.row_num_1 = 1
+    ),
+    t4 AS (
+        SELECT
+            t2.userId,
+            t2.date
+        FROM t2
+        WHERE t2.row_num_2 = 1
+    )
+    SELECT
+        t3.userId,
+        DATEDIFF(t4.date, t3.date) AS days_since_joining
+    FROM t3
+    INNER JOIN t4
+    ON t3.userId = t4.userId
+    ORDER BY 1
+    '''
+)
+
+days_since_joining.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+------------------+
+|userId|days_since_joining|
++------+------------------+
+|     2|             44736|
+|     3|             27119|
+|     4|             60635|
+|     5|             35367|
+|     6|             59317|
+|     7|             50784|
+|     8|             50920|
+|     9|             60595|
+|    10|             42437|
+|    11|             53242|
++------+------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
 
 
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df \
+    .join(
+        days_since_joining, 
+        on=user_churn_df.userId == days_since_joining.userId, 
+        how='left_outer'
+    ) \
+    .drop(days_since_joining.userId) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+------------+-----------+---------------------------------------------------+------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|
++------+-------+------------+-----------+---------------------------------------------------+------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242|
++------+-------+------------+-----------+---------------------------------------------------+------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+**Feature 1e: Percentage of Days Online out of Total Days since Joining**
+
+This will be a "normalized" version of Feature 1b, taking into account how much time the user has been on the application
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+percent_days_online = days_online \
+    .join(
+        days_since_joining, 
+        on=days_online.userId == days_since_joining.userId,
+        how='inner'
+    ) \
+    .drop(days_since_joining.userId) \
+    .withColumn(
+        'percent_days_online', 
+        col('days_online') * 100 / col('days_since_joining')) \
+    .drop('days_online').drop('days_since_joining')
+
+percent_days_online.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------------------+
+|userId|percent_days_online|
++------+-------------------+
+|     2| 1.7390915593705294|
+|     3| 0.8481138685054759|
+|     4| 3.5260163272037603|
+|     5| 0.4778465801453332|
+|     6|  5.615590808705767|
+|     7|0.33081285444234404|
+|     8| 0.5125687352710133|
+|     9|  4.521825233105042|
+|    10| 1.6330089308857836|
+|    11| 1.2490139363660269|
++------+-------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df \
+    .join(
+        percent_days_online, 
+        on=user_churn_df.userId == percent_days_online.userId, 
+        how='left_outer'
+    ) \
+    .drop(percent_days_online.userId) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
 
 
 
@@ -1305,7 +1836,7 @@ A long-time user might be less likely to churn than someone who just joined the 
 
 
 
-### Feature 2a: Average Number of Thumbs Down / Day
+**Feature 2a: Average Number of Thumbs Down / Day Online**
 
 A user that frequently thumbs down songs is more likely to churn.
 
@@ -1380,7 +1911,7 @@ user_churn_df = user_churn_df.join(
     avg_thumbs_down_per_day, 
     on=user_churn_df.userId == avg_thumbs_down_per_day.userId, 
     how='left_outer') \
-    .drop(col('t1.userId')) \
+    .drop(avg_thumbs_down_per_day.userId) \
     .orderBy(col('userId')) \
     .fillna(0.0)
     
@@ -1393,20 +1924,20 @@ user_churn_df.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-------+-----------------------+
-|userId|churned|avg_thumbs_down_per_day|
-+------+-------+-----------------------+
-|     2|      0|                    1.0|
-|     3|      1|                    1.0|
-|     4|      0|                    1.0|
-|     5|      0|                    0.0|
-|     6|      0|                    1.0|
-|     7|      0|                    1.0|
-|     8|      0|                    1.0|
-|     9|      0|                    1.0|
-|    10|      0|                    1.0|
-|    11|      0|                    1.0|
-+------+-------+-----------------------+
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+
 only showing top 10 rows
 
 ```
@@ -1416,7 +1947,7 @@ only showing top 10 rows
 
 
 
-### Feature 2b: Total Number of Thumbs Down
+**Feature 2b: Total Number of Thumbs Down**
 
 A user that frequently thumbs down songs is more likely to churn.
 
@@ -1428,7 +1959,7 @@ A user that frequently thumbs down songs is more likely to churn.
 total_thumbs_down = spark.sql(
     '''
     SELECT 
-        CAST(log_table.userId AS INT) AS total_thumbs_down_userId, 
+        CAST(log_table.userId AS INT) AS userId, 
         COUNT(*) AS total_thumbs_down
     FROM log_table
     WHERE log_table.page = 'Thumbs Down'
@@ -1446,20 +1977,20 @@ total_thumbs_down.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------------------------+-----------------+
-|total_thumbs_down_userId|total_thumbs_down|
-+------------------------+-----------------+
-|                       2|                6|
-|                       3|                3|
-|                       4|               26|
-|                       6|               31|
-|                       7|                1|
-|                       8|                3|
-|                       9|               32|
-|                      10|                4|
-|                      11|                9|
-|                      12|                9|
-+------------------------+-----------------+
++------+-----------------+
+|userId|total_thumbs_down|
++------+-----------------+
+|     2|                6|
+|     3|                3|
+|     4|               26|
+|     6|               31|
+|     7|                1|
+|     8|                3|
+|     9|               32|
+|    10|                4|
+|    11|                9|
+|    12|                9|
++------+-----------------+
 only showing top 10 rows
 
 ```
@@ -1475,9 +2006,9 @@ only showing top 10 rows
 # Combine feature with full dataset
 user_churn_df = user_churn_df.join(
     total_thumbs_down, 
-    on=user_churn_df.userId == total_thumbs_down.total_thumbs_down_userId, 
+    on=user_churn_df.userId == total_thumbs_down.userId, 
     how='left_outer') \
-    .drop(col('total_thumbs_down_userId')) \
+    .drop(total_thumbs_down.userId) \
     .orderBy(col('userId')) \
     .fillna(0.0)
     
@@ -1490,20 +2021,20 @@ user_churn_df.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-------+-----------------------+-----------------+
-|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|
-+------+-------+-----------------------+-----------------+
-|     2|      0|                    1.0|                6|
-|     3|      1|                    1.0|                3|
-|     4|      0|                    1.0|               26|
-|     5|      0|                    0.0|                0|
-|     6|      0|                    1.0|               31|
-|     7|      0|                    1.0|                1|
-|     8|      0|                    1.0|                3|
-|     9|      0|                    1.0|               32|
-|    10|      0|                    1.0|                4|
-|    11|      0|                    1.0|                9|
-+------+-------+-----------------------+-----------------+
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|total_thumbs_down|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|                6|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|                3|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|               26|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|                0|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|               31|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|                1|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|                3|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|               32|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|                4|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|                9|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+
 only showing top 10 rows
 
 ```
@@ -1513,7 +2044,7 @@ only showing top 10 rows
 
 
 
-### Feature 2c: Average Number of Thumbs Up / Day
+**Feature 2c: Average Number of Thumbs Up / Day**
 
 This is not exactly correlated with `Average Number of Thumbs Down / Day` as some users might prefer to give positive responses rather than negative.
 
@@ -1583,7 +2114,7 @@ user_churn_df = user_churn_df.join(
     avg_thumbs_up_per_day, 
     on=user_churn_df.userId == avg_thumbs_up_per_day.userId, 
     how='left_outer') \
-    .drop(col('t1.userId')) \
+    .drop(avg_thumbs_up_per_day.userId) \
     .orderBy(col('userId')) \
     .fillna(0.0)
     
@@ -1596,20 +2127,20 @@ user_churn_df.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-------+-----------------------+-----------------+---------------------+
-|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|
-+------+-------+-----------------------+-----------------+---------------------+
-|     2|      0|                    1.0|                6|                  1.0|
-|     3|      1|                    1.0|                3|                  1.0|
-|     4|      0|                    1.0|               26|                  1.0|
-|     5|      0|                    0.0|                0|                  1.0|
-|     6|      0|                    1.0|               31|                  1.0|
-|     7|      0|                    1.0|                1|                  1.0|
-|     8|      0|                    1.0|                3|   1.0666666666666667|
-|     9|      0|                    1.0|               32|                  1.0|
-|    10|      0|                    1.0|                4|                  1.0|
-|    11|      0|                    1.0|                9|                  1.0|
-+------+-------+-----------------------+-----------------+---------------------+
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|                6|                  1.0|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|                3|                  1.0|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|               26|                  1.0|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|                0|                  1.0|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|               31|                  1.0|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|                1|                  1.0|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|                3|   1.0666666666666667|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|               32|                  1.0|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|                4|                  1.0|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|                9|                  1.0|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+
 only showing top 10 rows
 
 ```
@@ -1619,7 +2150,7 @@ only showing top 10 rows
 
 
 
-### Feature 2d: Total Number of Thumbs Up
+**Feature 2d: Total Number of Thumbs Up**
 
 This is not exactly correlated with `Total Number of Thumbs Down` as some users might prefer to give positive responses rather than negative.
 
@@ -1631,7 +2162,7 @@ This is not exactly correlated with `Total Number of Thumbs Down` as some users 
 total_thumbs_up = spark.sql(
     '''
     SELECT 
-        CAST(log_table.userId AS INT) AS total_thumbs_up_userId, 
+        CAST(log_table.userId AS INT) AS userId, 
         COUNT(*) AS total_thumbs_up
     FROM log_table
     WHERE log_table.page = 'Thumbs Up'
@@ -1649,20 +2180,20 @@ total_thumbs_up.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+----------------------+---------------+
-|total_thumbs_up_userId|total_thumbs_up|
-+----------------------+---------------+
-|                     2|             29|
-|                     3|             14|
-|                     4|             95|
-|                     5|             11|
-|                     6|            165|
-|                     7|              7|
-|                     8|             16|
-|                     9|            118|
-|                    10|             37|
-|                    11|             40|
-+----------------------+---------------+
++------+---------------+
+|userId|total_thumbs_up|
++------+---------------+
+|     2|             29|
+|     3|             14|
+|     4|             95|
+|     5|             11|
+|     6|            165|
+|     7|              7|
+|     8|             16|
+|     9|            118|
+|    10|             37|
+|    11|             40|
++------+---------------+
 only showing top 10 rows
 
 ```
@@ -1678,9 +2209,9 @@ only showing top 10 rows
 # Combine feature with full dataset
 user_churn_df = user_churn_df.join(
     total_thumbs_up, 
-    on=user_churn_df.userId == total_thumbs_up.total_thumbs_up_userId, 
+    on=user_churn_df.userId == total_thumbs_up.userId, 
     how='left_outer') \
-    .drop(col('total_thumbs_up_userId')) \
+    .drop(total_thumbs_up.userId) \
     .orderBy(col('userId')) \
     .fillna(0.0)
     
@@ -1693,20 +2224,20 @@ user_churn_df.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-------+-----------------------+-----------------+---------------------+---------------+
-|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|
-+------+-------+-----------------------+-----------------+---------------------+---------------+
-|     2|      0|                    1.0|                6|                  1.0|             29|
-|     3|      1|                    1.0|                3|                  1.0|             14|
-|     4|      0|                    1.0|               26|                  1.0|             95|
-|     5|      0|                    0.0|                0|                  1.0|             11|
-|     6|      0|                    1.0|               31|                  1.0|            165|
-|     7|      0|                    1.0|                1|                  1.0|              7|
-|     8|      0|                    1.0|                3|   1.0666666666666667|             16|
-|     9|      0|                    1.0|               32|                  1.0|            118|
-|    10|      0|                    1.0|                4|                  1.0|             37|
-|    11|      0|                    1.0|                9|                  1.0|             40|
-+------+-------+-----------------------+-----------------+---------------------+---------------+
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|                6|                  1.0|             29|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|                3|                  1.0|             14|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|               26|                  1.0|             95|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|                0|                  1.0|             11|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|               31|                  1.0|            165|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|                1|                  1.0|              7|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|                3|   1.0666666666666667|             16|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|               32|                  1.0|            118|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|                4|                  1.0|             37|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|                9|                  1.0|             40|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+
 only showing top 10 rows
 
 ```
@@ -1716,7 +2247,7 @@ only showing top 10 rows
 
 
 
-### Feature 2e: Total Number of Add to Playlist
+**Feature 2e: Total Number of Add to Playlist**
 
 Users that curate their own playlists might be more likely to stay on Sparkify
 
@@ -1727,7 +2258,9 @@ Users that curate their own playlists might be more likely to stay on Sparkify
 ```python
 total_add_to_playlist = spark.sql(
     '''
-    SELECT CAST(log_table.userId AS INT) AS total_add_to_playlist_userId, COUNT(*) AS total_add_to_playlist
+    SELECT 
+        CAST(log_table.userId AS INT) AS userId, 
+        COUNT(*) AS total_add_to_playlist
     FROM log_table
     WHERE log_table.page = 'Add to Playlist'
     GROUP BY CAST(log_table.userId AS INT)
@@ -1744,20 +2277,20 @@ total_add_to_playlist.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+----------------------------+---------------------+
-|total_add_to_playlist_userId|total_add_to_playlist|
-+----------------------------+---------------------+
-|                           2|                   13|
-|                           3|                    4|
-|                           4|                   59|
-|                           5|                    8|
-|                           6|                   83|
-|                           7|                    5|
-|                           8|                    6|
-|                           9|                   77|
-|                          10|                    9|
-|                          11|                   20|
-+----------------------------+---------------------+
++------+---------------------+
+|userId|total_add_to_playlist|
++------+---------------------+
+|     2|                   13|
+|     3|                    4|
+|     4|                   59|
+|     5|                    8|
+|     6|                   83|
+|     7|                    5|
+|     8|                    6|
+|     9|                   77|
+|    10|                    9|
+|    11|                   20|
++------+---------------------+
 only showing top 10 rows
 
 ```
@@ -1773,9 +2306,9 @@ only showing top 10 rows
 # Combine feature with full dataset
 user_churn_df = user_churn_df.join(
     total_add_to_playlist, 
-    on=user_churn_df.userId == total_add_to_playlist.total_add_to_playlist_userId, 
+    on=user_churn_df.userId == total_add_to_playlist.userId, 
     how='left_outer') \
-    .drop(col('total_add_to_playlist_userId')) \
+    .drop(total_add_to_playlist.userId) \
     .orderBy(col('userId')) \
     .fillna(0.0)
     
@@ -1788,20 +2321,20 @@ user_churn_df.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-------+-----------------------+-----------------+---------------------+---------------+----------------+---------------------+
-|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_friend|total_add_to_playlist|
-+------+-------+-----------------------+-----------------+---------------------+---------------+----------------+---------------------+
-|     2|      0|                    1.0|                6|                  1.0|             29|              20|                   13|
-|     3|      1|                    1.0|                3|                  1.0|             14|               1|                    4|
-|     4|      0|                    1.0|               26|                  1.0|             95|              46|                   59|
-|     5|      0|                    0.0|                0|                  1.0|             11|               3|                    8|
-|     6|      0|                    1.0|               31|                  1.0|            165|              41|                   83|
-|     7|      0|                    1.0|                1|                  1.0|              7|               1|                    5|
-|     8|      0|                    1.0|                3|   1.0666666666666667|             16|               5|                    6|
-|     9|      0|                    1.0|               32|                  1.0|            118|              40|                   77|
-|    10|      0|                    1.0|                4|                  1.0|             37|              12|                    9|
-|    11|      0|                    1.0|                9|                  1.0|             40|               6|                   20|
-+------+-------+-----------------------+-----------------+---------------------+---------------+----------------+---------------------+
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_to_playlist|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|                6|                  1.0|             29|                   13|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|                3|                  1.0|             14|                    4|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|               26|                  1.0|             95|                   59|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|                0|                  1.0|             11|                    8|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|               31|                  1.0|            165|                   83|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|                1|                  1.0|              7|                    5|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|                3|   1.0666666666666667|             16|                    6|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|               32|                  1.0|            118|                   77|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|                4|                  1.0|             37|                    9|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|                9|                  1.0|             40|                   20|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+
 only showing top 10 rows
 
 ```
@@ -1811,15 +2344,44 @@ only showing top 10 rows
 
 
 
-### Feature 2f: Average Songs Played / Hour
+**Feature 2f: Average Songs Played / Hour Online**
 
 
 
-### Feature 2g: Average Songs Played / Day
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+avg_songs_per_hour_online = spark.sql(
+    '''
+    WITH t1 AS (
+        SELECT 
+            log_table.userId,
+            DATE_TRUNC('HOUR', DATE(TIMESTAMP(log_table.ts))) AS hour,
+            COUNT(*) AS count
+        FROM log_table
+        GROUP BY 1, 2
+        ORDER BY 1, 2
+    )
+    SELECT *
+    FROM t1
+    WHERE t1.count > 1
+    '''
+)
+
+avg_songs_per_hour_online.show()
+
+```
+</div>
+
+</div>
 
 
 
-### Feature 2h: Total Songs Played
+**Feature 2g: Average Songs Played / Day**
+
+
+
+**Feature 2h: Total Songs Played**
 
 
 
@@ -1827,7 +2389,7 @@ only showing top 10 rows
 
 
 
-### Feature 3: Total Number of Add Friend
+**Feature 3: Total Number of Add Friend**
 
 Users that interact more with their friends on the platform might be more likely to stay on the platform.
 
