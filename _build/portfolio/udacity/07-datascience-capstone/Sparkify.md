@@ -2344,44 +2344,202 @@ only showing top 10 rows
 
 
 
-**Feature 2f: Average Songs Played / Hour Online**
+**Feature 2f: Average Songs Played / Day Online**
 
 
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-avg_songs_per_hour_online = spark.sql(
+avg_songs_per_day_online = spark.sql(
     '''
     WITH t1 AS (
-        SELECT 
-            log_table.userId,
-            DATE_TRUNC('HOUR', DATE(TIMESTAMP(log_table.ts))) AS hour,
-            COUNT(*) AS count
+        SELECT
+            CAST(log_table.userId AS INT) AS userId,
+            DATE_TRUNC('DD', TIMESTAMP(log_table.ts)) AS date,
+            COUNT(*) AS next_songs_per_day_online
         FROM log_table
+        WHERE log_table.page = 'NextSong'
         GROUP BY 1, 2
         ORDER BY 1, 2
     )
-    SELECT *
+    SELECT
+        t1.userId,
+        AVG(t1.next_songs_per_day_online) AS avg_songs_per_day_online
     FROM t1
-    WHERE t1.count > 1
+    GROUP BY 1
+    ORDER BY 1
     '''
 )
 
-avg_songs_per_hour_online.show()
+avg_songs_per_day_online.show(10)
 
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+------------------------+
+|userId|avg_songs_per_day_online|
++------+------------------------+
+|     2|        1.00265604249668|
+|     3|                     1.0|
+|     4|      1.0014669926650366|
+|     5|                     1.0|
+|     6|       1.002538876547128|
+|     7|      1.0067114093959733|
+|     8|                   1.004|
+|     9|      1.0045045045045045|
+|    10|      1.0044776119402985|
+|    11|      1.0046583850931676|
++------+------------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
 </div>
 
 
 
-**Feature 2g: Average Songs Played / Day**
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    avg_songs_per_day_online, 
+    on=user_churn_df.userId == avg_songs_per_day_online.userId, 
+    how='left_outer') \
+    .drop(avg_songs_per_day_online.userId) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_to_playlist|avg_songs_per_day_online|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|                6|                  1.0|             29|                   13|        1.00265604249668|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|                3|                  1.0|             14|                    4|                     1.0|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|               26|                  1.0|             95|                   59|      1.0014669926650366|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|                0|                  1.0|             11|                    8|                     1.0|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|               31|                  1.0|            165|                   83|       1.002538876547128|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|                1|                  1.0|              7|                    5|      1.0067114093959733|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|                3|   1.0666666666666667|             16|                    6|                   1.004|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|               32|                  1.0|            118|                   77|      1.0045045045045045|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|                4|                  1.0|             37|                    9|      1.0044776119402985|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|                9|                  1.0|             40|                   20|      1.0046583850931676|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
 
 
 
-**Feature 2h: Total Songs Played**
+**Feature 2g: Total Songs Played**
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+total_songs_played = spark.sql(
+    '''
+    SELECT
+        CAST(log_table.userId AS INT) AS userId,
+        COUNT(*) AS total_songs_played
+    FROM log_table
+    WHERE log_table.page = 'NextSong'
+    GROUP BY 1
+    ORDER BY 1
+    '''
+)
+
+total_songs_played.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+------------------+
+|userId|total_songs_played|
++------+------------------+
+|     2|               755|
+|     3|               214|
+|     4|              2048|
+|     5|               161|
+|     6|              3159|
+|     7|               150|
+|     8|               251|
+|     9|              2676|
+|    10|               673|
+|    11|               647|
++------+------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Combine feature with full dataset
+user_churn_df = user_churn_df.join(
+    total_songs_played, 
+    on=user_churn_df.userId == total_songs_played.userId, 
+    how='left_outer') \
+    .drop(total_songs_played.userId) \
+    .orderBy(col('userId')) \
+    .fillna(0.0)
+    
+user_churn_df.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+------------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_to_playlist|avg_songs_per_day_online|total_songs_played|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+------------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|                6|                  1.0|             29|                   13|        1.00265604249668|               755|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|                3|                  1.0|             14|                    4|                     1.0|               214|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|               26|                  1.0|             95|                   59|      1.0014669926650366|              2048|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|                0|                  1.0|             11|                    8|                     1.0|               161|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|               31|                  1.0|            165|                   83|       1.002538876547128|              3159|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|                1|                  1.0|              7|                    5|      1.0067114093959733|               150|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|                3|   1.0666666666666667|             16|                    6|                   1.004|               251|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|               32|                  1.0|            118|                   77|      1.0045045045045045|              2676|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|                4|                  1.0|             37|                    9|      1.0044776119402985|               673|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|                9|                  1.0|             40|                   20|      1.0046583850931676|               647|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+------------------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
 
 
 
@@ -2400,7 +2558,9 @@ Users that interact more with their friends on the platform might be more likely
 ```python
 total_add_friend = spark.sql(
     '''
-    SELECT CAST(log_table.userId AS INT) AS total_add_friend_userId, COUNT(*) AS total_add_friend
+    SELECT 
+        CAST(log_table.userId AS INT) AS userId, 
+        COUNT(*) AS total_add_friend
     FROM log_table
     WHERE log_table.page = 'Add Friend'
     GROUP BY CAST(log_table.userId AS INT)
@@ -2417,20 +2577,20 @@ total_add_friend.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+-----------------------+----------------+
-|total_add_friend_userId|total_add_friend|
-+-----------------------+----------------+
-|                      2|              20|
-|                      3|               1|
-|                      4|              46|
-|                      5|               3|
-|                      6|              41|
-|                      7|               1|
-|                      8|               5|
-|                      9|              40|
-|                     10|              12|
-|                     11|               6|
-+-----------------------+----------------+
++------+----------------+
+|userId|total_add_friend|
++------+----------------+
+|     2|              20|
+|     3|               1|
+|     4|              46|
+|     5|               3|
+|     6|              41|
+|     7|               1|
+|     8|               5|
+|     9|              40|
+|    10|              12|
+|    11|               6|
++------+----------------+
 only showing top 10 rows
 
 ```
@@ -2446,9 +2606,9 @@ only showing top 10 rows
 # Combine feature with full dataset
 user_churn_df = user_churn_df.join(
     total_add_friend, 
-    on=user_churn_df.userId == total_add_friend.total_add_friend_userId, 
+    on=user_churn_df.userId == total_add_friend.userId, 
     how='left_outer') \
-    .drop(col('total_add_friend_userId')) \
+    .drop(total_add_friend.userId) \
     .orderBy(col('userId')) \
     .fillna(0.0)
     
@@ -2461,20 +2621,20 @@ user_churn_df.show(10)
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-+------+-------+-----------------------+-----------------+---------------------+---------------+----------------+
-|userId|churned|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_friend|
-+------+-------+-----------------------+-----------------+---------------------+---------------+----------------+
-|     2|      0|                    1.0|                6|                  1.0|             29|              20|
-|     3|      1|                    1.0|                3|                  1.0|             14|               1|
-|     4|      0|                    1.0|               26|                  1.0|             95|              46|
-|     5|      0|                    0.0|                0|                  1.0|             11|               3|
-|     6|      0|                    1.0|               31|                  1.0|            165|              41|
-|     7|      0|                    1.0|                1|                  1.0|              7|               1|
-|     8|      0|                    1.0|                3|   1.0666666666666667|             16|               5|
-|     9|      0|                    1.0|               32|                  1.0|            118|              40|
-|    10|      0|                    1.0|                4|                  1.0|             37|              12|
-|    11|      0|                    1.0|                9|                  1.0|             40|               6|
-+------+-------+-----------------------+-----------------+---------------------+---------------+----------------+
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+------------------+----------------+
+|userId|churned|hours_online|days_online|avg_num_interactions_per_hour_online_per_day_online|days_since_joining|percent_days_online|avg_thumbs_down_per_day|total_thumbs_down|avg_thumbs_up_per_day|total_thumbs_up|total_add_to_playlist|avg_songs_per_day_online|total_songs_played|total_add_friend|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+------------------+----------------+
+|     2|      0|         899|        778|                                 1.1555269922879177|             44736| 1.7390915593705294|                    1.0|                6|                  1.0|             29|                   13|        1.00265604249668|               755|              20|
+|     3|      1|         254|        230|                                 1.1043478260869566|             27119| 0.8481138685054759|                    1.0|                3|                  1.0|             14|                    4|                     1.0|               214|               1|
+|     4|      0|        2442|       2138|                                 1.1421889616463985|             60635| 3.5260163272037603|                    1.0|               26|                  1.0|             95|                   59|      1.0014669926650366|              2048|              46|
+|     5|      0|         218|        169|                                 1.2899408284023668|             35367| 0.4778465801453332|                    0.0|                0|                  1.0|             11|                    8|                     1.0|               161|               3|
+|     6|      0|        3761|       3331|                                  1.129090363254278|             59317|  5.615590808705767|                    1.0|               31|                  1.0|            165|                   83|       1.002538876547128|              3159|              41|
+|     7|      0|         201|        168|                                 1.1964285714285714|             50784|0.33081285444234404|                    1.0|                1|                  1.0|              7|                    5|      1.0067114093959733|               150|               1|
+|     8|      0|         334|        261|                                 1.2796934865900382|             50920| 0.5125687352710133|                    1.0|                3|   1.0666666666666667|             16|                    6|                   1.004|               251|               5|
+|     9|      0|        3191|       2740|                                 1.1645985401459853|             60595|  4.521825233105042|                    1.0|               32|                  1.0|            118|                   77|      1.0045045045045045|              2676|              40|
+|    10|      0|         795|        693|                                  1.147186147186147|             42437| 1.6330089308857836|                    1.0|                4|                  1.0|             37|                    9|      1.0044776119402985|               673|              12|
+|    11|      0|         848|        665|                                  1.275187969924812|             53242| 1.2490139363660269|                    1.0|                9|                  1.0|             40|                   20|      1.0046583850931676|               647|               6|
++------+-------+------------+-----------+---------------------------------------------------+------------------+-------------------+-----------------------+-----------------+---------------------+---------------+---------------------+------------------------+------------------+----------------+
 only showing top 10 rows
 
 ```
@@ -2486,6 +2646,18 @@ only showing top 10 rows
 
 # Modeling
 Split the full dataset into train, test, and validation sets. Test out several of the machine learning methods you learned. Evaluate the accuracy of the various models, tuning parameters as necessary. Determine your winning model based on test accuracy and report results on the validation set. Since the churned users are a fairly small subset, I suggest using F1 score as the metric to optimize.
+
+
+
+### Scaling
+
+
+
+### Dimensionality Reduction
+
+
+
+### Machine Learning Models
 
 
 
