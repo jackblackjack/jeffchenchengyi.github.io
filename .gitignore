@@ -2,6 +2,8 @@
 base/**/*.ipynb_checkpoints
 base/**/__pycache__/
 base/**/*.pkl
+# Don't ignore .pkl files in disaster response project
+!base/portfolio/udacity/05-disaster-response/*.pkl
 base/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
 base/portfolio/udacity/05-disaster-response/flask_exercise/
 base/portfolio/udacity/05-disaster-response/disaster_response.pem
