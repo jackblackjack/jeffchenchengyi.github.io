@@ -61,16 +61,6 @@ plt.rcParams['figure.dpi'] = 300
 plt.rcParams['figure.figsize'] = (18, 12)
 get_colors = lambda length: plt.get_cmap('Spectral')(np.linspace(0, 1.0, length))
 
-# sklearn
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.decomposition import PCA, FastICA
-from sklearn.metrics import silhouette_score, mean_squared_error, silhouette_samples, pairwise_distances_argmin_min
-from sklearn.manifold import TSNE
-from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor
-from sklearn.neural_network import MLPRegressor
-from sklearn.model_selection import train_test_split
-
 # Pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql.window import Window
@@ -86,6 +76,15 @@ from pyspark.sql.functions import (
     when
 )
 from pyspark.sql.types import StringType, IntegerType
+from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+from pyspark.ml.classification import (
+    LogisticRegression, 
+    RandomForestClassifier, 
+    GBTClassifier,
+    MultilayerPerceptronClassifier
+)
+from pyspark.ml.feature import VectorAssembler, StandardScaler
 
 ```
 </div>
@@ -134,16 +133,16 @@ spark.sparkContext.getConf().getAll()
 
 {:.output_data_text}
 ```
-[('spark.driver.host', '10.0.1.103'),
- ('spark.app.id', 'local-1564120183879'),
- ('spark.driver.port', '49924'),
- ('spark.rdd.compress', 'True'),
+[('spark.rdd.compress', 'True'),
+ ('spark.driver.port', '64302'),
  ('spark.app.name', 'Sparkify'),
  ('spark.serializer.objectStreamReset', '100'),
  ('spark.master', 'local[*]'),
  ('spark.executor.id', 'driver'),
  ('spark.submit.deployMode', 'client'),
- ('spark.ui.showConsoleProgress', 'true')]
+ ('spark.driver.host', 'chengyis-mbp'),
+ ('spark.ui.showConsoleProgress', 'true'),
+ ('spark.app.id', 'local-1564368114676')]
 ```
 
 
@@ -2649,15 +2648,351 @@ Split the full dataset into train, test, and validation sets. Test out several o
 
 
 
+### Train Test Split
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Use VectorAssembler to 
+# combine features into a single
+# vector
+assembler = VectorAssembler(
+    inputCols=[col for col in user_churn_df.columns if col not in ['userId', 'churned']], 
+    outputCol='unscaled_features')
+
+data = assembler \
+    .transform(user_churn_df) \
+    .select(
+        col('userId'),
+        col('churned').alias('label'), 
+        col('unscaled_features')
+    )
+
+train, test = data.randomSplit([0.8, 0.2], seed=42)
+
+```
+</div>
+
+</div>
+
+
+
 ### Scaling
 
 
 
-### Dimensionality Reduction
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Scalers for the data
+train_scaler = StandardScaler(
+    inputCol='unscaled_features', 
+    outputCol='features'
+)
+
+# Scale training data
+train = train_scaler.fit(train).transform(train)
+
+# Use the train_sclaer fitted on training data to
+# scale never before seen test data
+test = train_scaler.fit(test).transform(test)
+
+```
+</div>
+
+</div>
 
 
 
-### Machine Learning Models
+### Logistic Regression
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Initialize Logistic Regression PySpark classifier
+lr_clf = LogisticRegression()
+
+lr_paramGrid = ParamGridBuilder() \
+    .addGrid(lr_clf.regParam, [0.1, 0.01]) \
+    .build()
+
+lr_crossval = CrossValidator(
+    estimator=lr_clf,
+    estimatorParamMaps=lr_paramGrid,
+    evaluator=BinaryClassificationEvaluator(),
+    numFolds=5
+)
+
+# Run cross-validation, and choose the best set of parameters.
+lr_cvModel = lr_crossval.fit(train)
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Make predictions on train_scaler-scaled test data
+lr_prediction = lr_cvModel.transform(test)
+lr_prediction.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|userId|label|   unscaled_features|            features|       rawPrediction|         probability|prediction|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|     3|    1|[254.0,230.0,1.10...|[0.17714067099705...|[476.851404618139...|[1.0,8.0550137578...|       0.0|
+|     7|    0|[201.0,168.0,1.19...|[0.14017824752128...|[478.309886775311...|[1.0,1.8735079215...|       0.0|
+|     9|    0|[3191.0,2740.0,1....|[2.22541685492752...|[478.276336493678...|[1.0,1.9374309619...|       0.0|
+|    10|    0|[795.0,693.0,1.14...|[0.55443635213644...|[478.002517240056...|[1.0,2.5476773544...|       0.0|
+|    12|    1|[1064.0,947.0,1.1...|[0.74203808638134...|[475.973633439237...|[1.0,1.9376595176...|       0.0|
+|    23|    0|[782.0,689.0,1.13...|[0.54537009732163...|[476.243901409442...|[1.0,1.4787732224...|       0.0|
+|    25|    0|[2279.0,1987.0,1....|[1.58938420945779...|[479.092401223467...|[1.0,8.5667052943...|       0.0|
+|    32|    1|[108.0,87.0,1.241...|[0.07531965538457...|[473.738005677667...|[1.0,1.8121672036...|       0.0|
+|    36|    0|[1399.0,1189.0,1....|[0.97566849891682...|[479.067193196456...|[1.0,8.7853998817...|       0.0|
+|    38|    0|[1570.0,1389.0,1....|[1.09492461994240...|[479.088069558171...|[1.0,8.6038938804...|       0.0|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+lr_cvModel.avgMetrics
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+[0.8580256170508627, 0.8735602491633347]
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+print('Accuracy: {}%'.format(
+    lr_prediction.filter(lr_prediction.label == lr_prediction.prediction).count() * 100 / lr_prediction.count())
+)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+Accuracy: 73.91304347826087%
+```
+</div>
+</div>
+</div>
+
+
+
+### Random Forest Classifier
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Initialize Random Forest PySpark classifier
+rf_clf = RandomForestClassifier()
+
+rf_paramGrid = ParamGridBuilder() \
+    .addGrid(rf_clf.maxDepth, [2, 4, 6]) \
+    .addGrid(rf_clf.maxBins, [20, 60]) \
+    .addGrid(rf_clf.numTrees, [5, 20]) \
+    .build()
+
+rf_crossval = CrossValidator(
+    estimator=rf_clf,
+    estimatorParamMaps=rf_paramGrid,
+    evaluator=BinaryClassificationEvaluator(),
+    numFolds=5
+)
+
+# Run cross-validation, and choose the best set of parameters.
+rf_cvModel = rf_crossval.fit(train)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_traceback_line}
+```
+
+    ---------------------------------------------------------------------------
+
+    IndexError                                Traceback (most recent call last)
+
+    /anaconda3/envs/geopandas/lib/python3.7/multiprocessing/pool.py in next(self, timeout)
+        732             try:
+    --> 733                 item = self._items.popleft()
+        734             except IndexError:
+
+
+    IndexError: pop from an empty deque
+
+    
+    During handling of the above exception, another exception occurred:
+
+
+    KeyboardInterrupt                         Traceback (most recent call last)
+
+    <ipython-input-89-35a2f92c323b> in <module>()
+         12 
+         13 # Run cross-validation, and choose the best set of parameters.
+    ---> 14 rf_cvModel = rf_crossval.fit(train)
+    
+
+    /anaconda3/envs/geopandas/lib/python3.7/site-packages/pyspark/ml/base.py in fit(self, dataset, params)
+        130                 return self.copy(params)._fit(dataset)
+        131             else:
+    --> 132                 return self._fit(dataset)
+        133         else:
+        134             raise ValueError("Params must be either a param map or a list/tuple of param maps, "
+
+
+    /anaconda3/envs/geopandas/lib/python3.7/site-packages/pyspark/ml/tuning.py in _fit(self, dataset)
+        302 
+        303             tasks = _parallelFitTasks(est, train, eva, validation, epm, collectSubModelsParam)
+    --> 304             for j, metric, subModel in pool.imap_unordered(lambda f: f(), tasks):
+        305                 metrics[j] += (metric / nFolds)
+        306                 if collectSubModelsParam:
+
+
+    /anaconda3/envs/geopandas/lib/python3.7/multiprocessing/pool.py in next(self, timeout)
+        735                 if self._index == self._length:
+        736                     raise StopIteration from None
+    --> 737                 self._cond.wait(timeout)
+        738                 try:
+        739                     item = self._items.popleft()
+
+
+    /anaconda3/envs/geopandas/lib/python3.7/threading.py in wait(self, timeout)
+        294         try:    # restore state no matter what (e.g., KeyboardInterrupt)
+        295             if timeout is None:
+    --> 296                 waiter.acquire()
+        297                 gotit = True
+        298             else:
+
+
+    KeyboardInterrupt: 
+
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Make predictions on train_scaler-scaled test data
+rf_prediction = rf_cvModel.transform(test)
+rf_prediction.show(10)
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+rf_cvModel.avgMetrics
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+print('Accuracy: {}%'.format(
+    rf_prediction.filter(rf_prediction.label == rf_prediction.prediction).count() * 100 / rf_prediction.count())
+)
+
+```
+</div>
+
+</div>
+
+
+
+### Gradient-Boosted Tree Classifier
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+gb_clf = GBTClassifier()
+
+```
+</div>
+
+</div>
+
+
+
+### Multi-Layer Perceptron Classifier
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+mlp_clf = MultilayerPerceptronClassifier(layers=[2, 2, 2])
+
+```
+</div>
+
+</div>
+
+
+
+# Evaluation
 
 
 

@@ -2,6 +2,7 @@ import json
 import plotly
 import pandas as pd
 import numpy as np
+from itertools import combinations
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -27,93 +28,97 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/DisasterResponse.db')
-df = pd.read_sql_table('DisasterResponse', engine)
+def load_data(database_filepath):
+    """Creates sql engine from database_filepath,\
+       reads it in as a pandas dataframe
+                 
+    Args:
+    -----------
+    database_filepath: A str type, file path to sql database .db file
+    
+    Returns:
+    --------
+    X: Pandas dataframe of features (message text)
+    y: Pandas dataframe of labels of the message
+    y.columns: list of categories for the labels of message
+    """
+    # load data from database
+    engine = create_engine('sqlite:///{}'.format(database_filepath))
+    df = pd.read_sql_table(table_name=database_filepath.split('/')[-1].split('.')[0], con=engine)
+    
+    X = df['message']
+    y = df.loc[:, 'related':]
+    return X, y, y.columns
+
+X, y, category_names = load_data('../data/DisasterResponse.db')
 
 # load model
 model = joblib.load("../models/classifier.pkl")
 
 # Creating graphs for visualization
-cat_counts = pd.DataFrame(df.drop(['id', 'message', 'original', 'genre'], axis=1).apply(lambda col: np.sum(col), axis=0)).reset_index()
-cat_counts.columns = ['category', 'count']
+cat_counts = pd.DataFrame(y.sum(axis=0).sort_values(), columns=['count'])
+
+# Get the pairs of categories with 
+# the highest cosine similarity
+cat1, cat2, cosine_sim = list(zip(*sorted([(cat1, cat2, np.dot(y[cat1], y[cat2]) / (np.linalg.norm(y[cat1]) * np.linalg.norm(y[cat2]))) \
+        if np.linalg.norm(y[cat1]) * np.linalg.norm(y[cat2]) > 0
+        else (cat1, cat2, 0)
+    for cat1, cat2 in combinations(y.columns, 2) \
+], key=lambda val: val[2], reverse=True)))
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
 def index():
     
-    # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
-    
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=cat_counts.index,
+                    y=cat_counts['count']
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Distribution of Message Categories',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
-                }
-            }
-        },
-        {
-            'data': [
-                Bar(
-                    x=cat_counts.sort_values(by='count', ascending=False)[:50]['count'],
-                    y=cat_counts.sort_values(by='count', ascending=False)[:50]['category'],
-                    orientation = 'h'
-                )
-            ],
-
-            'layout': {
-                'title': 'Top 50 Most Frequent Categories',
-                'yaxis': {
                     'title': "Category"
-                },
-                'xaxis': {
-                    'title': "Count"
                 }
             }
         },
         {
             'data': [
                 Pie(
-                    labels=genre_names, 
-                    values=genre_counts
+                    labels=cat_counts.index, 
+                    values=cat_counts['count']
                 )
             ],
 
             'layout': {
-                'title': 'Pie Chart of Genres'
+                'title': 'Pie Chart of Category Breakdown'
             }
         },
         {
             'data': [
-                Histogram(
-                    x=cat_counts.sort_values(by='count', ascending=False)['category'],
-                    y=cat_counts.sort_values(by='count', ascending=False)['count']
+                Bar(
+                    x=[x1 + ' and ' + x2 for x1, x2 in zip(cat1, cat2)][:20],
+                    y=cosine_sim[:20],
+                    orientation = 'v'
                 )
             ],
 
             'layout': {
-                'title': 'Histogram of Categories',
+                'title': 'Top 50 Most Similiar Categories (Based on Cosine Similarity)',
                 'yaxis': {
-                    'title': "Count"
+                    'title': "Cosine Similarity"
                 },
                 'xaxis': {
-                    'title': "Category"
+                    'title': "Category Pairs"
                 }
             }
         }
@@ -135,7 +140,7 @@ def go():
 
     # use model to predict classification for query
     classification_labels = model.predict([query])[0]
-    classification_results = dict(zip(df.columns[4:], classification_labels))
+    classification_results = dict(zip(y.columns[4:], classification_labels))
 
     # This will render the go.html Please see that file. 
     return render_template(
@@ -146,7 +151,7 @@ def go():
 
 
 def main():
-    # app.run(host='0.0.0.0', port=3001, debug=True)
+    app.run(host='0.0.0.0', port=3001, debug=True)
 
 
 if __name__ == '__main__':

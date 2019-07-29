@@ -17,7 +17,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 **Multi-label classification (movie can be labelled with multiple categories - romance and comedy)**
 
-**$\neq$ Multi-class classification (E.g. binary classification => n-ary classification)**
+**$\neq$ Multi-class classification (E.g. binary classification => n-ary (multi-class) classification)**
 
 **$\neq$ Multi-output classification (multiple types of outputs for a single observation / sample => predicting whether someone's probability of having cancer and probability of heart disease given body and diet features of the person)**
 

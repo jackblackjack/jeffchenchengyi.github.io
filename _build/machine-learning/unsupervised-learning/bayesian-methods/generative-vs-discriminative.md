@@ -21,8 +21,8 @@ Note that many supervised learning algorithms are essentially estimating $P(X,Y)
 
 See however, that $P(X,Y)$ can be decomposed into 2 different forms based on the law of conditional probability:
 $$
-P(X,Y) = P(X|Y) \times P(Y) = \text{likelihood} \times \text{prior} \\
-P(X,Y) = P(Y|X) \times P(X) = \text{posterior} \times \text{normalizing constant}
+P(X,Y) = P(X\mid Y) \times P(Y) = \text{likelihood} \times \text{prior} \\
+P(X,Y) = P(Y\mid X) \times P(X) = \text{posterior} \times \text{normalizing constant}
 $$
 
 
@@ -30,16 +30,16 @@ $$
 ---
 # What's the Difference?
 
-Bayes Rule: $${p(y|x) = \frac{p(x|y) * p(y)}{p(x)} }$$
+Bayes Rule: $${p(y\mid x) = \frac{p(x\mid y) * p(y)}{p(x)} }$$
 
 - Generative
-    - When we estimate $P(X,Y)=P(X|Y)P(Y)$ or $P(Y|X)P(X)$ (Not bayes rule, just law of conditional probability), then we call it generative learning. **(When we find the joint probability of features and labels)**
-    - Models Likelihood = ${p(x|y)}$ (Probability of seeing those features given that i'm from a certain class label) and Prior = ${p(y)}$ (Probability of being the class label)
+    - When we estimate $P(X,Y)=P(X\mid Y)P(Y)$ or $P(Y\mid X)P(X)$ (Not bayes rule, just law of conditional probability), then we call it generative learning. **(When we find the joint probability of features and labels)**
+    - Models Likelihood = ${p(x\mid y)}$ (Probability of seeing those features given that i'm from a certain class label) and Prior = ${p(y)}$ (Probability of being the class label)
     - Creates a boundary to encompass each class like clustering
-    - Makes prediction using Bayes Rule to get ${p(y=0/1|x)}$, ${\text{classes}=0, 1}$
-        - ${p(x|y)}$: Model finds this
+    - Makes prediction using Bayes Rule to get ${p(y=0/1\mid x)}$, ${\text{classes}=0, 1}$
+        - ${p(x\mid y)}$: Model finds this
         - ${p(y)}$: Model finds this too
-        - ${p(x)}$: ${p(x)} = {\sum}_{y} {p(x|y)} = {p(x|y=0)*p(y=0)} + {p(x|y=1)*p(y=1)}$
+        - ${p(x)}$: ${p(x)} = {\sum}_{y} {p(x\mid y)} = {p(x\mid y=0)*p(y=0)} + {p(x\mid y=1)*p(y=1)}$
     - Finds parameters that explain all data.
     - Makes use of all the data.
     - Flexible framework, can incorporate many tasks (e.g. classification, regression, survival analysis, generating new data samples similar to the existing dataset, etc).
@@ -52,8 +52,8 @@ Bayes Rule: $${p(y|x) = \frac{p(x|y) * p(y)}{p(x)} }$$
         - Hidden Markov Models (HMM)
             - Used in NLP
 - Discriminative
-    - When we only estimate $P(Y|X)$ directly, then we call it discriminative learning. **(When we only find the posterior)**
-    - Models Posterior = ${p(y|x)}$ directly.
+    - When we only estimate $P(Y\mid X)$ directly, then we call it discriminative learning. **(When we only find the posterior)**
+    - Models Posterior = ${p(y\mid x)}$ directly.
     - Finds best hyperplane / boundary to separate the classes
     - Finds parameters that help to predict relevant data.
     - Learns to perform better on the given tasks.
@@ -77,10 +77,10 @@ Bayes Rule: $${p(y|x) = \frac{p(x|y) * p(y)}{p(x)} }$$
 
 In practice, discriminative classifiers outperform generative classifiers, if you have a lot of data.
 
-Generative classifiers learn **P(Y|X)** indirectly and can get the wrong assumptions of the data distribution. 
+Generative classifiers learn **P(Y\mid X)** indirectly and can get the wrong assumptions of the data distribution. 
 
 Quoting Vapnik from Statistical Learning Theory:
-one should solve the (classification) problem directly and never solve a more general problem as an intermediate step (such as modeling **P(X|Y)**).
+one should solve the (classification) problem directly and never solve a more general problem as an intermediate step (such as modeling **P(X\mid Y)**).
 
 A very good paper from Andrew Ng in NIPS 2001 concludes that:
 
