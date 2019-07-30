@@ -7,8 +7,8 @@ prev_page:
   url: /portfolio/udacity/udacity
   title: 'Udacity'
 next_page:
-  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
-  title: 'Disaster Response'
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+  title: 'Exploring Condominiums in Singapore (Non-Technical)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

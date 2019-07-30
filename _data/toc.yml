@@ -41,6 +41,8 @@
     subsections:
       - title: Exploring Condominiums in Singapore
         url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
+      - title: Exploring Condominiums in Singapore (Non-Technical)
+        url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
       - title: Disaster Response
         url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
       - title: Recommendation Systems for Articles with IBM

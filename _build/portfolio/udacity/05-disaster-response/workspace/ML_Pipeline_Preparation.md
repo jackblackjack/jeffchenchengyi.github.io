@@ -6,8 +6,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Disaster Response'
 prev_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
-  title: 'Exploring Condominiums in Singapore'
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+  title: 'Exploring Condominiums in Singapore (Non-Technical)'
 next_page:
   url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
   title: 'Recommendation Systems for Articles with IBM'
