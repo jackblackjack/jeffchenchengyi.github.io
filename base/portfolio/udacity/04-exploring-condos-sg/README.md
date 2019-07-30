@@ -1,3 +1,6 @@
+# Exploring Housing Prices in Singapore
+
+<img src="https://thesmartlocal.com/wp-content/uploads/2014/09/images_easyblog_images_2088_Beautiful-Homes_Hillside-House-1.jpg" />
 
 ### Table of Contents
 

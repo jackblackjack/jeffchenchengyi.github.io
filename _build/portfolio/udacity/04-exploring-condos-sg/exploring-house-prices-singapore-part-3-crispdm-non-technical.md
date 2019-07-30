@@ -156,7 +156,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_0.png' />
 
-### Top 5 districts associated with Predicted Cluster 0:
+**Top 5 districts associated with Predicted Cluster 0:**
 1. 19 - North East - Hougang, Punggol, Sengkang
 2. 17 - Far East - Changi, Loyang, Pasir Ris
 3. 18 - Far East - Pasir Ris, Simei, Tampines
@@ -165,7 +165,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_1.png' />
 
-### Top 5 districts associated with Predicted Cluster 1:
+**Top 5 districts associated with Predicted Cluster 1:**
 1. 9 - Central Orchard - Cairnhill, Killiney, Leonie Hill, Orchard, Oxley
 2. 12 - Central - Balestier, Moulmein, Novena, Toa Payoh
 3. 2 - City Business District - Anson Road, Chinatown, Neil Road, Raffles Place, Shenton Way, Tanjong Pagar
@@ -174,7 +174,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_2.png' />
 
-### Top 5 districts associated with Predicted Cluster 2:
+**Top 5 districts associated with Predicted Cluster 2:**
 1. 27 - Far North - Admiralty, Sembawang, Yishun
 2. 18 - Far East - Pasir Ris, Simei, Tampines
 3. 16 - Upper East Coast - Bayshore, Bedok, Chai Chee
@@ -183,7 +183,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_3.png' />
 
-### Top 5 districts associated with Predicted Cluster 3:
+**Top 5 districts associated with Predicted Cluster 3:**
 1. 13 - Central East - Potong Pasir, Machpherson
 2. 9 - Central Orchard - Cairnhill, Killiney, Leonie Hill, Orchard, Oxley
 3. 3 - Central South - Alexandra Road, Tiong Bahru, Queenstown
@@ -192,7 +192,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_4.png' />
 
-### Top 5 districts associated with Predicted Cluster 4:
+**Top 5 districts associated with Predicted Cluster 4:**
 1. 4 - South - Keppel, Mount Faber, Sentosa, Telok Blangah
 2. 10 - Central Near Orchard - Balmoral, Bukit Timah, Grange Road, Holland, Orchard Boulevard, River Valley, Tanglin Road
 3. 15 - East Coast - Katong, Marine Parade, Siglap, Tanjong Rhu
@@ -201,7 +201,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_5.png' />
 
-### Top 5 districts associated with Predicted Cluster 5:
+**Top 5 districts associated with Predicted Cluster 5:**
 1. 6 - City Business District - City Hall, High Street, North Bridge Road
 2. 10 - Central Near Orchard - Balmoral, Bukit Timah, Grange Road, Holland, Orchard Boulevard, River Valley, Tanglin Road
 3. 9 - Central Orchard - Cairnhill, Killiney, Leonie Hill, Orchard, Oxley
@@ -210,7 +210,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_6.png' />
 
-### Top 5 districts associated with Predicted Cluster 6:
+**Top 5 districts associated with Predicted Cluster 6:**
 1. 19 - North East - Hougang, Punggol, Sengkang
 2. 23 - North West - Bukit Batok, Choa Chu Kang, Hillview Avenue, Upper Bukit Timah
 3. 28 - North East - Seletar, Yio Chu Kang
@@ -219,7 +219,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_7.png' />
 
-### Top 5 districts associated with Predicted Cluster 7:
+**Top 5 districts associated with Predicted Cluster 7:**
 1. 13 - Central East - Potong Pasir, Machpherson
 2. 12 - Central - Balestier, Moulmein, Novena, Toa Payoh
 3. 11 - Central Near Orchard - Chancery, Bukit Timah, Dunearn Road, Newton
@@ -228,7 +228,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_8.png' />
 
-### Top 5 districts associated with Predicted Cluster 8:
+**Top 5 districts associated with Predicted Cluster 8:**
 1. 8 - Central - Little India, Farrer Park, Serangoon Road
 2. 11 - Central Near Orchard - Chancery, Bukit Timah, Dunearn Road, Newton
 3. 14 - Central East - Eunos, Geylang, Kembangan, Paya Lebar
@@ -237,7 +237,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_9.png' />
 
-### Top 5 districts associated with Predicted Cluster 9:
+**Top 5 districts associated with Predicted Cluster 9:**
 1. 28 - North East - Seletar, Yio Chu Kang
 2. 19 - North East - Hougang, Punggol, Sengkang
 3. 27 - Far North - Admiralty, Sembawang, Yishun
@@ -246,7 +246,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_10.png' />
 
-### Top 5 districts associated with Predicted Cluster 10:
+**Top 5 districts associated with Predicted Cluster 10:**
 1. 1 - City Business District - Boat Quay, Chinatown, Havelock Road, Marina Square, Raffles Place, Suntec City
 2. 7 - City - Beach Road, Bencoolen Road, Bugis, Rochor
 3. 2 - City Business District - Anson Road, Chinatown, Neil Road, Raffles Place, Shenton Way, Tanjong Pagar
@@ -255,7 +255,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_11.png' />
 
-### Top 5 districts associated with Predicted Cluster 11:
+**Top 5 districts associated with Predicted Cluster 11:**
 1. 10 - Central Near Orchard - Balmoral, Bukit Timah, Grange Road, Holland, Orchard Boulevard, River Valley, Tanglin Road
 2. 2 - City Business District - Anson Road, Chinatown, Neil Road, Raffles Place, Shenton Way, Tanjong Pagar
 3. 11 - Central Near Orchard - Chancery, Bukit Timah, Dunearn Road, Newton
@@ -264,7 +264,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_12.png' />
 
-### Top 5 districts associated with Predicted Cluster 12:
+**Top 5 districts associated with Predicted Cluster 12:**
 1. 21 - Central West - Clementi, Upper Bukit Timah, Hume Avenue
 2. 26 - North - Tagore, Yio Chu Kang
 3. 5 - South West - Buona Vista, Dover, Pasir Panjang, West Coast
@@ -273,7 +273,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_13.png' />
 
-### Top 5 districts associated with Predicted Cluster 13:
+**Top 5 districts associated with Predicted Cluster 13:**
 1. 3 - Central South - Alexandra Road, Tiong Bahru, Queenstown
 2. 12 - Central - Balestier, Moulmein, Novena, Toa Payoh
 3. 5 - South West - Buona Vista, Dover, Pasir Panjang, West Coast
@@ -282,7 +282,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_14.png' />
 
-### Top 5 districts associated with Predicted Cluster 14:
+**Top 5 districts associated with Predicted Cluster 14:**
 1. 15 - East Coast - Katong, Marine Parade, Siglap, Tanjong Rhu
 2. 14 - Central East - Eunos, Geylang, Kembangan, Paya Lebar
 3. 19 - North East - Hougang, Punggol, Sengkang
@@ -291,7 +291,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_15.png' />
 
-### Top 5 districts associated with Predicted Cluster 15:
+**Top 5 districts associated with Predicted Cluster 15:**
 1. 26 - North - Tagore, Yio Chu Kang
 2. 5 - South West - Buona Vista, Dover, Pasir Panjang, West Coast
 3. 23 - North West - Bukit Batok, Choa Chu Kang, Hillview Avenue, Upper Bukit Timah
@@ -300,7 +300,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_16.png' />
 
-### Top 5 districts associated with Predicted Cluster 16:
+**Top 5 districts associated with Predicted Cluster 16:**
 1. 18 - Far East - Pasir Ris, Simei, Tampines
 2. 17 - Far East - Changi, Loyang, Pasir Ris
 3. 25 - Far North - Admiralty, Woodlands
@@ -309,7 +309,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_17.png' />
 
-### Top 5 districts associated with Predicted Cluster 17:
+**Top 5 districts associated with Predicted Cluster 17:**
 1. 25 - Far North - Admiralty, Woodlands
 2. 22 - Far West - Boon Lay, Jurong, Tuas
 3. 27 - Far North - Admiralty, Sembawang, Yishun
@@ -318,7 +318,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_18.png' />
 
-### Top 5 districts associated with Predicted Cluster 18:
+**Top 5 districts associated with Predicted Cluster 18:**
 1. 16 - Upper East Coast - Bayshore, Bedok, Chai Chee
 2. 20 - Central North - Ang Mo Kio, Bishan, Braddell Road, Thomson
 3. 3 - Central South - Alexandra Road, Tiong Bahru, Queenstown
@@ -327,7 +327,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_19.png' />
 
-### Top 5 districts associated with Predicted Cluster 19:
+**Top 5 districts associated with Predicted Cluster 19:**
 1. 4 - South - Keppel, Mount Faber, Sentosa, Telok Blangah
 2. 11 - Central Near Orchard - Chancery, Bukit Timah, Dunearn Road, Newton
 3. 28 - North East - Seletar, Yio Chu Kang
@@ -336,7 +336,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_20.png' />
 
-### Top 5 districts associated with Predicted Cluster 20:
+**Top 5 districts associated with Predicted Cluster 20:**
 1. 17 - Far East - Changi, Loyang, Pasir Ris
 2. 16 - Upper East Coast - Bayshore, Bedok, Chai Chee
 3. 15 - East Coast - Katong, Marine Parade, Siglap, Tanjong Rhu
@@ -345,7 +345,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_21.png' />
 
-### Top 5 districts associated with Predicted Cluster 21:
+**Top 5 districts associated with Predicted Cluster 21:**
 1. 25 - Far North - Admiralty, Woodlands
 2. 22 - Far West - Boon Lay, Jurong, Tuas
 3. 23 - North West - Bukit Batok, Choa Chu Kang, Hillview Avenue, Upper Bukit Timah
@@ -354,7 +354,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_22.png' />
 
-### Top 5 districts associated with Predicted Cluster 22:
+**Top 5 districts associated with Predicted Cluster 22:**
 1. 6 - City Business District - City Hall, High Street, North Bridge Road
 2. 10 - Central Near Orchard - Balmoral, Bukit Timah, Grange Road, Holland, Orchard Boulevard, River Valley, Tanglin Road
 3. 1 - City Business District - Boat Quay, Chinatown, Havelock Road, Marina Square, Raffles Place, Suntec City
@@ -363,7 +363,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_23.png' />
 
-### Top 5 districts associated with Predicted Cluster 23:
+**Top 5 districts associated with Predicted Cluster 23:**
 1. 22 - Far West - Boon Lay, Jurong, Tuas
 2. 23 - North West - Bukit Batok, Choa Chu Kang, Hillview Avenue, Upper Bukit Timah
 3. 5 - South West - Buona Vista, Dover, Pasir Panjang, West Coast
@@ -372,7 +372,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_24.png' />
 
-### Top 5 districts associated with Predicted Cluster 24:
+**Top 5 districts associated with Predicted Cluster 24:**
 1. 20 - Central North - Ang Mo Kio, Bishan, Braddell Road, Thomson
 2. 3 - Central South - Alexandra Road, Tiong Bahru, Queenstown
 3. 14 - Central East - Eunos, Geylang, Kembangan, Paya Lebar
@@ -381,7 +381,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_25.png' />
 
-### Top 5 districts associated with Predicted Cluster 25:
+**Top 5 districts associated with Predicted Cluster 25:**
 1. 15 - East Coast - Katong, Marine Parade, Siglap, Tanjong Rhu
 2. 21 - Central West - Clementi, Upper Bukit Timah, Hume Avenue
 3. 14 - Central East - Eunos, Geylang, Kembangan, Paya Lebar
@@ -390,7 +390,7 @@ We observe that in the "WCSS Vs. K" plot, there isn't a directly obvious "elbow"
 
 <img src='./img/cluster_26.png' />
 
-### Top 5 districts associated with Predicted Cluster 26:
+**Top 5 districts associated with Predicted Cluster 26:**
 1. 18 - Far East - Pasir Ris, Simei, Tampines
 2. 27 - Far North - Admiralty, Sembawang, Yishun
 3. 28 - North East - Seletar, Yio Chu Kang
