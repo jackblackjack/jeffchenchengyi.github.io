@@ -142,75 +142,40 @@ def build_model():
     print('=============================')  
     print('Building Model:')
     print('-----------------------------')
-    # Aggregate an ensemble of random forest classifier chains and feed them
+
+    # Aggregate an ensemble of RandomForest classifier chains and feed them
     # to the meta classifier
     print('Creating ClassifierChains...')
-    chains = [ClassifierChain(base_estimator=base_lr(), order='random', random_state=42) for base_lr in base_lrs]
+    chains = [ClassifierChain(base_estimator=RandomForestClassifier(n_estimators=100), order='random', random_state=42) for _ in range(5)]
 
     # Meta Classifier that will take the predictions
     # of each output of the classifier chains and figure out
     # the weight of each classifier in predicting labels
     print('Adding Meta Classifier...')
-    meta_clf = LogisticRegression()
+    meta_clf = MultiOutputClassifier(AdaBoostClassifier())
 
     # Stack the base learners 
     print('Stacking Meta Classifier on top of ClassifierChains...')
-    sclf = StackingClassifier(classifiers=chains, 
+    sclf = StackingClassifier(classifiers=chains,
                               meta_classifier=meta_clf)
-    
-    # Resample dataset to be balanced
-    print('Initializing SMOTE to balance dataset...')
-    sm = SMOTE(random_state=42)
 
     # Final Pipeline
     print('Building Pipeline...')
-    pipeline = Pipeline(
-        steps=[
-            ('features', FeatureUnion(
-                transformer_list=[
-                    ('text_pipeline', Pipeline([
-                        ('tfidf_vect', TfidfVectorizer(tokenizer=tokenize)),
-                    ])),
-                    ('starting_verb', StartingVerbExtractor())
-                ])),
-            ('smote', sm),
-            ('sclf', sclf)
-        ]
-    )
+    pipeline = Pipeline([
+        ('features', FeatureUnion([
+            ('text_pipeline', Pipeline([
+                ('tfidf_vect', TfidfVectorizer(tokenizer=tokenize)),
+            ]))
+        ])),
+        ('sclf', sclf)
+    ])
 
-    # Hyperparameters for tuning in GridSearch
-    params = {
-        'features__text_pipeline__tfidf_vect__ngram_range': ((1, 1), (1, 2)),
-        'features__text_pipeline__tfidf_vect__max_df': (0.5, 0.75, 1.0),
-        'features__text_pipeline__tfidf_vect__max_features': (None, 5000, 10000),
-        'features__text_pipeline__tfidf_vect__use_idf': (True, False),
-        'sclf__classifiers__classifierchain__base_estimator__randomforestclassifier__n_estimators': [100, 200],
-        'sclf__classifiers__classifierchain__base_estimator__randomforestclassifier__min_samples_split': [2, 5, 10],
-        'sclf__classifiers__classifierchain__base_estimator__adaboostclassifier__n_estimators': [100, 200],
-        'sclf__classifiers__classifierchain__base_estimator__adaboostclassifier__learning_rate': [0.01, 0.1, 1.0],
-        'sclf__classifiers__classifierchain__base_estimator__gradientboostingclassifier__n_estimators': [100, 200],
-        'sclf__classifiers__classifierchain__base_estimator__gradientboostingclassifier__learning_rate': [0.01, 0.1],
-        'sclf__classifiers__classifierchain__base_estimator__gradientboostingclassifier__min_samples_split': [2, 5, 10],
-        'sclf__classifiers__classifierchain__base_estimator__extratreesclassifier__n_estimators': [100, 200],
-        'sclf__classifiers__classifierchain__base_estimator__extratreesclassifier__min_samples_split': [2, 5, 10],
-        'sclf__classifiers__classifierchain__base_estimator__svc__C': [0.01, 0.1, 1.0],
-        'sclf__classifiers__classifierchain__base_estimator__svc__kernel': ['rbf', 'sigmoid'],
-        'sclf__classifiers__classifierchain__base_estimator__kneighborsclassifier__n_neighbors': [1, 5],
-        'sclf__classifiers__classifierchain__base_estimator__kneighborsclassifier__n_neighbors': [1, 5],
-        'sclf__meta_classifier__base_estimator__C': [0.1, 10.0],
-        'features__transformer_weights': (
-            {'text_pipeline': 1, 'starting_verb': 0.5},
-            {'text_pipeline': 0.5, 'starting_verb': 1},
-            {'text_pipeline': 0.8, 'starting_verb': 1},
-        )
+    parameters = {
+        'features__text_pipeline__tfidf_vect__ngram_range': ((1, 2), (1, 10))
     }
 
     print('Initializing GridSearchCV...')
-    model = GridSearchCV(estimator=pipeline, 
-                         param_grid=params,
-                         cv=5,
-                         refit=True)
-
+    model = GridSearchCV(pipeline, param_grid=parameters, cv=5)
     return model
 
 

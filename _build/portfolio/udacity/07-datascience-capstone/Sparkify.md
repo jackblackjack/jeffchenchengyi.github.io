@@ -685,6 +685,51 @@ We want to distinguish a user's activity before and after a particular event suc
 
 
 
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+user_log_valid.show()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++--------------------+---------+---------+------+-------------+--------+---------+-----+--------------------+------+---------------+-------------+---------+--------------------+------+-------------+--------------------+------+----+
+|              artist|     auth|firstName|gender|itemInSession|lastName|   length|level|            location|method|           page| registration|sessionId|                song|status|           ts|           userAgent|userId|hour|
++--------------------+---------+---------+------+-------------+--------+---------+-----+--------------------+------+---------------+-------------+---------+--------------------+------+-------------+--------------------+------+----+
+|      Martha Tilston|Logged In|    Colin|     M|           50| Freeman|277.89016| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|           Rockpools|   200|1538352117000|Mozilla/5.0 (Wind...|    30|   8|
+|    Five Iron Frenzy|Logged In|    Micah|     M|           79|    Long|236.09424| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8|              Canada|   200|1538352180000|"Mozilla/5.0 (Win...|     9|   8|
+|        Adam Lambert|Logged In|    Colin|     M|           51| Freeman| 282.8273| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|   Time For Miracles|   200|1538352394000|Mozilla/5.0 (Wind...|    30|   8|
+|              Enigma|Logged In|    Micah|     M|           80|    Long|262.71302| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8|Knocking On Forbi...|   200|1538352416000|"Mozilla/5.0 (Win...|     9|   8|
+|           Daft Punk|Logged In|    Colin|     M|           52| Freeman|223.60771| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|Harder Better Fas...|   200|1538352676000|Mozilla/5.0 (Wind...|    30|   8|
+|The All-American ...|Logged In|    Micah|     M|           81|    Long|208.29995| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8|      Don't Leave Me|   200|1538352678000|"Mozilla/5.0 (Win...|     9|   8|
+|The Velvet Underg...|Logged In|    Micah|     M|           82|    Long|260.46649| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8|         Run Run Run|   200|1538352886000|"Mozilla/5.0 (Win...|     9|   8|
+|        Starflyer 59|Logged In|    Colin|     M|           53| Freeman|185.44281| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|Passengers (Old A...|   200|1538352899000|Mozilla/5.0 (Wind...|    30|   8|
+|                null|Logged In|    Colin|     M|           54| Freeman|     null| paid|     Bakersfield, CA|   PUT|Add to Playlist|1538173362000|       29|                null|   200|1538352905000|Mozilla/5.0 (Wind...|    30|   8|
+|            Frumpies|Logged In|    Colin|     M|           55| Freeman|134.47791| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|          Fuck Kitty|   200|1538353084000|Mozilla/5.0 (Wind...|    30|   8|
+|        Britt Nicole|Logged In|    Micah|     M|           83|    Long| 229.8771| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8|   Walk On The Water|   200|1538353146000|"Mozilla/5.0 (Win...|     9|   8|
+|                null|Logged In|    Micah|     M|           84|    Long|     null| free|Boston-Cambridge-...|   GET|    Roll Advert|1538331630000|        8|                null|   200|1538353150000|"Mozilla/5.0 (Win...|     9|   8|
+|Edward Sharpe & T...|Logged In|    Colin|     M|           56| Freeman|223.58159| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|                Jade|   200|1538353218000|Mozilla/5.0 (Wind...|    30|   8|
+|               Tesla|Logged In|    Micah|     M|           85|    Long|201.06404| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8|      Gettin' Better|   200|1538353375000|"Mozilla/5.0 (Win...|     9|   8|
+|                null|Logged In|    Micah|     M|           86|    Long|     null| free|Boston-Cambridge-...|   PUT|      Thumbs Up|1538331630000|        8|                null|   307|1538353376000|"Mozilla/5.0 (Win...|     9|   8|
+|         Stan Mosley|Logged In|    Colin|     M|           57| Freeman|246.69995| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|   So-Called Friends|   200|1538353441000|Mozilla/5.0 (Wind...|    30|   8|
+|Florence + The Ma...|Logged In|    Micah|     M|           87|    Long|168.64608| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8| You've Got The Love|   200|1538353576000|"Mozilla/5.0 (Win...|     9|   8|
+|   Tokyo Police Club|Logged In|  Ashlynn|     F|            0|Williams| 166.1122| free|     Tallahassee, FL|   PUT|       NextSong|1537365219000|      217|Citizens Of Tomorrow|   200|1538353668000|"Mozilla/5.0 (Mac...|    74|   8|
+|             Orishas|Logged In|    Colin|     M|           58| Freeman|222.22322| paid|     Bakersfield, CA|   PUT|       NextSong|1538173362000|       29|           Represent|   200|1538353687000|Mozilla/5.0 (Wind...|    30|   8|
+|             Ratatat|Logged In|    Micah|     M|           88|    Long|229.77261| free|Boston-Cambridge-...|   PUT|       NextSong|1538331630000|        8|              Swisha|   200|1538353744000|"Mozilla/5.0 (Win...|     9|   8|
++--------------------+---------+---------+------+-------------+--------+---------+-----+--------------------+------+---------------+-------------+---------+--------------------+------+-------------+--------------------+------+----+
+only showing top 20 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
 ### Churn Rate Part 1: `Cancellation Confirmation`
 
 We will utilize the `Cancellation Confirmation` event to define our churn rate.
@@ -903,7 +948,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_35_0.png)
+![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_36_0.png)
 
 </div>
 </div>
@@ -1197,7 +1242,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_45_0.png)
+![png](../../../images/portfolio/udacity/07-datascience-capstone/Sparkify_46_0.png)
 
 </div>
 </div>
@@ -2940,6 +2985,146 @@ print('Accuracy: {}%'.format(
 {:.output_stream}
 ```
 Accuracy: 76.08695652173913%
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Let's save the Random Forest model
+rf_cvModel.save('./models/')
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+from sklearn.metrics import f1_score, precision_score, roc_auc_score, recall_score
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Bring data back to a pandas df
+rf_prediction_df = rf_prediction.select(['userId', 'label', 'probability', 'prediction']).toPandas()
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+user_churn_probabilities = rf_prediction_df[['userId', 'probability']]
+user_churn_probabilities.head()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+
+<div markdown="0" class="output output_html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>probability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>[0.5352183315050961, 0.46478166849490377]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7</td>
+      <td>[0.823430190666862, 0.17656980933313807]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>[0.7584231032659858, 0.24157689673401422]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10</td>
+      <td>[0.504024768624389, 0.4959752313756109]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12</td>
+      <td>[0.16160974422349553, 0.8383902557765046]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+y_test_pred = rf_prediction_df['prediction']
+y_test_true = rf_prediction_df['label']
+
+print({
+    'f1_score': f1_score(y_true=y_test_true, y_pred=y_test_pred),
+    'precision': precision_score(y_true=y_test_true, y_pred=y_test_pred),
+    'recall': recall_score(y_true=y_test_true, y_pred=y_test_pred)
+})
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+{'f1_score': 0.5925925925925926, 'precision': 0.5333333333333333, 'recall': 0.6666666666666666}
 ```
 </div>
 </div>
