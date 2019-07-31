@@ -3,10 +3,9 @@ base/**/*.ipynb_checkpoints
 base/**/__pycache__/
 base/**/*.pkl
 # Don't ignore classifier.pkl files in disaster response project
-# !base/portfolio/udacity/05-disaster-response/classifier.pkl
+!base/portfolio/udacity/05-disaster-response/classifier.pkl
 base/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
 base/portfolio/udacity/05-disaster-response/flask_exercise/
-base/portfolio/udacity/05-disaster-response/disaster_response.pem
 base/portfolio/udacity/07-datascience-capstone/data/
 base/machine-learning/aws/aws-big-data/AWSCertBigData-Materials/
 base/machine-learning/aws/aws-big-data/BigData.pem
@@ -19,7 +18,6 @@ content/**/__pycache__/
 content/**/*.pkl
 content/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
 content/portfolio/udacity/05-disaster-response/flask_exercise/
-content/portfolio/udacity/05-disaster-response/disaster_response.pem
 content/portfolio/udacity/07-datascience-capstone/data/
 content/machine-learning/aws/aws-big-data/AWSCertBigData-Materials/
 content/machine-learning/aws/aws-big-data/BigData.pem
@@ -32,7 +30,6 @@ _build/**/__pycache__/
 _build/**/*.pkl
 _build/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
 _build/portfolio/udacity/05-disaster-response/flask_exercise/
-_build/portfolio/udacity/05-disaster-response/disaster_response.pem
 _build/portfolio/udacity/07-datascience-capstone/data/
 _build/machine-learning/aws/aws-big-data/AWSCertBigData-Materials/
 _build/machine-learning/aws/aws-big-data/BigData.pem
