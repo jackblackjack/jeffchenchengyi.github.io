@@ -1,1 +1,2 @@
 *.pkl filter=lfs diff=lfs merge=lfs -text
+base/portfolio/udacity/05-disaster-response/models/classifier.pkl filter=lfs diff=lfs merge=lfs -text
