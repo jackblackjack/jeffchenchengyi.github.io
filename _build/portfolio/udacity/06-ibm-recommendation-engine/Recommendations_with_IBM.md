@@ -47,6 +47,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import pickle
 import seaborn as sns
+from tqdm import tqdm
 from imp import reload
 import project_tests as t
 reload(t);
@@ -1616,7 +1617,7 @@ u, s, vt = np.linalg.svd(user_item_matrix) # use the built in to get the three m
 
 
 **Provide your response here.**
-> FunkSVD uses gradient descent to get the $U$ and $V^\top$ matrix, leaving out the $S$ matrix that consists of Singular values on the diagonal while the original SVD builds all 3 of these matrices.
+> Regular SVD requires your `user_item` matrix to not contain any missing values. Prior to FunkSVD, all missing values are imputed with 0, which introduces significant bias to the model. Our current `user_item` matrix does not contain any missing values because we're merely finding out whether a user will / will not interact with an article. FunkSVD uses gradient descent to get the $U$ and $V^\top$ matrix by using the values we have and ignoring the missing values, leaving out the $S$ matrix that consists of Singular values on the diagonal while the original SVD builds all 3 of these matrices. In the lesson, some users have not seen the movies and thus, we can't explicitly impute an accurate rating for them to use the original SVD.
 
 
 
@@ -1872,85 +1873,59 @@ u_train, s_train, vt_train = np.linalg.svd(user_item_train) # fit svd similar to
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-def predict_rating(user_id, 
-                   article_id, 
-                   user_item_matrix,
-                   user_matrix, 
-                   singular_matrix, 
-                   article_matrix):
-    '''
-    INPUT:
-    user_id - (int) the user_id from df
-    article_id - (str) the article_id according the df
-    user_item_matrix - user article matrix with 1 if user i interacted with article j, else 0
-    user_matrix - user by latent factor matrix
-    singular_matrix - the matrix with singular values on diagonal created by SVD
-    article_matrix - latent factor by article matrix
+# Use these cells to see how well you can use the training 
+# decomposition to predict on test data
+num_latent_feats = np.arange(10,700+10,20)
+total_train_accuracy, total_test_accuracy = [], []
+
+for k in tqdm(num_latent_feats):
     
-    OUTPUT:
-    pred - the prediction of whether user will interact with the article 
-           in user_id-article_id according to SVD, 1 or 0
-    '''
-    # Create series of users and articles in the right order
-    user_ids_series = np.array(user_item_matrix.index)
-    article_ids_series = np.array(user_item_matrix.columns)
-
-    # User row and Movie Column
-    user_row = np.where(user_ids_series == user_id)[0][0]
-    article_col = np.where(article_ids_series == article_id)[0][0]
-
-    # Take dot product of user_id's row in user_matrix and 
-    # the dot product of the singular matrix and the article_id's 
-    # column in article_matrix to make prediction
-    pred = np.dot(user_matrix[user_row, :], 
-                  np.dot(singular_matrix, article_matrix[:, article_col]))
+    # restructure with k latent features
+    u_new, s_new, vt_new = u_train[:, :k], np.diag(s_train[:k]), vt_train[:k, :]
     
-    return int(pred > 0)
-
-def validation_comparison(user_matrix, 
-                          singular_matrix, 
-                          article_matrix,
-                          user_item_train=user_item_train,
-                          user_item_test=user_item_test):
-    '''
-    INPUT:
-    user_matrix - user by latent factor matrix
-    singular_matrix - the matrix with singular values on diagonal created by SVD
-    article_matrix - latent factor by article matrix
-    user_item_train - the training set matrix for the recommendation
-    user_item_test - the test set matrix for the recommendation
-        
-    OUTPUT:
-    tse - the total sum of wrong predictions 
-    '''
     # users we can make predictions for in the test set because they also 
     # exist in the training set
-    val_users = set(user_item_train.index).intersection(set(user_item_test.index))
+    users_testable = user_item_train.index.intersection(user_item_test.index)
+    users_testable_idx = [list(user_item_train.index).index(user_id) for user_id in users_testable]
+    u_test = u_train[users_testable_idx, :k]
     
     # articles we can make predictions for in the test set because they also 
     # exist in the training set
-    val_articles = set(user_item_train.columns).intersection(set(user_item_test.columns))
+    articles_testable = user_item_train.columns.intersection(user_item_test.columns)
+    articles_testable_idx = [list(user_item_train.columns).index(article_id) for article_id in articles_testable]
+    vt_test = vt_train[:k, articles_testable_idx]
     
-    # Total sum error
-    tse = 0
+    # Get the predicted user item matrix for training data
+    # with k latent features
+    user_item_train_pred = np.around(
+        np.dot(
+            u_new,
+            np.dot(
+                s_new,
+                vt_new
+            )
+        )
+    )
     
-    for user_id in val_users:
-        for article_id in val_articles:
-            try:
-                pred = predict_rating(user_id, 
-                                      article_id, 
-                                      user_item_train,
-                                      user_matrix, 
-                                      singular_matrix, 
-                                      article_matrix)
-                
-                # compute error for each prediction to actual value
-                tse += pred ^ int(user_item_test.loc[user_id, article_id])
-
-            except:
-                continue
-                
-    return tse
+    # Get the predicted user item matrix for testing data
+    # with k latent features
+    user_item_test_pred = np.around(
+        np.dot(
+            u_test,
+            np.dot(
+                s_new,
+                vt_test
+            )
+        )
+    )
+    
+    # Get sum of all the entries where predicted
+    # matrix is different from actual matrix
+    train_errors = np.sum(np.sum(np.abs(np.subtract(user_item_train, user_item_train_pred))))
+    test_errors = np.sum(np.sum(np.abs(np.subtract(user_item_test.loc[users_testable, articles_testable], user_item_test_pred))))
+    
+    total_train_accuracy.append(1 - train_errors / (user_item_train.shape[0] * user_item_train.shape[1]))
+    total_test_accuracy.append(1 - test_errors / (len(users_testable) * len(articles_testable)))
 
 ```
 </div>
@@ -1962,23 +1937,13 @@ def validation_comparison(user_matrix,
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-# Use these cells to see how well you can use the training 
-# decomposition to predict on test data
-num_latent_feats = np.arange(10,700+10,20)
-sum_errs = []
-
-for k in num_latent_feats:
-    # restructure with k latent features
-    u_new, s_new, vt_new = u_train[:, :k], np.diag(s_train[:k]), vt_train[:k, :]
-    
-    # total errors and keep track of them
-    sum_errs.append(validation_comparison(u_new, s_new, vt_new))
-    
-    
-plt.plot(num_latent_feats, 1 - np.array(sum_errs)/df.shape[0]);
-plt.xlabel('Number of Latent Features');
+plt.plot(num_latent_feats, total_train_accuracy, label='Train Error')
+plt.plot(num_latent_feats, total_test_accuracy, label='Test Error')
+plt.xlabel('Number of Latent Features')
 plt.ylabel('Accuracy');
-plt.title('Accuracy vs. Number of Latent Features');
+plt.title('Accuracy vs. Number of Latent Features')
+plt.legend()
+plt.grid();
 
 ```
 </div>
@@ -1995,36 +1960,12 @@ plt.title('Accuracy vs. Number of Latent Features');
 
 
 
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-sorted(list(zip(num_latent_feats, sum_errs)), key=lambda val: val[1])[0]
-
-```
-</div>
-
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-
-
-{:.output_data_text}
-```
-(370, 5571)
-```
-
-
-</div>
-</div>
-</div>
-
-
-
 `6.` Use the cell below to comment on the results you found in the previous question. Given the circumstances of your results, discuss what you might do to determine if the recommendations you make with any of the above recommendation systems are an improvement to how users currently find articles? 
 
 
 
 **Your response here.**
-> Seems like `370` is the most optimal number of latent features. In order to determine whether our recommendations have practical significance on improving how users find articles, we could conduct an A/B test to first see how statistically significant our new recommendations are in increasing certain evaluation metrics such as the following:
+> Seems like with a few number of latent features, our model was much more generalizable, and thus having a higher test accuracy. As we increase the number of latent features, our train accuracy increases. However, the test accuracy decreases. In order to determine whether our recommendations have practical significance on improving how users find articles, we could conduct an A/B test to first see how statistically significant our new recommendations are in increasing certain evaluation metrics such as the following:
 1. Number of unique article interactions per user
 2. Average reading time (how long a user stays on the article page) per article per user
 

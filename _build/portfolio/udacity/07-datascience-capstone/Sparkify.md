@@ -2849,73 +2849,6 @@ rf_cvModel = rf_crossval.fit(train)
 ```
 </div>
 
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-{:.output_traceback_line}
-```
-
-    ---------------------------------------------------------------------------
-
-    IndexError                                Traceback (most recent call last)
-
-    /anaconda3/envs/geopandas/lib/python3.7/multiprocessing/pool.py in next(self, timeout)
-        732             try:
-    --> 733                 item = self._items.popleft()
-        734             except IndexError:
-
-
-    IndexError: pop from an empty deque
-
-    
-    During handling of the above exception, another exception occurred:
-
-
-    KeyboardInterrupt                         Traceback (most recent call last)
-
-    <ipython-input-89-35a2f92c323b> in <module>()
-         12 
-         13 # Run cross-validation, and choose the best set of parameters.
-    ---> 14 rf_cvModel = rf_crossval.fit(train)
-    
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/pyspark/ml/base.py in fit(self, dataset, params)
-        130                 return self.copy(params)._fit(dataset)
-        131             else:
-    --> 132                 return self._fit(dataset)
-        133         else:
-        134             raise ValueError("Params must be either a param map or a list/tuple of param maps, "
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/pyspark/ml/tuning.py in _fit(self, dataset)
-        302 
-        303             tasks = _parallelFitTasks(est, train, eva, validation, epm, collectSubModelsParam)
-    --> 304             for j, metric, subModel in pool.imap_unordered(lambda f: f(), tasks):
-        305                 metrics[j] += (metric / nFolds)
-        306                 if collectSubModelsParam:
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/multiprocessing/pool.py in next(self, timeout)
-        735                 if self._index == self._length:
-        736                     raise StopIteration from None
-    --> 737                 self._cond.wait(timeout)
-        738                 try:
-        739                     item = self._items.popleft()
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/threading.py in wait(self, timeout)
-        294         try:    # restore state no matter what (e.g., KeyboardInterrupt)
-        295             if timeout is None:
-    --> 296                 waiter.acquire()
-        297                 gotit = True
-        298             else:
-
-
-    KeyboardInterrupt: 
-
-
-```
-</div>
-</div>
 </div>
 
 
@@ -2930,6 +2863,29 @@ rf_prediction.show(10)
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|userId|label|   unscaled_features|            features|       rawPrediction|         probability|prediction|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|     3|    1|[254.0,230.0,1.10...|[0.17714067099705...|[10.7043666301019...|[0.53521833150509...|       0.0|
+|     7|    0|[201.0,168.0,1.19...|[0.14017824752128...|[16.4686038133372...|[0.82343019066686...|       0.0|
+|     9|    0|[3191.0,2740.0,1....|[2.22541685492752...|[15.1684620653197...|[0.75842310326598...|       0.0|
+|    10|    0|[795.0,693.0,1.14...|[0.55443635213644...|[10.0804953724877...|[0.50402476862438...|       0.0|
+|    12|    1|[1064.0,947.0,1.1...|[0.74203808638134...|[3.23219488446991...|[0.16160974422349...|       1.0|
+|    23|    0|[782.0,689.0,1.13...|[0.54537009732163...|[6.30470693985612...|[0.31523534699280...|       1.0|
+|    25|    0|[2279.0,1987.0,1....|[1.58938420945779...|[13.6495545022945...|[0.68247772511472...|       0.0|
+|    32|    1|[108.0,87.0,1.241...|[0.07531965538457...|[5.65829505461858...|[0.28291475273092...|       1.0|
+|    36|    0|[1399.0,1189.0,1....|[0.97566849891682...|[13.4539402804507...|[0.67269701402253...|       0.0|
+|    38|    0|[1570.0,1389.0,1....|[1.09492461994240...|[13.6331610596715...|[0.68165805298357...|       0.0|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+only showing top 10 rows
+
+```
+</div>
+</div>
 </div>
 
 
@@ -2942,6 +2898,29 @@ rf_cvModel.avgMetrics
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+[0.8374329278326473,
+ 0.7995760877738438,
+ 0.8292037839828864,
+ 0.8533443181409519,
+ 0.843149395018259,
+ 0.8614292727686838,
+ 0.8422834178444277,
+ 0.8630114610339015,
+ 0.8544633191337258,
+ 0.8601263579804955,
+ 0.8292742262412669,
+ 0.8430586286862585]
+```
+
+
+</div>
+</div>
 </div>
 
 
@@ -2956,38 +2935,14 @@ print('Accuracy: {}%'.format(
 ```
 </div>
 
-</div>
-
-
-
-### Gradient-Boosted Tree Classifier
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-gb_clf = GBTClassifier()
-
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+Accuracy: 76.08695652173913%
 ```
 </div>
-
 </div>
-
-
-
-### Multi-Layer Perceptron Classifier
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-mlp_clf = MultilayerPerceptronClassifier(layers=[2, 2, 2])
-
-```
-</div>
-
 </div>
 
 

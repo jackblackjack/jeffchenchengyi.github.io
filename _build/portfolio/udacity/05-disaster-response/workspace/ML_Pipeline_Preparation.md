@@ -440,7 +440,7 @@ print('-----------------------------')
 # Aggregate an ensemble of RandomForest classifier chains and feed them
 # to the meta classifier
 print('Creating ClassifierChains...')
-chains = [ClassifierChain(base_estimator=RandomForestClassifier(), order='random', random_state=42) for _ in range(10)]
+chains = [ClassifierChain(base_estimator=RandomForestClassifier(n_estimators=100), order='random', random_state=42) for _ in range(5)]
 
 # Meta Classifier that will take the predictions
 # of each output of the classifier chains and figure out
@@ -454,8 +454,8 @@ sclf = StackingClassifier(classifiers=chains,
                           meta_classifier=meta_clf)
 
 # Resample dataset to be balanced
-print('Initializing Random Over Sampler to balance dataset...')
-ros = RandomOverSampler(random_state=42)
+# print('Initializing SMOTE to balance dataset...')
+# sm = SMOTE(random_state=42)
 
 # Final Pipeline
 print('Building Pipeline...')
@@ -463,61 +463,19 @@ pipeline = Pipeline([
     ('features', FeatureUnion([
         ('text_pipeline', Pipeline([
             ('tfidf_vect', TfidfVectorizer(tokenizer=tokenize)),
-        ]))#,
-#         ('starting_verb', StartingVerbExtractor())
+        ]))
     ])),
-    ('ros', ros),
     ('sclf', sclf)
 ])
 
 parameters = {
     'features__text_pipeline__tfidf_vect__ngram_range': ((1, 1), (1, 2)),
-    'sclf__classifierchain-1__base_estimator__n_estimators': [2, 3],
-    'sclf__classifierchain-2__base_estimator__n_estimators': [2, 3]
-#     'features__text_pipeline__tfidf_vect__max_df': (0.5, 0.75, 1.0),
-#     'features__text_pipeline__tfidf_vect__max_features': (None, 5000, 10000),
-#     'features__text_pipeline__tfidf_vect__use_idf': (True, False),
-#     'features__transformer_weights': (
-#         {'text_pipeline': 1, 'starting_verb': 0.5},
-#         {'text_pipeline': 0.5, 'starting_verb': 1},
-#         {'text_pipeline': 0.8, 'starting_verb': 1},
-#     )
+    'features__text_pipeline__tfidf_vect__max_df': (0.5, 0.75, 1.0),
+    'features__text_pipeline__tfidf_vect__use_idf': (True, False)
 }
 
-model = GridSearchCV(pipeline, param_grid=parameters, cv=3)
-
-# # Hyperparameters for tuning in GridSearch
-# params = {
-#     'features__text_pipeline__tfidf_vect__ngram_range': ((1, 1), (1, 2)),
-#     'features__text_pipeline__tfidf_vect__max_df': (0.5, 0.75, 1.0),
-#     'features__text_pipeline__tfidf_vect__max_features': (None, 5000, 10000),
-#     'features__text_pipeline__tfidf_vect__use_idf': (True, False),
-#     'sclf__classifiers__classifierchain__base_estimator__randomforestclassifier__n_estimators': [100, 200],
-#     'sclf__classifiers__classifierchain__base_estimator__randomforestclassifier__min_samples_split': [2, 5, 10],
-#     'sclf__classifiers__classifierchain__base_estimator__adaboostclassifier__n_estimators': [100, 200],
-#     'sclf__classifiers__classifierchain__base_estimator__adaboostclassifier__learning_rate': [0.01, 0.1, 1.0],
-#     'sclf__classifiers__classifierchain__base_estimator__gradientboostingclassifier__n_estimators': [100, 200],
-#     'sclf__classifiers__classifierchain__base_estimator__gradientboostingclassifier__learning_rate': [0.01, 0.1],
-#     'sclf__classifiers__classifierchain__base_estimator__gradientboostingclassifier__min_samples_split': [2, 5, 10],
-#     'sclf__classifiers__classifierchain__base_estimator__extratreesclassifier__n_estimators': [100, 200],
-#     'sclf__classifiers__classifierchain__base_estimator__extratreesclassifier__min_samples_split': [2, 5, 10],
-#     'sclf__classifiers__classifierchain__base_estimator__svc__C': [0.01, 0.1, 1.0],
-#     'sclf__classifiers__classifierchain__base_estimator__svc__kernel': ['rbf', 'sigmoid'],
-#     'sclf__classifiers__classifierchain__base_estimator__kneighborsclassifier__n_neighbors': [1, 5],
-#     'sclf__classifiers__classifierchain__base_estimator__kneighborsclassifier__n_neighbors': [1, 5],
-#     'sclf__meta_classifier__base_estimator__C': [0.1, 10.0],
-#     'features__transformer_weights': (
-#         {'text_pipeline': 1, 'starting_verb': 0.5},
-#         {'text_pipeline': 0.5, 'starting_verb': 1},
-#         {'text_pipeline': 0.8, 'starting_verb': 1},
-#     )
-# }
-
-# print('Initializing GridSearchCV...')
-# model = GridSearchCV(estimator=pipeline, 
-#                      param_grid=params,
-#                      cv=5,
-#                      refit=True)
+print('Initializing GridSearchCV...')
+model = GridSearchCV(pipeline, param_grid=parameters, cv=5)
 
 ```
 </div>
@@ -532,8 +490,8 @@ Building Model:
 Creating ClassifierChains...
 Adding Meta Classifier...
 Stacking Meta Classifier on top of ClassifierChains...
-Initializing Random Over Sampler to balance dataset...
 Building Pipeline...
+Initializing GridSearchCV...
 ```
 </div>
 </div>
@@ -574,7 +532,7 @@ model.get_params().keys()
 
 {:.output_data_text}
 ```
-dict_keys(['cv', 'error_score', 'estimator__memory', 'estimator__steps', 'estimator__verbose', 'estimator__features', 'estimator__ros', 'estimator__sclf', 'estimator__features__n_jobs', 'estimator__features__transformer_list', 'estimator__features__transformer_weights', 'estimator__features__verbose', 'estimator__features__text_pipeline', 'estimator__features__text_pipeline__memory', 'estimator__features__text_pipeline__steps', 'estimator__features__text_pipeline__verbose', 'estimator__features__text_pipeline__tfidf_vect', 'estimator__features__text_pipeline__tfidf_vect__analyzer', 'estimator__features__text_pipeline__tfidf_vect__binary', 'estimator__features__text_pipeline__tfidf_vect__decode_error', 'estimator__features__text_pipeline__tfidf_vect__dtype', 'estimator__features__text_pipeline__tfidf_vect__encoding', 'estimator__features__text_pipeline__tfidf_vect__input', 'estimator__features__text_pipeline__tfidf_vect__lowercase', 'estimator__features__text_pipeline__tfidf_vect__max_df', 'estimator__features__text_pipeline__tfidf_vect__max_features', 'estimator__features__text_pipeline__tfidf_vect__min_df', 'estimator__features__text_pipeline__tfidf_vect__ngram_range', 'estimator__features__text_pipeline__tfidf_vect__norm', 'estimator__features__text_pipeline__tfidf_vect__preprocessor', 'estimator__features__text_pipeline__tfidf_vect__smooth_idf', 'estimator__features__text_pipeline__tfidf_vect__stop_words', 'estimator__features__text_pipeline__tfidf_vect__strip_accents', 'estimator__features__text_pipeline__tfidf_vect__sublinear_tf', 'estimator__features__text_pipeline__tfidf_vect__token_pattern', 'estimator__features__text_pipeline__tfidf_vect__tokenizer', 'estimator__features__text_pipeline__tfidf_vect__use_idf', 'estimator__features__text_pipeline__tfidf_vect__vocabulary', 'estimator__ros__random_state', 'estimator__ros__ratio', 'estimator__ros__return_indices', 'estimator__ros__sampling_strategy', 'estimator__sclf__average_probas', 'estimator__sclf__classifiers', 'estimator__sclf__drop_last_proba', 'estimator__sclf__meta_classifier__estimator__algorithm', 'estimator__sclf__meta_classifier__estimator__base_estimator', 'estimator__sclf__meta_classifier__estimator__learning_rate', 'estimator__sclf__meta_classifier__estimator__n_estimators', 'estimator__sclf__meta_classifier__estimator__random_state', 'estimator__sclf__meta_classifier__estimator', 'estimator__sclf__meta_classifier__n_jobs', 'estimator__sclf__meta_classifier', 'estimator__sclf__store_train_meta_features', 'estimator__sclf__use_clones', 'estimator__sclf__use_features_in_secondary', 'estimator__sclf__use_probas', 'estimator__sclf__verbose', 'estimator__sclf__classifierchain-1', 'estimator__sclf__classifierchain-2', 'estimator__sclf__classifierchain-3', 'estimator__sclf__classifierchain-4', 'estimator__sclf__classifierchain-5', 'estimator__sclf__classifierchain-6', 'estimator__sclf__classifierchain-7', 'estimator__sclf__classifierchain-8', 'estimator__sclf__classifierchain-9', 'estimator__sclf__classifierchain-10', 'estimator__sclf__classifierchain-1__base_estimator__bootstrap', 'estimator__sclf__classifierchain-1__base_estimator__class_weight', 'estimator__sclf__classifierchain-1__base_estimator__criterion', 'estimator__sclf__classifierchain-1__base_estimator__max_depth', 'estimator__sclf__classifierchain-1__base_estimator__max_features', 'estimator__sclf__classifierchain-1__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-1__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-1__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-1__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-1__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-1__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-1__base_estimator__n_estimators', 'estimator__sclf__classifierchain-1__base_estimator__n_jobs', 'estimator__sclf__classifierchain-1__base_estimator__oob_score', 'estimator__sclf__classifierchain-1__base_estimator__random_state', 'estimator__sclf__classifierchain-1__base_estimator__verbose', 'estimator__sclf__classifierchain-1__base_estimator__warm_start', 'estimator__sclf__classifierchain-1__base_estimator', 'estimator__sclf__classifierchain-1__cv', 'estimator__sclf__classifierchain-1__order', 'estimator__sclf__classifierchain-1__random_state', 'estimator__sclf__classifierchain-2__base_estimator__bootstrap', 'estimator__sclf__classifierchain-2__base_estimator__class_weight', 'estimator__sclf__classifierchain-2__base_estimator__criterion', 'estimator__sclf__classifierchain-2__base_estimator__max_depth', 'estimator__sclf__classifierchain-2__base_estimator__max_features', 'estimator__sclf__classifierchain-2__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-2__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-2__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-2__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-2__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-2__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-2__base_estimator__n_estimators', 'estimator__sclf__classifierchain-2__base_estimator__n_jobs', 'estimator__sclf__classifierchain-2__base_estimator__oob_score', 'estimator__sclf__classifierchain-2__base_estimator__random_state', 'estimator__sclf__classifierchain-2__base_estimator__verbose', 'estimator__sclf__classifierchain-2__base_estimator__warm_start', 'estimator__sclf__classifierchain-2__base_estimator', 'estimator__sclf__classifierchain-2__cv', 'estimator__sclf__classifierchain-2__order', 'estimator__sclf__classifierchain-2__random_state', 'estimator__sclf__classifierchain-3__base_estimator__bootstrap', 'estimator__sclf__classifierchain-3__base_estimator__class_weight', 'estimator__sclf__classifierchain-3__base_estimator__criterion', 'estimator__sclf__classifierchain-3__base_estimator__max_depth', 'estimator__sclf__classifierchain-3__base_estimator__max_features', 'estimator__sclf__classifierchain-3__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-3__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-3__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-3__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-3__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-3__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-3__base_estimator__n_estimators', 'estimator__sclf__classifierchain-3__base_estimator__n_jobs', 'estimator__sclf__classifierchain-3__base_estimator__oob_score', 'estimator__sclf__classifierchain-3__base_estimator__random_state', 'estimator__sclf__classifierchain-3__base_estimator__verbose', 'estimator__sclf__classifierchain-3__base_estimator__warm_start', 'estimator__sclf__classifierchain-3__base_estimator', 'estimator__sclf__classifierchain-3__cv', 'estimator__sclf__classifierchain-3__order', 'estimator__sclf__classifierchain-3__random_state', 'estimator__sclf__classifierchain-4__base_estimator__bootstrap', 'estimator__sclf__classifierchain-4__base_estimator__class_weight', 'estimator__sclf__classifierchain-4__base_estimator__criterion', 'estimator__sclf__classifierchain-4__base_estimator__max_depth', 'estimator__sclf__classifierchain-4__base_estimator__max_features', 'estimator__sclf__classifierchain-4__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-4__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-4__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-4__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-4__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-4__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-4__base_estimator__n_estimators', 'estimator__sclf__classifierchain-4__base_estimator__n_jobs', 'estimator__sclf__classifierchain-4__base_estimator__oob_score', 'estimator__sclf__classifierchain-4__base_estimator__random_state', 'estimator__sclf__classifierchain-4__base_estimator__verbose', 'estimator__sclf__classifierchain-4__base_estimator__warm_start', 'estimator__sclf__classifierchain-4__base_estimator', 'estimator__sclf__classifierchain-4__cv', 'estimator__sclf__classifierchain-4__order', 'estimator__sclf__classifierchain-4__random_state', 'estimator__sclf__classifierchain-5__base_estimator__bootstrap', 'estimator__sclf__classifierchain-5__base_estimator__class_weight', 'estimator__sclf__classifierchain-5__base_estimator__criterion', 'estimator__sclf__classifierchain-5__base_estimator__max_depth', 'estimator__sclf__classifierchain-5__base_estimator__max_features', 'estimator__sclf__classifierchain-5__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-5__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-5__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-5__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-5__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-5__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-5__base_estimator__n_estimators', 'estimator__sclf__classifierchain-5__base_estimator__n_jobs', 'estimator__sclf__classifierchain-5__base_estimator__oob_score', 'estimator__sclf__classifierchain-5__base_estimator__random_state', 'estimator__sclf__classifierchain-5__base_estimator__verbose', 'estimator__sclf__classifierchain-5__base_estimator__warm_start', 'estimator__sclf__classifierchain-5__base_estimator', 'estimator__sclf__classifierchain-5__cv', 'estimator__sclf__classifierchain-5__order', 'estimator__sclf__classifierchain-5__random_state', 'estimator__sclf__classifierchain-6__base_estimator__bootstrap', 'estimator__sclf__classifierchain-6__base_estimator__class_weight', 'estimator__sclf__classifierchain-6__base_estimator__criterion', 'estimator__sclf__classifierchain-6__base_estimator__max_depth', 'estimator__sclf__classifierchain-6__base_estimator__max_features', 'estimator__sclf__classifierchain-6__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-6__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-6__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-6__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-6__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-6__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-6__base_estimator__n_estimators', 'estimator__sclf__classifierchain-6__base_estimator__n_jobs', 'estimator__sclf__classifierchain-6__base_estimator__oob_score', 'estimator__sclf__classifierchain-6__base_estimator__random_state', 'estimator__sclf__classifierchain-6__base_estimator__verbose', 'estimator__sclf__classifierchain-6__base_estimator__warm_start', 'estimator__sclf__classifierchain-6__base_estimator', 'estimator__sclf__classifierchain-6__cv', 'estimator__sclf__classifierchain-6__order', 'estimator__sclf__classifierchain-6__random_state', 'estimator__sclf__classifierchain-7__base_estimator__bootstrap', 'estimator__sclf__classifierchain-7__base_estimator__class_weight', 'estimator__sclf__classifierchain-7__base_estimator__criterion', 'estimator__sclf__classifierchain-7__base_estimator__max_depth', 'estimator__sclf__classifierchain-7__base_estimator__max_features', 'estimator__sclf__classifierchain-7__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-7__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-7__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-7__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-7__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-7__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-7__base_estimator__n_estimators', 'estimator__sclf__classifierchain-7__base_estimator__n_jobs', 'estimator__sclf__classifierchain-7__base_estimator__oob_score', 'estimator__sclf__classifierchain-7__base_estimator__random_state', 'estimator__sclf__classifierchain-7__base_estimator__verbose', 'estimator__sclf__classifierchain-7__base_estimator__warm_start', 'estimator__sclf__classifierchain-7__base_estimator', 'estimator__sclf__classifierchain-7__cv', 'estimator__sclf__classifierchain-7__order', 'estimator__sclf__classifierchain-7__random_state', 'estimator__sclf__classifierchain-8__base_estimator__bootstrap', 'estimator__sclf__classifierchain-8__base_estimator__class_weight', 'estimator__sclf__classifierchain-8__base_estimator__criterion', 'estimator__sclf__classifierchain-8__base_estimator__max_depth', 'estimator__sclf__classifierchain-8__base_estimator__max_features', 'estimator__sclf__classifierchain-8__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-8__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-8__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-8__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-8__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-8__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-8__base_estimator__n_estimators', 'estimator__sclf__classifierchain-8__base_estimator__n_jobs', 'estimator__sclf__classifierchain-8__base_estimator__oob_score', 'estimator__sclf__classifierchain-8__base_estimator__random_state', 'estimator__sclf__classifierchain-8__base_estimator__verbose', 'estimator__sclf__classifierchain-8__base_estimator__warm_start', 'estimator__sclf__classifierchain-8__base_estimator', 'estimator__sclf__classifierchain-8__cv', 'estimator__sclf__classifierchain-8__order', 'estimator__sclf__classifierchain-8__random_state', 'estimator__sclf__classifierchain-9__base_estimator__bootstrap', 'estimator__sclf__classifierchain-9__base_estimator__class_weight', 'estimator__sclf__classifierchain-9__base_estimator__criterion', 'estimator__sclf__classifierchain-9__base_estimator__max_depth', 'estimator__sclf__classifierchain-9__base_estimator__max_features', 'estimator__sclf__classifierchain-9__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-9__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-9__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-9__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-9__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-9__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-9__base_estimator__n_estimators', 'estimator__sclf__classifierchain-9__base_estimator__n_jobs', 'estimator__sclf__classifierchain-9__base_estimator__oob_score', 'estimator__sclf__classifierchain-9__base_estimator__random_state', 'estimator__sclf__classifierchain-9__base_estimator__verbose', 'estimator__sclf__classifierchain-9__base_estimator__warm_start', 'estimator__sclf__classifierchain-9__base_estimator', 'estimator__sclf__classifierchain-9__cv', 'estimator__sclf__classifierchain-9__order', 'estimator__sclf__classifierchain-9__random_state', 'estimator__sclf__classifierchain-10__base_estimator__bootstrap', 'estimator__sclf__classifierchain-10__base_estimator__class_weight', 'estimator__sclf__classifierchain-10__base_estimator__criterion', 'estimator__sclf__classifierchain-10__base_estimator__max_depth', 'estimator__sclf__classifierchain-10__base_estimator__max_features', 'estimator__sclf__classifierchain-10__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-10__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-10__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-10__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-10__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-10__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-10__base_estimator__n_estimators', 'estimator__sclf__classifierchain-10__base_estimator__n_jobs', 'estimator__sclf__classifierchain-10__base_estimator__oob_score', 'estimator__sclf__classifierchain-10__base_estimator__random_state', 'estimator__sclf__classifierchain-10__base_estimator__verbose', 'estimator__sclf__classifierchain-10__base_estimator__warm_start', 'estimator__sclf__classifierchain-10__base_estimator', 'estimator__sclf__classifierchain-10__cv', 'estimator__sclf__classifierchain-10__order', 'estimator__sclf__classifierchain-10__random_state', 'estimator', 'iid', 'n_jobs', 'param_grid', 'pre_dispatch', 'refit', 'return_train_score', 'scoring', 'verbose'])
+dict_keys(['cv', 'error_score', 'estimator__memory', 'estimator__steps', 'estimator__verbose', 'estimator__features', 'estimator__sclf', 'estimator__features__n_jobs', 'estimator__features__transformer_list', 'estimator__features__transformer_weights', 'estimator__features__verbose', 'estimator__features__text_pipeline', 'estimator__features__text_pipeline__memory', 'estimator__features__text_pipeline__steps', 'estimator__features__text_pipeline__verbose', 'estimator__features__text_pipeline__tfidf_vect', 'estimator__features__text_pipeline__tfidf_vect__analyzer', 'estimator__features__text_pipeline__tfidf_vect__binary', 'estimator__features__text_pipeline__tfidf_vect__decode_error', 'estimator__features__text_pipeline__tfidf_vect__dtype', 'estimator__features__text_pipeline__tfidf_vect__encoding', 'estimator__features__text_pipeline__tfidf_vect__input', 'estimator__features__text_pipeline__tfidf_vect__lowercase', 'estimator__features__text_pipeline__tfidf_vect__max_df', 'estimator__features__text_pipeline__tfidf_vect__max_features', 'estimator__features__text_pipeline__tfidf_vect__min_df', 'estimator__features__text_pipeline__tfidf_vect__ngram_range', 'estimator__features__text_pipeline__tfidf_vect__norm', 'estimator__features__text_pipeline__tfidf_vect__preprocessor', 'estimator__features__text_pipeline__tfidf_vect__smooth_idf', 'estimator__features__text_pipeline__tfidf_vect__stop_words', 'estimator__features__text_pipeline__tfidf_vect__strip_accents', 'estimator__features__text_pipeline__tfidf_vect__sublinear_tf', 'estimator__features__text_pipeline__tfidf_vect__token_pattern', 'estimator__features__text_pipeline__tfidf_vect__tokenizer', 'estimator__features__text_pipeline__tfidf_vect__use_idf', 'estimator__features__text_pipeline__tfidf_vect__vocabulary', 'estimator__sclf__average_probas', 'estimator__sclf__classifiers', 'estimator__sclf__drop_last_proba', 'estimator__sclf__meta_classifier__estimator__algorithm', 'estimator__sclf__meta_classifier__estimator__base_estimator', 'estimator__sclf__meta_classifier__estimator__learning_rate', 'estimator__sclf__meta_classifier__estimator__n_estimators', 'estimator__sclf__meta_classifier__estimator__random_state', 'estimator__sclf__meta_classifier__estimator', 'estimator__sclf__meta_classifier__n_jobs', 'estimator__sclf__meta_classifier', 'estimator__sclf__store_train_meta_features', 'estimator__sclf__use_clones', 'estimator__sclf__use_features_in_secondary', 'estimator__sclf__use_probas', 'estimator__sclf__verbose', 'estimator__sclf__classifierchain-1', 'estimator__sclf__classifierchain-2', 'estimator__sclf__classifierchain-3', 'estimator__sclf__classifierchain-4', 'estimator__sclf__classifierchain-5', 'estimator__sclf__classifierchain-1__base_estimator__bootstrap', 'estimator__sclf__classifierchain-1__base_estimator__class_weight', 'estimator__sclf__classifierchain-1__base_estimator__criterion', 'estimator__sclf__classifierchain-1__base_estimator__max_depth', 'estimator__sclf__classifierchain-1__base_estimator__max_features', 'estimator__sclf__classifierchain-1__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-1__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-1__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-1__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-1__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-1__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-1__base_estimator__n_estimators', 'estimator__sclf__classifierchain-1__base_estimator__n_jobs', 'estimator__sclf__classifierchain-1__base_estimator__oob_score', 'estimator__sclf__classifierchain-1__base_estimator__random_state', 'estimator__sclf__classifierchain-1__base_estimator__verbose', 'estimator__sclf__classifierchain-1__base_estimator__warm_start', 'estimator__sclf__classifierchain-1__base_estimator', 'estimator__sclf__classifierchain-1__cv', 'estimator__sclf__classifierchain-1__order', 'estimator__sclf__classifierchain-1__random_state', 'estimator__sclf__classifierchain-2__base_estimator__bootstrap', 'estimator__sclf__classifierchain-2__base_estimator__class_weight', 'estimator__sclf__classifierchain-2__base_estimator__criterion', 'estimator__sclf__classifierchain-2__base_estimator__max_depth', 'estimator__sclf__classifierchain-2__base_estimator__max_features', 'estimator__sclf__classifierchain-2__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-2__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-2__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-2__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-2__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-2__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-2__base_estimator__n_estimators', 'estimator__sclf__classifierchain-2__base_estimator__n_jobs', 'estimator__sclf__classifierchain-2__base_estimator__oob_score', 'estimator__sclf__classifierchain-2__base_estimator__random_state', 'estimator__sclf__classifierchain-2__base_estimator__verbose', 'estimator__sclf__classifierchain-2__base_estimator__warm_start', 'estimator__sclf__classifierchain-2__base_estimator', 'estimator__sclf__classifierchain-2__cv', 'estimator__sclf__classifierchain-2__order', 'estimator__sclf__classifierchain-2__random_state', 'estimator__sclf__classifierchain-3__base_estimator__bootstrap', 'estimator__sclf__classifierchain-3__base_estimator__class_weight', 'estimator__sclf__classifierchain-3__base_estimator__criterion', 'estimator__sclf__classifierchain-3__base_estimator__max_depth', 'estimator__sclf__classifierchain-3__base_estimator__max_features', 'estimator__sclf__classifierchain-3__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-3__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-3__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-3__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-3__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-3__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-3__base_estimator__n_estimators', 'estimator__sclf__classifierchain-3__base_estimator__n_jobs', 'estimator__sclf__classifierchain-3__base_estimator__oob_score', 'estimator__sclf__classifierchain-3__base_estimator__random_state', 'estimator__sclf__classifierchain-3__base_estimator__verbose', 'estimator__sclf__classifierchain-3__base_estimator__warm_start', 'estimator__sclf__classifierchain-3__base_estimator', 'estimator__sclf__classifierchain-3__cv', 'estimator__sclf__classifierchain-3__order', 'estimator__sclf__classifierchain-3__random_state', 'estimator__sclf__classifierchain-4__base_estimator__bootstrap', 'estimator__sclf__classifierchain-4__base_estimator__class_weight', 'estimator__sclf__classifierchain-4__base_estimator__criterion', 'estimator__sclf__classifierchain-4__base_estimator__max_depth', 'estimator__sclf__classifierchain-4__base_estimator__max_features', 'estimator__sclf__classifierchain-4__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-4__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-4__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-4__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-4__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-4__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-4__base_estimator__n_estimators', 'estimator__sclf__classifierchain-4__base_estimator__n_jobs', 'estimator__sclf__classifierchain-4__base_estimator__oob_score', 'estimator__sclf__classifierchain-4__base_estimator__random_state', 'estimator__sclf__classifierchain-4__base_estimator__verbose', 'estimator__sclf__classifierchain-4__base_estimator__warm_start', 'estimator__sclf__classifierchain-4__base_estimator', 'estimator__sclf__classifierchain-4__cv', 'estimator__sclf__classifierchain-4__order', 'estimator__sclf__classifierchain-4__random_state', 'estimator__sclf__classifierchain-5__base_estimator__bootstrap', 'estimator__sclf__classifierchain-5__base_estimator__class_weight', 'estimator__sclf__classifierchain-5__base_estimator__criterion', 'estimator__sclf__classifierchain-5__base_estimator__max_depth', 'estimator__sclf__classifierchain-5__base_estimator__max_features', 'estimator__sclf__classifierchain-5__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-5__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-5__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-5__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-5__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-5__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-5__base_estimator__n_estimators', 'estimator__sclf__classifierchain-5__base_estimator__n_jobs', 'estimator__sclf__classifierchain-5__base_estimator__oob_score', 'estimator__sclf__classifierchain-5__base_estimator__random_state', 'estimator__sclf__classifierchain-5__base_estimator__verbose', 'estimator__sclf__classifierchain-5__base_estimator__warm_start', 'estimator__sclf__classifierchain-5__base_estimator', 'estimator__sclf__classifierchain-5__cv', 'estimator__sclf__classifierchain-5__order', 'estimator__sclf__classifierchain-5__random_state', 'estimator', 'iid', 'n_jobs', 'param_grid', 'pre_dispatch', 'refit', 'return_train_score', 'scoring', 'verbose'])
 ```
 
 
@@ -605,309 +563,6 @@ Training Model:
 ```
 </div>
 </div>
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-{:.output_traceback_line}
-```
-
-    ---------------------------------------------------------------------------
-
-    KeyboardInterrupt                         Traceback (most recent call last)
-
-    <ipython-input-38-a155e9e43e98> in <module>()
-          2 print('Training Model:')
-          3 print('-----------------------------')
-    ----> 4 model.fit(X_train, y_train)
-    
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/model_selection/_search.py in fit(self, X, y, groups, **fit_params)
-        685                 return results
-        686 
-    --> 687             self._run_search(evaluate_candidates)
-        688 
-        689         # For multi-metric evaluation, store the best_index_, best_params_ and
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/model_selection/_search.py in _run_search(self, evaluate_candidates)
-       1146     def _run_search(self, evaluate_candidates):
-       1147         """Search all candidates in param_grid"""
-    -> 1148         evaluate_candidates(ParameterGrid(self.param_grid))
-       1149 
-       1150 
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/model_selection/_search.py in evaluate_candidates(candidate_params)
-        664                                for parameters, (train, test)
-        665                                in product(candidate_params,
-    --> 666                                           cv.split(X, y, groups)))
-        667 
-        668                 if len(out) < 1:
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in __call__(self, iterable)
-        919             # remaining jobs.
-        920             self._iterating = False
-    --> 921             if self.dispatch_one_batch(iterator):
-        922                 self._iterating = self._original_iterator is not None
-        923 
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in dispatch_one_batch(self, iterator)
-        757                 return False
-        758             else:
-    --> 759                 self._dispatch(tasks)
-        760                 return True
-        761 
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in _dispatch(self, batch)
-        714         with self._lock:
-        715             job_idx = len(self._jobs)
-    --> 716             job = self._backend.apply_async(batch, callback=cb)
-        717             # A job can complete so quickly than its callback is
-        718             # called before we get here, causing self._jobs to
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/_parallel_backends.py in apply_async(self, func, callback)
-        180     def apply_async(self, func, callback=None):
-        181         """Schedule a func to be run"""
-    --> 182         result = ImmediateResult(func)
-        183         if callback:
-        184             callback(result)
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/_parallel_backends.py in __init__(self, batch)
-        547         # Don't delay the application, to avoid keeping the input
-        548         # arguments in memory
-    --> 549         self.results = batch()
-        550 
-        551     def get(self):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in __call__(self)
-        223         with parallel_backend(self._backend, n_jobs=self._n_jobs):
-        224             return [func(*args, **kwargs)
-    --> 225                     for func, args, kwargs in self.items]
-        226 
-        227     def __len__(self):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in <listcomp>(.0)
-        223         with parallel_backend(self._backend, n_jobs=self._n_jobs):
-        224             return [func(*args, **kwargs)
-    --> 225                     for func, args, kwargs in self.items]
-        226 
-        227     def __len__(self):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/model_selection/_validation.py in _fit_and_score(estimator, X, y, scorer, train, test, verbose, parameters, fit_params, return_train_score, return_parameters, return_n_test_samples, return_times, return_estimator, error_score)
-        512             estimator.fit(X_train, **fit_params)
-        513         else:
-    --> 514             estimator.fit(X_train, y_train, **fit_params)
-        515 
-        516     except Exception as e:
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/imblearn/pipeline.py in fit(self, X, y, **fit_params)
-        236 
-        237         """
-    --> 238         Xt, yt, fit_params = self._fit(X, y, **fit_params)
-        239         if self._final_estimator != 'passthrough':
-        240             self._final_estimator.fit(Xt, yt, **fit_params)
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/imblearn/pipeline.py in _fit(self, X, y, **fit_params)
-        196                 X, fitted_transformer = fit_transform_one_cached(
-        197                     cloned_transformer, None, X, y,
-    --> 198                     **fit_params_steps[name])
-        199             elif hasattr(cloned_transformer, "fit_resample"):
-        200                 X, y, fitted_transformer = fit_resample_one_cached(
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/memory.py in __call__(self, *args, **kwargs)
-        353 
-        354     def __call__(self, *args, **kwargs):
-    --> 355         return self.func(*args, **kwargs)
-        356 
-        357     def call_and_shelve(self, *args, **kwargs):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/imblearn/pipeline.py in _fit_transform_one(transformer, weight, X, y, **fit_params)
-        570 def _fit_transform_one(transformer, weight, X, y, **fit_params):
-        571     if hasattr(transformer, 'fit_transform'):
-    --> 572         res = transformer.fit_transform(X, y, **fit_params)
-        573     else:
-        574         res = transformer.fit(X, y, **fit_params).transform(X)
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/pipeline.py in fit_transform(self, X, y, **fit_params)
-        910             sum of n_components (output dimension) over transformers.
-        911         """
-    --> 912         results = self._parallel_func(X, y, fit_params, _fit_transform_one)
-        913         if not results:
-        914             # All transformers are None
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/pipeline.py in _parallel_func(self, X, y, fit_params, func)
-        940             message=self._log_message(name, idx, len(transformers)),
-        941             **fit_params) for idx, (name, transformer,
-    --> 942                                     weight) in enumerate(transformers, 1))
-        943 
-        944     def transform(self, X):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in __call__(self, iterable)
-        919             # remaining jobs.
-        920             self._iterating = False
-    --> 921             if self.dispatch_one_batch(iterator):
-        922                 self._iterating = self._original_iterator is not None
-        923 
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in dispatch_one_batch(self, iterator)
-        757                 return False
-        758             else:
-    --> 759                 self._dispatch(tasks)
-        760                 return True
-        761 
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in _dispatch(self, batch)
-        714         with self._lock:
-        715             job_idx = len(self._jobs)
-    --> 716             job = self._backend.apply_async(batch, callback=cb)
-        717             # A job can complete so quickly than its callback is
-        718             # called before we get here, causing self._jobs to
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/_parallel_backends.py in apply_async(self, func, callback)
-        180     def apply_async(self, func, callback=None):
-        181         """Schedule a func to be run"""
-    --> 182         result = ImmediateResult(func)
-        183         if callback:
-        184             callback(result)
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/_parallel_backends.py in __init__(self, batch)
-        547         # Don't delay the application, to avoid keeping the input
-        548         # arguments in memory
-    --> 549         self.results = batch()
-        550 
-        551     def get(self):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in __call__(self)
-        223         with parallel_backend(self._backend, n_jobs=self._n_jobs):
-        224             return [func(*args, **kwargs)
-    --> 225                     for func, args, kwargs in self.items]
-        226 
-        227     def __len__(self):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/joblib/parallel.py in <listcomp>(.0)
-        223         with parallel_backend(self._backend, n_jobs=self._n_jobs):
-        224             return [func(*args, **kwargs)
-    --> 225                     for func, args, kwargs in self.items]
-        226 
-        227     def __len__(self):
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/pipeline.py in _fit_transform_one(transformer, X, y, weight, message_clsname, message, **fit_params)
-        714     with _print_elapsed_time(message_clsname, message):
-        715         if hasattr(transformer, 'fit_transform'):
-    --> 716             res = transformer.fit_transform(X, y, **fit_params)
-        717         else:
-        718             res = transformer.fit(X, y, **fit_params).transform(X)
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/imblearn/pipeline.py in fit_transform(self, X, y, **fit_params)
-        274             return Xt
-        275         elif hasattr(last_step, 'fit_transform'):
-    --> 276             return last_step.fit_transform(Xt, yt, **fit_params)
-        277         else:
-        278             return last_step.fit(Xt, yt, **fit_params).transform(Xt)
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/feature_extraction/text.py in fit_transform(self, raw_documents, y)
-       1650         """
-       1651         self._check_params()
-    -> 1652         X = super().fit_transform(raw_documents)
-       1653         self._tfidf.fit(X)
-       1654         # X is already a transformed view of raw_documents so
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/feature_extraction/text.py in fit_transform(self, raw_documents, y)
-       1056 
-       1057         vocabulary, X = self._count_vocab(raw_documents,
-    -> 1058                                           self.fixed_vocabulary_)
-       1059 
-       1060         if self.binary:
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/feature_extraction/text.py in _count_vocab(self, raw_documents, fixed_vocab)
-        968         for doc in raw_documents:
-        969             feature_counter = {}
-    --> 970             for feature in analyze(doc):
-        971                 try:
-        972                     feature_idx = vocabulary[feature]
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/sklearn/feature_extraction/text.py in <lambda>(doc)
-        350                                                tokenize)
-        351             return lambda doc: self._word_ngrams(
-    --> 352                 tokenize(preprocess(self.decode(doc))), stop_words)
-        353 
-        354         else:
-
-
-    <ipython-input-33-9625f3c81258> in tokenize(text)
-         14     A list of word tokens
-         15     """
-    ---> 16     return [WordNetLemmatizer().lemmatize(token.strip(), pos='v') for token in word_tokenize(text.lower()) if token not in stopwords.words("english") and token not in list(string.punctuation)]
-    
-
-    <ipython-input-33-9625f3c81258> in <listcomp>(.0)
-         14     A list of word tokens
-         15     """
-    ---> 16     return [WordNetLemmatizer().lemmatize(token.strip(), pos='v') for token in word_tokenize(text.lower()) if token not in stopwords.words("english") and token not in list(string.punctuation)]
-    
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/nltk/corpus/reader/wordlist.py in words(self, fileids, ignore_lines_startswith)
-         23         return [
-         24             line
-    ---> 25             for line in line_tokenize(self.raw(fileids))
-         26             if not line.startswith(ignore_lines_startswith)
-         27         ]
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/nltk/tokenize/simple.py in line_tokenize(text, blanklines)
-        138 
-        139 def line_tokenize(text, blanklines='discard'):
-    --> 140     return LineTokenizer(blanklines).tokenize(text)
-    
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/nltk/tokenize/simple.py in tokenize(self, s)
-        115         # If requested, strip off blank lines.
-        116         if self._blanklines == 'discard':
-    --> 117             lines = [l for l in lines if l.rstrip()]
-        118         elif self._blanklines == 'discard-eof':
-        119             if lines and not lines[-1].strip():
-
-
-    /anaconda3/envs/geopandas/lib/python3.7/site-packages/nltk/tokenize/simple.py in <listcomp>(.0)
-        115         # If requested, strip off blank lines.
-        116         if self._blanklines == 'discard':
-    --> 117             lines = [l for l in lines if l.rstrip()]
-        118         elif self._blanklines == 'discard-eof':
-        119             if lines and not lines[-1].strip():
-
-
-    KeyboardInterrupt: 
-
-
-```
-</div>
-</div>
 </div>
 
 
@@ -929,19 +584,6 @@ print('Training Accuracy: %.2f' % model.best_score_)
 ```
 </div>
 
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-{:.output_stream}
-```
-0.256 +/- 0.00 {'features__text_pipeline__tfidf_vect__ngram_range': (1, 1), 'sclf__classifierchain-1__base_estimator__n_estimators': 2}
-0.269 +/- 0.00 {'features__text_pipeline__tfidf_vect__ngram_range': (1, 1), 'sclf__classifierchain-1__base_estimator__n_estimators': 3}
-0.252 +/- 0.00 {'features__text_pipeline__tfidf_vect__ngram_range': (1, 2), 'sclf__classifierchain-1__base_estimator__n_estimators': 2}
-0.268 +/- 0.00 {'features__text_pipeline__tfidf_vect__ngram_range': (1, 2), 'sclf__classifierchain-1__base_estimator__n_estimators': 3}
-Best parameters: {'features__text_pipeline__tfidf_vect__ngram_range': (1, 1), 'sclf__classifierchain-1__base_estimator__n_estimators': 3}
-Training Accuracy: 0.27
-```
-</div>
-</div>
 </div>
 
 
