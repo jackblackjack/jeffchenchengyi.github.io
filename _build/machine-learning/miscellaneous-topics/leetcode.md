@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/miscellaneous-topics/epi
   title: 'Elements of Programming Interviews (Python)'
 next_page:
-  url: 
-  title: ''
+  url: /machine-learning/miscellaneous-topics/insurance
+  title: 'Prudential Insurance'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -440,7 +440,7 @@ print('-----------------------------')
 # Aggregate an ensemble of RandomForest classifier chains and feed them
 # to the meta classifier
 print('Creating ClassifierChains...')
-chains = [ClassifierChain(base_estimator=RandomForestClassifier(n_estimators=100), order='random', random_state=42) for _ in range(5)]
+chains = [ClassifierChain(base_estimator=RandomForestClassifier(n_estimators=50), order='random', random_state=42) for _ in range(5)]
 
 # Meta Classifier that will take the predictions
 # of each output of the classifier chains and figure out
@@ -469,7 +469,7 @@ pipeline = Pipeline([
 ])
 
 parameters = {
-    'features__text_pipeline__tfidf_vect__ngram_range': ((1, 2), (1, 10))
+    'features__text_pipeline__tfidf_vect__ngram_range': ((1, 2), (1, 5))
 }
 
 print('Initializing GridSearchCV...')
