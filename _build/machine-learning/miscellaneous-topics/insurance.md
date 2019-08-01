@@ -908,17 +908,14 @@ plt.show();
 
 
 
----
-## Claims-based Pricing (*Only for PRUextra Premier CoPay Supplementary Plan*):
-
-Level 1: ${\$ 606}$
+<img src='./img/claims_based_pricing_prushield_premier.png' />
 
 
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-606 * 0.2 + 387
+prushield_premier_df.loc['23']
 
 ```
 </div>
@@ -929,7 +926,65 @@ Level 1: ${\$ 606}$
 
 {:.output_data_text}
 ```
-508.2
+medishieldlife_premiums    195
+prushield_premiums         192
+awls                       300
+cash_outlay                NaN
+Name: 23, dtype: object
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+pruextra_premier_df.loc['23']
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+pruwell_reward_premiums_per_annum    484.80
+standard_level_premiums_per_annum       606
+pruwell_reward_premiums_per_month     41.21
+standard_level_premiums_per_month     51.51
+Name: 23, dtype: object
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+float(prushield_premier_df.loc['23']['medishieldlife_premiums']) \
++ float(prushield_premier_df.loc['23']['prushield_premiums']) \
++ float(pruextra_premier_df.loc['23']['pruwell_reward_premiums_per_annum'])
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+871.8
 ```
 
 
