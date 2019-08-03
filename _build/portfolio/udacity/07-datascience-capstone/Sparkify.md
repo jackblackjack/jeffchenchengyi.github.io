@@ -9,8 +9,8 @@ prev_page:
   url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
   title: 'Recommendation Systems for Articles with IBM'
 next_page:
-  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
-  title: 'GitHub repository'
+  url: /portfolio/dengai/dengai
+  title: 'DengAI'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

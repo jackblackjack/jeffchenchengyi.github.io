@@ -33,7 +33,7 @@
 - title: Portfolio
   url: /portfolio/portfolio
   not_numbered: true
-  # # expand_sections: true
+  # expand_sections: true
   sections:
   - title: Udacity
     url: /portfolio/udacity/udacity
@@ -49,6 +49,30 @@
         url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
       - title: Predicting Churn Rates for "Sparkify"
         url: /portfolio/udacity/07-datascience-capstone/Sparkify
+  - title: DengAI
+    url: /portfolio/dengai/dengai
+    not_numbered: true
+    subsections:
+      - title: DengAI Part 1
+        url: /portfolio/dengai/DengAI_Part_1
+      - title: DengAI Part 2
+        url: /portfolio/dengai/DengAI_Part_2
+      - title: DengAI Part 3
+        url: /portfolio/dengai/DengAI_Part_3
+      - title: DengAI Part 4a
+        url: /portfolio/dengai/DengAI_Part_4a
+      - title: DengAI Part 4b
+        url: /portfolio/dengai/DengAI_Part_4b
+      - title: DengAI Part 5
+        url: /portfolio/dengai/DengAI_Part_5
+      - title: DengAI Part 6
+        url: /portfolio/dengai/DengAI_Part_6
+      - title: DengAI Part 7a
+        url: /portfolio/dengai/DengAI_Part_7a
+      - title: DengAI Part 7b
+        url: /portfolio/dengai/DengAI_Part_7b
+      - title: DengAI Part 8
+        url: /portfolio/dengai/DengAI_Part_8
 
 - title: GitHub repository
   url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
