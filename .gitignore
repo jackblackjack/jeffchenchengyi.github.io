@@ -1,6 +1,7 @@
 # Ignore these files in base
 base/**/*.ipynb_checkpoints
 base/**/__pycache__/
+base/**/data/
 base/**/*.pkl
 # Don't ignore classifier.pkl files in disaster response project
 !base/portfolio/udacity/05-disaster-response/classifier.pkl
@@ -15,6 +16,7 @@ base/machine-learning/supervised-learning/classification/data/
 # Ignore these files in content
 content/**/*.ipynb_checkpoints
 content/**/__pycache__/
+content/**/data/
 content/**/*.pkl
 content/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
 content/portfolio/udacity/05-disaster-response/flask_exercise/
@@ -27,6 +29,7 @@ content/machine-learning/supervised-learning/classification/data/
 # Ignore these files in _build
 _build/**/*.ipynb_checkpoints
 _build/**/__pycache__/
+_build/**/data/
 _build/**/*.pkl
 _build/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
 _build/portfolio/udacity/05-disaster-response/flask_exercise/
