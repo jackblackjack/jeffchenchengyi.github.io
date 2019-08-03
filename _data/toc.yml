@@ -33,7 +33,7 @@
 - title: Portfolio
   url: /portfolio/portfolio
   not_numbered: true
-  expand_sections: true
+  # # expand_sections: true
   sections:
   - title: Udacity
     url: /portfolio/udacity/udacity
@@ -61,7 +61,7 @@
 - title: Supervised Learning
   url: /machine-learning/supervised-learning/what-is-supervised-learning
   not_numbered: true
-  expand_sections: true
+  # expand_sections: true
   sections:
   - title: Classification
     url: /machine-learning/supervised-learning/classification/classification
@@ -95,7 +95,7 @@
 - title: Unsupervised Learning
   url: /machine-learning/unsupervised-learning/what-is-unsupervised-learning
   not_numbered: true
-  expand_sections: true
+  # expand_sections: true
   sections:
   - title: Clustering
     url: /machine-learning/unsupervised-learning/clustering/clustering
@@ -129,7 +129,7 @@
 - title: Neural Networks
   url: /machine-learning/neural-networks/what-are-neural-networks
   not_numbered: true
-  expand_sections: true
+  # expand_sections: true
   sections:
   - title: Backpropagation
     url: /machine-learning/neural-networks/backpropagation
@@ -143,7 +143,7 @@
 - title: Natural Language Processing
   url: /machine-learning/natural-language-processing/what-is-natural-language-processing
   not_numbered: true
-  expand_sections: true
+  # expand_sections: true
   sections:
   - title: Natural Language Processing Pipeline
     url: /machine-learning/natural-language-processing/nlp-pipeline
@@ -157,7 +157,7 @@
 - title: Amazon Web Services
   url: /machine-learning/aws/what-is-aws
   not_numbered: true
-  expand_sections: true
+  # expand_sections: true
   sections:
   - title: AWS Big Data Specialty Exam
     url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
@@ -183,7 +183,7 @@
 - title: Miscellaneous Topics
   url: /machine-learning/miscellaneous-topics/README
   not_numbered: true
-  expand_sections: true
+  # expand_sections: true
   sections:
   - title: Statistics
     url: /machine-learning/miscellaneous-topics/statistics

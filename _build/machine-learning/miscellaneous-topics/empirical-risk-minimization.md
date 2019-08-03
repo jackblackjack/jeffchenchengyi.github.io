@@ -15,6 +15,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 # Empirical Risk Minimization
 
+Losses can be derived from MLE / MAP principles if algorithm is parametric such as cross-entropy loss. However, Hinge Loss is derived from SVM, a non-parametric ML algo. Squared Loss / MSE Loss can be derived through both MLE when we assume the data follows a Gaussian Distribution and when we use the Ordinary Least Squares method to minimize the squared residuals directly.
+
 
 
 ---

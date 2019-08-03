@@ -55,6 +55,7 @@ import matplotlib.font_manager as fm
 import matplotlib.patches as mpatches
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 import seaborn as sns
+from sklearn.metrics import f1_score, precision_score, roc_auc_score, recall_score
 
 # plotting defaults
 plt.rcParams['figure.dpi'] = 300
@@ -133,16 +134,16 @@ spark.sparkContext.getConf().getAll()
 
 {:.output_data_text}
 ```
-[('spark.rdd.compress', 'True'),
- ('spark.driver.port', '64302'),
+[('spark.app.id', 'local-1564758252671'),
+ ('spark.rdd.compress', 'True'),
  ('spark.app.name', 'Sparkify'),
+ ('spark.driver.port', '53372'),
  ('spark.serializer.objectStreamReset', '100'),
  ('spark.master', 'local[*]'),
  ('spark.executor.id', 'driver'),
  ('spark.submit.deployMode', 'client'),
  ('spark.driver.host', 'chengyis-mbp'),
- ('spark.ui.showConsoleProgress', 'true'),
- ('spark.app.id', 'local-1564368114676')]
+ ('spark.ui.showConsoleProgress', 'true')]
 ```
 
 
@@ -2799,16 +2800,16 @@ lr_prediction.show(10)
 +------+-----+--------------------+--------------------+--------------------+--------------------+----------+
 |userId|label|   unscaled_features|            features|       rawPrediction|         probability|prediction|
 +------+-----+--------------------+--------------------+--------------------+--------------------+----------+
-|     3|    1|[254.0,230.0,1.10...|[0.17714067099705...|[476.851404618139...|[1.0,8.0550137578...|       0.0|
-|     7|    0|[201.0,168.0,1.19...|[0.14017824752128...|[478.309886775311...|[1.0,1.8735079215...|       0.0|
-|     9|    0|[3191.0,2740.0,1....|[2.22541685492752...|[478.276336493678...|[1.0,1.9374309619...|       0.0|
-|    10|    0|[795.0,693.0,1.14...|[0.55443635213644...|[478.002517240056...|[1.0,2.5476773544...|       0.0|
-|    12|    1|[1064.0,947.0,1.1...|[0.74203808638134...|[475.973633439237...|[1.0,1.9376595176...|       0.0|
-|    23|    0|[782.0,689.0,1.13...|[0.54537009732163...|[476.243901409442...|[1.0,1.4787732224...|       0.0|
-|    25|    0|[2279.0,1987.0,1....|[1.58938420945779...|[479.092401223467...|[1.0,8.5667052943...|       0.0|
-|    32|    1|[108.0,87.0,1.241...|[0.07531965538457...|[473.738005677667...|[1.0,1.8121672036...|       0.0|
-|    36|    0|[1399.0,1189.0,1....|[0.97566849891682...|[479.067193196456...|[1.0,8.7853998817...|       0.0|
-|    38|    0|[1570.0,1389.0,1....|[1.09492461994240...|[479.088069558171...|[1.0,8.6038938804...|       0.0|
+|     3|    1|[254.0,230.0,1.10...|[0.17714067099705...|[478.847440188413...|[1.0,1.0944578804...|       0.0|
+|     7|    0|[201.0,168.0,1.19...|[0.14017824752128...|[480.307626893803...|[1.0,2.5412537000...|       0.0|
+|     9|    0|[3191.0,2740.0,1....|[2.22541685492752...|[480.275652242067...|[1.0,2.6238224205...|       0.0|
+|    10|    0|[795.0,693.0,1.14...|[0.55443635213644...|[480.000418457584...|[1.0,3.4551503681...|       0.0|
+|    12|    1|[1064.0,947.0,1.1...|[0.74203808638134...|[477.970396858848...|[1.0,2.6308381507...|       0.0|
+|    23|    0|[782.0,689.0,1.13...|[0.54537009732163...|[478.241048269790...|[1.0,2.0070200764...|       0.0|
+|    25|    0|[2279.0,1987.0,1....|[1.58938420945779...|[481.092412182016...|[1.0,1.1593647823...|       0.0|
+|    32|    1|[108.0,87.0,1.241...|[0.07531965538457...|[475.734224559618...|[1.0,2.4617923695...|       0.0|
+|    36|    0|[1399.0,1189.0,1....|[0.97566849891682...|[481.067478833824...|[1.0,1.1886350142...|       0.0|
+|    38|    0|[1570.0,1389.0,1....|[1.09492461994240...|[481.086406166634...|[1.0,1.1663488974...|       0.0|
 +------+-----+--------------------+--------------------+--------------------+--------------------+----------+
 only showing top 10 rows
 
@@ -2833,7 +2834,7 @@ lr_cvModel.avgMetrics
 
 {:.output_data_text}
 ```
-[0.8580256170508627, 0.8735602491633347]
+[0.8725602883706332, 0.8824869039006971]
 ```
 
 
@@ -2865,150 +2866,11 @@ Accuracy: 73.91304347826087%
 
 
 
-### Random Forest Classifier
-
-
-
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-# Initialize Random Forest PySpark classifier
-rf_clf = RandomForestClassifier()
-
-rf_paramGrid = ParamGridBuilder() \
-    .addGrid(rf_clf.maxDepth, [2, 4, 6]) \
-    .addGrid(rf_clf.maxBins, [20, 60]) \
-    .addGrid(rf_clf.numTrees, [5, 20]) \
-    .build()
-
-rf_crossval = CrossValidator(
-    estimator=rf_clf,
-    estimatorParamMaps=rf_paramGrid,
-    evaluator=BinaryClassificationEvaluator(),
-    numFolds=5
-)
-
-# Run cross-validation, and choose the best set of parameters.
-rf_cvModel = rf_crossval.fit(train)
-
-```
-</div>
-
-</div>
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-# Make predictions on train_scaler-scaled test data
-rf_prediction = rf_cvModel.transform(test)
-rf_prediction.show(10)
-
-```
-</div>
-
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-{:.output_stream}
-```
-+------+-----+--------------------+--------------------+--------------------+--------------------+----------+
-|userId|label|   unscaled_features|            features|       rawPrediction|         probability|prediction|
-+------+-----+--------------------+--------------------+--------------------+--------------------+----------+
-|     3|    1|[254.0,230.0,1.10...|[0.17714067099705...|[10.7043666301019...|[0.53521833150509...|       0.0|
-|     7|    0|[201.0,168.0,1.19...|[0.14017824752128...|[16.4686038133372...|[0.82343019066686...|       0.0|
-|     9|    0|[3191.0,2740.0,1....|[2.22541685492752...|[15.1684620653197...|[0.75842310326598...|       0.0|
-|    10|    0|[795.0,693.0,1.14...|[0.55443635213644...|[10.0804953724877...|[0.50402476862438...|       0.0|
-|    12|    1|[1064.0,947.0,1.1...|[0.74203808638134...|[3.23219488446991...|[0.16160974422349...|       1.0|
-|    23|    0|[782.0,689.0,1.13...|[0.54537009732163...|[6.30470693985612...|[0.31523534699280...|       1.0|
-|    25|    0|[2279.0,1987.0,1....|[1.58938420945779...|[13.6495545022945...|[0.68247772511472...|       0.0|
-|    32|    1|[108.0,87.0,1.241...|[0.07531965538457...|[5.65829505461858...|[0.28291475273092...|       1.0|
-|    36|    0|[1399.0,1189.0,1....|[0.97566849891682...|[13.4539402804507...|[0.67269701402253...|       0.0|
-|    38|    0|[1570.0,1389.0,1....|[1.09492461994240...|[13.6331610596715...|[0.68165805298357...|       0.0|
-+------+-----+--------------------+--------------------+--------------------+--------------------+----------+
-only showing top 10 rows
-
-```
-</div>
-</div>
-</div>
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-rf_cvModel.avgMetrics
-
-```
-</div>
-
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-
-
-{:.output_data_text}
-```
-[0.8374329278326473,
- 0.7995760877738438,
- 0.8292037839828864,
- 0.8533443181409519,
- 0.843149395018259,
- 0.8614292727686838,
- 0.8422834178444277,
- 0.8630114610339015,
- 0.8544633191337258,
- 0.8601263579804955,
- 0.8292742262412669,
- 0.8430586286862585]
-```
-
-
-</div>
-</div>
-</div>
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-print('Accuracy: {}%'.format(
-    rf_prediction.filter(rf_prediction.label == rf_prediction.prediction).count() * 100 / rf_prediction.count())
-)
-
-```
-</div>
-
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-{:.output_stream}
-```
-Accuracy: 76.08695652173913%
-```
-</div>
-</div>
-</div>
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-# Let's save the Random Forest model
-rf_cvModel.save('./models/')
-
-```
-</div>
-
-</div>
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-from sklearn.metrics import f1_score, precision_score, roc_auc_score, recall_score
+# Let's save the Logistic Regression model
+lr_cvModel.save('./models/logistic_regression/')
 
 ```
 </div>
@@ -3021,7 +2883,7 @@ from sklearn.metrics import f1_score, precision_score, roc_auc_score, recall_sco
 <div class="input_area" markdown="1">
 ```python
 # Bring data back to a pandas df
-rf_prediction_df = rf_prediction.select(['userId', 'label', 'probability', 'prediction']).toPandas()
+lr_prediction_df = lr_prediction.select(['userId', 'label', 'probability', 'prediction']).toPandas()
 
 ```
 </div>
@@ -3033,8 +2895,8 @@ rf_prediction_df = rf_prediction.select(['userId', 'label', 'probability', 'pred
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-user_churn_probabilities = rf_prediction_df[['userId', 'probability']]
-user_churn_probabilities.head()
+lr_user_churn_probabilities = lr_prediction_df[['userId', 'probability']]
+lr_user_churn_probabilities.head()
 
 ```
 </div>
@@ -3071,27 +2933,27 @@ user_churn_probabilities.head()
     <tr>
       <th>0</th>
       <td>3</td>
-      <td>[0.5352183315050961, 0.46478166849490377]</td>
+      <td>[1.0, 1.0944578804740895e-208]</td>
     </tr>
     <tr>
       <th>1</th>
       <td>7</td>
-      <td>[0.823430190666862, 0.17656980933313807]</td>
+      <td>[1.0, 2.54125370004055e-209]</td>
     </tr>
     <tr>
       <th>2</th>
       <td>9</td>
-      <td>[0.7584231032659858, 0.24157689673401422]</td>
+      <td>[1.0, 2.62382242052898e-209]</td>
     </tr>
     <tr>
       <th>3</th>
       <td>10</td>
-      <td>[0.504024768624389, 0.4959752313756109]</td>
+      <td>[1.0, 3.455150368159044e-209]</td>
     </tr>
     <tr>
       <th>4</th>
       <td>12</td>
-      <td>[0.16160974422349553, 0.8383902557765046]</td>
+      <td>[1.0, 2.6308381507373944e-208]</td>
     </tr>
   </tbody>
 </table>
@@ -3108,13 +2970,13 @@ user_churn_probabilities.head()
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-y_test_pred = rf_prediction_df['prediction']
-y_test_true = rf_prediction_df['label']
+lr_y_test_pred = lr_prediction_df['prediction']
+lr_y_test_true = lr_prediction_df['label']
 
 print({
-    'f1_score': f1_score(y_true=y_test_true, y_pred=y_test_pred),
-    'precision': precision_score(y_true=y_test_true, y_pred=y_test_pred),
-    'recall': recall_score(y_true=y_test_true, y_pred=y_test_pred)
+    'f1_score': f1_score(y_true=lr_y_test_true, y_pred=lr_y_test_pred),
+    'precision': precision_score(y_true=lr_y_test_true, y_pred=lr_y_test_pred),
+    'recall': recall_score(y_true=lr_y_test_true, y_pred=lr_y_test_pred)
 })
 
 ```
@@ -3124,10 +2986,535 @@ print({
 <div class="output_subarea" markdown="1">
 {:.output_stream}
 ```
-{'f1_score': 0.5925925925925926, 'precision': 0.5333333333333333, 'recall': 0.6666666666666666}
+{'f1_score': 0.0, 'precision': 0.0, 'recall': 0.0}
 ```
 </div>
 </div>
+</div>
+
+
+
+### Random Forest Classifier
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Initialize Random Forest PySpark classifier
+rf_clf = RandomForestClassifier()
+
+rf_paramGrid = ParamGridBuilder() \
+    .addGrid(rf_clf.maxDepth, [2, 4, 6]) \
+    .addGrid(rf_clf.maxBins, [20, 60]) \
+    .addGrid(rf_clf.numTrees, [5, 20, 100]) \
+    .build()
+
+rf_crossval = CrossValidator(
+    estimator=rf_clf,
+    estimatorParamMaps=rf_paramGrid,
+    evaluator=BinaryClassificationEvaluator(),
+    numFolds=5
+)
+
+# Run cross-validation, and choose the best set of parameters.
+rf_cvModel = rf_crossval.fit(train)
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Make predictions on train_scaler-scaled test data
+rf_prediction = rf_cvModel.transform(test)
+rf_prediction.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|userId|label|   unscaled_features|            features|       rawPrediction|         probability|prediction|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|     3|    1|[254.0,230.0,1.10...|[0.17714067099705...|[8.09691272262782...|[0.40484563613139...|       1.0|
+|     7|    0|[201.0,168.0,1.19...|[0.14017824752128...|[16.9288710907704...|[0.84644355453852...|       0.0|
+|     9|    0|[3191.0,2740.0,1....|[2.22541685492752...|          [13.0,7.0]|         [0.65,0.35]|       0.0|
+|    10|    0|[795.0,693.0,1.14...|[0.55443635213644...|[5.57193708909955...|[0.27859685445497...|       1.0|
+|    12|    1|[1064.0,947.0,1.1...|[0.74203808638134...|[1.24920634920634...|[0.06246031746031...|       1.0|
+|    23|    0|[782.0,689.0,1.13...|[0.54537009732163...|[1.70973266499582...|[0.08548663324979...|       1.0|
+|    25|    0|[2279.0,1987.0,1....|[1.58938420945779...|[14.9655172413793...|[0.74827586206896...|       0.0|
+|    32|    1|[108.0,87.0,1.241...|[0.07531965538457...|[6.45790200138026...|[0.32289510006901...|       1.0|
+|    36|    0|[1399.0,1189.0,1....|[0.97566849891682...|[13.9367315573770...|[0.69683657786885...|       0.0|
+|    38|    0|[1570.0,1389.0,1....|[1.09492461994240...|[12.953125,7.046875]|[0.64765625,0.352...|       0.0|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+rf_cvModel.avgMetrics
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+[0.8398309573568195,
+ 0.8493680170404307,
+ 0.8695365094675439,
+ 0.860993669166083,
+ 0.8466845931845932,
+ 0.8351657231657232,
+ 0.8344425162959646,
+ 0.869359483428449,
+ 0.8758714944059771,
+ 0.8784522986591954,
+ 0.8629863929174273,
+ 0.8694869536593677,
+ 0.8337804724011622,
+ 0.892723092998955,
+ 0.8902449963829273,
+ 0.8426782642644711,
+ 0.8851320040113142,
+ 0.89159488787075]
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+print('Accuracy: {}%'.format(
+    rf_prediction.filter(rf_prediction.label == rf_prediction.prediction).count() * 100 / rf_prediction.count())
+)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+Accuracy: 80.43478260869566%
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Let's save the Random Forest model
+rf_cvModel.save('./models/random_forest/')
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Bring data back to a pandas df
+rf_prediction_df = rf_prediction.select(['userId', 'label', 'probability', 'prediction']).toPandas()
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+rf_user_churn_probabilities = rf_prediction_df[['userId', 'probability']]
+rf_user_churn_probabilities.head()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+
+<div markdown="0" class="output output_html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>probability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>[0.4048456361313912, 0.5951543638686088]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7</td>
+      <td>[0.8464435545385202, 0.15355644546147978]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>[0.65, 0.35]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10</td>
+      <td>[0.27859685445497795, 0.721403145545022]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12</td>
+      <td>[0.06246031746031746, 0.9375396825396825]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+rf_y_test_pred = rf_prediction_df['prediction']
+rf_y_test_true = rf_prediction_df['label']
+
+print({
+    'f1_score': f1_score(y_true=rf_y_test_true, y_pred=rf_y_test_pred),
+    'precision': precision_score(y_true=rf_y_test_true, y_pred=rf_y_test_pred),
+    'recall': recall_score(y_true=rf_y_test_true, y_pred=rf_y_test_pred)
+})
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+{'f1_score': 0.7096774193548387, 'precision': 0.5789473684210527, 'recall': 0.9166666666666666}
+```
+</div>
+</div>
+</div>
+
+
+
+### Gradient Boosted Tree Classifier
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Initialize Gradient Boosted Tree PySpark classifier
+gbt_clf = GBTClassifier()
+
+gbt_paramGrid = ParamGridBuilder() \
+    .addGrid(gbt_clf.maxDepth, [2, 4, 6]) \
+    .addGrid(gbt_clf.maxBins, [20, 60]) \
+    .build()
+
+gbt_crossval = CrossValidator(
+    estimator=gbt_clf,
+    estimatorParamMaps=gbt_paramGrid,
+    evaluator=BinaryClassificationEvaluator(),
+    numFolds=5
+)
+
+# Run cross-validation, and choose the best set of parameters.
+gbt_cvModel = gbt_crossval.fit(train)
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Make predictions on train_scaler-scaled test data
+gbt_prediction = gbt_cvModel.transform(test)
+gbt_prediction.show(10)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|userId|label|   unscaled_features|            features|       rawPrediction|         probability|prediction|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+|     3|    1|[254.0,230.0,1.10...|[0.17714067099705...|[-0.4606277341328...|[0.28470215306444...|       1.0|
+|     7|    0|[201.0,168.0,1.19...|[0.14017824752128...|[0.51170923857543...|[0.73563794229148...|       0.0|
+|     9|    0|[3191.0,2740.0,1....|[2.22541685492752...|[0.81863931734718...|[0.83716430056844...|       0.0|
+|    10|    0|[795.0,693.0,1.14...|[0.55443635213644...|[-0.0758411061857...|[0.46215198476032...|       1.0|
+|    12|    1|[1064.0,947.0,1.1...|[0.74203808638134...|[-2.0808241684468...|[0.01534278360520...|       1.0|
+|    23|    0|[782.0,689.0,1.13...|[0.54537009732163...|[-0.8987513393152...|[0.14215533416753...|       1.0|
+|    25|    0|[2279.0,1987.0,1....|[1.58938420945779...|[0.81139611254594...|[0.83517985187636...|       0.0|
+|    32|    1|[108.0,87.0,1.241...|[0.07531965538457...|[-1.1250684803252...|[0.09533765160964...|       1.0|
+|    36|    0|[1399.0,1189.0,1....|[0.97566849891682...|[0.67954455696183...|[0.79561161497843...|       0.0|
+|    38|    0|[1570.0,1389.0,1....|[1.09492461994240...|[0.81863931734718...|[0.83716430056844...|       0.0|
++------+-----+--------------------+--------------------+--------------------+--------------------+----------+
+only showing top 10 rows
+
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+gbt_cvModel.avgMetrics
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+[0.9137161535782226,
+ 0.898313640382606,
+ 0.8449436578746924,
+ 0.8721826315447004,
+ 0.7838053785295165,
+ 0.8295882527434253]
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+print('Accuracy: {}%'.format(
+    gbt_prediction.filter(gbt_prediction.label == gbt_prediction.prediction).count() * 100 / gbt_prediction.count())
+)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+Accuracy: 76.08695652173913%
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Let's save the Random Forest model
+gbt_cvModel.save('./models/gradient_boosted_tree/')
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Bring data back to a pandas df
+gbt_prediction_df = gbt_prediction.select(['userId', 'label', 'probability', 'prediction']).toPandas()
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+gbt_user_churn_probabilities = gbt_prediction_df[['userId', 'probability']]
+gbt_user_churn_probabilities.head()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+
+<div markdown="0" class="output output_html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>probability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>[0.28470215306444185, 0.7152978469355582]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7</td>
+      <td>[0.7356379422914863, 0.26436205770851373]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>[0.8371643005684475, 0.16283569943155252]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10</td>
+      <td>[0.46215198476032854, 0.5378480152396714]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12</td>
+      <td>[0.015342783605201797, 0.9846572163947982]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+gbt_y_test_pred = gbt_prediction_df['prediction']
+gbt_y_test_true = gbt_prediction_df['label']
+
+print({
+    'f1_score': f1_score(y_true=gbt_y_test_true, y_pred=gbt_y_test_pred),
+    'precision': precision_score(y_true=gbt_y_test_true, y_pred=gbt_y_test_pred),
+    'recall': recall_score(y_true=gbt_y_test_true, y_pred=gbt_y_test_pred)
+})
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+{'f1_score': 0.6666666666666667, 'precision': 0.5238095238095238, 'recall': 0.9166666666666666}
+```
+</div>
+</div>
+</div>
+
+
+
+### Multi-layer Perceptron Classifier
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# MultilayerPerceptronClassifier()
+
+```
+</div>
+
 </div>
 
 

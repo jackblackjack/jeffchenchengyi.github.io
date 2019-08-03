@@ -486,40 +486,6 @@ prushield_premier_df.tail()
 
 
 
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-# Let's take a look
-# at the prushield premiums over time
-fig, ax = plt.subplots(1, 1)
-ax.plot(
-    prushield_premier_df.index,
-    prushield_premier_df['prushield_premiums'] \
-        .apply(lambda val: int(str(val).replace(',', '')))
-)
-ax.grid()
-ax.set_xlabel('Age on Next Birthday')
-ax.set_xticklabels(prushield_premier_df.index, rotation=90)
-ax.set_ylabel('Premiums (S$)')
-ax.set_title('Prushield Premier Premiums')
-plt.tight_layout()
-plt.show();
-
-```
-</div>
-
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-
-{:.output_png}
-![png](../../images/machine-learning/miscellaneous-topics/insurance_14_0.png)
-
-</div>
-</div>
-</div>
-
-
-
 ### PRUextra Premier Premiums
 
 
@@ -836,6 +802,218 @@ pruextra_premier_df.tail()
 
 
 
+### PRUextra Premier Lite Premiums
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Get the Pruextra premier_lite plans
+# for Singaporeans
+pruextra_premier_lite_start_idx = [idx for idx, val in enumerate(pruextra_premium_df[0]) if 'lite' in str(val).lower()][0]
+pruextra_premier_lite_end_idx = [idx for idx, val in enumerate(pruextra_premium_df[0][pruextra_premier_lite_start_idx:]) if '>' in str(val)][0] + pruextra_premier_lite_start_idx + 1
+pruextra_premier_lite_df = pruextra_premium_df \
+    .iloc[pruextra_premier_lite_start_idx:pruextra_premier_lite_end_idx, :]
+pruextra_premier_lite_df.tail()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+
+<div markdown="0" class="output output_html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>328</th>
+      <td>973</td>
+      <td>3,915</td>
+      <td>332.78</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>329</th>
+      <td>983</td>
+      <td>3,962</td>
+      <td>336.77</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>330</th>
+      <td>993</td>
+      <td>4,050</td>
+      <td>344.25</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>331</th>
+      <td>1003</td>
+      <td>4,078</td>
+      <td>346.63</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>332</th>
+      <td>&gt;1003</td>
+      <td>4,078</td>
+      <td>346.63</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Drop last 2 columns
+pruextra_premier_lite_df = pruextra_premier_lite_df.iloc[:, :-2]
+pruextra_premier_lite_df[0] = pruextra_premier_lite_df[0].apply(lambda val: str(val).replace(' ', '').replace(',', ''))
+
+# Only keep the numerical rows for first column
+pruextra_premier_lite_df = pruextra_premier_lite_df[
+    pruextra_premier_lite_df[0] \
+        .apply(lambda val: str(val).isnumeric() or '>' in str(val))
+]
+
+# Clean age next birthday to ensure age only goes up to 2 digits
+pruextra_premier_lite_df[0] = pruextra_premier_lite_df[0] \
+    .apply(lambda val: \
+           val[:-1] if len(val) > 2 \
+           else val \
+          )
+
+# Set the column names
+pruextra_premier_lite_df.columns = [
+    'age_next_birthday',
+    'premiums_per_annum',
+    'premiums_per_month'
+]
+
+# Set the index to the age on next birthday
+pruextra_premier_lite_df.index = pruextra_premier_lite_df['age_next_birthday'].astype(str)
+pruextra_premier_lite_df = pruextra_premier_lite_df.drop('age_next_birthday', axis=1)
+pruextra_premier_lite_df.tail()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+
+<div markdown="0" class="output output_html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>premiums_per_annum</th>
+      <th>premiums_per_month</th>
+    </tr>
+    <tr>
+      <th>age_next_birthday</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>97</th>
+      <td>3,915</td>
+      <td>332.78</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>3,962</td>
+      <td>336.77</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>4,050</td>
+      <td>344.25</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>4,078</td>
+      <td>346.63</td>
+    </tr>
+    <tr>
+      <th>&gt;100</th>
+      <td>4,078</td>
+      <td>346.63</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+### Visualizations
+
+
+
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
@@ -844,51 +1022,63 @@ pruextra_premier_df.tail()
 fig, ax = plt.subplots(1, 1)
 ax.plot(
     pruextra_premier_df.index,
+    prushield_premier_df['prushield_premiums'] \
+        .apply(lambda val: int(str(val).replace(',', ''))),
+    label='PRUshield Premiums'
+)
+ax.plot(
+    pruextra_premier_df.index,
     pruextra_premier_df['pruwell_reward_premiums_per_annum'] \
         .apply(lambda val: float(str(val).replace(',', ''))),
-    label='Premium with 20% PRUwell Discount'
+    label='PRUextra Premier Premiums with 20% PRUwell Discount'
 )
 ax.plot(
     pruextra_premier_df.index,
     pruextra_premier_df['standard_level_premiums_per_annum'] \
         .apply(lambda val: float(str(val).replace(',', ''))),
-    label='Premium at Standard Level'
+    label='PRUextra Premier Premiums at Standard Level'
 )
 ax.plot(
     pruextra_premier_df.index,
     pruextra_premier_df['standard_level_premiums_per_annum'] \
         .apply(lambda val: float(str(val).replace(',', '')) * 1.4),
-    label='Premium at Level 1'
+    label='PRUextra Premier Premiums at Level 1'
 )
 ax.plot(
     pruextra_premier_df.index,
     pruextra_premier_df['standard_level_premiums_per_annum'] \
         .apply(lambda val: float(str(val).replace(',', '')) * 1.6),
-    label='Premium at Level 2'
+    label='PRUextra Premier Premiums at Level 2'
 )
 ax.plot(
     pruextra_premier_df.index,
     pruextra_premier_df['standard_level_premiums_per_annum'] \
         .apply(lambda val: float(str(val).replace(',', '')) * 1.8),
-    label='Premium at Level 3'
+    label='PRUextra Premier Premiums at Level 3'
 )
 ax.plot(
     pruextra_premier_df.index,
     pruextra_premier_df['standard_level_premiums_per_annum'] \
         .apply(lambda val: float(str(val).replace(',', '')) * 2),
-    label='Premium at Level 4'
+    label='PRUextra Premier Premiums at Level 4'
 )
 ax.plot(
     pruextra_premier_df.index,
     pruextra_premier_df['standard_level_premiums_per_annum'] \
         .apply(lambda val: float(str(val).replace(',', '')) * 3),
-    label='Premium at Level 5'
+    label='PRUextra Premier Premiums at Level 5'
+)
+ax.plot(
+    pruextra_premier_df.index,
+    pruextra_premier_lite_df['premiums_per_annum'] \
+        .apply(lambda val: float(str(val).replace(',', ''))),
+    label='PRUextra Premier Lite Premiums'
 )
 ax.grid()
 ax.set_xlabel('Age on Next Birthday')
 ax.set_xticklabels(pruextra_premier_df.index, rotation=90)
 ax.set_ylabel('Premiums (S$)')
-ax.set_title('Pruextra Premier Premiums')
+ax.set_title('PRUshield & PRUextra Premier Premiums')
 ax.legend()
 plt.tight_layout()
 plt.show();
@@ -900,11 +1090,15 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/miscellaneous-topics/insurance_19_0.png)
+![png](../../images/machine-learning/miscellaneous-topics/insurance_22_0.png)
 
 </div>
 </div>
 </div>
+
+
+
+### Claims-based Pricing for PRUextra Premier Supplementary Plan
 
 
 
@@ -985,6 +1179,62 @@ float(prushield_premier_df.loc['23']['medishieldlife_premiums']) \
 {:.output_data_text}
 ```
 871.8
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+float(prushield_premier_df.loc['23']['medishieldlife_premiums']) \
++ float(prushield_premier_df.loc['23']['prushield_premiums']) \
++ float(pruextra_premier_df.loc['23']['standard_level_premiums_per_annum']) * 3
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+2205.0
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<img src='./img/pruextra_premier_vs_lite.png' />
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+float(prushield_premier_df.loc['23']['medishieldlife_premiums']) \
++ float(prushield_premier_df.loc['23']['prushield_premiums']) \
++ float(pruextra_premier_lite_df.loc['23']['premiums_per_annum'])
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+632.0
 ```
 
 

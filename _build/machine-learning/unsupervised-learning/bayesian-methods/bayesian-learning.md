@@ -200,7 +200,7 @@ p(\mathbf{y} \mid \mathbf{X}) &= \prod_k p(y_k \mid \mathbf{x}_k ) = \prod_k \fr
 \end{aligned}
 $$
 
-Becuase we're treatiung each character independently, we'll just multiply the individual $p(y_k \mid \mathbf{x}_k )$ and it'll be calculated using a softmax (AKA Boltzmann / Gibbs distribution) function (in the last layer before output nodes) where the denominator is also again known as the **partition function**.
+Because we're treating each character independently, we'll just multiply the individual $p(y_k \mid \mathbf{x}_k )$ and it'll be calculated using a softmax (AKA Boltzmann / Gibbs distribution) function (in the last layer before output nodes) where the denominator is also again known as the **partition function**.
 
 - Logistic Regression is a very simple CRF
 
