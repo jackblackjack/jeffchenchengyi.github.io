@@ -2,13 +2,13 @@
 interact_link: content/portfolio/dengai/07-dengai.ipynb
 kernel_name: python3
 has_widgets: false
-title: 'DengAI Part 7'
+title: 'DengAI (Latest)'
 prev_page:
-  url: /portfolio/dengai/README
-  title: 'DengAI'
+  url: /portfolio/udacity/07-datascience-capstone/Sparkify
+  title: 'Predicting Churn Rates for "Sparkify"'
 next_page:
-  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
-  title: 'GitHub repository'
+  url: /machine-learning/01-supervised-learning/classification/README
+  title: 'Classification'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -7,8 +7,8 @@ prev_page:
   url: /intro
   title: 'Home'
 next_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
-  title: 'Non-Technical Posts'
+  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
+  title: 'GitHub repository'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

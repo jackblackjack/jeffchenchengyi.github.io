@@ -1,13 +1,13 @@
 ---
 redirect_from:
-  - "/machine-learning/01-supervised-learning/classification/readme"
-title: 'Classification'
+  - "/machine-learning/06-natural-language-processing/sequence-models/readme"
+title: 'Sequence Models'
 prev_page:
-  url: /portfolio/dengai/07-dengai
-  title: 'DengAI (Latest)'
+  url: /machine-learning/06-natural-language-processing/word2vec/skipngram
+  title: 'Skip N-gram'
 next_page:
-  url: /machine-learning/01-supervised-learning/classification/bayes-optimal-classifier
-  title: 'Bayes Optimal Classifier'
+  url: /machine-learning/06-natural-language-processing/sequence-models/intro
+  title: 'Types of Sequence Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # Exploring Housing Prices in Singapore

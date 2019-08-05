@@ -1,13 +1,13 @@
 ---
 redirect_from:
-  - "/machine-learning/01-supervised-learning/classification/readme"
-title: 'Classification'
+  - "/machine-learning/03-neural-networks/cnn/readme"
+title: 'Convolutional Neural Networks'
 prev_page:
-  url: /portfolio/dengai/07-dengai
-  title: 'DengAI (Latest)'
+  url: /machine-learning/03-neural-networks/basics/backpropagation
+  title: 'Backpropagation'
 next_page:
-  url: /machine-learning/01-supervised-learning/classification/bayes-optimal-classifier
-  title: 'Bayes Optimal Classifier'
+  url: /machine-learning/03-neural-networks/cnn/cnn
+  title: 'Introduction'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # Exploring Housing Prices in Singapore

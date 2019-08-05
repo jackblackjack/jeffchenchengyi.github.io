@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/02-unsupervised-learning/bayesian-methods/markov-chains
   title: 'Markov Chains'
 next_page:
-  url: /machine-learning/03-neural-networks/README
-  title: 'Neural Networks'
+  url: /machine-learning/03-neural-networks/basics/README
+  title: 'Basics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

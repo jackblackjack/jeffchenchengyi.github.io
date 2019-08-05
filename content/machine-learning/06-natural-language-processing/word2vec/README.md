@@ -1,15 +1,3 @@
----
-redirect_from:
-  - "/machine-learning/01-supervised-learning/classification/readme"
-title: 'Classification'
-prev_page:
-  url: /portfolio/dengai/07-dengai
-  title: 'DengAI (Latest)'
-next_page:
-  url: /machine-learning/01-supervised-learning/classification/bayes-optimal-classifier
-  title: 'Bayes Optimal Classifier'
-comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
----
 # Exploring Housing Prices in Singapore
 
 <img src="https://thesmartlocal.com/wp-content/uploads/2014/09/images_easyblog_images_2088_Beautiful-Homes_Hillside-House-1.jpg" />

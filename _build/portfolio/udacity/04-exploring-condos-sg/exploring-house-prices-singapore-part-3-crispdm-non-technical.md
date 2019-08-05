@@ -4,11 +4,11 @@ kernel_name: python3
 has_widgets: false
 title: 'Non-Technical Posts'
 prev_page:
-  url: /aboutme
-  title: 'About Me'
+  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
+  title: 'GitHub repository'
 next_page:
-  url: /portfolio/README
-  title: 'Portfolio'
+  url: /portfolio/udacity/README
+  title: 'Udacity Data Scientist Nanodegree Program Projects'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

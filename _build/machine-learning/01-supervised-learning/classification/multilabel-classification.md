@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/01-supervised-learning/classification/logistic-regression
   title: 'Logistic Regression'
 next_page:
-  url: /machine-learning/02-unsupervised-learning/README
-  title: 'Unsupervised Learning'
+  url: /machine-learning/02-unsupervised-learning/clustering/README
+  title: 'Clustering'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

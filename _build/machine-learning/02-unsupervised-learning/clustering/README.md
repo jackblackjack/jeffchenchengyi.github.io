@@ -3,8 +3,8 @@ redirect_from:
   - "/machine-learning/02-unsupervised-learning/clustering/readme"
 title: 'Clustering'
 prev_page:
-  url: /machine-learning/02-unsupervised-learning/README
-  title: 'Unsupervised Learning'
+  url: /machine-learning/01-supervised-learning/classification/multilabel-classification
+  title: 'Multi-Label Classification'
 next_page:
   url: /machine-learning/02-unsupervised-learning/clustering/k-means
   title: 'K-Means'

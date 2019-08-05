@@ -394,6 +394,33 @@ tokenize('The dispute has hurt the global economy, crimped U.S. exports, damaged
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+['dispute',
+ 'hurt',
+ 'global',
+ 'economy',
+ 'crimp',
+ 'u.s.',
+ 'export',
+ 'damage',
+ 'american',
+ 'manufacturers',
+ 'rattle',
+ 'corporate',
+ 'executives',
+ 'small-business',
+ 'owners',
+ 'alike']
+```
+
+
+</div>
+</div>
 </div>
 
 
@@ -451,6 +478,21 @@ model = GridSearchCV(pipeline, param_grid=parameters, cv=3)
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+=============================
+Building Model:
+-----------------------------
+Creating ClassifierChains...
+Adding Meta Classifier...
+Stacking Meta Classifier on top of ClassifierChains...
+Building Pipeline...
+Initializing GridSearchCV...
+```
+</div>
+</div>
 </div>
 
 
@@ -482,6 +524,18 @@ model.get_params().keys()
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+dict_keys(['cv', 'error_score', 'estimator__memory', 'estimator__steps', 'estimator__verbose', 'estimator__features', 'estimator__sclf', 'estimator__features__n_jobs', 'estimator__features__transformer_list', 'estimator__features__transformer_weights', 'estimator__features__verbose', 'estimator__features__text_pipeline', 'estimator__features__text_pipeline__memory', 'estimator__features__text_pipeline__steps', 'estimator__features__text_pipeline__verbose', 'estimator__features__text_pipeline__tfidf_vect', 'estimator__features__text_pipeline__tfidf_vect__analyzer', 'estimator__features__text_pipeline__tfidf_vect__binary', 'estimator__features__text_pipeline__tfidf_vect__decode_error', 'estimator__features__text_pipeline__tfidf_vect__dtype', 'estimator__features__text_pipeline__tfidf_vect__encoding', 'estimator__features__text_pipeline__tfidf_vect__input', 'estimator__features__text_pipeline__tfidf_vect__lowercase', 'estimator__features__text_pipeline__tfidf_vect__max_df', 'estimator__features__text_pipeline__tfidf_vect__max_features', 'estimator__features__text_pipeline__tfidf_vect__min_df', 'estimator__features__text_pipeline__tfidf_vect__ngram_range', 'estimator__features__text_pipeline__tfidf_vect__norm', 'estimator__features__text_pipeline__tfidf_vect__preprocessor', 'estimator__features__text_pipeline__tfidf_vect__smooth_idf', 'estimator__features__text_pipeline__tfidf_vect__stop_words', 'estimator__features__text_pipeline__tfidf_vect__strip_accents', 'estimator__features__text_pipeline__tfidf_vect__sublinear_tf', 'estimator__features__text_pipeline__tfidf_vect__token_pattern', 'estimator__features__text_pipeline__tfidf_vect__tokenizer', 'estimator__features__text_pipeline__tfidf_vect__use_idf', 'estimator__features__text_pipeline__tfidf_vect__vocabulary', 'estimator__sclf__average_probas', 'estimator__sclf__classifiers', 'estimator__sclf__drop_last_proba', 'estimator__sclf__meta_classifier__estimator__algorithm', 'estimator__sclf__meta_classifier__estimator__base_estimator', 'estimator__sclf__meta_classifier__estimator__learning_rate', 'estimator__sclf__meta_classifier__estimator__n_estimators', 'estimator__sclf__meta_classifier__estimator__random_state', 'estimator__sclf__meta_classifier__estimator', 'estimator__sclf__meta_classifier__n_jobs', 'estimator__sclf__meta_classifier', 'estimator__sclf__store_train_meta_features', 'estimator__sclf__use_clones', 'estimator__sclf__use_features_in_secondary', 'estimator__sclf__use_probas', 'estimator__sclf__verbose', 'estimator__sclf__classifierchain-1', 'estimator__sclf__classifierchain-2', 'estimator__sclf__classifierchain-3', 'estimator__sclf__classifierchain-1__base_estimator__bootstrap', 'estimator__sclf__classifierchain-1__base_estimator__class_weight', 'estimator__sclf__classifierchain-1__base_estimator__criterion', 'estimator__sclf__classifierchain-1__base_estimator__max_depth', 'estimator__sclf__classifierchain-1__base_estimator__max_features', 'estimator__sclf__classifierchain-1__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-1__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-1__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-1__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-1__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-1__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-1__base_estimator__n_estimators', 'estimator__sclf__classifierchain-1__base_estimator__n_jobs', 'estimator__sclf__classifierchain-1__base_estimator__oob_score', 'estimator__sclf__classifierchain-1__base_estimator__random_state', 'estimator__sclf__classifierchain-1__base_estimator__verbose', 'estimator__sclf__classifierchain-1__base_estimator__warm_start', 'estimator__sclf__classifierchain-1__base_estimator', 'estimator__sclf__classifierchain-1__cv', 'estimator__sclf__classifierchain-1__order', 'estimator__sclf__classifierchain-1__random_state', 'estimator__sclf__classifierchain-2__base_estimator__bootstrap', 'estimator__sclf__classifierchain-2__base_estimator__class_weight', 'estimator__sclf__classifierchain-2__base_estimator__criterion', 'estimator__sclf__classifierchain-2__base_estimator__max_depth', 'estimator__sclf__classifierchain-2__base_estimator__max_features', 'estimator__sclf__classifierchain-2__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-2__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-2__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-2__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-2__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-2__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-2__base_estimator__n_estimators', 'estimator__sclf__classifierchain-2__base_estimator__n_jobs', 'estimator__sclf__classifierchain-2__base_estimator__oob_score', 'estimator__sclf__classifierchain-2__base_estimator__random_state', 'estimator__sclf__classifierchain-2__base_estimator__verbose', 'estimator__sclf__classifierchain-2__base_estimator__warm_start', 'estimator__sclf__classifierchain-2__base_estimator', 'estimator__sclf__classifierchain-2__cv', 'estimator__sclf__classifierchain-2__order', 'estimator__sclf__classifierchain-2__random_state', 'estimator__sclf__classifierchain-3__base_estimator__bootstrap', 'estimator__sclf__classifierchain-3__base_estimator__class_weight', 'estimator__sclf__classifierchain-3__base_estimator__criterion', 'estimator__sclf__classifierchain-3__base_estimator__max_depth', 'estimator__sclf__classifierchain-3__base_estimator__max_features', 'estimator__sclf__classifierchain-3__base_estimator__max_leaf_nodes', 'estimator__sclf__classifierchain-3__base_estimator__min_impurity_decrease', 'estimator__sclf__classifierchain-3__base_estimator__min_impurity_split', 'estimator__sclf__classifierchain-3__base_estimator__min_samples_leaf', 'estimator__sclf__classifierchain-3__base_estimator__min_samples_split', 'estimator__sclf__classifierchain-3__base_estimator__min_weight_fraction_leaf', 'estimator__sclf__classifierchain-3__base_estimator__n_estimators', 'estimator__sclf__classifierchain-3__base_estimator__n_jobs', 'estimator__sclf__classifierchain-3__base_estimator__oob_score', 'estimator__sclf__classifierchain-3__base_estimator__random_state', 'estimator__sclf__classifierchain-3__base_estimator__verbose', 'estimator__sclf__classifierchain-3__base_estimator__warm_start', 'estimator__sclf__classifierchain-3__base_estimator', 'estimator__sclf__classifierchain-3__cv', 'estimator__sclf__classifierchain-3__order', 'estimator__sclf__classifierchain-3__random_state', 'estimator', 'iid', 'n_jobs', 'param_grid', 'pre_dispatch', 'refit', 'return_train_score', 'scoring', 'verbose'])
+```
+
+
+</div>
+</div>
 </div>
 
 
@@ -497,6 +551,16 @@ model.fit(X_train, y_train)
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+=============================
+Training Model:
+-----------------------------
+```
+</div>
+</div>
 </div>
 
 
