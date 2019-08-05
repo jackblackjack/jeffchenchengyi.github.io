@@ -3,11 +3,11 @@ redirect_from:
   - "/portfolio/dengai/readme"
 title: 'DengAI'
 prev_page:
-  url: /portfolio/udacity/07-datascience-capstone/Sparkify
-  title: 'Predicting Churn Rates for "Sparkify"'
+  url: https://github.com/lucashu1/education-deserts
+  title: 'Education Deserts'
 next_page:
   url: /portfolio/dengai/07-dengai
-  title: 'DengAI Part 7'
+  title: 'DengAI (Latest)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # Exploring Housing Prices in Singapore

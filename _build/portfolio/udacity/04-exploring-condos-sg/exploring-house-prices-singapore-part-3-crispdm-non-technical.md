@@ -2,10 +2,10 @@
 interact_link: content/portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical.ipynb
 kernel_name: python3
 has_widgets: false
-title: 'Non-Technical Posts'
+title: 'Exploring Condominiums in Singapore'
 prev_page:
-  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
-  title: 'GitHub repository'
+  url: /portfolio/README
+  title: 'Non-Technical Posts'
 next_page:
   url: /portfolio/udacity/README
   title: 'Udacity Data Scientist Nanodegree Program Projects'

@@ -1,13 +1,13 @@
 ---
 redirect_from:
   - "/portfolio/readme"
-title: 'Portfolio'
+title: 'Non-Technical Posts'
 prev_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
-  title: 'Non-Technical Posts'
+  url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
+  title: 'GitHub repository'
 next_page:
-  url: /portfolio/udacity/README
-  title: 'Udacity Data Scientist Nanodegree Program Projects'
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+  title: 'Exploring Condominiums in Singapore'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # Exploring Housing Prices in Singapore

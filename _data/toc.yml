@@ -36,11 +36,16 @@
   not_numbered: true
 
 - divider: true
-- header: Personal Projects
+- header: Portfolio
 - title: Non-Technical Posts
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+  url: /portfolio/README
+  not_numbered: true
+  sections:
+    - title: Exploring Condominiums in Singapore
+      url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
 - title: Udacity Data Scientist Nanodegree Program Projects
   url: /portfolio/udacity/README
+  not_numbered: true
   sections:
     - title: Finding Donors with US Census Burea Data
       url: /portfolio/udacity/01-finding-donors/finding_donors
@@ -56,8 +61,20 @@
       url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
     - title: Predicting Churn Rates for "Sparkify"
       url: /portfolio/udacity/07-datascience-capstone/Sparkify
-- title: DengAI (Latest)
-  url: /portfolio/dengai/07-dengai
+- title: Google Street View Sign Detection with CAIS++ and SLAB @ USC
+  url: https://github.com/usc-caisplusplus/SLAB
+  external: true
+  not_numbered: true
+- title: Education Deserts
+  url: https://github.com/lucashu1/education-deserts
+  external: true
+  not_numbered: true
+- title: DengAI
+  url: /portfolio/dengai/README
+  not_numbered: true
+  sections:
+    - title: DengAI (Latest)
+      url: /portfolio/dengai/07-dengai
 
 - divider: true
 - header: Supervised Learning
@@ -115,6 +132,7 @@
 - header: Neural Networks
 - title: Basics
   url: /machine-learning/03-neural-networks/basics/README
+  not_numbered: true
   sections:
   - title: Backpropagation
     url: /machine-learning/03-neural-networks/basics/backpropagation
@@ -128,11 +146,13 @@
 - header: Natural Language Processing
 - title: Basics
   url: /machine-learning/06-natural-language-processing/basics/README
+  not_numbered: true
   sections:
   - title: Natural Language Processing Pipeline
     url: /machine-learning/06-natural-language-processing/basics/nlp-pipeline
 - title: Word2Vec
   url: /machine-learning/06-natural-language-processing/word2vec/README
+  not_numbered: true
   sections:  
   - title: Continuous Bag of Words
     url: /machine-learning/06-natural-language-processing/word2vec/cbow
@@ -140,6 +160,7 @@
     url: /machine-learning/06-natural-language-processing/word2vec/skipngram
 - title: Sequence Models
   url: /machine-learning/06-natural-language-processing/sequence-models/README
+  not_numbered: true
   sections:
   - title: Types of Sequence Models
     url: /machine-learning/06-natural-language-processing/sequence-models/intro

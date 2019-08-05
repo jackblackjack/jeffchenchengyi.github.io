@@ -4,7 +4,7 @@ redirect_from:
 title: 'Udacity Data Scientist Nanodegree Program Projects'
 prev_page:
   url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
-  title: 'Non-Technical Posts'
+  title: 'Exploring Condominiums in Singapore'
 next_page:
   url: /portfolio/udacity/01-finding-donors/finding_donors
   title: 'Finding Donors with US Census Burea Data'

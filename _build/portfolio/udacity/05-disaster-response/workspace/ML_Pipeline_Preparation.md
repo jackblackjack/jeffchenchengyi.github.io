@@ -561,6 +561,48 @@ Training Model:
 ```
 </div>
 </div>
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+GridSearchCV(cv=3, error_score='raise-deprecating',
+             estimator=Pipeline(memory=None,
+                                steps=[('features',
+                                        FeatureUnion(n_jobs=None,
+                                                     transformer_list=[('text_pipeline',
+                                                                        Pipeline(memory=None,
+                                                                                 steps=[('tfidf_vect',
+                                                                                         TfidfVectorizer(analyzer='word',
+                                                                                                         binary=False,
+                                                                                                         decode_error='strict',
+                                                                                                         dtype=<class 'numpy.float64'>,
+                                                                                                         encoding='utf-8',
+                                                                                                         input='content',
+                                                                                                         lowercase=True,
+                                                                                                         max_...
+                                                                                                                              n_estimators=50,
+                                                                                                                              random_state=None),
+                                                                                                 n_jobs=None),
+                                                           store_train_meta_features=False,
+                                                           use_clones=True,
+                                                           use_features_in_secondary=False,
+                                                           use_probas=False,
+                                                           verbose=0))],
+                                verbose=False),
+             iid='warn', n_jobs=None,
+             param_grid={'features__text_pipeline__tfidf_vect__ngram_range': ((1,
+                                                                               2),
+                                                                              (1,
+                                                                               3))},
+             pre_dispatch='2*n_jobs', refit=True, return_train_score=False,
+             scoring=None, verbose=0)
+```
+
+
+</div>
+</div>
 </div>
 
 
@@ -582,6 +624,17 @@ print('Training Accuracy: %.2f' % model.best_score_)
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+0.268 +/- 0.00 {'features__text_pipeline__tfidf_vect__ngram_range': (1, 2)}
+0.269 +/- 0.00 {'features__text_pipeline__tfidf_vect__ngram_range': (1, 3)}
+Best parameters: {'features__text_pipeline__tfidf_vect__ngram_range': (1, 3)}
+Training Accuracy: 0.27
+```
+</div>
+</div>
 </div>
 
 
@@ -608,6 +661,372 @@ for idx, label in enumerate(category_names):
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+Classification Report for [1mrelated[0m:
+              precision    recall  f1-score   support
+
+           0       0.59      0.49      0.54      1245
+           1       0.85      0.89      0.87      3998
+
+    accuracy                           0.80      5243
+   macro avg       0.72      0.69      0.70      5243
+weighted avg       0.79      0.80      0.79      5243
+
+Classification Report for [1mrequest[0m:
+              precision    recall  f1-score   support
+
+           0       0.91      0.97      0.94      4352
+           1       0.77      0.52      0.62       891
+
+    accuracy                           0.89      5243
+   macro avg       0.84      0.74      0.78      5243
+weighted avg       0.88      0.89      0.88      5243
+
+Classification Report for [1moffer[0m:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      5219
+           1       0.00      0.00      0.00        24
+
+    accuracy                           1.00      5243
+   macro avg       0.50      0.50      0.50      5243
+weighted avg       0.99      1.00      0.99      5243
+
+Classification Report for [1maid_related[0m:
+              precision    recall  f1-score   support
+
+           0       0.72      0.90      0.80      3079
+           1       0.78      0.50      0.61      2164
+
+    accuracy                           0.74      5243
+   macro avg       0.75      0.70      0.70      5243
+weighted avg       0.75      0.74      0.72      5243
+
+Classification Report for [1mmedical_help[0m:
+              precision    recall  f1-score   support
+
+           0       0.93      0.99      0.96      4808
+           1       0.58      0.17      0.26       435
+
+    accuracy                           0.92      5243
+   macro avg       0.75      0.58      0.61      5243
+weighted avg       0.90      0.92      0.90      5243
+
+Classification Report for [1mmedical_products[0m:
+              precision    recall  f1-score   support
+
+           0       0.95      1.00      0.98      4964
+           1       0.76      0.14      0.24       279
+
+    accuracy                           0.95      5243
+   macro avg       0.86      0.57      0.61      5243
+weighted avg       0.94      0.95      0.94      5243
+
+Classification Report for [1msearch_and_rescue[0m:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      5107
+           1       0.59      0.14      0.23       136
+
+    accuracy                           0.98      5243
+   macro avg       0.79      0.57      0.61      5243
+weighted avg       0.97      0.98      0.97      5243
+
+Classification Report for [1msecurity[0m:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      5147
+           1       0.20      0.01      0.02        96
+
+    accuracy                           0.98      5243
+   macro avg       0.59      0.50      0.51      5243
+weighted avg       0.97      0.98      0.97      5243
+
+Classification Report for [1mmilitary[0m:
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.98      5085
+           1       0.50      0.11      0.19       158
+
+    accuracy                           0.97      5243
+   macro avg       0.74      0.56      0.59      5243
+weighted avg       0.96      0.97      0.96      5243
+
+Classification Report for [1mchild_alone[0m:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      5243
+
+    accuracy                           1.00      5243
+   macro avg       1.00      1.00      1.00      5243
+weighted avg       1.00      1.00      1.00      5243
+
+Classification Report for [1mwater[0m:
+              precision    recall  f1-score   support
+
+           0       0.97      0.99      0.98      4908
+           1       0.76      0.49      0.60       335
+
+    accuracy                           0.96      5243
+   macro avg       0.86      0.74      0.79      5243
+weighted avg       0.95      0.96      0.95      5243
+
+Classification Report for [1mfood[0m:
+              precision    recall  f1-score   support
+
+           0       0.95      0.99      0.97      4659
+           1       0.84      0.57      0.68       584
+
+    accuracy                           0.94      5243
+   macro avg       0.89      0.78      0.82      5243
+weighted avg       0.94      0.94      0.93      5243
+
+Classification Report for [1mshelter[0m:
+              precision    recall  f1-score   support
+
+           0       0.94      0.99      0.96      4775
+           1       0.74      0.32      0.45       468
+
+    accuracy                           0.93      5243
+   macro avg       0.84      0.66      0.71      5243
+weighted avg       0.92      0.93      0.92      5243
+
+Classification Report for [1mclothing[0m:
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      5173
+           1       0.68      0.24      0.36        70
+
+    accuracy                           0.99      5243
+   macro avg       0.83      0.62      0.68      5243
+weighted avg       0.99      0.99      0.99      5243
+
+Classification Report for [1mmoney[0m:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      5131
+           1       0.62      0.09      0.16       112
+
+    accuracy                           0.98      5243
+   macro avg       0.80      0.54      0.57      5243
+weighted avg       0.97      0.98      0.97      5243
+
+Classification Report for [1mmissing_people[0m:
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      5180
+           1       0.33      0.03      0.06        63
+
+    accuracy                           0.99      5243
+   macro avg       0.66      0.52      0.53      5243
+weighted avg       0.98      0.99      0.98      5243
+
+Classification Report for [1mrefugees[0m:
+              precision    recall  f1-score   support
+
+           0       0.97      0.99      0.98      5073
+           1       0.45      0.13      0.20       170
+
+    accuracy                           0.97      5243
+   macro avg       0.71      0.56      0.59      5243
+weighted avg       0.95      0.97      0.96      5243
+
+Classification Report for [1mdeath[0m:
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      4996
+           1       0.85      0.25      0.38       247
+
+    accuracy                           0.96      5243
+   macro avg       0.91      0.62      0.68      5243
+weighted avg       0.96      0.96      0.95      5243
+
+Classification Report for [1mother_aid[0m:
+              precision    recall  f1-score   support
+
+           0       0.88      0.98      0.93      4551
+           1       0.47      0.12      0.20       692
+
+    accuracy                           0.87      5243
+   macro avg       0.68      0.55      0.56      5243
+weighted avg       0.83      0.87      0.83      5243
+
+Classification Report for [1minfrastructure_related[0m:
+              precision    recall  f1-score   support
+
+           0       0.94      1.00      0.97      4907
+           1       0.28      0.01      0.03       336
+
+    accuracy                           0.93      5243
+   macro avg       0.61      0.51      0.50      5243
+weighted avg       0.89      0.93      0.91      5243
+
+Classification Report for [1mtransport[0m:
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      5008
+           1       0.58      0.06      0.11       235
+
+    accuracy                           0.96      5243
+   macro avg       0.77      0.53      0.54      5243
+weighted avg       0.94      0.96      0.94      5243
+
+Classification Report for [1mbuildings[0m:
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      4974
+           1       0.81      0.17      0.29       269
+
+    accuracy                           0.96      5243
+   macro avg       0.88      0.59      0.63      5243
+weighted avg       0.95      0.96      0.94      5243
+
+Classification Report for [1melectricity[0m:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      5128
+           1       0.67      0.03      0.07       115
+
+    accuracy                           0.98      5243
+   macro avg       0.82      0.52      0.53      5243
+weighted avg       0.97      0.98      0.97      5243
+
+Classification Report for [1mtools[0m:
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      5208
+           1       0.50      0.03      0.05        35
+
+    accuracy                           0.99      5243
+   macro avg       0.75      0.51      0.53      5243
+weighted avg       0.99      0.99      0.99      5243
+
+Classification Report for [1mhospitals[0m:
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      5191
+           1       1.00      0.02      0.04        52
+
+    accuracy                           0.99      5243
+   macro avg       1.00      0.51      0.52      5243
+weighted avg       0.99      0.99      0.99      5243
+
+Classification Report for [1mshops[0m:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      5218
+           1       0.00      0.00      0.00        25
+
+    accuracy                           1.00      5243
+   macro avg       0.50      0.50      0.50      5243
+weighted avg       0.99      1.00      0.99      5243
+
+Classification Report for [1maid_centers[0m:
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      5179
+           1       0.00      0.00      0.00        64
+
+    accuracy                           0.99      5243
+   macro avg       0.49      0.50      0.50      5243
+weighted avg       0.98      0.99      0.98      5243
+
+Classification Report for [1mother_infrastructure[0m:
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      5018
+           1       0.00      0.00      0.00       225
+
+    accuracy                           0.96      5243
+   macro avg       0.48      0.50      0.49      5243
+weighted avg       0.92      0.96      0.94      5243
+
+Classification Report for [1mweather_related[0m:
+              precision    recall  f1-score   support
+
+           0       0.83      0.97      0.89      3771
+           1       0.86      0.50      0.63      1472
+
+    accuracy                           0.83      5243
+   macro avg       0.84      0.73      0.76      5243
+weighted avg       0.84      0.83      0.82      5243
+
+Classification Report for [1mfloods[0m:
+              precision    recall  f1-score   support
+
+           0       0.95      0.99      0.97      4812
+           1       0.86      0.37      0.52       431
+
+    accuracy                           0.94      5243
+   macro avg       0.90      0.68      0.74      5243
+weighted avg       0.94      0.94      0.93      5243
+
+Classification Report for [1mstorm[0m:
+              precision    recall  f1-score   support
+
+           0       0.93      0.99      0.96      4764
+           1       0.78      0.29      0.42       479
+
+    accuracy                           0.93      5243
+   macro avg       0.85      0.64      0.69      5243
+weighted avg       0.92      0.93      0.91      5243
+
+Classification Report for [1mfire[0m:
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      5190
+           1       0.33      0.04      0.07        53
+
+    accuracy                           0.99      5243
+   macro avg       0.66      0.52      0.53      5243
+weighted avg       0.98      0.99      0.99      5243
+
+Classification Report for [1mearthquake[0m:
+              precision    recall  f1-score   support
+
+           0       0.95      0.99      0.97      4728
+           1       0.88      0.56      0.68       515
+
+    accuracy                           0.95      5243
+   macro avg       0.91      0.78      0.83      5243
+weighted avg       0.95      0.95      0.94      5243
+
+Classification Report for [1mcold[0m:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      5139
+           1       0.83      0.05      0.09       104
+
+    accuracy                           0.98      5243
+   macro avg       0.91      0.52      0.54      5243
+weighted avg       0.98      0.98      0.97      5243
+
+Classification Report for [1mother_weather[0m:
+              precision    recall  f1-score   support
+
+           0       0.95      0.99      0.97      4976
+           1       0.34      0.09      0.14       267
+
+    accuracy                           0.95      5243
+   macro avg       0.65      0.54      0.55      5243
+weighted avg       0.92      0.95      0.93      5243
+
+Classification Report for [1mdirect_report[0m:
+              precision    recall  f1-score   support
+
+           0       0.86      0.95      0.90      4233
+           1       0.64      0.36      0.46      1010
+
+    accuracy                           0.84      5243
+   macro avg       0.75      0.66      0.68      5243
+weighted avg       0.82      0.84      0.82      5243
+
+```
+</div>
+</div>
 </div>
 
 
@@ -626,6 +1045,20 @@ print("Accuracy:", accuracy)
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+micro F1-score: 0.5945762456153586
+micro Precision: 0.7958400646203554
+micro Recall: 0.47456198446625325
+macro F1-score: 0.26931377047144517
+macro Precision: 0.5596010344421961
+macro Recall: 0.20299795797409564
+Accuracy: 0.9430510521965796
+```
+</div>
+</div>
 </div>
 
 

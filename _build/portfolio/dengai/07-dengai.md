@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'DengAI (Latest)'
 prev_page:
-  url: /portfolio/udacity/07-datascience-capstone/Sparkify
-  title: 'Predicting Churn Rates for "Sparkify"'
+  url: /portfolio/dengai/README
+  title: 'DengAI'
 next_page:
   url: /machine-learning/01-supervised-learning/classification/README
   title: 'Classification'
