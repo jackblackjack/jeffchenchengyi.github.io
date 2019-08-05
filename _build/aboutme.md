@@ -7,8 +7,8 @@ prev_page:
   url: /intro
   title: 'Home'
 next_page:
-  url: /portfolio/portfolio
-  title: 'Portfolio'
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+  title: 'Non-Technical Posts'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -30,5 +30,5 @@ I come from sunny Singapore.
 
 ---
 ### What are your favorite hobbies?
-Origami
+When I'm not working on my personal data science projects, I enjoy playing the saxophone
 

@@ -2,13 +2,13 @@
 interact_link: content/portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical.ipynb
 kernel_name: python3
 has_widgets: false
-title: 'Exploring Condominiums in Singapore (Non-Technical)'
+title: 'Non-Technical Posts'
 prev_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
-  title: 'Exploring Condominiums in Singapore'
+  url: /aboutme
+  title: 'About Me'
 next_page:
-  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
-  title: 'Disaster Response'
+  url: /portfolio/README
+  title: 'Portfolio'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

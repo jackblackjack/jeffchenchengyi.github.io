@@ -15,5 +15,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 # Chengyi (Jeff) Chen's Datascience Blog
 
+
+
+---
 ## Welcome to my Data Science / Machine Learning / Deep Learning Blog!
+
+Here's where I keep all my personal projects and notes about all things related to data science.
 

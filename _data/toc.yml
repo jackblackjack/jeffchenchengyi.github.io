@@ -30,19 +30,26 @@
   url: /aboutme
   not_numbered: true
 
+- title: Non-Technical Posts
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+
 - title: Portfolio
-  url: /portfolio/portfolio
+  url: /portfolio/README
   not_numbered: true
   expand_sections: true
   sections:
-  - title: Udacity
-    url: /portfolio/udacity/udacity
-    not_numbered: true
+  - title: Udacity Data Scientist Nanodegree Program Projects
+    url: /portfolio/udacity/README
+    not_numbered: false
     subsections:
+      - title: Finding Donors with US Census Burea Data
+        url: /portfolio/udacity/01-finding-donors/finding_donors
+      - title: Flower Classifier with Transfer Learning
+        url: /portfolio/udacity/02-flower-classifier/image_classifier
+      - title: Identifying Customer Segments with Arvato
+        url: /portfolio/udacity/03-identifying-customer-segments/identifying-customer-segments
       - title: Exploring Condominiums in Singapore
         url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
-      - title: Exploring Condominiums in Singapore (Non-Technical)
-        url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
       - title: Disaster Response
         url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
       - title: Recommendation Systems for Articles with IBM
@@ -50,30 +57,11 @@
       - title: Predicting Churn Rates for "Sparkify"
         url: /portfolio/udacity/07-datascience-capstone/Sparkify
   - title: DengAI
-    url: /portfolio/dengai/dengai
+    url: /portfolio/dengai/README
     not_numbered: true
-    expand_sections: true
     subsections:
-      - title: DengAI Part 1
-        url: /portfolio/dengai/DengAI_Part_1
-      - title: DengAI Part 2
-        url: /portfolio/dengai/DengAI_Part_2
-      - title: DengAI Part 3
-        url: /portfolio/dengai/DengAI_Part_3
-      - title: DengAI Part 4a
-        url: /portfolio/dengai/DengAI_Part_4a
-      - title: DengAI Part 4b
-        url: /portfolio/dengai/DengAI_Part_4b
-      - title: DengAI Part 5
-        url: /portfolio/dengai/DengAI_Part_5
-      - title: DengAI Part 6
-        url: /portfolio/dengai/DengAI_Part_6
-      - title: DengAI Part 7a
-        url: /portfolio/dengai/DengAI_Part_7a
-      - title: DengAI Part 7b
-        url: /portfolio/dengai/DengAI_Part_7b
-      - title: DengAI Part 8
-        url: /portfolio/dengai/DengAI_Part_8
+      - title: DengAI Part 7
+        url: /portfolio/dengai/07-dengai
 
 - title: GitHub repository
   url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
@@ -84,152 +72,82 @@
 - header: Machine Learning | Deep Learning | Data Science Notes
 
 - title: Supervised Learning
-  url: /machine-learning/supervised-learning/what-is-supervised-learning
+  url: /machine-learning/01-supervised-learning/README
   not_numbered: true
-  expand_sections: true
   sections:
   - title: Classification
-    url: /machine-learning/supervised-learning/classification/classification
+    url: /machine-learning/01-supervised-learning/classification/README
     not_numbered: true
     subsections:
     - title: Bayes Optimal Classifier
-      url: /machine-learning/supervised-learning/classification/bayes-optimal-classifier
+      url: /machine-learning/01-supervised-learning/classification/bayes-optimal-classifier
     - title: K-Nearest Neighbours
-      url: /machine-learning/supervised-learning/classification/k-nearest-neighbours
+      url: /machine-learning/01-supervised-learning/classification/k-nearest-neighbours
     - title: Perceptron
-      url: /machine-learning/supervised-learning/classification/perceptron
+      url: /machine-learning/01-supervised-learning/classification/perceptron
     - title: Linear Support Vector Classifiers (SVC)
-      url: /machine-learning/supervised-learning/classification/linear-support-vector-classifiers
+      url: /machine-learning/01-supervised-learning/classification/linear-support-vector-classifiers
     - title: Naive Bayes Classifier
-      url: /machine-learning/supervised-learning/classification/naivebayes
+      url: /machine-learning/01-supervised-learning/classification/naivebayes
     - title: Logistic Regression
-      url: /machine-learning/supervised-learning/classification/logistic-regression
+      url: /machine-learning/01-supervised-learning/classification/logistic-regression
     - title: Multi-Label Classification
-      url: /machine-learning/supervised-learning/classification/multilabel-classification
-  - title: Regression
-    url: /machine-learning/supervised-learning/regression/regression
-    not_numbered: true
-    subsections:
-    - title: Linear Regression
-      url: /machine-learning/supervised-learning/regression/linear-regression
-  - title: Ensembles
-    url: /machine-learning/supervised-learning/ensemble/ensemble
-  - title: Time Series Analysis
-    url: /machine-learning/supervised-learning/time-series-analysis/time-series-models
+      url: /machine-learning/01-supervised-learning/classification/multilabel-classification
 
 - title: Unsupervised Learning
-  url: /machine-learning/unsupervised-learning/what-is-unsupervised-learning
+  url: /machine-learning/02-unsupervised-learning/README
   not_numbered: true
-  expand_sections: true
   sections:
   - title: Clustering
-    url: /machine-learning/unsupervised-learning/clustering/clustering
+    url: /machine-learning/02-unsupervised-learning/clustering/README
     not_numbered: true
     subsections:
     - title: K-Means
-      url: /machine-learning/unsupervised-learning/clustering/k-means
+      url: /machine-learning/02-unsupervised-learning/clustering/k-means
     - title: Gaussian Mixture Models
-      url: /machine-learning/unsupervised-learning/clustering/gmm
+      url: /machine-learning/02-unsupervised-learning/clustering/gmm
   - title: Bayesian Methods
-    url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-methods
+    url: /machine-learning/02-unsupervised-learning/bayesian-methods/README
     not_numbered: true
     subsections:
     - title: Generative Vs Discriminative
-      url: /machine-learning/unsupervised-learning/bayesian-methods/generative-vs-discriminative
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/generative-vs-discriminative
     - title: Probability Distributions
-      url: /machine-learning/unsupervised-learning/bayesian-methods/distributions
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/distributions
     - title: Multivariate Gaussian Distribution
-      url: /machine-learning/unsupervised-learning/bayesian-methods/multivariate-gaussian
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/multivariate-gaussian
     - title: Kullback-Liebler Divergence
-      url: /machine-learning/unsupervised-learning/bayesian-methods/kl-divergence
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/kl-divergence
     - title: Maximum Likelihood Estimation Vs Maximum A Priori
-      url: /machine-learning/unsupervised-learning/bayesian-methods/mle-vs-map
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/mle-vs-map
     - title: Probabilistic Graphical Models
-      url: /machine-learning/unsupervised-learning/bayesian-methods/bayesian-learning
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/bayesian-learning
     - title: Markov Chains
-      url: /machine-learning/unsupervised-learning/bayesian-methods/markov-chains
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/markov-chains
     - title: Hidden Markov Models
-      url: /machine-learning/unsupervised-learning/bayesian-methods/hmm
+      url: /machine-learning/02-unsupervised-learning/bayesian-methods/hmm
 
 - title: Neural Networks
-  url: /machine-learning/neural-networks/what-are-neural-networks
+  url: /machine-learning/03-neural-networks/README
   not_numbered: true
-  expand_sections: true
   sections:
   - title: Backpropagation
-    url: /machine-learning/neural-networks/backpropagation
+    url: /machine-learning/03-neural-networks/backpropagation
   - title: Convolutional Neural Networks
-    url: /machine-learning/neural-networks/cnn
-
-- title: Dimensionality Reduction
-  url: /machine-learning/dimensionality-reduction/main-dimensionality-reduction-technqiues
-  not_numbered: true
+    url: /machine-learning/03-neural-networks/cnn
 
 - title: Natural Language Processing
-  url: /machine-learning/natural-language-processing/what-is-natural-language-processing
+  url: /machine-learning/06-natural-language-processing/README
   not_numbered: true
-  expand_sections: true
   sections:
   - title: Natural Language Processing Pipeline
-    url: /machine-learning/natural-language-processing/nlp-pipeline
+    url: /machine-learning/06-natural-language-processing/nlp-pipeline
   - title: Word2Vec Part I - Continuous Bag of Words
-    url: /machine-learning/natural-language-processing/word2vec-cbow
+    url: /machine-learning/06-natural-language-processing/word2vec-cbow
   - title: Word2Vec Part II - Skip N-gram
-    url: /machine-learning/natural-language-processing/word2vec-skipngram
+    url: /machine-learning/06-natural-language-processing/word2vec-skipngram
   - title: Sequence Models
-    url: /machine-learning/natural-language-processing/sequence-models
-
-- title: Amazon Web Services
-  url: /machine-learning/aws/what-is-aws
-  not_numbered: true
-  expand_sections: true
-  sections:
-  - title: AWS Big Data Specialty Exam
-    url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-exam
-    not_numbered: true
-    subsections:
-    - title: Analysis
-      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-analysis
-    - title: Collections
-      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-collection
-    - title: Processing
-      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-processing
-    - title: Storage
-      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-storage
-    - title: Visualization
-      url: /machine-learning/aws/aws-big-data/aws-big-data-specialty-visualization
-  - title: AWS Machine Learning Specialty Exam
-    url: /machine-learning/aws/aws-machine-learning/aws-machine-learning-specialty-exam
-    not_numbered: true
-    sections:
-    - title: Sample Exam Questions
-      url: /machine-learning/aws/aws-machine-learning/aws-ml-sample-exam-questions
-
-- title: Miscellaneous Topics
-  url: /machine-learning/miscellaneous-topics/README
-  not_numbered: true
-  expand_sections: true
-  sections:
-  - title: Statistics
-    url: /machine-learning/miscellaneous-topics/statistics
-  - title: Empirical Risk Minimization
-    url: /machine-learning/miscellaneous-topics/empirical-risk-minimization
-  - title: ETL Pipelines
-    url: /machine-learning/miscellaneous-topics/etl-pipelines
-  - title: How do we handle Class Imbalance?
-    url: /machine-learning/miscellaneous-topics/handling-class-imbalance
-  - title: Feature Importance
-    url: /machine-learning/miscellaneous-topics/feature-importance
-  - title: How do we handle Missing Data?
-    url: /machine-learning/miscellaneous-topics/handling-missing-data
-  - title: Linear Algebra Review
-    url: /machine-learning/miscellaneous-topics/linear-algebra-review
-  - title: Elements of Programming Interviews (Python)
-    url: /machine-learning/miscellaneous-topics/epi
-  - title: Leetcode (Python)
-    url: /machine-learning/miscellaneous-topics/leetcode
-  - title: Prudential Insurance
-    url: /machine-learning/miscellaneous-topics/insurance
+    url: /machine-learning/06-natural-language-processing/sequence-models
 
 #################################################
 #################### TEMPLATE ###################

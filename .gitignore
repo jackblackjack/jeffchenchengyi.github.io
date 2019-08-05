@@ -1,40 +1,14 @@
-# Ignore these files in base
-base/**/*.ipynb_checkpoints
-base/**/__pycache__/
-base/**/data/
-base/**/*.pkl
+# Ignore these types of files
+**/*.ipynb_checkpoints
+**/__pycache__/
+**/data/
+**/*.pkl
+
 # Don't ignore classifier.pkl files in disaster response project
 !base/portfolio/udacity/05-disaster-response/classifier.pkl
-base/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
-base/portfolio/udacity/05-disaster-response/flask_exercise/
-base/portfolio/udacity/07-datascience-capstone/data/
-base/machine-learning/aws/aws-big-data/AWSCertBigData-Materials/
-base/machine-learning/aws/aws-big-data/BigData.pem
-base/machine-learning/aws/aws-machine-learning/AmazonSageMakerCourse-master/
-base/machine-learning/supervised-learning/classification/data/
 
-# Ignore these files in content
-content/**/*.ipynb_checkpoints
-content/**/__pycache__/
-content/**/data/
-content/**/*.pkl
-content/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
-content/portfolio/udacity/05-disaster-response/flask_exercise/
-content/portfolio/udacity/07-datascience-capstone/data/
-content/machine-learning/aws/aws-big-data/AWSCertBigData-Materials/
-content/machine-learning/aws/aws-big-data/BigData.pem
-content/machine-learning/aws/aws-machine-learning/AmazonSageMakerCourse-master/
-content/machine-learning/supervised-learning/classification/data/
-
-# Ignore these files in _build
-_build/**/*.ipynb_checkpoints
-_build/**/__pycache__/
-_build/**/data/
-_build/**/*.pkl
-_build/portfolio/udacity/04-exploring-condos-sg/data/99.co/data/
-_build/portfolio/udacity/05-disaster-response/flask_exercise/
-_build/portfolio/udacity/07-datascience-capstone/data/
-_build/machine-learning/aws/aws-big-data/AWSCertBigData-Materials/
-_build/machine-learning/aws/aws-big-data/BigData.pem
-_build/machine-learning/aws/aws-machine-learning/AmazonSageMakerCourse-master/
-_build/machine-learning/supervised-learning/classification/data/
+# Specially ignore these files / subfolders
+**/portfolio/udacity/05-disaster-response/flask_exercise/
+**/machine-learning/10-miscellaneous-topics/aws/aws-big-data/AWSCertBigData-Materials/
+**/machine-learning/10-miscellaneous-topics/aws/aws-big-data/BigData.pem
+**/machine-learning/10-miscellaneous-topics/aws/aws-machine-learning/AmazonSageMakerCourse-master/

@@ -9,7 +9,7 @@ prev_page:
   url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
   title: 'Recommendation Systems for Articles with IBM'
 next_page:
-  url: /portfolio/dengai/dengai
+  url: /portfolio/dengai/README
   title: 'DengAI'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
