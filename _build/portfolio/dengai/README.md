@@ -3,8 +3,8 @@ redirect_from:
   - "/portfolio/dengai/readme"
 title: 'DengAI'
 prev_page:
-  url: https://github.com/lucashu1/education-deserts
-  title: 'Education Deserts'
+  url: /portfolio/udacity/07-datascience-capstone/Sparkify
+  title: 'Predicting Churn Rates for "Sparkify"'
 next_page:
   url: /portfolio/dengai/07-dengai
   title: 'DengAI (Latest)'

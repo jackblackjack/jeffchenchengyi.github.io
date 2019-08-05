@@ -43,6 +43,14 @@
   sections:
     - title: Exploring Condominiums in Singapore
       url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+- title: Google Street View Sign Detection with CAIS++ and SLAB @ USC
+  url: https://github.com/usc-caisplusplus/SLAB
+  external: true
+  not_numbered: true
+- title: Education Deserts
+  url: https://github.com/lucashu1/education-deserts
+  external: true
+  not_numbered: true
 - title: Udacity Data Scientist Nanodegree Program Projects
   url: /portfolio/udacity/README
   not_numbered: true
@@ -61,14 +69,6 @@
       url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
     - title: Predicting Churn Rates for "Sparkify"
       url: /portfolio/udacity/07-datascience-capstone/Sparkify
-- title: Google Street View Sign Detection with CAIS++ and SLAB @ USC
-  url: https://github.com/usc-caisplusplus/SLAB
-  external: true
-  not_numbered: true
-- title: Education Deserts
-  url: https://github.com/lucashu1/education-deserts
-  external: true
-  not_numbered: true
 - title: DengAI
   url: /portfolio/dengai/README
   not_numbered: true
@@ -138,6 +138,7 @@
     url: /machine-learning/03-neural-networks/basics/backpropagation
 - title: Convolutional Neural Networks
   url: /machine-learning/03-neural-networks/cnn/README
+  not_numbered: true
   sections:
   - title: Introduction
     url: /machine-learning/03-neural-networks/cnn/cnn

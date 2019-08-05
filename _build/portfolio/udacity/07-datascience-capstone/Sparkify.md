@@ -9,8 +9,8 @@ prev_page:
   url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
   title: 'Recommendation Systems for Articles with IBM'
 next_page:
-  url: https://github.com/usc-caisplusplus/SLAB
-  title: 'Google Street View Sign Detection with CAIS++ and SLAB @ USC'
+  url: /portfolio/dengai/README
+  title: 'DengAI'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
