@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/02-unsupervised-learning/clustering/k-means
   title: 'K-Means'
 next_page:
-  url: /machine-learning/02-unsupervised-learning/bayesian-methods/README
-  title: 'Bayesian Methods'
+  url: /machine-learning/03-neural-networks/basics/README
+  title: 'Basics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

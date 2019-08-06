@@ -1,3 +1,15 @@
+---
+redirect_from:
+  - "/machine-learning/07-optimization/readme"
+title: 'Overview'
+prev_page:
+  url: /machine-learning/03-neural-networks/cnn/cnn
+  title: 'Introduction'
+next_page:
+  url: /machine-learning/07-optimization/constrained-optimization
+  title: 'Constrained Optimization'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
 
 # Overview of Optimization Problem Types
 

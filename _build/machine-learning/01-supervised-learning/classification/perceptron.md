@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/01-supervised-learning/classification/k-nearest-neighbours
   title: 'K-Nearest Neighbours'
 next_page:
-  url: /machine-learning/01-supervised-learning/classification/linear-support-vector-classifiers
-  title: 'Linear Support Vector Classifiers (SVC)'
+  url: /machine-learning/01-supervised-learning/classification/svm-inductive-derivation
+  title: 'SVM (Inductive Derivation)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

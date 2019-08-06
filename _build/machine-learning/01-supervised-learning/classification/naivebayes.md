@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Naive Bayes Classifier'
 prev_page:
-  url: /machine-learning/01-supervised-learning/classification/linear-support-vector-classifiers
-  title: 'Linear Support Vector Classifiers (SVC)'
+  url: /machine-learning/01-supervised-learning/classification/svm-convex-optimization-derivation
+  title: 'SVM (Convex Optimization Derivation)'
 next_page:
   url: /machine-learning/01-supervised-learning/classification/logistic-regression
   title: 'Logistic Regression'

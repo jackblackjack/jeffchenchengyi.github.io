@@ -1,13 +1,13 @@
 ---
 redirect_from:
-  - "/machine-learning/03-neural-networks/basics/readme"
-title: 'Basics'
+  - "/machine-learning/11-bayesian-methods/readme"
+title: 'Bayesian Methods'
 prev_page:
-  url: /machine-learning/02-unsupervised-learning/clustering/gmm
-  title: 'Gaussian Mixture Models'
+  url: /machine-learning/07-optimization/constrained-optimization
+  title: 'Constrained Optimization'
 next_page:
-  url: /machine-learning/03-neural-networks/basics/backpropagation
-  title: 'Backpropagation'
+  url: /machine-learning/11-bayesian-methods/generative-vs-discriminative
+  title: 'Generative Vs Discriminative'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # Exploring Housing Prices in Singapore
