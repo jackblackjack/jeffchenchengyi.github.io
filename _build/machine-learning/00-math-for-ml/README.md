@@ -6,8 +6,8 @@ prev_page:
   url: /machine-learning/06-natural-language-processing/sequence-models/intro
   title: 'Types of Sequence Models'
 next_page:
-  url: /machine-learning/00-math-for-ml/statistics
-  title: 'Statistics'
+  url: /machine-learning/00-math-for-ml/calculus
+  title: 'Calculus'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # Exploring Housing Prices in Singapore

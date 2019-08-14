@@ -4,11 +4,11 @@ kernel_name: python3
 has_widgets: false
 title: 'Statistics'
 prev_page:
-  url: /machine-learning/00-math-for-ml/README
-  title: 'Math for Machine Learning'
-next_page:
   url: /machine-learning/00-math-for-ml/linalg-de
   title: 'Linear Algebra and Differential Equations'
+next_page:
+  url: /machine-learning/00-math-for-ml/probability
+  title: 'Probability Theory'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

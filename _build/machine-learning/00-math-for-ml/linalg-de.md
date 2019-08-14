@@ -4,11 +4,11 @@ kernel_name: python3
 has_widgets: false
 title: 'Linear Algebra and Differential Equations'
 prev_page:
+  url: /machine-learning/00-math-for-ml/calculus
+  title: 'Calculus'
+next_page:
   url: /machine-learning/00-math-for-ml/statistics
   title: 'Statistics'
-next_page:
-  url: /machine-learning/00-math-for-ml/probability
-  title: 'Probability Theory'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -28,6 +28,22 @@ We'll go through the linear algebra and differential equations topics you need t
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
+# plotting defaults
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['figure.figsize'] = (18, 12)
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['figure.figsize'] = (18, 12)
 
 ```
 </div>
@@ -81,7 +97,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/linalg-de_4_0.png)
+![png](../../images/machine-learning/00-math-for-ml/linalg-de_5_0.png)
 
 </div>
 </div>

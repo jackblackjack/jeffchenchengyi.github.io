@@ -6,8 +6,8 @@ prev_page:
   url: /machine-learning/02-unsupervised-learning/clustering/gmm
   title: 'Gaussian Mixture Models'
 next_page:
-  url: /machine-learning/03-neural-networks/basics/backpropagation
-  title: 'Backpropagation'
+  url: /machine-learning/03-neural-networks/basics/math-of-nn
+  title: 'Math of Neural Nets'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # Exploring Housing Prices in Singapore

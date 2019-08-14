@@ -111,13 +111,13 @@
     url: /machine-learning/02-unsupervised-learning/clustering/gmm
 
 - divider: true
-- header: Neural Networks
+- header: Deep Learning
 - title: Basics
   url: /machine-learning/03-neural-networks/basics/README
   not_numbered: true
   sections:
-  - title: Backpropagation
-    url: /machine-learning/03-neural-networks/basics/backpropagation
+  - title: Math of Neural Nets
+    url: /machine-learning/03-neural-networks/basics/math-of-nn
 - title: Convolutional Neural Networks
   url: /machine-learning/03-neural-networks/cnn/README
   not_numbered: true
@@ -187,10 +187,12 @@
   url: /machine-learning/00-math-for-ml/README
   not_numbered: true
   sections:
-  - title: Statistics
-    url: /machine-learning/00-math-for-ml/statistics
+  - title: Calculus
+    url: /machine-learning/00-math-for-ml/calculus
   - title: Linear Algebra and Differential Equations
     url: /machine-learning/00-math-for-ml/linalg-de
+  - title: Statistics
+    url: /machine-learning/00-math-for-ml/statistics
   - title: Probability Theory
     url: /machine-learning/00-math-for-ml/probability
 

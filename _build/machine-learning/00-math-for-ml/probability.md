@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Probability Theory'
 prev_page:
-  url: /machine-learning/00-math-for-ml/linalg-de
-  title: 'Linear Algebra and Differential Equations'
+  url: /machine-learning/00-math-for-ml/statistics
+  title: 'Statistics'
 next_page:
   url: 
   title: ''
