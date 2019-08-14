@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Multivariate Gaussian Distribution'
 prev_page:
-  url: /machine-learning/11-bayesian-methods/distributions
-  title: 'Probability Distributions'
+  url: /machine-learning/11-bayesian-methods/generative-vs-discriminative
+  title: 'Generative Vs Discriminative'
 next_page:
   url: /machine-learning/11-bayesian-methods/kl-divergence
   title: 'Kullback-Liebler Divergence'

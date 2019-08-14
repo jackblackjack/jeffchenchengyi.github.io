@@ -6,8 +6,8 @@ prev_page:
   url: /machine-learning/03-neural-networks/cnn/cnn
   title: 'Introduction'
 next_page:
-  url: /machine-learning/07-optimization/constrained-optimization
-  title: 'Constrained Optimization'
+  url: /machine-learning/07-optimization/convex-optimization
+  title: 'Convex Optimization'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

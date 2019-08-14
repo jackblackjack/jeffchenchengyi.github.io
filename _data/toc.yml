@@ -131,31 +131,32 @@
   url: /machine-learning/07-optimization/README
   not_numbered: true
   sections:
-  - title: Constrained Optimization
-    url: /machine-learning/07-optimization/constrained-optimization
+  - title: Convex Optimization
+    url: /machine-learning/07-optimization/convex-optimization
 
 - divider: true
-- header: Probabilistic Graphical Models
-- title: Bayesian Methods
+- header: Bayesian Methods
+- title: Basics
   url: /machine-learning/11-bayesian-methods/README
   not_numbered: true
   sections:
   - title: Generative Vs Discriminative
     url: /machine-learning/11-bayesian-methods/generative-vs-discriminative
-  - title: Probability Distributions
-    url: /machine-learning/11-bayesian-methods/distributions
   - title: Multivariate Gaussian Distribution
     url: /machine-learning/11-bayesian-methods/multivariate-gaussian
   - title: Kullback-Liebler Divergence
     url: /machine-learning/11-bayesian-methods/kl-divergence
   - title: Maximum Likelihood Estimation Vs Maximum A Priori
     url: /machine-learning/11-bayesian-methods/mle-vs-map
-  - title: Probabilistic Graphical Models
-    url: /machine-learning/11-bayesian-methods/bayesian-learning
-  - title: Markov Chains
-    url: /machine-learning/11-bayesian-methods/markov-chains
-  - title: Hidden Markov Models
-    url: /machine-learning/11-bayesian-methods/hmm
+- title: Probabilistic Graphical Models
+  url: /machine-learning/11-bayesian-methods/pgm
+  not_numbered: true
+- title: Markov Chains
+  url: /machine-learning/11-bayesian-methods/markov-chains
+  not_numbered: true
+- title: Hidden Markov Models
+  url: /machine-learning/11-bayesian-methods/hmm
+  not_numbered: true
 
 - divider: true
 - header: Natural Language Processing
@@ -179,6 +180,19 @@
   sections:
   - title: Types of Sequence Models
     url: /machine-learning/06-natural-language-processing/sequence-models/intro
+
+- divider: true
+- header: Other Topics
+- title: Math for Machine Learning
+  url: /machine-learning/00-math-for-ml/README
+  not_numbered: true
+  sections:
+  - title: Statistics
+    url: /machine-learning/00-math-for-ml/statistics
+  - title: Linear Algebra and Differential Equations
+    url: /machine-learning/00-math-for-ml/linalg-de
+  - title: Probability Theory
+    url: /machine-learning/00-math-for-ml/probability
 
 #################################################
 #################### TEMPLATE ###################

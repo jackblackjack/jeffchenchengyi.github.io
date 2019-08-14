@@ -5,10 +5,10 @@ has_widgets: false
 title: 'Generative Vs Discriminative'
 prev_page:
   url: /machine-learning/11-bayesian-methods/README
-  title: 'Bayesian Methods'
+  title: 'Basics'
 next_page:
-  url: /machine-learning/11-bayesian-methods/distributions
-  title: 'Probability Distributions'
+  url: /machine-learning/11-bayesian-methods/multivariate-gaussian
+  title: 'Multivariate Gaussian Distribution'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -1,10 +1,10 @@
 ---
 redirect_from:
   - "/machine-learning/11-bayesian-methods/readme"
-title: 'Bayesian Methods'
+title: 'Basics'
 prev_page:
-  url: /machine-learning/07-optimization/constrained-optimization
-  title: 'Constrained Optimization'
+  url: /machine-learning/07-optimization/convex-optimization
+  title: 'Convex Optimization'
 next_page:
   url: /machine-learning/11-bayesian-methods/generative-vs-discriminative
   title: 'Generative Vs Discriminative'

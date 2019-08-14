@@ -7,7 +7,7 @@ prev_page:
   url: /machine-learning/11-bayesian-methods/kl-divergence
   title: 'Kullback-Liebler Divergence'
 next_page:
-  url: /machine-learning/11-bayesian-methods/bayesian-learning
+  url: /machine-learning/11-bayesian-methods/pgm
   title: 'Probabilistic Graphical Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

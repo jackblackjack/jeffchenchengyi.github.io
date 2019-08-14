@@ -4,7 +4,7 @@ kernel_name: python3
 has_widgets: false
 title: 'Markov Chains'
 prev_page:
-  url: /machine-learning/11-bayesian-methods/bayesian-learning
+  url: /machine-learning/11-bayesian-methods/pgm
   title: 'Probabilistic Graphical Models'
 next_page:
   url: /machine-learning/11-bayesian-methods/hmm
