@@ -98,11 +98,11 @@ Some useful Maclaurin Series Expansions:
 
 $$
 \begin{aligned}
-&{{e^x} = \sum\limits_{n = 0}^\infty  {\frac{{{x^n}}}{{n!}}}  }={ 1 + x + {\frac{{{x^2}}}{{2!}}} }+{ {\frac{{{x^3}}}{{3!}}} +  \ldots} \\
-&{\cos x = \sum\limits_{n = 0}^\infty  {\frac{{{{\left( { – 1} \right)}^n}{x^{2n}}}}{{\left( {2n} \right)!}}} }={ 1 – {\frac{{{x^2}}}{{2!}}} }+{ {\frac{{{x^4}}}{{4!}}} }-{ {\frac{{{x^6}}}{{6!}}} +  \ldots } \\
-&{\sin x = \sum\limits_{n = 0}^\infty  {\frac{{{{\left( { – 1} \right)}^n}{x^{2n + 1}}}}{{\left( {2n + 1} \right)!}}}  }={ x – {\frac{{{x^3}}}{{3!}}} }+{ {\frac{{{x^5}}}{{5!}}} }-{ {\frac{{{x^7}}}{{7!}}} +  \ldots } \\
-&{\cosh x = \sum\limits_{n = 0}^\infty  {\frac{{{x^{2n}}}}{{\left( {2n} \right)!}}}  }={ 1 + {\frac{{{x^2}}}{{2!}}} + {\frac{{{x^4}}}{{4!}}} }+{ {\frac{{{x^6}}}{{6!}}} +  \ldots } \\
-&{\sinh x = \sum\limits_{n = 0}^\infty  {\frac{{{x^{2n + 1}}}}{{\left( {2n + 1} \right)!}}}  }={ x + {\frac{{{x^3}}}{{3!}}} }+{ {\frac{{{x^5}}}{{5!}}} }+{ {\frac{{{x^7}}}{{7!}}} +  \ldots } \\
+&{ {e^x} = \sum\limits_{n = 0}^\infty  {\frac{ {{x^n} }}{ {n!} }}  }={ 1 + x + {\frac{ {{x^2} }}{ {2!} }} }+{ {\frac{ {{x^3} }}{ {3!} }} +  \ldots} \\
+&{\cos x = \sum\limits_{n = 0}^\infty  {\frac{ {{ {\left( { – 1} \right)}^n}{x^{2n} }} }{ {\left( {2n} \right)!} }} }={ 1 – {\frac{ {{x^2} }}{ {2!} }} }+{ {\frac{ {{x^4} }}{ {4!} }} }-{ {\frac{ {{x^6} }}{ {6!} }} +  \ldots } \\
+&{\sin x = \sum\limits_{n = 0}^\infty  {\frac{ {{ {\left( { – 1} \right)}^n}{x^{2n + 1} }} }{ {\left( {2n + 1} \right)!} }}  }={ x – {\frac{ {{x^3} }}{ {3!} }} }+{ {\frac{ {{x^5} }}{ {5!} }} }-{ {\frac{ {{x^7} }}{ {7!} }} +  \ldots } \\
+&{\cosh x = \sum\limits_{n = 0}^\infty  {\frac{ {{x^{2n} }} }{ {\left( {2n} \right)!} }}  }={ 1 + {\frac{ {{x^2} }}{ {2!} }} + {\frac{ {{x^4} }}{ {4!} }} }+{ {\frac{ {{x^6} }}{ {6!} }} +  \ldots } \\
+&{\sinh x = \sum\limits_{n = 0}^\infty  {\frac{ {{x^{2n + 1} }} }{ {\left( {2n + 1} \right)!} }}  }={ x + {\frac{ {{x^3} }}{ {3!} }} }+{ {\frac{ {{x^5} }}{ {5!} }} }+{ {\frac{ {{x^7} }}{ {7!} }} +  \ldots } \\
 \end{aligned}
 $$
 
