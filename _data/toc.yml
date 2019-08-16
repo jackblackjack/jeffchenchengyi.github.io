@@ -78,26 +78,38 @@
 
 - divider: true
 - header: Supervised Learning
-- title: Classification
-  url: /machine-learning/01-supervised-learning/classification/README
+- title: Models
+  url: /machine-learning/01-supervised-learning/models/README
   not_numbered: true
   sections:
   - title: Bayes Optimal Classifier
-    url: /machine-learning/01-supervised-learning/classification/bayes-optimal-classifier
+    url: /machine-learning/01-supervised-learning/models/bayes-optimal-classifier
   - title: K-Nearest Neighbours
-    url: /machine-learning/01-supervised-learning/classification/k-nearest-neighbours
+    url: /machine-learning/01-supervised-learning/models/k-nearest-neighbours
   - title: Perceptron
-    url: /machine-learning/01-supervised-learning/classification/perceptron
+    url: /machine-learning/01-supervised-learning/models/perceptron
   - title: SVM (Inductive Derivation)
-    url: /machine-learning/01-supervised-learning/classification/svm-inductive-derivation
+    url: /machine-learning/01-supervised-learning/models/svm-inductive-derivation
   - title: SVM (Convex Optimization Derivation)
-    url: /machine-learning/01-supervised-learning/classification/svm-convex-optimization-derivation
+    url: /machine-learning/01-supervised-learning/models/svm-convex-optimization-derivation
   - title: Naive Bayes Classifier
-    url: /machine-learning/01-supervised-learning/classification/naivebayes
+    url: /machine-learning/01-supervised-learning/models/naivebayes
   - title: Logistic Regression
-    url: /machine-learning/01-supervised-learning/classification/logistic-regression
-  - title: Multi-Label Classification
-    url: /machine-learning/01-supervised-learning/classification/multilabel-classification
+    url: /machine-learning/01-supervised-learning/models/logistic-regression
+  - title: Statistical Regression Analysis
+    url: /machine-learning/01-supervised-learning/models/statistical-regression-analysis
+  - title: Multi-Label models
+    url: /machine-learning/01-supervised-learning/models/multilabel-classification
+- title: Estimation
+  url: /machine-learning/01-supervised-learning/estimation/README
+  not_numbered: true
+  sections:
+  - title: Multivariate Gaussian Distribution
+    url: /machine-learning/01-supervised-learning/estimation/multivariate-gaussian
+  - title: Maximum Likelihood Estimation Vs Maximum A Priori
+    url: /machine-learning/01-supervised-learning/estimation/mle-vs-map
+  - title: Convex Optimization
+    url: /machine-learning/01-supervised-learning/estimation/convex-optimization
 
 - divider: true
 - header: Unsupervised Learning
@@ -126,36 +138,23 @@
     url: /machine-learning/03-neural-networks/cnn/cnn
 
 - divider: true
-- header: Optimization
-- title: Overview
-  url: /machine-learning/07-optimization/README
-  not_numbered: true
-  sections:
-  - title: Convex Optimization
-    url: /machine-learning/07-optimization/convex-optimization
-
-- divider: true
 - header: Bayesian Methods
 - title: Basics
-  url: /machine-learning/11-bayesian-methods/README
+  url: /machine-learning/10-bayesian-methods/README
   not_numbered: true
   sections:
   - title: Generative Vs Discriminative
-    url: /machine-learning/11-bayesian-methods/generative-vs-discriminative
-  - title: Multivariate Gaussian Distribution
-    url: /machine-learning/11-bayesian-methods/multivariate-gaussian
+    url: /machine-learning/10-bayesian-methods/generative-vs-discriminative
   - title: Kullback-Liebler Divergence
-    url: /machine-learning/11-bayesian-methods/kl-divergence
-  - title: Maximum Likelihood Estimation Vs Maximum A Priori
-    url: /machine-learning/11-bayesian-methods/mle-vs-map
+    url: /machine-learning/10-bayesian-methods/kl-divergence
 - title: Probabilistic Graphical Models
-  url: /machine-learning/11-bayesian-methods/pgm
+  url: /machine-learning/10-bayesian-methods/pgm
   not_numbered: true
 - title: Markov Chains
-  url: /machine-learning/11-bayesian-methods/markov-chains
+  url: /machine-learning/10-bayesian-methods/markov-chains
   not_numbered: true
 - title: Hidden Markov Models
-  url: /machine-learning/11-bayesian-methods/hmm
+  url: /machine-learning/10-bayesian-methods/hmm
   not_numbered: true
 
 - divider: true

@@ -21,6 +21,7 @@ We'll go through the calculus you need to know to understand the theory behind m
 1. [Basics](#basics)
 2. [Taylor Series](#taylor)
 3. [Multivariable Calculus](#multivar)
+    1. [Gradient vs. Directional Derivative](#gradvsdd)
 
 
 
@@ -170,8 +171,44 @@ def compare_maclaurin_and_implementation(
         ax[idx].set_ylabel('Output')
         ax[idx].set_title('Approximating x = {}'.format(x))
         ax[idx].grid()
-#     plt.suptitle('Approximating Functions using Maclaurin Series Expansion')
     plt.tight_layout()
+    plt.show();
+    
+def func_maclaurin_approx(
+    maclaurin_expansion_func, 
+    numpy_func,
+    func_range,
+    n_derivatives
+):
+    """
+    Function:
+    ---------
+    Graphs the maclaurin series expansion of the 
+    function to be approximated and the actual function
+    for different number of higher order derivatives used
+    
+    Input:
+    ------
+    maclaurin_expansion_func: The maclaurin expansion 
+                              approximation centered at x=0
+    numpy_func: The numpy implementation of the function to be 
+                approximated with maclaurin_expansion_func
+    func_range: The window to plot the function outputs
+    n_derivatives: List of the number of higher order derivatives to include
+                   for maclaurin approximation
+    
+    Output:
+    -------
+    Graph of how well maclaurin series expansions are 
+    approximating the actual function
+    
+    """
+    fig, ax = plt.subplots(1, 1)
+    for n in n_derivatives:
+        ax.plot(*list(zip(*[(x, maclaurin_expansion_func(x, n)) for x in func_range])), label='Maclaurin Series Expansion Approximation with {} higher-order derivatives'.format(n))
+    ax.plot(*list(zip(*[(x, numpy_func(x)) for x in func_range])), label='Actual Function')
+    ax.legend()
+    ax.grid()
     plt.show();
 
 ```
@@ -210,12 +247,13 @@ compare_maclaurin_and_implementation(
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-# Approximating cos(x)
-compare_maclaurin_and_implementation(
-    x_to_approx=np.arange(0, 2.5*np.pi, 0.5*np.pi),
-    maclaurin_expansion_func=cos_x, 
-    numpy_func=np.cos,
-    n_derivatives=10
+# How well maclaurin expansion approximates
+# e^x
+func_maclaurin_approx(
+    maclaurin_expansion_func=e_x, 
+    numpy_func=np.exp,
+    func_range=np.arange(0, 8, 0.1),
+    n_derivatives=np.arange(1, 6, 1)
 )
 
 ```
@@ -233,12 +271,73 @@ compare_maclaurin_and_implementation(
 
 
 
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Approximating cos(x)
+compare_maclaurin_and_implementation(
+    x_to_approx=np.arange(0, 2.5*np.pi, 0.5*np.pi),
+    maclaurin_expansion_func=cos_x, 
+    numpy_func=np.cos,
+    n_derivatives=10
+)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../images/machine-learning/00-math-for-ml/calculus_9_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# How well maclaurin expansion approximates
+# cos(x)
+func_maclaurin_approx(
+    maclaurin_expansion_func=cos_x, 
+    numpy_func=np.cos,
+    func_range=np.arange(-2*np.pi, 2*np.pi, 0.1),
+    n_derivatives=np.arange(2, 20, 5)
+)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../images/machine-learning/00-math-for-ml/calculus_10_0.png)
+
+</div>
+</div>
+</div>
+
+
+
 Recall that the `e_x` and `cos_x` maclaurin series expansions we wrote were centered at $a=0$, and from the two graphs above, we observe that as the distance $x-a$ where $a=0$ increases, the more higher-order derivative terms we need to approximate $e^x$ and $cos(x)$, though the maclaurin series expansion of $cos(x)$ oscillates alot more with increasing higher-order derivatives since the outputs of $cos(x)$ is oscillatory in nature.
 
 
 
 ---
 # Multivariable Calculus<a id='multivar'></a>
+
+--- Under Construction ---
+
+
+
+## Gradient vs. Directional Derivative<a id='gradvsdd'></a>
+
+
 
 
 

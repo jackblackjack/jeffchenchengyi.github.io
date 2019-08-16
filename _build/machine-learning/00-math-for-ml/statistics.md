@@ -18,8 +18,14 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 We'll review some fundamental statistics concepts over here for understanding the statistical theory behind machine learning algorithms.
 
 ### Table of Contents
-1. [Hypothesis Testing](#hyptest)
-2. [A/B Testing](#abtest)
+1. Central Limit Theorem
+2. Z-test
+3. Student's T-test
+4. Anova
+5. Chi-squared Test
+6. [Hypothesis Testing](#hyptest)
+7. [A/B Testing](#abtest)
+8. [Statistical Regression Analysis]()
 
 
 

@@ -7,8 +7,8 @@ prev_page:
   url: /portfolio/dengai/README
   title: 'DengAI'
 next_page:
-  url: /machine-learning/01-supervised-learning/classification/README
-  title: 'Classification'
+  url: /machine-learning/01-supervised-learning/models/README
+  title: 'Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/03-neural-networks/cnn/README
   title: 'Convolutional Neural Networks'
 next_page:
-  url: /machine-learning/07-optimization/README
-  title: 'Overview'
+  url: /machine-learning/10-bayesian-methods/README
+  title: 'Basics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -57,24 +57,32 @@ plt.rcParams['figure.figsize'] = (18, 12)
 
 
 
-## Dot Products and Projections
+## Preliminaries
 
-Euclidean Norm:
-- $\|\vec{x}\|_2 = \sqrt{x_1^2 + \cdots + x_n^2}$
+A [Hilbert Space](https://en.wikipedia.org/wiki/Hilbert_space#Definition) $H$ is a real / complex [inner product space](https://en.wikipedia.org/wiki/Inner_product_space) (A Vector Space with the inner product defined). [Eucliden Space](https://en.wikipedia.org/wiki/Euclidean_space) is a type of Hilbert Space and it is represented by the Real Coordinate Space $\mathcal{R}^n$, the set of all possible real-valued $n$-tuples (ordered sequence of real-valued scalars), where $n$ is the number of dimensions.
 
-Cosine similarity:
-- $cos\theta = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2 \|\vec{b}\|_2}$
 
-Dot Product:
-- $\vec{a} \cdot \vec{b} = \mathbf{a}^\top \mathbf{b}$
 
-Inner Product:
-- $\left\langle
+### Position / Location Vectors Vs. Spatial / Euclidean Vectors
+
+In the real coordinate space $\mathcal{R}^n$, where $n$ is the number of dimensions, a **vector in standard position**, AKA a **position vector**, AKA a **location vector** $\mathbf{r} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}$ is one that starts from the origin ${(0 , \ldots, 0)}$ and ends at the coordinates ${(x_1 , \ldots, x_n)}$. If however, the vector does not start at the standard position / origin, it is called a **spatial vector**, AKA a **euclidean vector**.
+
+
+
+### Inner Products and Projections in $\mathcal{R}^n$
+
+Euclidean / $l_2$ Norm: $\|\vec{x}\|_2 = \sqrt{x_1^2 + \cdots + x_n^2}$
+
+Cosine similarity: $cos\theta = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2 \|\vec{b}\|_2}$
+
+Standard Inner Product (Dot Product): $\vec{a} \cdot \vec{b} = \mathbf{a}^\top \mathbf{b}$
+
+Inner Product: $\left\langle
     \begin{bmatrix} a_0 \\ \vdots \\ a_n \end{bmatrix},
     \begin{bmatrix} b_0 \\ \vdots \\ b_n \end{bmatrix}
     \right\rangle$
     
-$$\therefore \text{Un-normalized Cosine Similarity} <=> \text{Dot Product} <=> \text{Inner Product}$$
+The Un-normalized Cosine Similarity = Dot Product, and the dot product is a special case of the Inner Product. There are [alternative inner products](http://mathonline.wikidot.com/vector-dot-product-euclidean-inner-product#toc4) that can be defined in Euclidean Space.
 
 Projections:
 - Scalar Projection of $\vec{b}$ onto $\vec{a}$, AKA component of $\vec{b}$ in direction of $\vec{a}$ $\rightarrow comp_{\vec{a} }\vec{b} = \|\vec{b}\|_2cos\theta = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2}$
@@ -97,7 +105,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/linalg-de_5_0.png)
+![png](../../images/machine-learning/00-math-for-ml/linalg-de_7_0.png)
 
 </div>
 </div>
@@ -105,7 +113,13 @@ plt.show();
 
 
 
-## Equation of a Hyperplane
+### Parametric Representation of Lines
+
+We can represent a vector 
+
+
+
+### Equation of a Hyperplane
 
 Back in highschool, we learnt that a line in 2-D is denoted by 
 $$
@@ -130,6 +144,18 @@ Hence,
 $$
 
 From now onwards, whenever we're talking about hyperplanes, we can always translate all the data points horizontally and vertically such that the hyperplane passes through the origin. This is a very important point as it allows us to fix this form $\rightarrow \mathbf{w}^\top\mathbf{x} = 0$ as the equation of a hyperplane. Furthermore, it much better sense now when we talk about why all the points on the hyperplane, $\forall{i} \vec{x_i}$, are orthogonal to $\vec{w}$, making their dot product / inner product / un-normalized cosine similarity $= 0$.
+
+
+
+## Singular Value Decomposition (SVD)
+
+
+
+## QR Decomposition (QR)
+
+
+
+## LU Decomposition
 
 
 
