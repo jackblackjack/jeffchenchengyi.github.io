@@ -160,7 +160,7 @@ Because of this, we can always translate all the data points horizontally and ve
 
 *This is a very important point as it allows us to fix this form $\rightarrow \mathbf{w}^\top\mathbf{x} = 0$ as the equation of a hyperplane. Furthermore, it much better sense now when we talk about why all the points on the hyperplane, $\forall{i} \vec{x_i}$, are orthogonal to $\vec{w}$, making their dot product / inner product / un-normalized cosine similarity $= 0$. $\mathbf{w}$ is also known as the **normal** vector and it uniquely defines the hyperplane.*
 - To find the normal vector $\mathbf{w}$, we need to cross two **spatial** vectors that are in the hyperplane (unless our hyperplane passes through the origin, which means we can either use **spatial** or **position** vectors since both lie on the plane):
-    - Given that 3 points lie on a plane: $p_0 = \begin{bmatrix} 1, 2, 3 \end{bmatrix}$, $p_1 = \begin{bmatrix} 4, -1, 2 \end{bmatrix}$, $p_0 = \begin{bmatrix} 2, 0, 4 \end{bmatrix}$, we can't just do the cross product of 2 of the points to find the normal vector as those position vectors are not on the hyperplane because the hyperplane does not pass through the origin. We therefore need to find the spatial vectors on the hyperplane by subtracting any 2 unique combinations of the points on hyperplane / position vectors $p_0, p_1, p_2$ and crossing them to get the normal. This example is shown below:
+    - Given that 3 points lie on a plane: $p_0 = \begin{bmatrix} 1, 2, 3 \end{bmatrix}$, $p_1 = \begin{bmatrix} 4, -1, 2 \end{bmatrix}$, $p_2 = \begin{bmatrix} 2, 0, 4 \end{bmatrix}$, we can't just do the cross product of 2 of the points to find the normal vector as those position vectors are not on the hyperplane because the hyperplane does not pass through the origin. We therefore need to find the spatial vectors on the hyperplane by subtracting any 2 unique combinations of the points on hyperplane / position vectors $p_0, p_1, p_2$ and crossing them to get the normal. This example is shown below:
 
 
 
@@ -271,6 +271,45 @@ Meaning of the $b$: Recall the cosine similarity definition of dot products - $\
 
 
 ### Parametric Form of Equation for Hyperplane
+
+The **parametric form** of equation for hyperplane is a general position vector that is a linear combination of 2 things:
+1. Position Vector $\mathbf{p}_0$ / Point in hyperplane
+2. Basis of the same hyperplane but passing through origin ($P$ direction / spatial vectors $\mathbf{d}_i$ that lie on the hyperplane for a hyperplane of $P$ dimensionality)
+
+$$
+\begin{aligned}
+\mathbf{x} &= \mathbf{p}_0 + \alpha_0\mathbf{d}_0 + \alpha_1\mathbf{d}_1 + \ldots + \alpha_{P-1}\mathbf{d}_{P-1} \\
+&= \mathbf{p}_0 + \sum_{i=0}^{P-1}\alpha_i\mathbf{d}_i \\
+&= \mathbf{p}_0 + \begin{bmatrix} \vert & \vert & \vert & \vert \\ \mathbf{d}_0 & \mathbf{d}_1 & \ldots & \mathbf{d}_{P-1} \\ \vert & \vert & \vert & \vert \\ \end{bmatrix} \vec{\alpha} \\
+&= \mathbf{p}_0 + D\vec{\alpha},\,\vec{\alpha}\in\mathcal{R}^P
+\end{aligned}
+$$
+
+$\vec{\alpha}$ is a vector of free variables.
+
+Following from the example in the section above, if we have 3 points lie on a plane: $p_0 = \begin{bmatrix} 1, 2, 3 \end{bmatrix}$, $p_1 = \begin{bmatrix} 4, -1, 2 \end{bmatrix}$, $p_2 = \begin{bmatrix} 2, 0, 4 \end{bmatrix}$, what's the parametric form of the hyperplane?
+
+Since we already have 3 points on the plane / position vectors to the plane, our job is already 50% completed. We need to find a basis for the plane. Recall that in order to find the normal vector, we found 2 spatial vectors that lie on the hyperplane by $p_1 - p_0 = \begin{bmatrix} 4 \\ -1 \\  2 \end{bmatrix} - \begin{bmatrix} 1 \\ 2 \\  3 \end{bmatrix} = \begin{bmatrix} 3 \\ -3 \\ -1 \end{bmatrix}$ and $p_2 - p_0 = \begin{bmatrix} 2 \\ 0 \\  4 \end{bmatrix} - \begin{bmatrix} 1 \\ 2 \\  3 \end{bmatrix} = \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix}$. Hence, our parametric form is:
+
+$$
+\mathbf{x} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix},\,\alpha_i\in\mathcal{R}
+$$
+
+OR 
+
+$$
+\mathbf{x} = \begin{bmatrix} 4 \\ -1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix},\,\alpha_i\in\mathcal{R}
+$$
+
+OR 
+
+$$
+\mathbf{x} = \begin{bmatrix} 2 \\ 0 \\ 4 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix},\,\alpha_i\in\mathcal{R}
+$$
+
+
+
+### Symmetric Form of Equation for Hyperplane
 
 
 
