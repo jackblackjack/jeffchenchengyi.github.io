@@ -74,9 +74,9 @@ In the real coordinate space $\mathcal{R}^n$, where $n$ is the number of dimensi
 
 ### Inner Products and Projections in $\mathcal{R}^n$
 
-Euclidean / $l_2$ Norm: $\|\vec{x}\|_2 = \sqrt{x_1^2 + \cdots + x_n^2}$
+Euclidean / $l_2$ Norm: $\vert\vert\vec{x}\vert\vert_2 = \sqrt{x_1^2 + \cdots + x_n^2}$
 
-Cosine similarity: $cos\theta = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2 \|\vec{b}\|_2}$
+Cosine similarity: $cos\theta = \frac{\vec{a} \cdot \vec{b} }{\vert\vert\vec{a}\vert\vert_2 \vert\vert\vec{b}\vert\vert_2}$
 
 Standard Inner Product (Dot Product): $\vec{a} \cdot \vec{b} = \mathbf{a}^\top \mathbf{b}$
 
@@ -88,8 +88,8 @@ Inner Product: $\left\langle
 The Un-normalized Cosine Similarity = Dot Product, and the dot product is a special case of the Inner Product. There are [alternative inner products](http://mathonline.wikidot.com/vector-dot-product-euclidean-inner-product#toc4) that can be defined in Euclidean Space.
 
 Projections:
-- Scalar Projection of $\vec{b}$ onto $\vec{a}$, AKA component of $\vec{b}$ in direction of $\vec{a}$ $\rightarrow comp_{\vec{a} }\vec{b} = \|\vec{b}\|_2cos\theta = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2}$
-- Vector Projection of $\vec{b}$ onto $\vec{a}$ is just the scalar projection multiplied by the unit vector of $\vec{a}$ $\rightarrow projection_{\vec{a} }\vec{b} = \|\vec{b}\|_2cos\theta * \frac{\vec{a} }{\|\vec{a}\|_2} = \frac{\vec{a} \cdot \vec{b} }{\|\vec{a}\|_2} * \frac{\vec{a} }{\|\vec{a}\|_2}$
+- Scalar Projection of $\vec{b}$ onto $\vec{a}$, AKA component of $\vec{b}$ in direction of $\vec{a}$ $\rightarrow comp_{\vec{a} }\vec{b} = \vert\vert\vec{b}\vert\vert_2cos\theta = \frac{\vec{a} \cdot \vec{b} }{\vert\vert\vec{a}\vert\vert_2}$
+- Vector Projection of $\vec{b}$ onto $\vec{a}$ is just the scalar projection multiplied by the unit vector of $\vec{a}$ $\rightarrow projection_{\vec{a} }\vec{b} = \vert\vert\vec{b}\vert\vert_2cos\theta * \frac{\vec{a} }{\vert\vert\vec{a}\vert\vert_2} = \frac{\vec{a} \cdot \vec{b} }{\vert\vert\vec{a}\vert\vert_2} * \frac{\vec{a} }{\vert\vert\vec{a}\vert\vert_2}$
 
 
 
@@ -264,9 +264,9 @@ $$
 
 Meaning of $\mathbf{w}^\top$: For different values of $b$, scalar multiples of $\mathbf{w}^\top$ will get us hyperplanes that are parallel to our original hyperplane.
 
-Meaning of the $b$: Recall the cosine similarity definition of dot products - $\mathbf{w}^\top \mathbf{x} = \|\mathbf{w}^\top\|_2 \|\mathbf{x}\|_2 cos\theta = b$
+Meaning of the $b$: Recall the cosine similarity definition of dot products - $\mathbf{w}^\top \mathbf{x} = \vert\vert\mathbf{w}^\top\vert\vert_2 \vert\vert\mathbf{x}\vert\vert_2 cos\theta = b$
 - This means that the **standard form** of the equation of hyperplane is saying that all the position vectors / points on the hyperplane have the same "un-normalized cosine similarity".
-- If we normalize $b$ by dividing it by $\|\mathbf{w}^\top\|_2$, we get $\mathbf{x}\|_2 cos\theta = \frac{b}{\|\mathbf{w}^\top\|_2 \|}$, or the component of position vector $\mathbf{x}$ in the direction of the unit normal / the plane's distance from the origin along its unit normal.
+- If we normalize $b$ by dividing it by $\vert\vert\mathbf{w}^\top\vert\vert_2$, we get $\vert\vert\mathbf{x}\vert\vert_2 cos\theta = \frac{b}{\vert\vert\mathbf{w}^\top\vert\vert_2 \vert\vert}$, or the component of position vector $\mathbf{x}$ in the direction of the unit normal / the plane's distance from the origin along its unit normal.
 
 
 
@@ -280,7 +280,7 @@ $$
 \begin{aligned}
 \mathbf{x} &= \mathbf{p}_0 + \alpha_0\mathbf{d}_0 + \alpha_1\mathbf{d}_1 + \ldots + \alpha_{P-1}\mathbf{d}_{P-1} \\
 &= \mathbf{p}_0 + \sum_{i=0}^{P-1}\alpha_i\mathbf{d}_i \\
-&= \mathbf{p}_0 + \begin{bmatrix} \vert & \vert & \vert & \vert \\ \mathbf{d}_0 & \mathbf{d}_1 & \ldots & \mathbf{d}_{P-1} \\ \vert & \vert & \vert & \vert \\ \end{bmatrix} \vec{\alpha} \\
+&= \mathbf{p}_0 + \begin{bmatrix} \vert\vert & \vert\vert & \vert\vert & \vert\vert \\ \mathbf{d}_0 & \mathbf{d}_1 & \ldots & \mathbf{d}_{P-1} \\ \vert\vert & \vert\vert & \vert\vert & \vert\vert \\ \end{bmatrix} \vec{\alpha} \\
 &= \mathbf{p}_0 + D\vec{\alpha},\,\vec{\alpha}\in\mathcal{R}^P
 \end{aligned}
 $$
@@ -351,29 +351,193 @@ Let $A$ be an $n × n$ matrix. Then the following are equivalent:
 
 
 
-### Cramer's Rule
+### [Gaussian and Gauss-Jordan Elimination and Reduced Row Echelon Form (RREF)](https://www.freetext.org/Introduction_to_Linear_Algebra/Systems_Linear_Equations/Gaussian_and_Gauss-Jordan_Elimination/)
 
-Given a system $\mathbf{Ax = b}$, a unique solution $\mathbf{x}$ exists **iff** $\mathbf{A}$ is invertible
+Gaussian and Gauss-Jordan Elimination Elementary Row operations:
+1. Interchanging two rows ($R_k \leftrightarrow R_j$).
+2. Adding a multiple of one row to another ($R_k \rightarrow R_k + \alpha R_j$).
+3. Multiplying any row by a nonzero scalar value ($R_k \rightarrow \alpha R_k$).
 
+Row Echelon Form (REF):
+1. All zero rows are at the bottom of the matrix.
+- If a pivot is defined as the first non-zero entry of any given row, then the pivot in each row after the first occurs at least 1 column further to the right than the previous row.
+- The pivot in any nonzero row is 1.
+- All entries in the column above and below a pivot are zero. (Necessary condition for **Reduced** Row Echelon Form (RREF))
 
+We use Gaussian and Gauss-Jordan Elimination Elementary Row operations in order to get the REF and RREF forms of the matrix which will reveal important details like the following:
 
-### [Gauss-Jordan Elimination and Reduced Row Echelon Form (RREF)](https://www.freetext.org/Introduction_to_Linear_Algebra/Systems_Linear_Equations/Gaussian_and_Gauss-Jordan_Elimination/)
+#### Case 1: Matrix's invertibility
+--- Under Construction ---
+
+#### Case 2: Finding solutions to homogeneous and inhomogeneous systems of linear equations
+--- Under Construction ---
+
+#### Case 3: Finding an inverse of a matrix
+--- Under Construction ---
+$$
+\left(\begin{array}{ccc|ccc}
+  1 & 2 & 9 & 1 & 0 & 0\\
+  3 & \pi & 6 & 0 & 1 & 0 \\
+1/4 & 0 & 0 & 0 & 0 & 1
+\end{array}\right)
+$$
 
 
 
 ### Rank-Nullity Theorem
+--- Under Construction ---
 
 
 
 ### Homogeneous Systems of Linear Equations
 
-Goal: Find a linear combination of vectors in the column space $C(A)$ such that they sum to the zero vector $\vec{0}$
+$$
+\begin{aligned}
+\underset{m x n}{\mathbf{A}}\,\underset{nx1}{\mathbf{x}} &= \underset{mx1}{\mathbf{0}} \\
+\begin{bmatrix}
+    a_{00} & a_{01} & a_{02} & \ldots & a_{0n} \\
+    a_{10} & a_{11} & a_{12} & \ldots & a_{1n} \\
+    \vdots & \vdots & \vdots & \ldots & \vdots \\
+    a_{m0} & a_{m1} & a_{m2} & \ldots & a_{mn} \\
+\end{bmatrix}
+\begin{bmatrix}
+    x_0 \\
+    x_1 \\
+    \vdots \\
+    x_n
+\end{bmatrix} &=
+\begin{bmatrix}
+    0_0 \\
+    0_1 \\
+    \vdots \\
+    0_m
+\end{bmatrix}
+\end{aligned}
+$$
 
-Each equation in the row space $R(A)$ passes through the origin. Since we know that for homogeneous systems of linear equations, the graphs for each equation passes through the origin in the catesian plane
+#### Goal (Column Space Perspective):
+Find a linear combination of vectors in the column space $C(A)$ such that they sum to the zero vector $\vec{0}$:
+
+$$
+\begin{aligned}
+\begin{bmatrix}
+    \mathbf{c}_0 =
+    \begin{bmatrix}
+        a_{00} \\ a_{10} \\ \vdots \\ a_{m0}
+    \end{bmatrix} &
+    \mathbf{c}_1 =
+    \begin{bmatrix}
+        a_{01} \\ a_{11} \\ \vdots \\ a_{m1}
+    \end{bmatrix} &
+    \mathbf{c}_2 =
+    \begin{bmatrix}
+        a_{02} \\ a_{12} \\ \vdots \\ a_{m2}
+    \end{bmatrix} &
+    \ldots &
+    \mathbf{c}_n =
+    \begin{bmatrix}
+        a_{0n} \\ a_{1n} \\ \vdots \\ a_{mn}
+    \end{bmatrix} &
+\end{bmatrix}
+\begin{bmatrix}
+    x_0 \\
+    x_1 \\
+    \vdots \\
+    x_n
+\end{bmatrix} &=
+\begin{bmatrix}
+    0_0 \\
+    0_1 \\
+    \vdots \\
+    0_m
+\end{bmatrix} \\
+x_0\mathbf{c}_0 + x_1\mathbf{c}_1 + x_2\mathbf{c}_2 + \ldots + x_n\mathbf{c}_n &= 
+\begin{bmatrix}
+    0_0 \\
+    0_1 \\
+    \vdots \\
+    0_m
+\end{bmatrix} \\
+\end{aligned}
+$$
+
+#### Goal (Row Space Perspective):
+Find the cartesian coordinates of the intersection point(s) between all equations defined by the row space:
+
+$$
+\begin{aligned}
+\begin{bmatrix}
+    \mathbf{r}_0 =
+    \begin{bmatrix}
+        a_{00} & a_{01} & \ldots & a_{0n}
+    \end{bmatrix} \\
+    \mathbf{r}_1 =
+    \begin{bmatrix}
+        a_{10} & a_{11} & \ldots & a_{1n}
+    \end{bmatrix} \\
+    \mathbf{r}_2 =
+    \begin{bmatrix}
+        a_{20} & a_{21} & \ldots & a_{2n}
+    \end{bmatrix} \\
+    \vdots \\
+    \mathbf{r}_n =
+    \begin{bmatrix}
+        a_{m0} & a_{m1} & \ldots & a_{mn}
+    \end{bmatrix} \\
+\end{bmatrix}
+\begin{bmatrix}
+    x_0 \\
+    x_1 \\
+    \vdots \\
+    x_n
+\end{bmatrix} &=
+\begin{bmatrix}
+    0_0 \\
+    0_1 \\
+    \vdots \\
+    0_m
+\end{bmatrix} \\
+\begin{bmatrix}
+\mathbf{r}_0 \cdot \mathbf{x} \\
+\mathbf{r}_1 \cdot \mathbf{x} \\
+\mathbf{r}_2 \cdot \mathbf{x} \\
+\vdots \\
+\mathbf{r}_m \cdot \mathbf{x} \\
+\end{bmatrix} &=
+\begin{bmatrix}
+    0_0 \\
+    0_1 \\
+    \vdots \\
+    0_m
+\end{bmatrix} \\
+\end{aligned}
+$$
+
+#### Trivial Solution:
+- In the Column Space perspective, choosing none of the column vectors $\mathbf{c}_i$ (allocating a coefficient of $x_j = 0$ to each $\mathbf{c}_i$) gets us the $\vec{0}$, making the $\vec{0}$ a trivial solution to the homogeneous system of linear equations.
+- In the Row Space perspective, each equation $\mathbf{r}_i \cdot \mathbf{x} = 0$ in the row space $R(A)$ the graphs for each equation passes through the origin. Hence all of them intersect at the origin, making $\vec{0}$ a trivial solution to the homogeneous system of linear equations.
+
+#### Non-trivial Solution:
+
 
 
 
 ### Inhomogeneous Systems of Linear Equations
+
+$$
+\mathbf{Ax = b},\,\mathbf{b}\not=0
+$$
+
+
+
+### Cramer's Rule
+
+Given an inhomogeneous system $\mathbf{Ax = b}$, a unique solution $\mathbf{x}$ exists **iff** $\mathbf{A}$ is invertible. Cramer's rule can be used to find this unique solution as an alternative to using Gaussian and Gauss-Jordan Elimination.
+
+Rule: 
+$$
+x_j = \frac{det(\mathbf{A}_j)}{det(\mathbf{A})}
+$$
 
 
 
