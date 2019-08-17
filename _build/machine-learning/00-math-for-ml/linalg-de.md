@@ -28,9 +28,12 @@ We'll go through the linear algebra and differential equations topics you need t
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
 # plotting defaults
 plt.rcParams['figure.dpi'] = 300
 plt.rcParams['figure.figsize'] = (18, 12)
+get_colors = lambda length: plt.get_cmap('Spectral')(np.linspace(0, 1.0, length))
 
 ```
 </div>
@@ -113,37 +116,187 @@ plt.show();
 
 
 
-### Parametric Representation of Lines
+### Standard Form of Equation for Hyperplane
 
-We can represent a vector 
-
-
-
-### Equation of a Hyperplane
-
-Back in highschool, we learnt that a line in 2-D is denoted by 
+Back in highschool, we learnt that a line in 2-D Cartesian plane is denoted by 
 $$
 y=mx+b
 $$
 , where $y$ is the vertical axis, $x$ is the horizonatal axis, $m$ is the slope of the line, and $b$ is the y-intercept.
 
-However, now in the world of linear algebra, we learn that the general form of any hyperplane (*A subspace of one dimension less than its ambient space, e.g. line in 2-D is a hyperplane, plane in 3-D is a hyperplane too*) is 
+However, now in the world of linear algebra, we learn that the **standard form** of any hyperplane (*A subspace of one dimension less than its ambient space, e.g. line in 2-D is a hyperplane, plane in 3-D is a hyperplane too*) is 
+
 $$
 {w_n}{x_n} + {w_{n - 1}{x_{n - 1} } } + ... + {w_0}{x_0} = 
 \begin{bmatrix} {w_n}, {w_{n - 1} }, ..., {w_0} \end{bmatrix}
-\begin{bmatrix} {x_n} \\ {x_{n - 1} } \\ \vdots \\ {x_0} \end{bmatrix} = \mathbf{w}^\top\mathbf{x} = 0
+\begin{bmatrix} {x_n} \\ {x_{n - 1} } \\ \vdots \\ {x_0} \end{bmatrix} = \mathbf{w}^\top\mathbf{x} = b\,\text{, where }b=0\,\text{if hyperplane passes through the origin}
 $$
 
-Hence,
-1. $$y=mx+b$$
-2. $$y-mx-b=0$$
-3. $$(1)*(y)+(-m)*(x)+(-b)*(1)=0$$
-4. $$
+In general, given an $N$-dimensional space, we need $N-P$ equations like $\sum_i^n w_i x_i = b$ to define an object of $P$ dimensions.
+
+Hence, in 2-D Cartesian plane, to define a 1-D line, we need just $(N=2) - (P=1) = 1$ equation:
+$$
+\begin{aligned}
+y&=mx+b\,\text{, assuming}\,b \not= 0 \\
+y-mx&=b \\
+(-m)*(x)+(1)*(y)&=b \\
+\begin{bmatrix} -m, 1 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} &= b \\
+\mathbf{w}^\top\mathbf{x} &= b
+\end{aligned}
+$$
+
+Notice that from the same equation, if we push the non-zero b into the LHS, we can create a hyperplane that passes through the origin but doing this increases our dimensions by 1:
+$$
+\begin{aligned}
+y&=mx+b \\
+y-mx-b&=0 \\
+(1)*(y)+(-m)*(x)+(-b)*(1)&=0 \\
 \begin{bmatrix} 1, -m, -b \end{bmatrix}
-\begin{bmatrix} y \\ x \\ 1 \end{bmatrix}=\mathbf{w}^\top\mathbf{x}=0
+\begin{bmatrix} y \\ x \\ 1 \end{bmatrix}&=\mathbf{w}^\top\mathbf{x}=0
+\end{aligned}
 $$
 
-From now onwards, whenever we're talking about hyperplanes, we can always translate all the data points horizontally and vertically such that the hyperplane passes through the origin. This is a very important point as it allows us to fix this form $\rightarrow \mathbf{w}^\top\mathbf{x} = 0$ as the equation of a hyperplane. Furthermore, it much better sense now when we talk about why all the points on the hyperplane, $\forall{i} \vec{x_i}$, are orthogonal to $\vec{w}$, making their dot product / inner product / un-normalized cosine similarity $= 0$.
+Because of this, we can always translate all the data points horizontally and vertically such that the hyperplane passes through the origin, however increasing our dimensionality by 1. 
+
+*This is a very important point as it allows us to fix this form $\rightarrow \mathbf{w}^\top\mathbf{x} = 0$ as the equation of a hyperplane. Furthermore, it much better sense now when we talk about why all the points on the hyperplane, $\forall{i} \vec{x_i}$, are orthogonal to $\vec{w}$, making their dot product / inner product / un-normalized cosine similarity $= 0$. $\mathbf{w}$ is also known as the **normal** vector and it uniquely defines the hyperplane.*
+- To find the normal vector $\mathbf{w}$, we need to cross two **spatial** vectors that are in the hyperplane (unless our hyperplane passes through the origin, which means we can either use **spatial** or **position** vectors since both lie on the plane):
+    - Given that 3 points lie on a plane: $p_0 = \begin{bmatrix} 1, 2, 3 \end{bmatrix}$, $p_1 = \begin{bmatrix} 4, -1, 2 \end{bmatrix}$, $p_0 = \begin{bmatrix} 2, 0, 4 \end{bmatrix}$, we can't just do the cross product of 2 of the points to find the normal vector as those position vectors are not on the hyperplane because the hyperplane does not pass through the origin. We therefore need to find the spatial vectors on the hyperplane by subtracting any 2 unique combinations of the points on hyperplane / position vectors $p_0, p_1, p_2$ and crossing them to get the normal. This example is shown below:
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Vector coordinates
+p0, p1, p2, origin = \
+    np.array([1,2,3]), \
+    np.array([4,-1,2]), \
+    np.array([2,0,4]), \
+    np.array([0,0,0])
+
+# Normal Vector for plane passing through p0, p1, p2
+# by getting cross product of spatial vectors p1-p0
+# and p2-p0 that lie on the plane
+normal = np.cross(p1-p0, p2-p0)
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+colors = get_colors(7)
+
+# Plot vectors
+p0_quiver = ax.quiver(*origin, *p0, color=colors[0], label='$p_0$')
+p1_quiver = ax.quiver(*origin, *p1, color=colors[1], label='$p_1$')
+p2_quiver = ax.quiver(*origin, *p2, color=colors[2], label='$p_2$')
+p0p1_cross_quiver = ax.quiver(*origin, *np.cross(p0, p1), color=colors[3], label='$p_0\,x\,p_1$')
+p1_p0_quiver = ax.quiver(*p0, *p1-p0, color=colors[4], label='$p_1-p_0$')
+p2_p0_quiver = ax.quiver(*p0, *p2-p0, color=colors[5], label='$p_2-p_0$')
+normal_quiver = ax.quiver(*origin, *normal, color=colors[6], label='Normal')
+
+# Annotate vectors
+ax.text(*origin, s='{}'.format('Origin: '+str(origin)))
+ax.text(*p0, s='{}'.format('$p_0$: '+str(p0)))
+ax.text(*p1, s='{}'.format('$p_1$: '+str(p1)))
+ax.text(*p2, s='{}'.format('$p_2$: '+str(p2)))
+ax.text(*np.cross(p0, p1), s='{}'.format('$p_0\,x\,p_1$: '+str(list(np.cross(p0, p1)))))
+ax.text(*p1+1, s='{}'.format('$p_1 - p_0$: '+str(p1-p0)))
+ax.text(*p2+1, s='{}'.format('$p_2 - p_0$: '+str(p2-p0)))
+ax.text(*normal, s='{}'.format('Normal: '+str(normal)))
+
+# Plot plane
+# a plane is a*x+b*y+c*z+d=0
+# [a,b,c] is the normal. Thus, we have to calculate
+# d and we're set
+d = -p0.dot(normal)
+
+# create x,y
+xx, yy = np.meshgrid(range(10), range(10))
+
+# calculate corresponding z
+z = (-normal[0] * xx - normal[1] * yy - d) * 1. /normal[2]
+ax.plot_surface(xx, yy, z, alpha=0.2)
+
+# Set viewing perspective
+ax.view_init(10, -30)
+
+# Set axis limits
+ax.set_xlim([-10, 10])
+ax.set_ylim([-10, 10])
+ax.set_zlim([-10, 10])
+
+# Set labels
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('z')
+ax.legend()
+plt.show()
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../images/machine-learning/00-math-for-ml/linalg-de_9_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+In order to get the cartesian / standard equation for that hyperplane, we find the dot product of the normal vector with any of the points on the hyperplane / position vectors to get the $b$ of the standard form of a hyperplane equation.
+
+Our Normal Vector: $\mathbf{w}^\top = \begin{bmatrix}-5, -4, -3\end{bmatrix}$
+
+Our $b$: $\mathbf{w}^\top p_0 = \begin{bmatrix}-5 & -4 & -3\end{bmatrix} \begin{bmatrix}1 \\ 2 \\ 3\end{bmatrix} = (-5 * 1) + (-4 * 2) + (-3 * 3) = - 5 - 8 - 9 = - 22$
+
+Our final **standard form** of hyperplane equation:
+$$
+P = \{\mathbf{x} \vert \mathbf{w}^\top \mathbf{x} = \begin{bmatrix}5 & 4 & 3\end{bmatrix} \begin{bmatrix}x_0 \\ x_1 \\ x_2\end{bmatrix} = 5x_0 + 4x_1 + 3x_2 = 22\}
+$$
+
+If we absorb the $b$, $P$ is a 2D object living in 4D:
+$$
+P = \{\mathbf{x} \vert \mathbf{w}^\top \mathbf{x} = \begin{bmatrix}5 & 4 & 3 & -22 \end{bmatrix} \begin{bmatrix}x_0 \\ x_1 \\ x_2 \\ 1 \end{bmatrix} = 5x_0 + 4x_1 + 3x_2 - 22 = 0\}
+$$
+
+Meaning of $\mathbf{w}^\top$: For different values of $b$, scalar multiples of $\mathbf{w}^\top$ will get us hyperplanes that are parallel to our original hyperplane.
+
+Meaning of the $b$: Recall the cosine similarity definition of dot products - $\mathbf{w}^\top \mathbf{x} = \|\mathbf{w}^\top\|_2 \|\mathbf{x}\|_2 cos\theta = b$
+- This means that the **standard form** of the equation of hyperplane is saying that all the position vectors / points on the hyperplane have the same "un-normalized cosine similarity".
+- If we normalize $b$ by dividing it by $\|\mathbf{w}^\top\|_2$, we get $\mathbf{x}\|_2 cos\theta = \frac{b}{\|\mathbf{w}^\top\|_2 \|}$, or the component of position vector $\mathbf{x}$ in the direction of the unit normal / the plane's distance from the origin along its unit normal.
+
+
+
+### Parametric Form of Equation for Hyperplane
+
+
+
+
+
+### [Gauss-Jordan Elimination and Reduced Row Echelon Form (RREF)](https://www.freetext.org/Introduction_to_Linear_Algebra/Systems_Linear_Equations/Gaussian_and_Gauss-Jordan_Elimination/)
+
+
+
+### Invertible Matrix Theorem
+
+
+
+### Rank-Nullity Theorem
+
+
+
+### Homogeneous Systems of Linear Equations
+
+Goal: Find a linear combination of vectors in the column space $C(A)$ such that they sum to the zero vector $\vec{0}$
+
+Each equation in the row space $R(A)$ passes through the origin. Since we know that for homogeneous systems of linear equations, the graphs for each equation passes through the origin in the catesian plane
+
+
+
+### Inhomogeneous Systems of Linear Equations
 
 
 
@@ -204,4 +357,5 @@ Differential equations are broken down into 2 types:
 - [Dot Products and Projections](https://math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/dotprod/dotprod.html)
 - [Understanding what $\mathbf{w}$ is and why $y =mx + b$ <=> $\mathbf{w}^\top\mathbf{x}=0$](https://www.youtube.com/watch?v=3qzWeokRYTA)
 - [Learn Differential Equations: Up Close with Gilbert Strang and Cleve Moler on MIT Opencourseware](https://ocw.mit.edu/resources/res-18-009-learn-differential-equations-up-close-with-gilbert-strang-and-cleve-moler-fall-2015/index.htm)
+- [Freetext's Introduction to Linear Algebra](https://www.freetext.org/Introduction_to_Linear_Algebra/)
 
