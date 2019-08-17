@@ -292,34 +292,72 @@ Following from the example in the section above, if we have 3 points lie on a pl
 Since we already have 3 points on the plane / position vectors to the plane, our job is already 50% completed. We need to find a basis for the plane. Recall that in order to find the normal vector, we found 2 spatial vectors that lie on the hyperplane by $p_1 - p_0 = \begin{bmatrix} 4 \\ -1 \\  2 \end{bmatrix} - \begin{bmatrix} 1 \\ 2 \\  3 \end{bmatrix} = \begin{bmatrix} 3 \\ -3 \\ -1 \end{bmatrix}$ and $p_2 - p_0 = \begin{bmatrix} 2 \\ 0 \\  4 \end{bmatrix} - \begin{bmatrix} 1 \\ 2 \\  3 \end{bmatrix} = \begin{bmatrix} 1 \\ -2 \\ 1 \end{bmatrix}$. Hence, our parametric form is:
 
 $$
-\mathbf{x} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix},\,\alpha_i\in\mathcal{R}
+\mathbf{x} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix} = \left\{\begin{array}{lr}
+x &= 1 + 3\alpha_0 + \alpha_1 \\
+y &= 2 - 3\alpha_0 - 2\alpha_1 \\
+z &= 3 - 1\alpha_0 + \alpha_1 \\
+\end{array}\right\},\,\alpha_i\in\mathcal{R}
 $$
 
 OR 
 
 $$
-\mathbf{x} = \begin{bmatrix} 4 \\ -1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix},\,\alpha_i\in\mathcal{R}
+\mathbf{x} = \begin{bmatrix} 4 \\ -1 \\ 2 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix} = \left\{\begin{array}{lr}
+x &= 4 + 3\alpha_0 + \alpha_1 \\
+y &= - 1 - 3\alpha_0 - 2\alpha_1 \\
+z &= 2 - 1\alpha_0 + \alpha_1 \\
+\end{array}\right\},\,\alpha_i\in\mathcal{R}
 $$
 
 OR 
 
 $$
-\mathbf{x} = \begin{bmatrix} 2 \\ 0 \\ 4 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix},\,\alpha_i\in\mathcal{R}
+\mathbf{x} = \begin{bmatrix} 2 \\ 0 \\ 4 \end{bmatrix} + \begin{bmatrix} 3 & 1 \\ -3 & -2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \alpha_0 \\ \alpha_1 \end{bmatrix} = \left\{\begin{array}{lr}
+x &= 2 + 3\alpha_0 + \alpha_1 \\
+y &= 0 - 3\alpha_0 - 2\alpha_1 \\
+z &= 4 - 1\alpha_0 + \alpha_1 \\
+\end{array}\right\},\,\alpha_i\in\mathcal{R}
 $$
 
 
 
-### Symmetric Form of Equation for Hyperplane
+### [Invertible Matrix Theorem](https://www.math.dartmouth.edu/archive/m22f06/public_html/imt.pdf)
+
+Let $A$ be an $n × n$ matrix. Then the following are equivalent:
+1. The matrix $A$ is invertible (non-singular).
+- The matrix $A$ is row equivalent to $I_n$.
+- The matrix $A$ has $n$ pivot positions.
+- The equation $A\mathbf{x} = 0$ has only the trivial solution.
+- The columns of $A$ form a linearly independent set.
+- The linear transformation $\mathbf{x} \rightarrow A\mathbf{x}$ is one-to-one.
+- For each $\mathbf{b} \in \mathbb{R}^n$, the equation $A\mathbf{x} = b$ has a unique solution.
+- The columns of $A$ span $\mathbb{R}^n$.
+- The linear transformation $\mathbf{x} \rightarrow A\mathbf{x}$ is onto.
+- There is an $n × n$ matrix $C$ such that $CA = I_n$.
+- There is an $n × n$ matrix $D$ such that $AD = I_n$.
+- The matrix $A^\top$ is invertible.
+- The columns of $A$ form a basis for $\mathbb{R}^n$.
+- The column space of $A$ is $\mathbb{R}^n$ (Col $A$ = $\mathbb{R}^n$).
+- The dimension of the column space of $A$ is $n$ (dim Col $A$ = $n$).
+- The rank of $A$ is $n$ (rank $A$ = $n$).
+- The null space of $A$ is $\{0\}$ ($N(A)$ = $\{0\}$).
+- The dimension of the null space of $A$ is 0 (dim $N(A)$ = 0).
+- The number 0 is not an eigenvalue of $A$.
+- The determinant of $A$ is not zero (det $A \not=$ 0).
+- The orthogonal complement of the column space of $A$ is $\{0\}$ (${(Col A)}^\perp = \{0\}$).
+- The orthogonal complement of the null space of $A$ is $\mathbb{R}^n$ (($N(A)^\perp = \mathbb{R}^n$).
+- The row space of $A$ is $\mathbb{R}^n$ (Row $A$ = $\mathbb{R}^n$).
+- The matrix $A$ had $n$ non-zero singular values.
 
 
+
+### Cramer's Rule
+
+Given a system $\mathbf{Ax = b}$, a unique solution $\mathbf{x}$ exists **iff** $\mathbf{A}$ is invertible
 
 
 
 ### [Gauss-Jordan Elimination and Reduced Row Echelon Form (RREF)](https://www.freetext.org/Introduction_to_Linear_Algebra/Systems_Linear_Equations/Gaussian_and_Gauss-Jordan_Elimination/)
-
-
-
-### Invertible Matrix Theorem
 
 
 
