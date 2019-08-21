@@ -25,7 +25,6 @@ We'll review some fundamental statistics concepts over here for understanding th
 5. Chi-squared Test
 6. [Hypothesis Testing](#hyptest)
 7. [A/B Testing](#abtest)
-8. [Statistical Regression Analysis]()
 
 
 

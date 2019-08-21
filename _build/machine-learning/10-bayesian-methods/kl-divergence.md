@@ -13,7 +13,9 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 ---
 
 
-# KL Divergence
+# Kullback-Liebler (KL) Divergence
+
+Important Concept for understanding Variational Auto-Encoders!
 
 
 ### Jensen's Inequality

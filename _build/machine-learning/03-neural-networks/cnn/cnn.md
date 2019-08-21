@@ -99,18 +99,6 @@ $$
 
 
 ---
-# Siamese Network
-
-
-
----
-# You Only Look Once (YOLO)
-
-
-
-
-
----
 ## Resources
 - [deeplearning.ai](https://www.coursera.org/learn/convolutional-neural-networks/home/welcome)
 

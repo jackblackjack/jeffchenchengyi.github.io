@@ -15,7 +15,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 # Convex Optimization
 
-In this notebook, we'll walk through convex optimization problems, how to formulate them, and how to solve them.
+In this notebook, we'll walk through convex optimization problems, how to formulate them, and how to solve them. We start off with 2 prominent cases of convex optimization and afterwards we'll go through the actual methods to find the optimal parameters that solve the problems. The first two sections are more about how to setup the convex optimization problem, while the last section is about how we can find the best parameters to solve the given problem. The formulation and 
 
 ### Table of Contents
 1. [Least Squares](#ls)
@@ -24,7 +24,7 @@ In this notebook, we'll walk through convex optimization problems, how to formul
         2. [Weighted Least Squares](#wls)
         3. [Generalized Least Squares](#gls)
         4. [Iteratively reweighted least Squares](#irls)
-        5. [Instrumental variables Regression](#ivr)
+        5. [Instrumental Variables (IV) Regression](#ivr)
         6. [Total Least Squares](#tls)
     2. [Constrained Linear Least Squares](#clls)
         1. [Equality constrained Least Squares](#ecls)
@@ -44,11 +44,21 @@ In this notebook, we'll walk through convex optimization problems, how to formul
         2. [Quadratic Programming / Optimization](#qp)
     3. [Non-linear Constraints](#nlconstraints)
         1. [Non-linear Programming / Optimization](#nlp)
+3. [Solution Strategies](#solnstrat)
+    1. Medium-scale Solver
+        1. Conjugate Gradient
+        2. Interior Point Methods
+        3. Active Set Methods
+        4. Trust Region Methods
+    2. Large Scale Solver
+        1. Limiting Memory BFGS
+        2. Stochastic Subgradient
+        3. Block Coordinate Descent
+        4. Operator Splitting Methods
 
 
 
----
-# Preliminaries
+## Preliminaries
 
 ### Affine Set
 - Contains the line through any two distinct points in the set
@@ -68,6 +78,9 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 ### Convex Cone
 - Set that contains all **non-negative Conic combination** of $x_1$ and $x_2$: any point of the form $x = \theta_1x_1 + \theta_2x_2$ with $\theta_1 \geq 0, \theta_2 \geq 0$ (Looks like a pie slice (plane) - any point on the line from origin to $x_i$ and beyond are multiples of $x_i$ and all points in the shaded region are the non-negative linear combinations of multiples of $x_i$ and $x_j$)
 
+### Convex Function
+- A function is [convex when Hessian is PSD](https://www.quora.com/Why-is-a-function-convex-when-its-Hessian-positive-semidefinite)
+
 ### Hyperplanes
 - Solution set to a single linear **equality** constraint / equation: ${ \{x\vert a^\top x = b\} (a \neq 0) }$
     - $a$ is the normal to that hyperplane
@@ -85,13 +98,31 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 ---
 # 1. Least Squares<a id='ls'></a>
 
+An estimator / model is a function used to provide an estimate $\hat{\beta}$ of the true population parameter $\beta^p$ / target variable we're modelling. Note that using the same estimator but with different samples may often result in different estimates
+
+Desirable Properties of Estimator:
+1. Unbiased - $\mathbb{E}[\hat{\beta}] = \beta^p$ (The average $\hat{\beta}$ is $\beta^p$)
+2. Consistent - As the sample size $n \rightarrow \infty$, $\hat{\beta} \rightarrow \beta^p$
+3. Efficient - One estimator is more efficient than another if the standard deviation of $\hat{\beta}$ is lower ($\hat{\beta}$s hover very near the same value)
+4. Linear in parameters - $\hat{\beta}$ is a linear function of parameters from sample
+
+E.g. Biased but Consistent Estimator:
+1. Suppose we are trying to estimate a population parameter $\mu$ from a population such that a sample $x_i = \mu + \epsilon,\,\epsilon \sim N(0, 1)$ - errors are normally distributed with mean of 0
+2. We get $N$ samples of $x_i$ and we set the **estimator** to be $\tilde{x} = \frac{1}{N-1}\sum^{N}_{i=1} x_i$
+3. To test Unbiasedness, we take $\mathbb{E}[\tilde{x}] = \frac{1}{N-1}\sum^{N}_{i=1} \mathbb{E}[x_i]$ because of the *linearity of expectations*
+4. Since $\mathbb{E}[x_i] = \mathbb{E}[\mu] + \mathbb{E}[\epsilon] = \mu$, $\mathbb{E}[\tilde{x}] = \frac{N \mu}{N-1}$
+5. Hence, if we have a finite sample size, our estimator does not equal the population parameter, making this a biased estimator.
+6. However, as $n \rightarrow \infty$, $\frac{N \mu}{N-1} \rightarrow \mu$, making this a consistent estimator as we get the true population paarmeter as our sample size increases infinitely.
+
+Least Squares Estimators are **Best Linear Unbiased Estimators (BLUE)** under *Gauss-Markov* Assumptions.
+
 
 
 ## 1. Linear Least Squares<a id='lls'></a>
 
 
 
-### 1. Ordinary Least Squares<a id='ols'></a>
+### 1. [Ordinary Least Squares](https://en.wikipedia.org/wiki/Ordinary_least_squares)<a id='ols'></a>
 
 
 
@@ -109,7 +140,7 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 
 
 
-### 5. Instrumental variables Regression<a id='ivr'></a>
+### 5. Instrumental Variables (IV) Regression<a id='ivr'></a>
 
 
 
@@ -120,7 +151,7 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 
 
 
-## 2. Constrained Linear Least Squares<a id='clls'></a>
+## 2. [Constrained Linear Least Squares](https://en.wikipedia.org/wiki/Constrained_least_squares)<a id='clls'></a>
 
 
 
@@ -133,6 +164,7 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 
 ### 2. Regularized Least Squares<a id='rls'></a>
 
+#### [Tikhonov Regularization](https://en.wikipedia.org/wiki/Tikhonov_regularization)
 
 
 
@@ -424,4 +456,5 @@ $$
 - [Stephen Boyd's CVX101 @ Stanford](https://lagunita.stanford.edu/courses/Engineering/CVX101/Winter2014/course/#i4x://Engineering/CVX101)
 - [David S. Rosenberg's Extreme Abridgment of Stephen Boyd and Vandenberghe’s Convex Optimization notes](https://davidrosenberg.github.io/mlcourse/Notes/convex-optimization.pdf)
 - [Constrained Least Squares Wiki](https://en.wikipedia.org/wiki/Constrained_least_squares)
+- [Least Squares Notes by Stephen Boyd](https://www.maplesoft.com/applications/download.aspx?SF=129826/LL_74\)_Least_Square.pdf)
 

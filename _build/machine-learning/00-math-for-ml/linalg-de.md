@@ -19,6 +19,10 @@ We'll go through the linear algebra and differential equations topics you need t
 
 ### Table of Contents
 1. [Linear Algebra](#linalg)
+    1. [Preliminaries](#prelim)
+    2. [Types of Systems of Linear Equations](#sletypes)
+    3. [Ways to solve Systems of Linear Equations](#waystosolvesle)
+    4. [Matrix Factorization](#matfact)
 2. [Differential Equations](#de)
 
 
@@ -60,7 +64,7 @@ plt.rcParams['figure.figsize'] = (18, 12)
 
 
 
-## Preliminaries
+## Preliminaries<a id='prelim'></a>
 
 A [Hilbert Space](https://en.wikipedia.org/wiki/Hilbert_space#Definition) $H$ is a real / complex [inner product space](https://en.wikipedia.org/wiki/Inner_product_space) (A Vector Space with the inner product defined). [Eucliden Space](https://en.wikipedia.org/wiki/Euclidean_space) is a type of Hilbert Space and it is represented by the Real Coordinate Space $\mathcal{R}^n$, the set of all possible real-valued $n$-tuples (ordered sequence of real-valued scalars), where $n$ is the number of dimensions.
 
@@ -281,7 +285,7 @@ $$
 \mathbf{x} &= \mathbf{p}_0 + \alpha_0\mathbf{d}_0 + \alpha_1\mathbf{d}_1 + \ldots + \alpha_{P-1}\mathbf{d}_{P-1} \\
 &= \mathbf{p}_0 + \sum_{i=0}^{P-1}\alpha_i\mathbf{d}_i \\
 &= \mathbf{p}_0 + \begin{bmatrix} \vert\vert & \vert\vert & \vert\vert & \vert\vert \\ \mathbf{d}_0 & \mathbf{d}_1 & \ldots & \mathbf{d}_{P-1} \\ \vert\vert & \vert\vert & \vert\vert & \vert\vert \\ \end{bmatrix} \vec{\alpha} \\
-&= \mathbf{p}_0 + D\vec{\alpha},\,\vec{\alpha}\in\mathcal{R}^P
+&= \mathbf{p}_0 + D\vec{\alpha},\,\vec{\alpha}\in\mathbb{R}^P
 \end{aligned}
 $$
 
@@ -296,7 +300,7 @@ $$
 x &= 1 + 3\alpha_0 + \alpha_1 \\
 y &= 2 - 3\alpha_0 - 2\alpha_1 \\
 z &= 3 - 1\alpha_0 + \alpha_1 \\
-\end{array}\right\},\,\alpha_i\in\mathcal{R}
+\end{array}\right\},\,\alpha_i\in\mathbb{R}
 $$
 
 OR 
@@ -306,7 +310,7 @@ $$
 x &= 4 + 3\alpha_0 + \alpha_1 \\
 y &= - 1 - 3\alpha_0 - 2\alpha_1 \\
 z &= 2 - 1\alpha_0 + \alpha_1 \\
-\end{array}\right\},\,\alpha_i\in\mathcal{R}
+\end{array}\right\},\,\alpha_i\in\mathbb{R}
 $$
 
 OR 
@@ -316,7 +320,7 @@ $$
 x &= 2 + 3\alpha_0 + \alpha_1 \\
 y &= 0 - 3\alpha_0 - 2\alpha_1 \\
 z &= 4 - 1\alpha_0 + \alpha_1 \\
-\end{array}\right\},\,\alpha_i\in\mathcal{R}
+\end{array}\right\},\,\alpha_i\in\mathbb{R}
 $$
 
 
@@ -351,45 +355,104 @@ Let $A$ be an $n × n$ matrix. Then the following are equivalent:
 
 
 
-### [Gaussian and Gauss-Jordan Elimination and Reduced Row Echelon Form (RREF)](https://www.freetext.org/Introduction_to_Linear_Algebra/Systems_Linear_Equations/Gaussian_and_Gauss-Jordan_Elimination/)
+### Rank-Nullity Theorem
 
-Gaussian and Gauss-Jordan Elimination Elementary Row operations:
-1. Interchanging two rows ($R_k \leftrightarrow R_j$).
-2. Adding a multiple of one row to another ($R_k \rightarrow R_k + \alpha R_j$).
-3. Multiplying any row by a nonzero scalar value ($R_k \rightarrow \alpha R_k$).
-
-Row Echelon Form (REF):
-1. All zero rows are at the bottom of the matrix.
-- If a pivot is defined as the first non-zero entry of any given row, then the pivot in each row after the first occurs at least 1 column further to the right than the previous row.
-- The pivot in any nonzero row is 1.
-- All entries in the column above and below a pivot are zero. (Necessary condition for **Reduced** Row Echelon Form (RREF))
-
-We use Gaussian and Gauss-Jordan Elimination Elementary Row operations in order to get the REF and RREF forms of the matrix which will reveal important details like the following:
-
-#### Case 1: Matrix's invertibility
---- Under Construction ---
-
-#### Case 2: Finding solutions to homogeneous and inhomogeneous systems of linear equations
---- Under Construction ---
-
-#### Case 3: Finding an inverse of a matrix
---- Under Construction ---
 $$
-\left(\begin{array}{ccc|ccc}
-  1 & 2 & 9 & 1 & 0 & 0\\
-  3 & \pi & 6 & 0 & 1 & 0 \\
-1/4 & 0 & 0 & 0 & 0 & 1
+Rank(A) + Nullity(A) = n
+$$
+
+
+
+### Coefficient Matrix
+
+Given a system of linear equations $\mathbf{Ax = b}$, the coefficient matrix is:
+
+$$
+\mathbf{A} = 
+\left(\begin{array}{ccccc}
+a_{00} & a_{01} & a_{02} & \ldots & a_{0n} \\
+a_{10} & a_{11} & a_{12} & \ldots & a_{1n} \\
+\vdots & \vdots & \vdots & \ldots & \vdots \\
+a_{m0} & a_{m1} & a_{m2} & \ldots & a_{mn} \\
 \end{array}\right)
 $$
 
 
 
-### Rank-Nullity Theorem
+### Augmented Matrix
+
+Given a system of linear equations $\mathbf{Ax = b}$, the augmented matrix is:
+
+$$
+(\mathbf{A}\vert\mathbf{b}) = 
+\left(\begin{array}{ccccc|c}
+a_{00} & a_{01} & a_{02} & \ldots & a_{0n} & b_0 \\
+a_{10} & a_{11} & a_{12} & \ldots & a_{1n} & b_1 \\
+\vdots & \vdots & \vdots & \ldots & \vdots & \vdots \\
+a_{m0} & a_{m1} & a_{m2} & \ldots & a_{mn} & b_m \\
+\end{array}\right)
+$$
+
+
+
+## Properties of Systems of Linear Equations $\underset{m x n}{\mathbf{A}}\,\underset{nx1}{\mathbf{x}} = \underset{mx1}{\mathbf{b}}$<a id='sleproperties'></a>
+
+
+
+### Linear Independence
+
+#### Row Space of $(\mathbf{A}\vert\mathbf{b})$ Perspective:
+- No equations are scalar multiples of each other.
+- Geometrically, this would mean that the system has not specified scalar multiples of the exact same hyperplane.
+
+#### Column Space of $\mathbf{A}$ Perspective:
+- No column vectors are scalar multiples of each other.
+- Geometrically, the vectors of the column space span $\mathbb{R}^n$ because all column vectors are linearly independent, forming a basis for $\mathbb{R}^n$
+- If all column vectors in $\mathbf{A}$ are linearly independent but column vectors in $(\mathbf{A}\vert\mathbf{b})$ are not, it means that there exists a solution for $\mathbf{Ax = b}$
+
+
+
+### Consistency
+
+#### Row Space of $(\mathbf{A}\vert\mathbf{b})$ Perspective:
+- No equations contradict each other, meaning that there isn't a linear combination of 
+- Geometrically, this would mean that the system has not specified scalar multiples of the exact same hyperplane.
+
+
+
+### [Equivalence](https://en.wikipedia.org/wiki/System_of_linear_equations)
+
 --- Under Construction ---
 
 
 
-### Homogeneous Systems of Linear Equations
+## Types of Systems of Linear Equations<a id='sletypes'></a>
+
+We can categorize Systems of Linear Equations in 2 different ways:
+1. Overdetermined Vs. Completely Determined Vs. Underdetermined
+2. Homogeneous Vs. Inhomogeneous
+
+
+
+### [Overdetermined System](https://en.wikipedia.org/wiki/Overdetermined_system)
+
+
+
+
+
+### [Underdetermined System](https://en.wikipedia.org/wiki/Underdetermined_system)
+
+--- Under Construction ---
+
+
+
+### [Rouche-Capelli Theorem](https://en.wikipedia.org/wiki/Rouch%C3%A9%E2%80%93Capelli_theorem)
+
+--- Under Construction ---
+
+
+
+### Homogeneous System
 
 $$
 \begin{aligned}
@@ -522,7 +585,7 @@ $$
 
 
 
-### Inhomogeneous Systems of Linear Equations
+### Inhomogeneous System
 
 $$
 \mathbf{Ax = b},\,\mathbf{b}\not=0
@@ -530,7 +593,50 @@ $$
 
 
 
-### Cramer's Rule
+## Ways to solve Systems of Linear Equations<a id='waystosolvesle'></a>
+
+Currently, we have 3 ways to solve systems of linear equations:
+1. Gaussian and Gauss-Jordan Elimination
+2. Cramer's Rule
+3. LU Decomposition
+4. LDU Decomposition
+
+
+
+### 1. [Gaussian and Gauss-Jordan Elimination and Reduced Row Echelon Form (RREF)](https://www.freetext.org/Introduction_to_Linear_Algebra/Systems_Linear_Equations/Gaussian_and_Gauss-Jordan_Elimination/)
+
+Gaussian and Gauss-Jordan Elimination Elementary Row operations:
+1. Interchanging two rows ($R_k \leftrightarrow R_j$).
+2. Adding a multiple of one row to another ($R_k \rightarrow R_k + \alpha R_j$).
+3. Multiplying any row by a nonzero scalar value ($R_k \rightarrow \alpha R_k$).
+
+Row Echelon Form (REF):
+1. All zero rows are at the bottom of the matrix.
+- If a pivot is defined as the first non-zero entry of any given row, then the pivot in each row after the first occurs at least 1 column further to the right than the previous row.
+- The pivot in any nonzero row is 1.
+- All entries in the column above and below a pivot are zero. (Necessary condition for **Reduced** Row Echelon Form (RREF))
+
+We use Gaussian and Gauss-Jordan Elimination Elementary Row operations in order to get the REF and RREF forms of the matrix which will reveal important details. A few of the use cases are below:
+
+#### Case 1: Matrix's invertibility
+--- Under Construction ---
+
+#### Case 2: Finding solutions to homogeneous and inhomogeneous systems of linear equations
+--- Under Construction ---
+
+#### Case 3: Finding an inverse of a matrix
+--- Under Construction ---
+$$
+\left(\begin{array}{ccc|ccc}
+  1 & 2 & 9 & 1 & 0 & 0\\
+  3 & \pi & 6 & 0 & 1 & 0 \\
+1/4 & 0 & 0 & 0 & 0 & 1
+\end{array}\right)
+$$
+
+
+
+### 2. Cramer's Rule
 
 Given an inhomogeneous system $\mathbf{Ax = b}$, a unique solution $\mathbf{x}$ exists **iff** $\mathbf{A}$ is invertible. Cramer's rule can be used to find this unique solution as an alternative to using Gaussian and Gauss-Jordan Elimination.
 
@@ -541,15 +647,27 @@ $$
 
 
 
-## Singular Value Decomposition (SVD)
+### 3. [LU Decomposition](https://www.freetext.org/Introduction_to_Linear_Algebra/Systems_Linear_Equations/LU_Decomposition/)
 
 
 
-## QR Decomposition (QR)
+### 4. LDU Decomposition
 
 
 
-## LU Decomposition
+## Matrix Factorization<a id='matfact'></a>
+
+
+
+### Eigendecomposition
+
+
+
+### Singular Value Decomposition (SVD)
+
+
+
+### [QR Decomposition (QR)](https://en.wikipedia.org/wiki/QR_decomposition)
 
 
 
@@ -584,7 +702,27 @@ Differential equations are broken down into 2 types:
 
 
 
-## Applied Mathematics and $A^\top A$
+## Applied Mathematics and [Gramian Matrix $G = X^\top X$](https://en.wikipedia.org/wiki/Gramian_matrix)
+
+#### $X^\top X$ is always Positive Semi-definite (PSD) $G \in \mathbf{S}_+$
+
+#### $X^\top X$ is always Symmetric:
+
+$$
+{(X^\top X)}^\top = X^\top {(X^\top)}^\top = X^\top X \because {(X^\top)}^\top = X\,\text{and}\,{(XB)}^\top = B^\top X^\top
+$$
+
+#### [Inverse of a Symmetric Matrix $X$ is another Symmetric Matrix $X^{-1}$](https://www.quora.com/What-is-the-inverse-of-a-symmetric-matrix):
+
+$$
+\begin{aligned}
+X^{-1}X &= I \\
+{X^{-1}X}^\top &= I^\top \\
+X^\top {(X^{-1})}^\top &= I \\
+X {(X^{-1})}^\top &= I \because X = X^\top \\
+\therefore {(X^{-1})}^\top &= X^{-1},\,\text{making inverse of symmetric matrix also symmetric}\,\because\,\text{inverse of matrix is unique}
+\end{aligned}
+$$
 
 
 
@@ -599,4 +737,7 @@ Differential equations are broken down into 2 types:
 - [Understanding what $\mathbf{w}$ is and why $y =mx + b$ <=> $\mathbf{w}^\top\mathbf{x}=0$](https://www.youtube.com/watch?v=3qzWeokRYTA)
 - [Learn Differential Equations: Up Close with Gilbert Strang and Cleve Moler on MIT Opencourseware](https://ocw.mit.edu/resources/res-18-009-learn-differential-equations-up-close-with-gilbert-strang-and-cleve-moler-fall-2015/index.htm)
 - [Freetext's Introduction to Linear Algebra](https://www.freetext.org/Introduction_to_Linear_Algebra/)
+- [Xiong Fei Du's notes on LU, LDU, and Cramer's Rule](https://xiongfeidu.github.io/notes/4.09%20LU%20Decomposition%20and%20Cramer's%20Rule.pdf)
+- [Systems of linear equations Wiki](https://en.wikipedia.org/wiki/System_of_linear_equations)
+- [Intuition for what is meant by Overdetermined and Underdetermined systems](http://quickmathintuitions.org/intuition-for-overdetermined-and-underdetermined-systems-of-equations/)
 
