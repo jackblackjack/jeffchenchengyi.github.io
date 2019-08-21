@@ -19,12 +19,36 @@ We'll review some fundamental statistics concepts over here for understanding th
 
 ### Table of Contents
 1. Central Limit Theorem
-2. Z-test
-3. Student's T-test
-4. Anova
-5. Chi-squared Test
-6. [Hypothesis Testing](#hyptest)
+2. [Hypothesis Testing](#hyptest)
+3. $Z$-test
+4. Student's $T$-test
+5. Anova
+6. Chi-squared Test
 7. [A/B Testing](#abtest)
+
+## Preliminaries
+
+### [Moments of Random Variable](https://www.youtube.com/watch?v=BXN8jgQTjao&list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU&index=23)
+
+### Kurtosis
+
+### Skewness
+
+### Expectation and Variance Properties
+
+### Covariance and Correlation
+
+### Population Vs. Sample Parameters
+
+Population:
+$$
+\mathbb{E}[X] = \mu,\,Var(X) = \sigma^2
+$$
+
+Sample:
+$$
+\bar{x} = \frac{1}{N}\sum^N_{i=1}x_i,\,s^2 = \frac{1}{N-1}\sum^N_{i=1}{(x_i - \bar{x})}^2
+$$
 
 
 
@@ -41,7 +65,7 @@ import matplotlib.font_manager as fm
 import matplotlib.patches as mpatches
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 import seaborn as sns
-from scipy.stats import norm
+from scipy.stats import norm, f
 
 # plotting defaults
 plt.rcParams['figure.dpi'] = 300
@@ -297,8 +321,13 @@ Power increases as:
 ```python
 fig, ax = plt.subplots(6, 1)
 for idx in range(1, 7):
-    ax[idx-1] = plot_H0_true_dist_and_actual_dist(ax=ax[idx-1], H0_mean=50, actual_mean=43, 
-                                                std=21, n=36, alpha=(idx*0.01))
+    ax[idx-1] = plot_H0_true_dist_and_actual_dist(
+        ax=ax[idx-1], 
+        H0_mean=50, 
+        actual_mean=43, 
+        std=21, 
+        n=36, 
+        alpha=(idx*0.01))
     
 plt.tight_layout()
 plt.show();
@@ -327,8 +356,13 @@ plt.show();
 ```python
 fig, ax = plt.subplots(6, 1)
 for idx in range(1, 7):
-    ax[idx-1] = plot_H0_true_dist_and_actual_dist(ax=ax[idx-1], H0_mean=50, actual_mean=43, 
-                                                std=21, n=idx*20, alpha=0.05)
+    ax[idx-1] = plot_H0_true_dist_and_actual_dist(
+        ax=ax[idx-1], 
+        H0_mean=50, 
+        actual_mean=43, 
+        std=21, 
+        n=idx*20, 
+        alpha=0.05)
     
 plt.tight_layout()
 plt.show();
@@ -379,6 +413,198 @@ plt.show();
 
 
 ---
+# Analysis of Variance (ANOVA)
+
+## One-Way Anova
+
+E.g. Imagine we have $k = 3$ different populations and a random sample of 3 individuals are drawn from each population (Total sample size $N = 9$) and we will get their test scores. The test scores are below:
+
+1. Population: Only eats red meat
+    - Albert scored 1
+    - Beatrice scored 2
+    - Alice scored 5
+2. Population: Only eats white meat
+    - Tim scored 2
+    - James scored 4
+    - Tom scored 2
+3. Population: Eats both red and white meat
+    - Jeff scored 2
+    - Samantha scored 3
+    - Hilbert scored 4
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Create design matrix for Anova
+X = np.array(
+    [
+        [1, 0, 0],
+        [2, 0, 0],
+        [5, 0, 0],
+        [0, 2, 0],
+        [0, 4, 0],
+        [0, 2, 0],
+        [0, 0, 2],
+        [0, 0, 3],
+        [0, 0, 4]
+    ]
+)
+X
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+array([[1, 0, 0],
+       [2, 0, 0],
+       [5, 0, 0],
+       [0, 2, 0],
+       [0, 4, 0],
+       [0, 2, 0],
+       [0, 0, 2],
+       [0, 0, 3],
+       [0, 0, 4]])
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+Step 1: Declare Null / Alternate Hypothesis and Alpha level A priori
+
+$$
+\begin{aligned}
+&H_0: \mu_1 = \mu_2 = \mu_3 \\
+&H_a: \text{At least 1 Difference among the means},\,\alpha=0.05
+\end{aligned}
+$$
+
+
+
+Step 2: Find degrees of freedom and $F$-critical value
+
+$$
+\begin{aligned}
+Numerator: df_{between} &= k - 1 = 3 - 1 = 2 \\
+Denominator: df_{within} &= N - k = 9 - 3 = 6 \\
+df_{total} &= df_{between} + df_{within} = 2 + 6 = 8
+\end{aligned}
+$$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Declare alpha level
+a = 0.05
+
+# Get critical value using significance level
+F_crit = f.ppf(1-a, dfn=2, dfd=6) 
+F_crit
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+5.143252849784718
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+Step 3a: Calculate mean of each group
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+x1_bar = round(np.true_divide(X[:, 0].sum(axis=0), (X[:, 0] != 0).sum(axis=0)), 2)
+x2_bar = round(np.true_divide(X[:, 1].sum(axis=0), (X[:, 1] != 0).sum(axis=0)), 2)
+x3_bar = round(np.true_divide(X[:, 2].sum(axis=0), (X[:, 2] != 0).sum(axis=0)), 2)
+print(x1_bar, x2_bar, x3_bar)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+2.67 2.67 3.0
+```
+</div>
+</div>
+</div>
+
+
+
+$$
+\begin{aligned}
+\bar{x_1} &= 2.67 \\
+\bar{x_2} &= 2.67 \\
+\bar{x_3} &= 3.00 \\
+\end{aligned}
+$$
+
+
+
+Step 3b: Calculate Grand mean
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+x_grand = np.mean([x1_bar, x2_bar, x3_bar])
+x_grand
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+2.78
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+$$
+\bar{x_G} = 2.78
+$$
+
+
+
+---
 # A/B Testing
 
 
@@ -415,4 +641,5 @@ plt.show();
 ---
 ## Resources:
 - [JBStatistics Hypothesis testing videos](https://www.youtube.com/watch?v=7mE-K_w1v90)
+- [One-way Anova by hand](https://www.youtube.com/watch?v=q48uKU_KWas)
 

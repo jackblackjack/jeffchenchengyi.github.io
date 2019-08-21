@@ -23,10 +23,21 @@ We'll walkthrough the modeling phase of statistical regression analysis in this 
 3. [General Linear Models](#glm)
 4. [Generalized Linear Models](#glim)
 
-
-
 ## Preliminaries
 
+### Gauss-Markov Assumptions<a id='gauss-markov'></a>
+1. Linear in Parameters
+    - Good: $y_i = w_0 + w_1{(x_1)}_i + \epsilon_i$
+    - Good: $y_i = w_0 + w_1{(x_1)}^2_i + \epsilon_i$
+    - Bad: $y_i = w_0w_1{(x_1)}_i + \epsilon_i$ 
+2. $(\mathbf{x}_i = \begin{bmatrix} 1 \\ x_1 \\ x_2 \\ \vdots \\ x_m \end{bmatrix}, y_i)$ are a random sample and come from the same population / same distribution
+3. Zero Conditional Mean of Error $\mathbb{E}[\epsilon_i \vert \mathbf{x}_i] = 0$
+4. No Perfect Collinearity / Column Vectors in Design Matrix $X$ are linearly independent
+    - There are no features that are linear functions of each other
+5. Homoscedastic Errors
+    - $Var(\epsilon_i) = \sigma^2$ and $Var(\epsilon_i \vert \mathbf{x}_i) = \sigma^2$
+6. No Serial Correlation
+    - $Cov(\epsilon_i, \epsilon_j) = 0$, meaning that knowing the error on one sample does not help to predict another's (independent portion of i.i.d.)
 
 
 
@@ -37,8 +48,20 @@ We'll walkthrough the modeling phase of statistical regression analysis in this 
 
 #### One Sample
 $$
-y_i = w_0 + w_1{(x_1)}_i + \epsilon_i,\,i \in [1, N]\,\text{(Index of Sample)}\,,\epsilon_i \sim N(\mu=0, \sigma=1)\,\text{(Errors are assumed to be standard normally distributed)}
+y_i = w_0 + w_1{(x_1)}_i + \epsilon_i,\,i \in [1, N]\,\text{(Index of Sample)}\,,\epsilon_i \vert {(x_1)}_i \sim \mathcal{N}(\mu=0, \sigma^2)
 $$
+Errors $\epsilon_i$ are assumed to be identically, independently, and normally distributed with a mean of 0 given a sample ${x_1}_i$ (More on this @ [Gauss-Markov Assumptions](#gauss-markov))
+
+$$
+\begin{aligned}
+\mathbb{E}[y_i \vert {(x_1)}_i] &= \mathbb{E}[w_0 + w_1{(x_1)}_i + \epsilon_i \vert {(x_1)}_i] \\
+&= \mathbb{E}[w_0 \vert {(x_1)}_i] + \mathbb{E}[w_1{(x_1)}_i \vert {(x_1)}_i] + \mathbb{E}[\epsilon_i \vert {(x_1)}_i] \\
+&= w_0 + w_1\mathbb{E}[{(x_1)}_i \vert {(x_1)}_i] + 0 \\
+&= w_0 + w_1{(x_1)}_i \\
+\end{aligned}
+$$
+
+
 
 #### All Samples (Vectorized)
 $$
@@ -107,6 +130,8 @@ w_1 \\
 \end{aligned}
 $$ $X$ is the [*Design Matrix*](https://en.wikipedia.org/wiki/Design_matrix)
 
+
+
 ### Least Squares Estimator
 $$
 \hat{y_i} = \hat{w_0} + \hat{w_1}{(x_1)}_i
@@ -152,7 +177,7 @@ Hence, our Least Squares Estimates are:
 $$
 \begin{aligned}
 \hat{w_0} &= \bar{y} - \hat{w_1}\bar{x_1} \\
-\hat{w_1} &= \frac{COV({(x_1)}_i, y_i)}{Var({(x_1)}_i)}
+\hat{w_1} &= \frac{Cov({(x_1)}_i, y_i)}{Var({(x_1)}_i)}
 \end{aligned}
 $$
 
