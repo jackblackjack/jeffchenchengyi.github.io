@@ -103,7 +103,7 @@ w_1 \\
 \vdots \\
 \epsilon_N \\
 \end{bmatrix} \\
-\underset{N \times 1}{\mathbf{y}} &= \underset{N \times m}{X}\,\underset{m \times 1}{\mathbf{w}} + \underset{N \times 1}{\mathbf{\epsilon}}
+\underset{N \times 1}{\mathbf{y} } &= \underset{N \times m}{X}\,\underset{m \times 1}{\mathbf{w} } + \underset{N \times 1}{\mathbf{\epsilon} }
 \end{aligned}
 $$ $X$ is the [*Design Matrix*](https://en.wikipedia.org/wiki/Design_matrix)
 
@@ -132,15 +132,15 @@ N\bar{y} &= \hat{w_0}N + \hat{w_1}N\bar{x_1}  \\
 \bar{y} &= \hat{w_0} + \hat{w_1}\bar{x_1}  \\
 \hat{w_0} &= \bar{y} - \hat{w_1}\bar{x_1} \\
 (II): \frac{\partial SS}{\partial w_1} = -2\sum^N_{i=1}{(x_1)}_i{(y_i - \hat{w_0} - \hat{w_1}{(x_1)}_i)} &= 0 \\
-\sum^N_{i=1}{(x_1)}_iy_i - \sum^N_{i=1}\hat{w_0}{(x_1)}_i - \sum^N_{i=1}\hat{w_1}{{(x_1)}_i}^2 &= 0 \\
-\sum^N_{i=1}{(x_1)}_iy_i &= \sum^N_{i=1}\hat{w_0}{(x_1)}_i + \sum^N_{i=1}\hat{w_1}{{(x_1)}_i}^2 \\
-\sum^N_{i=1}{(x_1)}_iy_i &= \hat{w_0}N\bar{x_1} + \hat{w_1}\sum^N_{i=1}{{(x_1)}_i}^2 \\
-\sum^N_{i=1}{(x_1)}_iy_i &= (\bar{y} - \hat{w_1}\bar{x_1})N\bar{x_1} + \hat{w_1}\sum^N_{i=1}{{(x_1)}_i}^2 \,\because\,(I)\\
-\sum^N_{i=1}{(x_1)}_iy_i - N\bar{x_1}\bar{y} &= \hat{w_1}(N\bar{x_1}\bar{x_1} + \sum^N_{i=1}{{(x_1)}_i}^2) \\
-\hat{w_1} &= \frac{\sum^N_{i=1}{(x_1)}_iy_i - N\bar{x_1}\bar{y}}{N\bar{x_1}^2 + \sum^N_{i=1}{{(x_1)}_i}^2} \\
-&= \frac{\sum^N_{i=1}({(x_1)}_iy_i - \bar{x_1}y_i)}{\sum^N_{i=1}({{(x_1)}_i}^2 - \bar{x_1}{(x_1)}_i)} \\
-&= \frac{\sum^N_{i=1}y_i({(x_1)}_i - \bar{x_1})}{\sum^N_{i=1}({{(x_1)}_i}^2 - \bar{x_1}{(x_1)}_i)} \\
-&= \frac{\sum^N_{i=1}y_i({(x_1)}_i - \bar{x_1})}{\sum^N_{i=1}{(x_1)}_i({{(x_1)}_i} - \bar{x_1})} \\
+\sum^N_{i=1}{(x_1)}_iy_i - \sum^N_{i=1}\hat{w_0}{(x_1)}_i - \sum^N_{i=1}\hat{w_1}{ {(x_1)}_i}^2 &= 0 \\
+\sum^N_{i=1}{(x_1)}_iy_i &= \sum^N_{i=1}\hat{w_0}{(x_1)}_i + \sum^N_{i=1}\hat{w_1}{ {(x_1)}_i}^2 \\
+\sum^N_{i=1}{(x_1)}_iy_i &= \hat{w_0}N\bar{x_1} + \hat{w_1}\sum^N_{i=1}{ {(x_1)}_i}^2 \\
+\sum^N_{i=1}{(x_1)}_iy_i &= (\bar{y} - \hat{w_1}\bar{x_1})N\bar{x_1} + \hat{w_1}\sum^N_{i=1}{ {(x_1)}_i}^2 \,\because\,(I)\\
+\sum^N_{i=1}{(x_1)}_iy_i - N\bar{x_1}\bar{y} &= \hat{w_1}(N\bar{x_1}\bar{x_1} + \sum^N_{i=1}{ {(x_1)}_i}^2) \\
+\hat{w_1} &= \frac{\sum^N_{i=1}{(x_1)}_iy_i - N\bar{x_1}\bar{y} }{N\bar{x_1}^2 + \sum^N_{i=1}{ {(x_1)}_i}^2} \\
+&= \frac{\sum^N_{i=1}({(x_1)}_iy_i - \bar{x_1}y_i)}{\sum^N_{i=1}({ {(x_1)}_i}^2 - \bar{x_1}{(x_1)}_i)} \\
+&= \frac{\sum^N_{i=1}y_i({(x_1)}_i - \bar{x_1})}{\sum^N_{i=1}({ {(x_1)}_i}^2 - \bar{x_1}{(x_1)}_i)} \\
+&= \frac{\sum^N_{i=1}y_i({(x_1)}_i - \bar{x_1})}{\sum^N_{i=1}{(x_1)}_i({ {(x_1)}_i} - \bar{x_1})} \\
 &= \frac{\sum^N_{i=1}({(x_1)}_i - \bar{x})(y_i - \bar{y})}{\sum^N_{i=1}{({(x_1)}_i - \bar{x})}^2} \\
 &= \frac{COV({(x_1)}_i, y_i)}{Var({(x_1)}_i)}
 \end{aligned}
