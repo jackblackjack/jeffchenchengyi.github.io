@@ -247,6 +247,10 @@ $$
 ### Logistic Regression and Probit Regression
 - Used for Binary data
 
+$$
+
+$$
+
 ### Multinomial Logistic Regression and Multinomial Probit Regression
 - Used for Categorical data
 

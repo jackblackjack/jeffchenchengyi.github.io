@@ -508,8 +508,9 @@ $$
 ```python
 # Declare alpha level
 a = 0.05
+df_between, df_within = 2, 6
 
-# Get critical value using significance level
+# Get critical value using significance level and degrees of freedom
 F_crit = f.ppf(1-a, dfn=2, dfd=6) 
 F_crit
 
@@ -532,7 +533,7 @@ F_crit
 
 
 
-Step 3a: Calculate mean of each group
+Step 3a: Calculate mean of each group $\bar{x_1},\,\bar{x_2},\,\bar{x_3}$
 
 
 
@@ -569,7 +570,7 @@ $$
 
 
 
-Step 3b: Calculate Grand mean
+Step 3b: Calculate Grand mean $\bar{x_G}$
 
 
 
@@ -601,6 +602,211 @@ x_grand
 $$
 \bar{x_G} = 2.78
 $$
+
+
+
+Step 4a: Calculate Sum of Squares Total $SS_{total} = \sum^k_{j=1} \sum^{N_j}_{i=1} {((x_j)_i - \bar{x_G})}^2$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+ss_total = np.sum((X[np.nonzero(X)] - x_grand) ** 2)
+ss_total
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+13.5556
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+$$
+SS_{total} = 13.56
+$$
+
+
+
+Step 4b: Calculate Sum of Squares Within $SS_{within} = \sum^k_{j=1} \sum^{N_j}_{i=1} {((x_j)_i - \bar{x_j})}^2$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+ss_within = \
+    np.sum((X[:, 0][np.nonzero(X[:, 0])] - x1_bar) ** 2) \
+    + np.sum((X[:, 1][np.nonzero(X[:, 1])] - x2_bar) ** 2) \
+    + np.sum((X[:, 2][np.nonzero(X[:, 2])] - x3_bar) ** 2)
+ss_within
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+13.333400000000001
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+$$
+SS_{within} = 13.33
+$$
+
+
+
+Step 4c: Calculate $SS_{between} = SS_{total} - SS_{within}$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+ss_between = round(ss_total - ss_within, 2)
+ss_between
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+0.22
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+Step 5a: Calculate Variance between groups $MS_{between} = \frac{SS_{between}}{df_{between}}$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+ms_between = ss_between / df_between
+ms_between
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+0.11
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+$$
+MS_{between} = 0.11
+$$
+
+
+
+Step 5b: Calculate Variance within groups $MS_{within} = \frac{SS_{within}}{df_{within}}$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+ms_within = ss_within / df_within
+ms_within
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+2.2222333333333335
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+$$
+MS_{within} = 2.22
+$$
+
+
+
+Step 6 (Final): Calculate $F$-statistic $F = \frac{MS_{between}}{MS_{within}}$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+F_stat = ms_between / ms_within
+F_stat
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+0.04949975250123749
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+Hence, since our $F$-statistic $= 0.05 < $ $F$-critical $=5.14$, we **fail to reject $H_0$**, and maintain that $\mu_1 = \mu_2 = \mu_3$ (No significant difference between the 3 groups).
 
 
 
