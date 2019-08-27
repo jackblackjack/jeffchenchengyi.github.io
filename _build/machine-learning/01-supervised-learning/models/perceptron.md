@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/01-supervised-learning/models/k-nearest-neighbours
   title: 'K-Nearest Neighbours'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/svm-inductive-derivation
-  title: 'SVM (Inductive Derivation)'
+  url: /machine-learning/01-supervised-learning/models/svm
+  title: 'SVM'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -56,8 +56,8 @@ $$
 3. Check what the value of $y_i \mathbf{w}^\top \mathbf{x}_i$ is. If datapoint is correctly classified, $y_i(\mathbf{w}^\top \mathbf{x}_i) > 0$, while misclassified points are $y_i(\mathbf{w}^\top \mathbf{x}_i) \leq 0$
     - For each misclassified datapoint ${(y_i = \{+1 / -1\}) \cdot (\mathbf{w}^\top = \begin{bmatrix} w_0, w_1 ... b \end{bmatrix}) \cdot (\mathbf{x}_i} = \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ 1 \end{bmatrix}) \leq 0$, we update $\mathbf{w}$ by 
 $$\mathbf{w} \leftarrow \mathbf{w} + y_i\mathbf{x}_i$$
-    - When we classify a negative point as positive, it means the un-normalized cosine similarity / inner product / dot product ${\mathbf{w}^\top \cdot \mathbf{x}_i}$ is falsely positive (vectors are pointing in the same direction when they are supposed to be in opposite directions). To correct this, we __add__ $\mathbf{x}_i$ in the __opposite__ direction to increase the angle between vectors > 90 degrees and correctly classify it in the next iteration.
-    - When we classify a positive point as negative, it means the un-normalized cosine similarity / inner product / dot product ${\mathbf{w}^\top \cdot \mathbf{x}_i}$ is falsely negative (vectors are pointing in the opposite direction when they are supposed to be in the same direction). To correct this, we __add__ $\mathbf{x}_i$ in the __same__ direction to decrease the angle between vectors < 90 degrees and correctly classify it in the next iteration.
+    - When we classify a negative point as positive, it means the un-normalized cosine similarity / inner product / dot product ${\mathbf{w}^\top \cdot \mathbf{x}_i}$ is falsely positive (vectors are pointing in the same direction when they are supposed to be in opposite directions). To correct this, we __add__ spatial vector $\mathbf{x}_i$ in the __opposite__ direction to increase the angle between vectors > 90 degrees and correctly classify it in the next iteration.
+    - When we classify a positive point as negative, it means the un-normalized cosine similarity / inner product / dot product ${\mathbf{w}^\top \cdot \mathbf{x}_i}$ is falsely negative (vectors are pointing in the opposite direction when they are supposed to be in the same direction). To correct this, we __add__ spatial vector $\mathbf{x}_i$ in the __same__ direction to decrease the angle between vectors < 90 degrees and correctly classify it in the next iteration.
 4. Stop iteration when all points are correctly classified.
 
 ![perceptron update][perceptron_geometry]

@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/00-math-for-ml/calculus
   title: 'Calculus'
 next_page:
-  url: /machine-learning/00-math-for-ml/statistics
-  title: 'Statistics'
+  url: /machine-learning/00-math-for-ml/probability-statistics
+  title: 'Probability Theory and Statistics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

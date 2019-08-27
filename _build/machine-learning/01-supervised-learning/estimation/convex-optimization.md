@@ -58,6 +58,53 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 
 
 
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Scipy's Optimization library for constrained optimization
+import scipy.optimize as opt
+
+# Convex Optimization library
+import cvxpy as cp
+
+# Machine Learning Utilities
+import numpy as np
+import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+import matplotlib.font_manager as fm
+import matplotlib.patches as mpatches
+from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
+import seaborn as sns
+from scipy.stats import norm, f
+from sklearn.datasets import make_regression
+
+# plotting defaults
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['figure.figsize'] = (18, 12)
+get_colors = lambda length: plt.get_cmap('Spectral')(np.linspace(0, 1.0, length))
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['figure.figsize'] = (18, 12)
+
+```
+</div>
+
+</div>
+
+
+
 ## Preliminaries
 
 ### Affine Set
@@ -98,31 +145,218 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 ---
 # 1. Least Squares<a id='ls'></a>
 
-An estimator / model is a function used to provide an estimate $\hat{\beta}$ of the true population parameter $\beta^p$ / target variable we're modelling. Note that using the same estimator but with different samples may often result in different estimates
-
-Desirable Properties of Estimator:
-1. Unbiased - $\mathbb{E}[\hat{\beta}] = \beta^p$ (The average $\hat{\beta}$ is $\beta^p$)
-2. Consistent - As the sample size $n \rightarrow \infty$, $\hat{\beta} \rightarrow \beta^p$
-3. Efficient - One estimator is more efficient than another if the standard deviation of $\hat{\beta}$ is lower ($\hat{\beta}$s hover very near the same value)
-4. Linear in parameters - $\hat{\beta}$ is a linear function of parameters from sample
-
-E.g. Biased but Consistent Estimator:
-1. Suppose we are trying to estimate a population parameter $\mu$ from a population such that a sample $x_i = \mu + \epsilon,\,\epsilon \sim N(0, 1)$ - errors are normally distributed with mean of 0
-2. We get $N$ samples of $x_i$ and we set the **estimator** to be $\tilde{x} = \frac{1}{N-1}\sum^{N}_{i=1} x_i$
-3. To test Unbiasedness, we take $\mathbb{E}[\tilde{x}] = \frac{1}{N-1}\sum^{N}_{i=1} \mathbb{E}[x_i]$ because of the *linearity of expectations*
-4. Since $\mathbb{E}[x_i] = \mathbb{E}[\mu] + \mathbb{E}[\epsilon] = \mu$, $\mathbb{E}[\tilde{x}] = \frac{N \mu}{N-1}$
-5. Hence, if we have a finite sample size, our estimator does not equal the population parameter, making this a biased estimator.
-6. However, as $n \rightarrow \infty$, $\frac{N \mu}{N-1} \rightarrow \mu$, making this a consistent estimator as we get the true population paarmeter as our sample size increases infinitely.
-
-Least Squares Estimators are **Best Linear Unbiased Estimators (BLUE)** under *Gauss-Markov* Assumptions.
-
 
 
 ## 1. Linear Least Squares<a id='lls'></a>
 
+Normal Equations:
+$$
+\hat{\beta} = {(X^\top X)}^{-1}X^\top\mathbf{y}
+$$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Make a random regression dataset
+X, y = make_regression(
+    n_samples=10000, 
+    n_features=1, 
+    noise=10, 
+    random_state=0
+)
+
+```
+</div>
+
+</div>
+
+
+
+If $X$ is invertible, we can solve it analytically:
+- Find ${(X^\top X)}^{-1}$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Using Numpy's pinv function
+B_hat = np.dot(
+    np.dot(
+        np.linalg.pinv(
+            np.dot(X.T, X)
+        ),
+        X.T
+    ), 
+    y
+)
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+np.mean((y - np.dot(X, B_hat)) ** 2)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+100.13919826712036
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+If $X$ is either singular or invertible, we can use QR Decomposition:
+- $X = QR$, where $Q$ is an [orthogonal matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix) ($Q^\top Q = QQ^\top = I$) and $R$ is upper triangular
+
+$$
+\begin{aligned}
+\hat{\beta} &= {(X^\top X)}^{-1}X^\top\mathbf{y} \\
+\hat{\beta} &= {((QR)^\top (QR))}^{-1}(QR)^\top\mathbf{y} \\
+\hat{\beta} &= {(R^\top Q^\top QR)}^{-1}(QR)^\top\mathbf{y} \\
+\hat{\beta} &= {(R^\top R)}^{-1}R^\top Q^\top \mathbf{y} \\
+\hat{\beta} &= R^{-1} R^{-\top} R^\top Q^\top \mathbf{y} \\
+\hat{\beta} &= R^{-1} Q^\top \mathbf{y} \\
+R\hat{\beta} &= Q^\top \mathbf{y} \\
+\end{aligned}
+$$
+
+- Use Gaussian Elimination and Back-substitution to get $\hat{\beta}$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Perform QR decomp on X
+Q, R = np.linalg.qr(X)
+
+# Use inverse of R and multiply Q^Ty
+B_hat = np.dot(
+    np.dot(
+        np.linalg.inv(R),
+        Q.T
+    ), 
+    y
+)
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+np.mean((y - np.dot(X, B_hat)) ** 2)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+100.13919826712035
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+plt.scatter(X, y);
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../../images/machine-learning/01-supervised-learning/estimation/convex-optimization_13_0.png)
+
+</div>
+</div>
+</div>
+
 
 
 ### 1. [Ordinary Least Squares](https://en.wikipedia.org/wiki/Ordinary_least_squares)<a id='ols'></a>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+opt.least_squares(lambda X, B_hat, y: np.dot(X, B_hat) - y, 0.0)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_traceback_line}
+```
+
+    ---------------------------------------------------------------------------
+
+    TypeError                                 Traceback (most recent call last)
+
+    <ipython-input-55-b68d4d6d74f3> in <module>()
+    ----> 1 opt.least_squares(lambda X, B_hat, y: np.dot(X, B_hat) - y, 0.0)
+    
+
+    /anaconda3/envs/geopandas/lib/python3.7/site-packages/scipy/optimize/_lsq/least_squares.py in least_squares(fun, x0, jac, bounds, method, ftol, xtol, gtol, x_scale, loss, f_scale, diff_step, tr_solver, tr_options, jac_sparsity, max_nfev, verbose, args, kwargs)
+        805         x0 = make_strictly_feasible(x0, lb, ub)
+        806 
+    --> 807     f0 = fun_wrapped(x0)
+        808 
+        809     if f0.ndim != 1:
+
+
+    /anaconda3/envs/geopandas/lib/python3.7/site-packages/scipy/optimize/_lsq/least_squares.py in fun_wrapped(x)
+        800 
+        801     def fun_wrapped(x):
+    --> 802         return np.atleast_1d(fun(x, *args, **kwargs))
+        803 
+        804     if method == 'trf':
+
+
+    TypeError: <lambda>() missing 2 required positional arguments: 'B_hat' and 'y'
+
+
+```
+</div>
+</div>
+</div>
 
 
 
@@ -237,6 +471,64 @@ y &= \frac{+}{-}\sqrt{\frac{1}{3}} \\
 $$
 
 However, only the points ${(\sqrt{\frac{2}{3}}, \sqrt{\frac{1}{3}})}$ and ${(-\sqrt{\frac{2}{3}}, \sqrt{\frac{1}{3}})}$ maximize the function to the constraints.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Create two scalar optimization variables.
+x = cp.Variable()
+y = cp.Variable()
+
+# Form objective.
+obj = cp.Minimize(cp.square(x - y))
+
+# Create the constraints.
+constraints = [x + y >= 0]
+
+# Form and solve problem.
+prob = cp.Problem(obj, constraints)
+prob.solve()  # Returns the optimal value.
+print("status:", prob.status)
+print("optimal value", prob.value)
+print("optimal var", x.value, y.value)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+status: optimal
+optimal value 0.0
+optimal var 0.0 0.0
+```
+</div>
+</div>
+</div>
+
+
+
+### Terminology
+
+Feasible Set: 
+- Set of points satisfying the constraints
+
+Feasible Point:
+- Point $x$ in the feasible set
+
+Activate Constraint:
+- If $f_i(x) = 0$ and $x$ is feasible, then inequality constraint $f_i(x) \leq 0$ is **active** at $x$.
+
+Optimal Value $p^*$:
+- $p^* = inf\{f_0(x) \vert x\,\text{satisfies all constraints.}\}$
+
+Optimal Point $x^*$:
+- If $x^*$ is feasible and $f(x^*) = p^*$ then $x^*$ is an **optimal point**
+
+
 
 
 
@@ -409,6 +701,12 @@ Only Convex Optimization problems that fulfill **constraint qualifications** hav
 
 ### 3. Constraint Qualifications<a id='constraintqualifications'></a>
 
+KKT
+
+Slater's
+
+--- Under Construction ---
+
 
 
 ## 2. Linear Constraints<a id='lconstraints'></a>
@@ -426,6 +724,14 @@ $$
 
 
 
+### [Simplex Algorithm](https://www.youtube.com/watch?v=gRgsT9BB5-8)
+
+Suppose a company manufactures different electronic components for computers. Component A requires 2 hours of fabrication and 1 hour of assembly; Component B requires 3 hours of fabriacation and 1 hour of assembly
+
+--- Under Construction ---
+
+
+
 ### 2. Quadratic Programming / Optimization<a id='qp'></a>
 
 $$
@@ -434,6 +740,16 @@ $$
 &\text{Linear Constraints: } g(x) = Bx - c; h(x) = Cx - d
 \end{aligned}
 $$
+
+
+
+The Dual formulation of the SVM objective is important as it expresses the objective in terms of inner products which we can perform the "Kernel Trick" which generalizes the euclidean similarity given by inner products to other "kernels" (similarity functions).
+
+
+
+### Case: Support Vector Machines<a id='qp-svm'></a>
+
+
 
 
 
@@ -457,4 +773,6 @@ $$
 - [David S. Rosenberg's Extreme Abridgment of Stephen Boyd and Vandenberghe’s Convex Optimization notes](https://davidrosenberg.github.io/mlcourse/Notes/convex-optimization.pdf)
 - [Constrained Least Squares Wiki](https://en.wikipedia.org/wiki/Constrained_least_squares)
 - [Least Squares Notes by Stephen Boyd](https://www.maplesoft.com/applications/download.aspx?SF=129826/LL_74\)_Least_Square.pdf)
+- [Least Squares Notes from Stanford's EE104](http://ee104.stanford.edu/lectures/regression.pdf)
+- [Least Squares Notes from UCLA's ECE113A](http://www.seas.ucla.edu/~vandenbe/133A/lectures/ls.pdf)
 

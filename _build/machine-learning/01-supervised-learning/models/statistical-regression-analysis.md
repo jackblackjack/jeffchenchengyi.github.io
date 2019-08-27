@@ -25,6 +25,26 @@ We'll walkthrough the modeling phase of statistical regression analysis in this 
 
 ## Preliminaries
 
+### Estimators
+
+An estimator / model is a function used to provide an estimate $\hat{\beta}$ of the true population parameter $\beta^p$ / target variable we're modelling. Note that using the same estimator but with different samples may often result in different estimates
+
+Desirable Properties of Estimator:
+1. Unbiased - $\mathbb{E}[\hat{\beta}] = \beta^p$ (The average $\hat{\beta}$ is $\beta^p$)
+2. Consistent - As the sample size $n \rightarrow \infty$, $\hat{\beta} \rightarrow \beta^p$
+3. Efficient - One estimator is more efficient than another if the standard deviation of $\hat{\beta}$ is lower ($\hat{\beta}$s hover very near the same value)
+4. Linear in parameters - $\hat{\beta}$ is a linear function of parameters from sample
+
+E.g. Biased but Consistent Estimator:
+1. Suppose we are trying to estimate a population parameter $\mu$ from a population such that a sample $x_i = \mu + \epsilon,\,\epsilon \sim N(0, 1)$ - errors are normally distributed with mean of 0
+2. We get $N$ samples of $x_i$ and we set the **estimator** to be $\tilde{x} = \frac{1}{N-1}\sum^{N}_{i=1} x_i$
+3. To test Unbiasedness, we take $\mathbb{E}[\tilde{x}] = \frac{1}{N-1}\sum^{N}_{i=1} \mathbb{E}[x_i]$ because of the *linearity of expectations*
+4. Since $\mathbb{E}[x_i] = \mathbb{E}[\mu] + \mathbb{E}[\epsilon] = \mu$, $\mathbb{E}[\tilde{x}] = \frac{N \mu}{N-1}$
+5. Hence, if we have a finite sample size, our estimator does not equal the population parameter, making this a biased estimator.
+6. However, as $n \rightarrow \infty$, $\frac{N \mu}{N-1} \rightarrow \mu$, making this a consistent estimator as we get the true population paarmeter as our sample size increases infinitely.
+
+Least Squares Estimators are **Best Linear Unbiased Estimators (BLUE)** under *Gauss-Markov* Assumptions.
+
 ### Gauss-Markov Assumptions<a id='gauss-markov'></a>
 1. Linear in Parameters
     - Good: $y_i = w_0 + w_1{(x_1)}_i + \epsilon_i$
@@ -32,6 +52,7 @@ We'll walkthrough the modeling phase of statistical regression analysis in this 
     - Bad: $y_i = w_0w_1{(x_1)}_i + \epsilon_i$ 
 2. $(\mathbf{x}_i = \begin{bmatrix} 1 \\ x_1 \\ x_2 \\ \vdots \\ x_m \end{bmatrix}, y_i)$ are a random sample and come from the same population / same distribution
 3. Zero Conditional Mean of Error $\mathbb{E}[\epsilon_i \vert \mathbf{x}_i] = 0$
+    - If this is invalid, Least Squares estimators are biased
 4. No Perfect Collinearity / Column Vectors in Design Matrix $X$ are linearly independent
     - There are no features that are linear functions of each other
 5. Homoscedastic Errors
@@ -261,6 +282,7 @@ $$
 
 ---
 ## Resources:
-- [Ben Lambert's Full course of Undergrad Econometrics](https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU)
+- [Ben Lambert's Full course of Undergrad Econometrics Part 1](https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU)
+- [Ben Lambert's Full course of Graduate Econometrics](https://www.youtube.com/playlist?list=PLwJRxp3blEvaxmHgI2iOzNP6KGLSyd4dz)
 - [Casualty Actuarial Society Forum Spring 2013](https://www.casact.org/pubs/forum/13spforum/Semenovich.pdf)
 

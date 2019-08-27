@@ -88,10 +88,8 @@
     url: /machine-learning/01-supervised-learning/models/k-nearest-neighbours
   - title: Perceptron
     url: /machine-learning/01-supervised-learning/models/perceptron
-  - title: SVM (Inductive Derivation)
-    url: /machine-learning/01-supervised-learning/models/svm-inductive-derivation
-  - title: SVM (Convex Optimization Derivation)
-    url: /machine-learning/01-supervised-learning/models/svm-convex-optimization-derivation
+  - title: SVM
+    url: /machine-learning/01-supervised-learning/models/svm
   - title: Naive Bayes Classifier
     url: /machine-learning/01-supervised-learning/models/naivebayes
   - title: Logistic Regression
@@ -190,10 +188,8 @@
     url: /machine-learning/00-math-for-ml/calculus
   - title: Linear Algebra and Differential Equations
     url: /machine-learning/00-math-for-ml/linalg-de
-  - title: Statistics
-    url: /machine-learning/00-math-for-ml/statistics
-  - title: Probability Theory
-    url: /machine-learning/00-math-for-ml/probability
+  - title: Probability Theory and Statistics
+    url: /machine-learning/00-math-for-ml/probability-statistics
 
 #################################################
 #################### TEMPLATE ###################

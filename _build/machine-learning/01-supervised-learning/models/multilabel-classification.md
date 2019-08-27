@@ -1200,8 +1200,11 @@ final_df.head()
 <div class="input_area" markdown="1">
 ```python
 def tokenize(text: str):
-    """Function: Processes the text string into word tokens for an NLP model,
-                 with stop words removed, lemmatized, and everything is lowercase
+    """
+    Function: 
+    ---------
+    Processes the text string into word tokens for an NLP model,
+    with stop words removed, lemmatized, and everything is lowercase
     
     Parameters:
     -----------
@@ -1221,6 +1224,19 @@ def tokenize(text: str):
 
 
 ## Load
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+engine = create_engine('sqlite:///DisasterResponse.db')
+df.to_sql('DisasterResponse', engine, index=False)
+
+```
+</div>
+
+</div>
 
 
 
@@ -1446,7 +1462,7 @@ Automatically created module for IPython interactive environment
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/01-supervised-learning/models/multilabel-classification_39_1.png)
+![png](../../../images/machine-learning/01-supervised-learning/models/multilabel-classification_40_1.png)
 
 </div>
 </div>
