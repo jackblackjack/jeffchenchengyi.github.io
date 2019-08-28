@@ -7,7 +7,7 @@ prev_page:
   url: /machine-learning/01-supervised-learning/models/README
   title: 'Models'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/k-nearest-neighbours
+  url: /machine-learning/01-supervised-learning/models/nn
   title: 'K-Nearest Neighbours'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

@@ -33,6 +33,8 @@ $$
 
 ### Entropy
 
+Entropy = Amount of Uncertainty, $\therefore$ random events with uniform probability have the highest entropy
+
 Case 1: 
 - We have 2 events, 
 - uniform probability $\therefore$ each happening with $p = 0.5$
@@ -113,4 +115,5 @@ $${D}_{KL}(p \parallel q) \neq {D}_{KL}(q \parallel p)$$
 - [A Short Introduction to Entropy, Cross-Entropy and KL-Divergence](https://www.youtube.com/watch?v=ErfnhcEV1O8)
 - [Entropy (Information) Wiki](https://en.wikipedia.org/wiki/Entropy_(information_theory))
 - [Space Worms and KL Divergence](https://www.countbayesie.com/blog/2017/5/9/kullback-leibler-divergence-explained)
+- [Information Entropy by Khan Academy](https://www.youtube.com/watch?v=2s3aJfRr9gE)
 

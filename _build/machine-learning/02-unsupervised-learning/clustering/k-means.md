@@ -22,3 +22,9 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 
 
+
+
+---
+## Resources:
+- [Victor Lavrenko's videos on Clustering](https://www.youtube.com/watch?v=mHl5P-qlnCQ&list=PLBv09BD7ez_6cgkSUAqBXENXEhCkb_2wl)
+

@@ -4,7 +4,7 @@ kernel_name: python3
 has_widgets: false
 title: 'Perceptron'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/k-nearest-neighbours
+  url: /machine-learning/01-supervised-learning/models/nn
   title: 'K-Nearest Neighbours'
 next_page:
   url: /machine-learning/01-supervised-learning/models/svm

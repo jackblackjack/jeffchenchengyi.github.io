@@ -80,7 +80,7 @@ import matplotlib.font_manager as fm
 import matplotlib.patches as mpatches
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 import seaborn as sns
-from scipy.stats import norm, f
+from scipy.stats import norm, f, chi2
 
 # plotting defaults
 plt.rcParams['figure.dpi'] = 300
@@ -179,6 +179,69 @@ plt.rcParams['figure.figsize'] = (18, 12)
 
 
 ## 2. Continuous
+
+
+
+### Normal
+
+$$
+\chi \sim \mathcal{N}(\mu, \sigma^2)
+$$
+
+PDF:
+$$
+f(x \vert \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+$$
+
+
+
+### Chi-squared
+
+$$
+Q = \sum^k_{i=1}\chi_i^2
+$$
+
+- $\chi_i,..., \chi_k$ are independent, standard normal random variables, then the sum of their squares
+- $k$ is the degrees of freedom
+
+PDF:
+$$
+\frac{1}{}
+$$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Plot Chi^2 distribution for varying degrees
+# of freedom
+fig, ax = plt.subplots(1, 1)
+for k in range(1, 10, 2):
+    ax.plot(np.linspace(0, 8), chi2(k).pdf(np.linspace(0, 8)), label='$k$ = {}'.format(k))
+ax.grid()
+ax.legend()
+ax.set_title('$\chi^2$ Distribution')
+ax.set_xlabel('$x$')
+ax.set_ylabel('$f_k(x)$')
+plt.show();
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_16_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+We note that as the degrees of freedom increases, the peak of the curve shifts to the right as we add up more and more squared normally distributed random variables.
 
 
 
@@ -390,7 +453,7 @@ plot_dists_given_H0_true(mean=50, std=21, n=36, alpha=0.09)
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_25_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_29_0.png)
 
 </div>
 </div>
@@ -461,7 +524,7 @@ plot_H0_true_dist_and_actual_dist(ax=ax, H0_mean=50, actual_mean=43, std=21, n=3
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_28_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_32_0.png)
 
 </div>
 </div>
@@ -515,7 +578,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_32_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_36_0.png)
 
 </div>
 </div>
@@ -550,7 +613,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_34_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_38_0.png)
 
 </div>
 </div>
@@ -580,7 +643,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_36_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_40_0.png)
 
 </div>
 </div>
@@ -589,7 +652,7 @@ plt.show();
 
 
 ---
-# Analysis of Variance (ANOVA)
+# Analysis of Variance (ANOVA)<a id='anova'></a>
 
 ## One-Way Anova
 
@@ -987,6 +1050,13 @@ Hence, since our $F$-statistic $= 0.05 < $ $F$-critical $=5.14$, we **fail to re
 
 
 ---
+# $\chi^2$ Test<a id='cs-test'></a>
+
+
+
+
+
+---
 # A/B Testing
 
 
@@ -1023,14 +1093,17 @@ Hence, since our $F$-statistic $= 0.05 < $ $F$-critical $=5.14$, we **fail to re
 ---
 ## Resources:
 
-Statistics:
-- [JBStatistics Hypothesis testing videos](https://www.youtube.com/watch?v=7mE-K_w1v90)
-- [One-way Anova by hand](https://www.youtube.com/watch?v=q48uKU_KWas)
-
 Probability:
 - [Overview of Some Discrete Probability Distributions(Binomial,Geometric,Hypergeometric,Poisson,NegB)](https://www.youtube.com/watch?v=UrOXRvG9oYE)
 - [Conjugate Prior Wiki](https://en.wikipedia.org/wiki/Conjugate_prior)
 - [Exponential family wiki](https://en.wikipedia.org/wiki/Exponential_family)
 - [What is the gamma distribution used for?](https://www.quora.com/What-is-gamma-distribution-used-for)
 - [Beta & Dirichlet distribution video](https://www.youtube.com/watch?v=CEVELIz4WXM)
+
+Statistics:
+- [JBStatistics Hypothesis testing videos](https://www.youtube.com/watch?v=7mE-K_w1v90)
+- Anova
+    - [One-way Anova by hand](https://www.youtube.com/watch?v=q48uKU_KWas)
+- Chi-squared Test
+    - [Khan Academy on Chi-squared](https://www.khanacademy.org/math/statistics-probability/inference-categorical-data-chi-square-tests)
 
