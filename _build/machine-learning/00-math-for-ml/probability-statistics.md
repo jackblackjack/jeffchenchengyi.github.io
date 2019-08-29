@@ -71,6 +71,7 @@ $$
 <div class="input_area" markdown="1">
 ```python
 # Visualization / ML Libraries
+from collections import namedtuple
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -1052,7 +1053,137 @@ Hence, since our $F$-statistic $= 0.05 < $ $F$-critical $=5.14$, we **fail to re
 ---
 # $\chi^2$ Test<a id='cs-test'></a>
 
+E.g. A shop owner expects a certain percentage of customers to come in throughout the week as follows:
 
+| Day | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Total |
+| --- | ------ | ------- | --------- | -------- | ------ | -------- | ----- |
+| Expected (%) | 10 | 10 | 15 | 20 | 30 | 15 | 100 |
+| Observed Count | 30 | 14 | 34 | 45 | 57 | 20 | 200 |
+| Expected Count | 10% * 200 = 20 | 10% * 200 = 20 | 15% * 200 = 30 | 20% * 200 = 40 | 30% * 200 = 60 | 15% * 200 = 30 |
+
+We will test:
+$$
+\begin{aligned}
+H_0&:\,\text{Owner is correct} \\
+H_\alpha&:\,\text{Owner is not correct}
+\end{aligned}
+$$
+
+at an $\alpha = 0.05$ significance level / false positive (Type I error) rate.
+
+$\chi^2$ Statistic:
+$$
+\begin{aligned}
+\chi^2 &= \sum^k_{i=1} \frac{(\text{Observed Count}\,-\,\text{Expected Count})^2}{\text{Expected Count}} \\
+&= \frac{(30 - 20)^2}{20} + \frac{(14 - 20)^2}{20} + \frac{(34 - 30)^2}{30} + \frac{(45 - 40)^2}{40} + \frac{(57 - 60)^2}{60} + \frac{(20 - 30)^2}{30}
+\end{aligned}
+$$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Set the data and significance level
+alpha = 0.05
+Day = namedtuple('Day', ['name', 'observed', 'expected'])
+days = [
+    Day('monday', 30, 20),
+    Day('tuesday', 14, 20),
+    Day('wednesday', 34, 30),
+    Day('thursday', 45, 40),
+    Day('friday', 57, 60),
+    Day('saturday', 20, 30),
+]
+
+chi_squared_stat = np.sum([(day.observed - day.expected) ** 2 / day.expected for day in days])
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+chi_squared_stat
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+11.441666666666666
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+$$
+\chi^2 = 11.44
+$$
+
+
+
+Degrees of Freedom: $k - 1 = 6 - 1 = 5$
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+df = 5
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+chi2.isf(alpha, df=df)
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+11.070497693516355
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+Our $\chi^2$ critical value @ significance level of $\alpha = 0.05$ is:
+
+$$
+\chi^2_{crit} = 11.07
+$$
+
+
+
+Since $\chi^2 > \chi^2_{crit}$, it means that the probability of getting the current observations is so rare that it is highly unlikely to be due to sampling error, so we will reject the $H_0$ and conclude that statistically, he is incorrect in his prediction of the frequencies.
 
 
 
