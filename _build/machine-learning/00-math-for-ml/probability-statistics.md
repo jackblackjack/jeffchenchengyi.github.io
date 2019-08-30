@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/00-math-for-ml/linalg-de
   title: 'Linear Algebra and Differential Equations'
 next_page:
-  url: 
-  title: ''
+  url: /machine-learning/09-miscellaneous-topics/README
+  title: 'USC Classes'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
