@@ -585,11 +585,67 @@ plt.show();
 
 
 
+Let's see how many sample of sales with discount and without discount we have.
+
+
+
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-mean_sales_no_discount = ads_sales_data_mailing['sales'][ads_sales_data_mailing['discount'] == 0.0].mean()
-mean_sales_with_discount = ads_sales_data_mailing['sales'][ads_sales_data_mailing['discount'] == 1.0].mean()
+sales_no_discount = ads_sales_data_mailing['sales'][ads_sales_data_mailing['discount'] == 0.0]
+sales_with_discount = ads_sales_data_mailing['sales'][ads_sales_data_mailing['discount'] == 1.0]
+
+print('Number of Days (With Discount): {} \nNumber of Days (Without Discount): {}'.format(
+    sales_with_discount.count(), 
+    sales_no_discount.count()
+))
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+Number of Days (With Discount): 17 
+Number of Days (Without Discount): 224
+```
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+fig, ax = plt.subplots(2, 1)
+sns.distplot(sales_no_discount, ax=ax[0], color='orange')
+ax[0].set_title('Distribution Plot for Sales without discount')
+sns.distplot(sales_with_discount, ax=ax[1], color='blue')
+ax[1].set_title('Distribution Plot for Sales with discount')
+plt.show();
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_20_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+mean_sales_no_discount = sales_no_discount.mean()
+mean_sales_with_discount = sales_with_discount.mean()
 
 print('Mean Sales (With Discount): ${} \nMean Sales (Without Discount): ${}'.format(
     round(mean_sales_with_discount, 2), 
@@ -612,7 +668,7 @@ Mean Sales (Without Discount): $463.57
 
 
 
-We observe that when the `discount` is applied, there seems to be a significant increase in the `sales`. Let's use a right-tailed Student's $t$-test to test whether this hypothesis is true at a significance level / false positive rate / Type I error rate of $\alpha = 0.05$.
+We observe that when the `discount` is applied, there seems to be a significant increase in the `sales`. Let's use a two-sample right-tailed Student's $t$-test to test whether this hypothesis is true at a significance level / false positive rate / Type I error rate of $\alpha = 0.05$.
 
 $$
 \begin{aligned}
@@ -623,19 +679,47 @@ $$
 
 
 
-Let's first get the standardized means.
+Let's get the $t$-statistic (Standardized mean).
 
 
 
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-(mean_sales_with_discount - mean_sales_no_discount) / 
+t_stat = (mean_sales_with_discount - mean_sales_no_discount) \
+    / (
+        ((sales_with_discount.std() ** 2) / sales_with_discount.count())
+        + ((sales_no_discount.std() ** 2) / sales_no_discount.count())
+    ) ** 0.5
+
+# Degrees of freedom will just be the
+# smaller of the 2 sample sizes
+df = min(sales_with_discount.count(), sales_no_discount.count())-1
+p_val = 1 - t.cdf(
+    t_stat, 
+    df=df
+)
+
+print('p-value: {}'.format(p_val))
 
 ```
 </div>
 
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+{:.output_stream}
+```
+p-value: 9.891333307976424e-10
+```
 </div>
+</div>
+</div>
+
+
+
+### Conclusion
+
+Since the $p$-value$ = 9.89 \times 10^{-10} < \alpha = 0.05$, we reject the null hypothesis $H_0$ and suggests that there is a statistically significant increase in the mean `sales` comparing \\$463.57 and \\$1243.17.
 
 
 
@@ -673,7 +757,7 @@ plt.title('Seasonal for 1 year');
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_25_0.png)
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_29_0.png)
 
 </div>
 </div>
@@ -698,7 +782,7 @@ plt.title('Seasonal for 1 month');
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_27_0.png)
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_31_0.png)
 
 </div>
 </div>
@@ -726,7 +810,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_29_0.png)
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_33_0.png)
 
 </div>
 </div>
@@ -759,7 +843,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_31_0.png)
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_35_0.png)
 
 </div>
 </div>
@@ -880,7 +964,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_35_0.png)
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_39_0.png)
 
 </div>
 </div>
@@ -923,7 +1007,7 @@ ad_online_sales_decomposed.trend.plot().grid();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_39_0.png)
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_43_0.png)
 
 </div>
 </div>
