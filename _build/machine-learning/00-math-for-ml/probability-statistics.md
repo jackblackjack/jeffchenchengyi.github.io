@@ -1051,9 +1051,19 @@ Hence, since our $F$-statistic $= 0.05 < $ $F$-critical $=5.14$, we **fail to re
 
 
 ---
-# $\chi^2$ Test<a id='cs-test'></a>
+# $\chi^2$ Tests<a id='cs-test'></a>
 
-E.g. A shop owner expects a certain percentage of customers to come in throughout the week as follows:
+
+
+## $\chi^2$ Goodness of Fit Test
+
+Conditions:
+1. Random Sampling of data
+2. Large counts / frequencies of each category in Expectation (not observation)
+3. Independent samples
+
+Example:
+A shop owner expects a certain percentage of customers to come in throughout the week as follows:
 
 | Day | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Total |
 | --- | ------ | ------- | --------- | -------- | ------ | -------- | ----- |
@@ -1142,7 +1152,7 @@ Degrees of Freedom: $k - 1 = 6 - 1 = 5$
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-df = 5
+df = len(days) - 1
 
 ```
 </div>
@@ -1183,7 +1193,103 @@ $$
 
 
 
+### Conclusion
+
 Since $\chi^2 > \chi^2_{crit}$, it means that the probability of getting the current observations is so rare that it is highly unlikely to be due to sampling error, so we will reject the $H_0$ and conclude that statistically, he is incorrect in his prediction of the frequencies.
+
+
+
+## $\chi^2$ Test for Homogeneity
+
+Example:
+Someone proposed that Subject preference for right and left handed people are different and so they gathered some results as follows:
+
+Observed:
+
+| Subject | Right | Left | Total |
+| ------- | ----- | ---- | ----- |
+| STEM    | 30 | 10 | 40 |
+| Humanities | 15 | 25 | 40 |
+| Equal | 15 | 5 | 20 |
+| Total | 60 | 40 | 100 |
+
+We state our hypotheses:
+
+$$
+\begin{aligned}
+H_0 &:\,\text{No difference in subject preference} \\
+H_\alpha &:\,\text{There's a difference in subject preference} \\
+\end{aligned}
+$$
+
+Expected: Since we expect there to be no difference between groups, we expect the left and right handed groups to have the same proportion of people in each subject as the total population proportions
+
+| Subject | Right | Left |
+| ------- | ----- | ---- |
+| STEM    | 40% * 60 = 24 | 40% * 40 = 16 |
+| Humanities | 40% * 60 = 24 | 40% * 40 = 16 |
+| Equal | 20% * 60 = 12 | 20% * 40 = 8 |
+| Total | 60 | 40 |
+
+Now let's calculate our $\chi^2$ statistic and test our hypothesis at a significance level of $\alpha = 0.05$.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Set the data
+observed = np.array([
+    [30, 10],
+    [15, 25],
+    [15, 5]
+])
+
+expected = np.array([
+    [24, 16],
+    [24, 16],
+    [12, 8]
+])
+
+chi_squared_stat = np.sum((observed.flatten() - expected.flatten()) ** 2 / expected.flatten())
+df = (3 - 1) * (2 - 1) # (Num rows - 1)(Num cols - 1)
+alpha = 0.05
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+p_val = 1 - chi2.cdf(chi_squared_stat, df=df)
+p_val
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+0.0008838263069350649
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+### Conclusion
+
+Hence, since the $p$-value $= 0.000884 < \alpha = 0.05$, we reject the $H_0$ because our observations show that the disrepancy in the distribution of counts we observe vs. expect is statistically significant. The probability that the values we observe are due to random sampling error is too small to be true.
 
 
 
