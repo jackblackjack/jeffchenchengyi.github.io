@@ -18,17 +18,20 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 We'll review some fundamental statistical and probability theory you need to know to understand the how most machine learning algorithms, especially those in [Natural Language Processing](https://jeffchenchengyi.github.io/machine-learning/06-natural-language-processing/basics/README.html) and [Bayesian Methods](https://jeffchenchengyi.github.io/machine-learning/11-bayesian-methods/README.html) work.
 
 ### Table of Contents
-1. [Basic Probability Theory](#bp)
-- [Probability Distributions](#distributions)
-- [Basic Statistics](#bs)
-- [Hypothesis Testing](#hyptest)
-- [$Z$-test](#z-test)
-- [Student's $T$-test](#t-test)
-- [Anova](#anova)
-- [Chi-squared Test](#cs-test)
-- [A/B Testing](#abtest)
+1. [Probability Distributions](#distributions)
+2. [Basic Statistics](#bs)
+3. [Hypothesis Testing](#hyptest)
+4. [$Z$-test](#z-test)
+5. [Student's $T$-test](#t-test)
+6. [Anova](#anova)
+7. [Chi-squared Test](#cs-test)
+8. [A/B Testing](#abtest)
 
 ## Preliminaries
+
+### Basic Probability Rules
+
+Independence: $P(A \cap B) = P(A) \times P(B)$
 
 ### Expectation and Moments of Random Variable
 
@@ -1053,14 +1056,33 @@ Hence, since our $F$-statistic $= 0.05 < $ $F$-critical $=5.14$, we **fail to re
 ---
 # $\chi^2$ Tests<a id='cs-test'></a>
 
-
-
-## $\chi^2$ Goodness of Fit Test
-
 Conditions:
 1. Random Sampling of data
-2. Large counts / frequencies of each category in Expectation (not observation)
+2. Large counts / frequencies of each category in Expectation (not observation) $\rightarrow$ Expected values $\geq 5$ 
 3. Independent samples
+    - Sampling **with** replacement OR
+    - Sample size must be $< 10%$ of population size if Sampling **without** replacement
+    
+General Algorithm:
+1. Find Expected frequencies (if not provided)
+2. Calculate $\chi^2$ statistic
+    1. Subtract the expected frequency from each observation frequency
+    2. Square it
+    3. Divide each by the expected frequency
+    4. Sum everything
+3. Find degrees of freedom
+    1. df = (# Num rows in table) x (# Num cols in table)
+4. Find $p$-value and compare with $\alpha$
+5. Reject or fail to reject accordingly
+
+3 Cases:
+1. [Goodness of fit](#gof)
+2. [Homogeneity](#homo)
+3. [Association / Independence](#assoc)
+
+
+
+## $\chi^2$ Goodness of Fit Test<a id='gof'></a>
 
 Example:
 A shop owner expects a certain percentage of customers to come in throughout the week as follows:
@@ -1199,7 +1221,9 @@ Since $\chi^2 > \chi^2_{crit}$, it means that the probability of getting the cur
 
 
 
-## $\chi^2$ Test for Homogeneity
+## $\chi^2$ Test for Homogeneity<a id='homo'></a>
+
+- We sample from **2 different groups** and we see if the distribution of **1 variable** among the 2 groups are the same
 
 Example:
 Someone proposed that Subject preference for right and left handed people are different and so they gathered some results as follows:
@@ -1290,6 +1314,119 @@ p_val
 ### Conclusion
 
 Hence, since the $p$-value $= 0.000884 < \alpha = 0.05$, we reject the $H_0$ because our observations show that the disrepancy in the distribution of counts we observe vs. expect is statistically significant. The probability that the values we observe are due to random sampling error is too small to be true.
+
+
+
+## $\chi^2$ Test for Association<a id='assoc'></a>
+
+- We are look at **2 different variables** for **1 group**
+
+Example: Someone wants to test whether foot length (Variable 1) and hand length (Variable 2) are independent and so recorded the values as follows:
+
+| 1st Variable / 2nd variable | Right foot longer | Left foot longer | Both feet same | Total |
+| -- | -- | -- | -- | -- |
+| Right hand longer | 11 | 3 | 8 | ? |
+| Expected | ? | ? | ? | ? |
+| Left hand longer | 2 | 9 | 14 | ? |
+| Expected | ? | ? | ? | ? |
+| Both hands same | 12 | 13 | 28 | ? |
+| Expected | ? | ? | ? | ? |
+| Total | ? | ? | ? | ? |
+
+We state our hypothesis:
+
+$$
+\begin{aligned}
+H_0 &:\,\text{No association between foot & hand length (Independent)} \\
+H_\alpha &:\,\text{There is an association (Dependent)}
+\end{aligned}
+$$
+
+Let's fill in our table:
+
+Fill out totals:
+
+| 1st Variable / 2nd variable | Right foot longer | Left foot longer | Both feet same | Total |
+| -- | -- | -- | -- | -- |
+| Right hand longer | 11 | 3 | 8 | 11 + 3 + 8 = 22 |
+| Expected | ? | ? | ? | 22 |
+| Left hand longer | 2 | 9 | 14 | 2 + 9 + 14 = 25 |
+| Expected | ? | ? | ? | 25 |
+| Both hands same | 12 | 13 | 28 | 12 + 13 + 28 = 53 |
+| Expected | ? | ? | ? | 53 |
+| Total | 11 + 2 + 12 = 25 | 3 + 9 + 13 = 25 | 8 + 14 + 28 = 50 | 22 + 25 + 53 = 100 |
+
+Fill out expected frequencies (since we expect Variable 1 and 2 to be independent, $P(\text{Variable 1} \cap \text{Variable 2}) = P(\text{Variable 1}) \times P(\text{Variable 2})$:
+
+| 1st Variable / 2nd variable | Right foot longer | Left foot longer | Both feet same | Total |
+| -- | -- | -- | -- | -- |
+| Right hand longer | 11 | 3 | 8 | 22 P(Right hand longer) = 0.22 |
+| Expected | 0.22 x 0.25 x 100 = 5.5 | 0.22 x 0.25 x 100 = 5.5 | 0.22 x 0.5 x 100 = 11 | 22 |
+| Left hand longer | 2 | 9 | 14 | 25 P(Left hand longer) = 0.25  |
+| Expected | 0.25 x 0.25 x 100 = 6.25 | 0.25 x 0.25 x 100 = 6.25 | 0.25 x 0.5 x 100 = 12.5 | 25 |
+| Both hands same | 12 | 13 | 28 | 53 P(Both hands same) = 0.53 |
+| Expected | 0.53 x 0.25 x 100 = 13.25 | 0.53 x 0.25 x 100 = 13.25 | 0.53 x 0.5 x 100 = 26.5 | 53 |
+| Total | 25 P(Right foot longer) = 0.25 | 25 P(Left foot longer) = 0.25 | 50 P(Both feet same) = 0.5 | 100 |
+
+Now let's calculate our $\chi^2$ statistic and test our hypothesis at a significance level of $\alpha = 0.05$.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+# Set the data
+observed = np.array([
+    [11, 3, 8],
+    [2, 9, 14],
+    [12, 13, 28]
+])
+
+expected = np.array([
+    [5.5, 5.5, 11],
+    [6.25, 6.25, 12.5],
+    [13.25, 13.25, 26.5]
+])
+
+chi_squared_stat = np.sum((observed.flatten() - expected.flatten()) ** 2 / expected.flatten())
+df = (3 - 1) * (3 - 1) # (Num rows - 1)(Num cols - 1)
+alpha = 0.05
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+p_val = 1 - chi2.cdf(chi_squared_stat, df=df)
+p_val
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+0.01778711460986071
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+### Conclusion
+
+Hence, since the $p$-value $= 0.018 < \alpha = 0.05$, we reject the $H_0$ because our observations show that the disrepancy in the distribution of counts we observe vs. expect assuming that hand and feet length are independent is statistically significant. The probability that the values we observe are due to random sampling error is too small to be true. Meaning it's highly unlikely that feet and hand length are independent, suggesting that there might indeed be an association between hand and feet length.
 
 
 
