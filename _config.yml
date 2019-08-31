@@ -120,7 +120,7 @@ defaults:
       path: ""
     values:
       layout: "default"
-      toc: true
+      toc: false
       toc_label: "  On this page"
       toc_icon: "list-ul"
 
