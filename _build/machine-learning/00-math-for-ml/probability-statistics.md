@@ -285,7 +285,7 @@ We note that as the degrees of freedom increases, the peak of the curve shifts t
 ### Dirichlet / Multivariate Beta
 
 $$
-f \left(x_1,\ldots, x_{K}; \alpha_1,\ldots, \alpha_K \right) = \frac{1}{\mathrm{B}(\boldsymbol\alpha)} \prod_{i=1}^K x_i^{\alpha_i - 1}
+f \left(x_1,\ldots, x_{K}; \alpha_1,\ldots, \alpha_K \right) = \frac{1}{B(\boldsymbol\alpha)} \prod_{i=1}^K x_i^{\alpha_i - 1}
 $$
 
 where $ \{ x_k \}_{ k=1 }^{ k=K }$ belong to the standard $K-1$ simplex, or in other words: $\sum_{i=1}^{K} x_i=1 \text{ and } x_i \geq 0 \text{ for all } i \in [1,K]$
@@ -293,7 +293,7 @@ where $ \{ x_k \}_{ k=1 }^{ k=K }$ belong to the standard $K-1$ simplex, or in o
 The normalizing constant is the multivariate beta function, which can be expressed in terms of the gamma function:
 
 $$
-\mathrm{B}(\boldsymbol\alpha) = \frac{\prod_{i=1}^K \Gamma(\alpha_i)}{\Gamma\left(\sum_{i=1}^K \alpha_i\right)},\qquad\boldsymbol{\alpha}=(\alpha_1,\ldots,\alpha_K)
+B(\boldsymbol\alpha) = \frac{\prod_{i=1}^K \Gamma(\alpha_i)}{\Gamma\left(\sum_{i=1}^K \alpha_i\right)},\,\boldsymbol{\alpha}=(\alpha_1,\ldots,\alpha_K)
 $$
 
 - Multivariate Generalization of **Beta**

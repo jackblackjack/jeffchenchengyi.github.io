@@ -15,22 +15,70 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 # About Me
 
+
+
+
+
 ---
 ### Hi there, I'm Jeff!
-<br>
-<img src='./images/header.jpg'>
+
+<img src='./images/header.jpg' style='border: 5px solid black; border-radius: 5px;' />
+
+
 
 ---
 ### Who am I?
-I am a rising junior @ University of Southern California, studying Computer Science and Business. I love learning anything related to data science / machine learning / artificial intelligence.
+
+I am a rising junior @ University of Southern California, majoring in B.S. Computer Science and Business and pursuing an M.S. in Analytics. I love learning anything related to data science / machine learning / artificial intelligence.
+
+<img src='https://16mhpx3atvadrnpip2kwi9or-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/USC-Viterbi-School-of-Engineering.png' style='border: 5px solid black; border-radius: 5px;' />
+
+
 
 ---
 ### Where I'm From?
 I come from sunny Singapore.
 
+<img src='https://media.giphy.com/media/AyIYq8NfX07sc/giphy.gif' style='border: 5px solid black; border-radius: 5px;' />
+
+
+
+---
+### What's my favourite song?
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+from IPython.display import HTML
+
+HTML('<iframe width="710" height="399" src="https://www.youtube.com/embed/5CorhbkYWGg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+
+<div markdown="0" class="output output_html">
+<iframe width="710" height="399" src="https://www.youtube.com/embed/5CorhbkYWGg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
 ---
 ### What do I dream to be?
 "That" guy that can solve *any* problem using technology and explain *anything* given a reasonable amount of time.
+
+
 
 ---
 ### Purpose of this Blog
