@@ -85,6 +85,7 @@ import matplotlib.patches as mpatches
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 import seaborn as sns
 from scipy.stats import norm, f, chi2
+from sklearn.datasets import make_spd_matrix
 
 # plotting defaults
 plt.rcParams['figure.dpi'] = 300
@@ -205,20 +206,6 @@ $\mathbf{X}$ is our data, where
 $$
 \mathbf{X} \sim \mathcal{N}(\mathbf{\mu}, \mathbf{\Sigma} = \mathbf{\Lambda}^{-1})
 $$
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.datasets import make_spd_matrix
-
-```
-</div>
-
-</div>
 
 
 
@@ -456,7 +443,7 @@ plt.grid();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_22_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_21_0.png)
 
 </div>
 </div>
@@ -579,7 +566,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_28_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_27_0.png)
 
 </div>
 </div>
@@ -799,7 +786,7 @@ plot_dists_given_H0_true(mean=50, std=21, n=36, alpha=0.09)
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_41_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_40_0.png)
 
 </div>
 </div>
@@ -870,7 +857,7 @@ plot_H0_true_dist_and_actual_dist(ax=ax, H0_mean=50, actual_mean=43, std=21, n=3
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_44_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_43_0.png)
 
 </div>
 </div>
@@ -884,6 +871,16 @@ $$
 \therefore \beta = 0.255 \\
 \text{Power of Test (Ability to detect a False }H_0)=P(\text{Reject }H_0\mid \mu=43)=1-\beta=0.745
 $$
+
+
+
+- The orange shaded region shows the probability we allocate to Type I error (Rejecting $H_0$ OR saying that the true mean is not 50 - We set this significance level because this is as much as we're willing to accept in terms of false positives - *"We might indeed get values < 45.31 even if the actual mean of the population is 50, but getting a value < 45.31 is so rare and suspicious that it is highly likely that the true mean is not actually 50"*)
+
+
+- The green shaded region shows the probability we allocate to Type II error, *"if our population mean was truly not 50, by setting an $\alpha = 0.09$ and using the data we've gathered, this is the probability that we have wrongly 'accepted' $H_0$"*
+
+
+- The blue shaded region shows *"Hey, if our population mean was truly not 50, by setting an $\alpha = 0.09$ and using the data we've gathered, this is the probability that we have correctly 'accepted' $H_0$"*
 
 
 
@@ -932,6 +929,10 @@ plt.show();
 
 
 
+- As $\alpha$ increases, our Type II error rate decreases, and Power of test increases. However because $\alpha$ increases, the chances of us making a Type I (false positive) increases...
+
+
+
 ### As $n$ increases, both distributions become sharper $\because S.E.M. = \frac{\sigma}{\sqrt{n} }$
 
 
@@ -959,11 +960,15 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_50_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_51_0.png)
 
 </div>
 </div>
 </div>
+
+
+
+- As $n$ increases, Type II error rate decreases, Power of test increases too (We get more confident of our test as the number of samples increase to support).
 
 
 
@@ -989,11 +994,15 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_52_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_54_0.png)
 
 </div>
 </div>
 </div>
+
+
+
+- As $\sigma$ decreases, Type II error rate decreases, Power of test increases too (We get more confident of our test as the amount of variation that we can possibly get from our data is lower).
 
 
 
@@ -1413,7 +1422,7 @@ General Algorithm:
     3. Divide each by the expected frequency
     4. Sum everything
 3. Find degrees of freedom
-    1. df = (# Num rows in table) x (# Num cols in table)
+    1. df = (# Num rows in contingency table excluding totals) x (# Num cols in contingency table excluding totals)
 4. Find $p$-value and compare with $\alpha$
 5. Reject or fail to reject accordingly
 
