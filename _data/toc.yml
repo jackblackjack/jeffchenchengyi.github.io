@@ -73,7 +73,25 @@
   url: /portfolio/dengai/README
   not_numbered: true
   sections:
-    - title: DengAI (Latest)
+    - title: 00 - Data Preprocessing
+      url: /portfolio/dengai/00-dengai
+    - title: 01 - Naive Regressors
+      url: /portfolio/dengai/01-dengai
+    - title: 02 - Gauss-Markov Assumptions (OLS)
+      url: /portfolio/dengai/02-dengai
+    - title: 03a - Feature Scaling and PCA
+      url: /portfolio/dengai/03a-dengai
+    - title: 03b - Reducing number of PCA components
+      url: /portfolio/dengai/03b-dengai
+    - title: 04 - Looking at the Benchmark
+      url: /portfolio/dengai/04-dengai
+    - title: 05 - TPOT
+      url: /portfolio/dengai/05-dengai
+    - title: 06a - Time Series Analysis 
+      url: /portfolio/dengai/06a-dengai
+    - title: 06b - Time Series Analysis (Continued)
+      url: /portfolio/dengai/06b-dengai
+    - title: 07 - Eliminating Seasonality
       url: /portfolio/dengai/07-dengai
 
 - divider: true
@@ -102,8 +120,6 @@
   url: /machine-learning/01-supervised-learning/estimation/README
   not_numbered: true
   sections:
-  - title: Multivariate Gaussian Distribution
-    url: /machine-learning/01-supervised-learning/estimation/multivariate-gaussian
   - title: Maximum Likelihood Estimation Vs Maximum A Priori
     url: /machine-learning/01-supervised-learning/estimation/mle-vs-map
   - title: Convex Optimization

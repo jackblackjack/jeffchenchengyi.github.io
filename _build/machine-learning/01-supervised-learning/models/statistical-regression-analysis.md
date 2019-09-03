@@ -188,7 +188,7 @@ N\bar{y} &= \hat{w_0}N + \hat{w_1}N\bar{x_1}  \\
 &= \frac{\sum^N_{i=1}y_i({(x_1)}_i - \bar{x_1})}{\sum^N_{i=1}({ {(x_1)}_i}^2 - \bar{x_1}{(x_1)}_i)} \\
 &= \frac{\sum^N_{i=1}y_i({(x_1)}_i - \bar{x_1})}{\sum^N_{i=1}{(x_1)}_i({ {(x_1)}_i} - \bar{x_1})} \\
 &= \frac{\sum^N_{i=1}({(x_1)}_i - \bar{x})(y_i - \bar{y})}{\sum^N_{i=1}{({(x_1)}_i - \bar{x})}^2} \\
-&= \frac{COV({(x_1)}_i, y_i)}{Var({(x_1)}_i)}
+&= \frac{Cov({(x_1)}_i, y_i)}{Var({(x_1)}_i)}
 \end{aligned}
 $$
 

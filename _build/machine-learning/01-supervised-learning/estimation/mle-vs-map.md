@@ -4,8 +4,8 @@ kernel_name: python3
 has_widgets: false
 title: 'Maximum Likelihood Estimation Vs Maximum A Priori'
 prev_page:
-  url: /machine-learning/01-supervised-learning/estimation/multivariate-gaussian
-  title: 'Multivariate Gaussian Distribution'
+  url: /machine-learning/01-supervised-learning/estimation/README
+  title: 'Estimation'
 next_page:
   url: /machine-learning/01-supervised-learning/estimation/convex-optimization
   title: 'Convex Optimization'

@@ -12,7 +12,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 ---
 # Clustering
 
-<img src="https://cdncontribute.geeksforgeeks.org/wp-content/uploads/k-means-copy.jpg" />
+<img src='https://2.bp.blogspot.com/-gKsHFQmvz_0/Vwe64nJdSII/AAAAAAAA2eY/nzWsfZESRG0ZSNRGlfa6ASqDdRJgKzt0A/s1600/output_3BAiEC.gif' style='border: 5px solid black; border-radius: 5px;'/>
 
 Ways to categorize Clustering Method Types:
 

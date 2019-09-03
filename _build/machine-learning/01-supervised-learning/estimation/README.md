@@ -6,8 +6,8 @@ prev_page:
   url: /machine-learning/01-supervised-learning/models/multilabel-classification
   title: 'Multi-Label models'
 next_page:
-  url: /machine-learning/01-supervised-learning/estimation/multivariate-gaussian
-  title: 'Multivariate Gaussian Distribution'
+  url: /machine-learning/01-supervised-learning/estimation/mle-vs-map
+  title: 'Maximum Likelihood Estimation Vs Maximum A Priori'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
