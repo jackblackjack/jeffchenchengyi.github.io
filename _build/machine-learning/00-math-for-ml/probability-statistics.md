@@ -21,11 +21,7 @@ We'll review some fundamental statistical and probability theory you need to kno
 1. [Probability Distributions](#distributions)
 2. [Basic Statistics](#bs)
 3. [Hypothesis Testing](#hyptest)
-4. [$Z$-test](#z-test)
-5. [Student's $T$-test](#t-test)
-6. [Anova](#anova)
-7. [Chi-squared Test](#cs-test)
-8. [A/B Testing](#abtest)
+4. [A/B Testing](#abtest)
 
 ## Preliminaries
 
@@ -1007,9 +1003,33 @@ plt.show();
 
 
 ---
-# Analysis of Variance (ANOVA)<a id='anova'></a>
+# A/B Testing<a id='abtest'></a>
 
-## One-Way Anova
+1. [Parametric Tests](#para)
+    1. [$Z$-test](#z-test)
+    2. [Student's $T$-test](#t-test)
+    3. [Anova](#anova)
+    4. [Correlation Coefficient Testing](#coeff)
+2. [Non-parametric Tests](#nonpara)
+    1. [Chi-squared Test](#cs-test)
+
+
+
+## Parametric Tests<a id='para'></a>
+
+
+
+## $Z$-test
+
+
+
+# Student's $T$-test
+
+
+
+## Analysis of Variance (ANOVA)<a id='anova'></a>
+
+### One-Way Anova
 
 E.g. Imagine we have $k = 3$ different populations and a random sample of 3 individuals are drawn from each population (Total sample size $N = 9$) and we will get their test scores. The test scores are below:
 
@@ -1404,8 +1424,11 @@ Hence, since our $F$-statistic $= 0.05 < $ $F$-critical $=5.14$, we **fail to re
 
 
 
----
-# $\chi^2$ Tests<a id='cs-test'></a>
+## Non-parametric Tests<a id='nonpara'></a>
+
+
+
+## $\chi^2$ Tests<a id='cs-test'></a>
 
 Conditions:
 1. Random Sampling of data
@@ -1433,7 +1456,7 @@ General Algorithm:
 
 
 
-## $\chi^2$ Goodness of Fit Test<a id='gof'></a>
+### $\chi^2$ Goodness of Fit Test<a id='gof'></a>
 
 Example:
 A shop owner expects a certain percentage of customers to come in throughout the week as follows:
@@ -1572,7 +1595,7 @@ Since $\chi^2 > \chi^2_{crit}$, it means that the probability of getting the cur
 
 
 
-## $\chi^2$ Test for Homogeneity<a id='homo'></a>
+### $\chi^2$ Test for Homogeneity<a id='homo'></a>
 
 - We sample from **2 different groups** and we see if the distribution of **1 variable** among the 2 groups are the same
 
@@ -1668,7 +1691,7 @@ Hence, since the $p$-value $= 0.000884 < \alpha = 0.05$, we reject the $H_0$ bec
 
 
 
-## $\chi^2$ Test for Association<a id='assoc'></a>
+### $\chi^2$ Test for Association<a id='assoc'></a>
 
 - We are look at **2 different variables** for **1 group**
 
@@ -1778,15 +1801,6 @@ p_val
 ### Conclusion
 
 Hence, since the $p$-value $= 0.018 < \alpha = 0.05$, we reject the $H_0$ because our observations show that the disrepancy in the distribution of counts we observe vs. expect assuming that hand and feet length are independent is statistically significant. The probability that the values we observe are due to random sampling error is too small to be true. Meaning it's highly unlikely that feet and hand length are independent, suggesting that there might indeed be an association between hand and feet length.
-
-
-
----
-# A/B Testing
-
-
-
-## Parametric Vs Non-Parametric Tests
 
 
 

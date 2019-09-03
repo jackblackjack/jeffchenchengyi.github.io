@@ -13,7 +13,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 ---
 
 
-# DengAI Analysis Part 07 - Eliminating Seasonality [UNDER CONSTRUCTION]
+# DengAI Analysis Part 07 - Eliminating Seasonality
 
 By: Chengyi (Jeff) Chen, under guidance of CSCI499: AI for Social Good Teaching Assistant - Aaron Ferber
 
@@ -1760,28 +1760,4 @@ submission_df.to_csv('./data/dengai/deseasonalized_submission.csv', index=False)
 
 
 This got us our best **MAE** so far, **26.0577**!
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-179 / 22
-
-```
-</div>
-
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-
-
-{:.output_data_text}
-```
-8.136363636363637
-```
-
-
-</div>
-</div>
-</div>
 

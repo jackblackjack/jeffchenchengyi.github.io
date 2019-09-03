@@ -15,6 +15,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 # Hidden Markov Models
 
+<a href='https://letianquant.com/hidden-markov-chain.html'><img src='http://letianquant.com/hidden-markov-chain/example.png' style='border: 5px solid black; border-radius: 5px;'/></a>
+
 
 
 ## Baum-Welch Algorithm
@@ -49,4 +51,5 @@ Baum-Welch VS Viterbi:
 - [Examples of HMMs](https://www.math.unl.edu/~sdunbar1/ProbabilityTheory/Lessons/HiddenMarkovModels/Examples/examples.html)
 - [Applications of HMMs](http://www.cs.umd.edu/~djacobs/CMSC828/ApplicationsHMMs.pdf)
 - [Kalman Filters](https://www.kalmanfilter.net/default.aspx)
+- [mathematicalmonk's series on HMM](https://www.youtube.com/watch?v=TPRoLreU9lA&list=PLD0F06AA0D2E8FFBA&index=98)
 
