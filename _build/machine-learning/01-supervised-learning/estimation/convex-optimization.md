@@ -21,11 +21,13 @@ In this notebook, we'll walk through convex optimization problems, how to formul
 1. [Least Squares](#ls)
     1. [Linear Least Squares](#lls)
         1. [Ordinary Least Squares](#ols)
-        2. [Weighted Least Squares](#wls)
-        3. [Generalized Least Squares](#gls)
-        4. [Iteratively reweighted least Squares](#irls)
-        5. [Instrumental Variables (IV) Regression](#ivr)
-        6. [Total Least Squares](#tls)
+        2. [Partial Least Squares](#pls)
+        3. [Principal Components Regression](#pcr)
+        4. [Weighted Least Squares](#wls)
+        5. [Generalized Least Squares](#gls)
+        6. [Iteratively reweighted least Squares](#irls)
+        7. [Instrumental Variables (IV) Regression](#ivr)
+        8. [Total Least Squares](#tls)
     2. [Constrained Linear Least Squares](#clls)
         1. [Equality constrained Least Squares](#ecls)
         2. [Regularized Least Squares](#rls)
@@ -193,31 +195,18 @@ B_hat = np.dot(
     y
 )
 
-```
-</div>
-
-</div>
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-np.mean((y - np.dot(X, B_hat)) ** 2)
+mse_pinv = round(np.mean((y - np.dot(X, B_hat)) ** 2) ** 0.5, 2)
+print('RMSE with Numpy\'s pinv function: {}'.format(mse_pinv))
 
 ```
 </div>
 
 <div class="output_wrapper" markdown="1">
 <div class="output_subarea" markdown="1">
-
-
-{:.output_data_text}
+{:.output_stream}
 ```
-100.13919826712036
+RMSE with Numpy's pinv function: 10.01
 ```
-
-
 </div>
 </div>
 </div>
@@ -258,31 +247,18 @@ B_hat = np.dot(
     y
 )
 
-```
-</div>
-
-</div>
-
-
-
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-np.mean((y - np.dot(X, B_hat)) ** 2)
+mse_qr = round(np.mean((y - np.dot(X, B_hat)) ** 2) ** 0.5, 2)
+print('RMSE with QR Decomp: {}'.format(mse_qr))
 
 ```
 </div>
 
 <div class="output_wrapper" markdown="1">
 <div class="output_subarea" markdown="1">
-
-
-{:.output_data_text}
+{:.output_stream}
 ```
-100.13919826712035
+RMSE with QR Decomp: 10.01
 ```
-
-
 </div>
 </div>
 </div>
@@ -292,7 +268,12 @@ np.mean((y - np.dot(X, B_hat)) ** 2)
 <div markdown="1" class="cell code_cell">
 <div class="input_area" markdown="1">
 ```python
-plt.scatter(X, y);
+fig, ax = plt.subplots(1, 1)
+ax.scatter(X, y)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.grid()
+plt.show();
 
 ```
 </div>
@@ -301,7 +282,7 @@ plt.scatter(X, y);
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/01-supervised-learning/estimation/convex-optimization_13_0.png)
+![png](../../../images/machine-learning/01-supervised-learning/estimation/convex-optimization_11_0.png)
 
 </div>
 </div>
@@ -360,26 +341,34 @@ opt.least_squares(lambda X, B_hat, y: np.dot(X, B_hat) - y, 0.0)
 
 
 
-### 2. Weighted Least Squares<a id='wls'></a>
+### 2. Partial Least Squares<a id='pls'></a>
 
 
 
-### 3. Generalized Least Squares<a id='gls'></a>
+### 3. Principal Components Regression<a id='pcr'></a>
 
 
 
-
-### 4. Iteratively reweighted least Squares<a id='irls'></a>
-
+### 4. Weighted Least Squares<a id='wls'></a>
 
 
 
-### 5. Instrumental Variables (IV) Regression<a id='ivr'></a>
+### 5. Generalized Least Squares<a id='gls'></a>
 
 
 
 
-### 6. Total Least Squares<a id='tls'></a>
+### 6. Iteratively reweighted least Squares<a id='irls'></a>
+
+
+
+
+### 7. Instrumental Variables (IV) Regression<a id='ivr'></a>
+
+
+
+
+### 8. Total Least Squares<a id='tls'></a>
 
 
 

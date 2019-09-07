@@ -80,7 +80,6 @@ import matplotlib.font_manager as fm
 import matplotlib.patches as mpatches
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 import seaborn as sns
-from scipy.stats import norm, f, chi2
 from sklearn.datasets import make_spd_matrix
 
 # plotting defaults
@@ -314,6 +313,8 @@ $$
 \end{aligned}
 $$
 
+
+
 ### Precision Matrices
 - The key property of the precision matrix is that its zeros tell you about conditional independence. Specifically: $\mathbf{\Lambda}_{ij} = 0$ if and only if $X_i$ and $X_j$ are conditionally independent given all other coordinates of $X$ 
 $$P(X_i, X_j \mid X_1,\ldots,X_n) = P(X_i\mid X_1,\ldots,X_n)P(X_j\mid X_1,\ldots,X_n)$$
@@ -439,7 +440,7 @@ plt.grid();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_21_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_22_0.png)
 
 </div>
 </div>
@@ -562,7 +563,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_27_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_28_0.png)
 
 </div>
 </div>
@@ -782,7 +783,7 @@ plot_dists_given_H0_true(mean=50, std=21, n=36, alpha=0.09)
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_40_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_41_0.png)
 
 </div>
 </div>
@@ -853,7 +854,7 @@ plot_H0_true_dist_and_actual_dist(ax=ax, H0_mean=50, actual_mean=43, std=21, n=3
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_43_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_44_0.png)
 
 </div>
 </div>
@@ -917,7 +918,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_48_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_49_0.png)
 
 </div>
 </div>
@@ -956,7 +957,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_51_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_52_0.png)
 
 </div>
 </div>
@@ -990,7 +991,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_54_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_55_0.png)
 
 </div>
 </div>
@@ -1004,6 +1005,11 @@ plt.show();
 
 ---
 # A/B Testing<a id='abtest'></a>
+
+We carry out A/B tests when we want to measure the effect of a change in something in the user experience. For example, changing the layout of a homepage and measuring how much lift is generated in click-through rate (CTR). The steps to A/B Testing are as follows: 
+1. Setting a goal for the study
+2. Flushing out the expected flow
+3. 
 
 1. [Parametric Tests](#para)
     1. [$Z$-test](#z-test)

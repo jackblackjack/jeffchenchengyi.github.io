@@ -395,6 +395,14 @@ $$
 
 
 
+### Orthogonal Matrix
+
+
+
+### Unitary Matrix
+
+
+
 ## Properties of Systems of Linear Equations $\underset{m x n}{\mathbf{A}}\,\underset{nx1}{\mathbf{x}} = \underset{mx1}{\mathbf{b}}$<a id='sleproperties'></a>
 
 
@@ -659,7 +667,16 @@ $$
 
 
 
-### Eigendecomposition
+### [Eigendecomposition / Spectral Decomposition](https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix#Eigendecomposition_of_a_matrix)
+
+Let $\Sigma$ be a square $m \times m$ matrix with $m$ linearly independent eigenvectors $v_{i = 1, \ldots, m}$ (E.g. Covariance Matrix $\because \Sigma \in S_{+}^m$), we can find the eigendecomposition of $\Sigma$ by finding:
+
+$$
+\begin{aligned}
+\underset{m \times m}{\Sigma} &= \underset{m \times m}{Q}\cdot\underset{m \times m}{\Lambda}\cdot\underset{m \times m}{Q^{-1}} \\
+&= \begin{bmatrix} \vert & \vert & \ldots & \vert \\ v_1 & v_2 & \ldots & v_m \\ \vert & \vert & \ldots & \vert \end{bmatrix} \cdot \begin{bmatrix} \lambda_i & 0 & \ldots & 0 \\ 0 & \lambda_2 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \lambda_m \end{bmatrix} \cdot \begin{bmatrix} \vert & \vert & \ldots & \vert \\ v_1 & v_2 & \ldots & v_m \\ \vert & \vert & \ldots & \vert \end{bmatrix}^{-1}
+\end{aligned}
+$$
 
 
 

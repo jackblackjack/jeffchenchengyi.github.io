@@ -52,4 +52,6 @@ Baum-Welch VS Viterbi:
 - [Applications of HMMs](http://www.cs.umd.edu/~djacobs/CMSC828/ApplicationsHMMs.pdf)
 - [Kalman Filters](https://www.kalmanfilter.net/default.aspx)
 - [mathematicalmonk's series on HMM](https://www.youtube.com/watch?v=TPRoLreU9lA&list=PLD0F06AA0D2E8FFBA&index=98)
+- [HMM and NetworkX in Python](http://www.blackarbs.com/blog/introduction-hidden-markov-models-python-networkx-sklearn/2/9/2017)
+- [HMMs in everyday life](https://datduyng.github.io/2019/03/09/hidden-markov-model-hmm-in-everyday-life.html)
 
