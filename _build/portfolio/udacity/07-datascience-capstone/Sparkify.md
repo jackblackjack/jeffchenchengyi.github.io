@@ -176,6 +176,8 @@ Depending on which of these problems (or combination of problems) caused the cus
     
 Because of how complicated we can frame the problem, we will first build a simplified model - a soft classification as to whether a customer will churn or not. Subsequently, if we have the time, we will build a model that'll [predict a probability distribution](https://icml.cc/Conferences/2005/proceedings/papers/015_Predicting_CarneyEtAl.pdf) as to when the customer will churn - give probabilities as to whether a customer will churn as time passes
 
+It is much harder to acquire new customers than to keep them because of *state dependence*
+
 
 
 # Load and Clean Dataset

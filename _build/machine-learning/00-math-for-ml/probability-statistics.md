@@ -50,7 +50,13 @@ $f_x$ is the output of the probability mass / distribution function @ $x$
 
 ### Expectation and Variance Properties
 
-### Covariance and Correlation
+### Covariance
+
+### Correlation (Pearson's $R$)
+
+### Coefficient of Determination ($R^2$)
+
+### Coefficient of Variation
 
 ### Population Vs. Sample Parameters
 
@@ -583,7 +589,7 @@ We note that as the degrees of freedom increases, the peak of the curve shifts t
 
 
 
-### Gamma
+## Gamma
 
 - Gamma : Exponential :: Binomial : Bernoulli
 - Distribution of 
@@ -591,7 +597,7 @@ We note that as the degrees of freedom increases, the peak of the curve shifts t
 
 
 
-### Wishart / Multivariate Gamma
+## Wishart / Multivariate Gamma
 
 - Multivariate Generalization of **Gamma**
 - Gamma : Wishart :: Beta : Dirichlet
@@ -600,7 +606,7 @@ We note that as the degrees of freedom increases, the peak of the curve shifts t
 
 
 
-### Beta
+## Beta
 
 - Special case of **Dirichlet**
 - Distribution over real values on the interval [0, 1]
@@ -608,7 +614,7 @@ We note that as the degrees of freedom increases, the peak of the curve shifts t
 
 
 
-### Dirichlet / Multivariate Beta
+## Dirichlet / Multivariate Beta
 
 $$
 f \left(x_1,\ldots, x_{K}; \alpha_1,\ldots, \alpha_K \right) = \frac{1}{B(\boldsymbol\alpha)} \prod_{i=1}^K x_i^{\alpha_i - 1}
@@ -631,7 +637,7 @@ $$
 
 
 
-### Symmetric Dirichlet
+## Symmetric Dirichlet
 
 - Special case of **Dirichlet** where vector $\mathbf{\alpha}$ has all the same values
 

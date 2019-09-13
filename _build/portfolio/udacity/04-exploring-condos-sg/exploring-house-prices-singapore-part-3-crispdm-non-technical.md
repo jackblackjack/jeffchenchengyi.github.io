@@ -7,8 +7,8 @@ prev_page:
   url: /portfolio/README
   title: 'Non-Technical Posts'
 next_page:
-  url: https://github.com/usc-caisplusplus/SLAB
-  title: 'Google Street View Sign Detection with CAIS++ and SLAB @ USC'
+  url: /machine-learning/09-miscellaneous-topics/cais/beating-google-ocr-with-slab
+  title: 'Beating Google's OCR with CAIS++ and SLAB @ USC'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

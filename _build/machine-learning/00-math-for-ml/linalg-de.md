@@ -363,6 +363,39 @@ $$
 
 
 
+## Special Matrices
+
+When a matrix is applied onto a vector, 2 things can happen.
+1. Rotation
+2. Stretching
+
+
+
+### Unitary Matrix
+Special Case: Rotation Matrix
+- Rotates a vector
+
+$$
+\begin{bmatrix}
+cos\theta & -sin\theta \\
+sin\theta & cos\theta \\
+\end{bmatrix}
+$$
+
+
+
+### Diagonal Matrix
+- Stretches a vector
+
+$$
+\begin{bmatrix}
+\alpha & 0 \\
+0 & \beta \\
+\end{bmatrix}
+$$
+
+
+
 ### Coefficient Matrix
 
 Given a system of linear equations $\mathbf{Ax = b}$, the coefficient matrix is:
@@ -396,10 +429,6 @@ $$
 
 
 ### Orthogonal Matrix
-
-
-
-### Unitary Matrix
 
 
 
@@ -665,6 +694,48 @@ $$
 
 ## Matrix Factorization<a id='matfact'></a>
 
+Design / Data Matrix:
+$$
+\begin{aligned}
+\underset{n\times m}{\mathbf{X}} &= \underset{n\,\text{samples}\,\times \,m\,\text{features}}{\begin{bmatrix} x_{11} & x_{12} & \ldots & x_{1m} \\ x_{21} & x_{22} & \ldots & x_{2m} \\ \vdots & \vdots & \ddots & \vdots \\ x_{n1} & x_{n2} & \ldots & x_{nm} \\ \end{bmatrix}}
+\end{aligned}
+$$
+
+Unit Matrix (Matrix of all ones):
+$$
+\begin{aligned}
+\underset{n\times n}{\mathbf{e}\mathbf{e}^\top} &= \begin{bmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} \cdot \begin{bmatrix} 1 & 1 & \ldots & 1 \end{bmatrix} \\
+&= \underset{n\,\times \,n}{\begin{bmatrix} 1 & 1 & \ldots & 1 \\ 1 & 1 & \ldots & 1 \\ \vdots & \vdots & \ddots & \vdots \\ 1 & 1 & \ldots & 1 \\ \end{bmatrix}}
+\end{aligned}
+$$
+
+Matrix of Feature / Covariate Means:
+$$
+\begin{aligned}
+\underset{n\times m}{\bar{\mathbf{X}}} &= \frac{1}{n}\cdot\mathbf{e}\mathbf{e}^\top\cdot \underset{n\times m}{\mathbf{X}} \\
+&= \underset{n\,\text{duplicates of feature means}\,\times \,m\,\text{features}}{\begin{bmatrix} \bar{x}_{1} & \bar{x}_{2} & \ldots & \bar{x}_{m} \\ \bar{x}_{1} & \bar{x}_{2} & \ldots & \bar{x}_{m} \\ \vdots & \vdots & \ddots & \vdots \\ \bar{x}_{1} & \bar{x}_{2} & \ldots & \bar{x}_{m} \\ \end{bmatrix}}
+\end{aligned}
+$$
+
+Sample Data ($\frac{1}{n - 1}$) Covariance Matrix:
+$$
+\begin{aligned}
+\underset{m\times m}{\Sigma} &= \frac{1}{n - 1} {(\underset{n\times m}{\mathbf{X}} - \underset{n\times m}{\bar{\mathbf{X}}})}^\top \cdot {(\underset{n\times m}{\mathbf{X}} - \underset{n\times m}{\bar{\mathbf{X}}})} \\
+&= \frac{1}{n - 1} \begin{bmatrix} x_{11} - \bar{x}_{1} & x_{21} - \bar{x}_{1} & \ldots & x_{n1} - \bar{x}_{1} \\ x_{12} - \bar{x}_{2} & x_{22} - \bar{x}_{2} & \ldots & x_{n2} - \bar{x}_{2} \\ \vdots & \vdots & \ddots & \vdots \\ x_{1m} - \bar{x}_{m} & x_{2m} - \bar{x}_{m} & \ldots & x_{nm} - \bar{x}_{m} \\ \end{bmatrix} \cdot \begin{bmatrix} x_{11} - \bar{x}_{1} & x_{12} - \bar{x}_{2} & \ldots & x_{1m} - \bar{x}_{m} \\ x_{21} - \bar{x}_{1} & x_{22} - \bar{x}_{2} & \ldots & x_{2m} - \bar{x}_{m} \\ \vdots & \vdots & \ddots & \vdots \\ x_{n1} - \bar{x}_{1} & x_{n2} - \bar{x}_{2} & \ldots & x_{nm} - \bar{x}_{m} \\ \end{bmatrix} \\
+&= \frac{1}{n - 1} \begin{bmatrix} 
+\sum^{n}_{i = 1} {(x_{i1} - \bar{x}_{1})}{(x_{i1} - \bar{x}_{1})} & \sum^{n}_{i = 1} {(x_{i1} - \bar{x}_{1})}{(x_{i2} - \bar{x}_{2})} & \ldots & \sum^{n}_{i = 1} {(x_{i1} - \bar{x}_{1})}{(x_{im} - \bar{x}_{m})} \\ 
+\sum^{n}_{i = 1} {(x_{i2} - \bar{x}_{2})}{(x_{i1} - \bar{x}_{1})} & \sum^{n}_{i = 1} {(x_{i2} - \bar{x}_{2})}{(x_{i2} - \bar{x}_{2})} & \ldots & \sum^{n}_{i = 1} {(x_{i2} - \bar{x}_{2})}{(x_{im} - \bar{x}_{m})} \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+\sum^{n}_{i = 1} {(x_{im} - \bar{x}_{m})}{(x_{i1} - \bar{x}_{1})} & \sum^{n}_{i = 1} {(x_{im} - \bar{x}_{m})}{(x_{i2} - \bar{x}_{2})} & \ldots & \sum^{n}_{i = 1} {(x_{im} - \bar{x}_{m})}{(x_{im} - \bar{x}_{m})} \\ \end{bmatrix} \\
+&= \begin{bmatrix} 
+Var(x_1) & Cov(x_1, x_2) & \ldots & Cov(x_1, x_m) \\ 
+Cov(x_2, x_1) & Var(x_2) & \ldots & Cov(x_2, x_m) \\
+\vdots & \vdots & \ddots & \vdots \\
+Cov(x_m, x_1) & Cov(x_m, x_2) & \ldots & Var(x_m) \\ 
+\end{bmatrix}
+\end{aligned}
+$$
+
 
 
 ### [Eigendecomposition / Spectral Decomposition](https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix#Eigendecomposition_of_a_matrix)
@@ -673,14 +744,36 @@ Let $\Sigma$ be a square $m \times m$ matrix with $m$ linearly independent eigen
 
 $$
 \begin{aligned}
-\underset{m \times m}{\Sigma} &= \underset{m \times m}{Q}\cdot\underset{m \times m}{\Lambda}\cdot\underset{m \times m}{Q^{-1}} \\
+\underset{m \times m}{\Sigma} &= \underset{m \times m}{V}\cdot\underset{m \times m}{\Lambda}\cdot\underset{m \times m}{V^{-1}} \\
 &= \begin{bmatrix} \vert & \vert & \ldots & \vert \\ v_1 & v_2 & \ldots & v_m \\ \vert & \vert & \ldots & \vert \end{bmatrix} \cdot \begin{bmatrix} \lambda_i & 0 & \ldots & 0 \\ 0 & \lambda_2 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \lambda_m \end{bmatrix} \cdot \begin{bmatrix} \vert & \vert & \ldots & \vert \\ v_1 & v_2 & \ldots & v_m \\ \vert & \vert & \ldots & \vert \end{bmatrix}^{-1}
 \end{aligned}
 $$
 
 
 
-### Singular Value Decomposition (SVD)
+### [Singular Value Decomposition (SVD)](https://www.youtube.com/watch?v=mBcLRGuAFUk&t=47s)
+
+Every $$
+
+$$
+\begin{aligned}
+\underset{n \times m}{A} &= \underset{n \times m}{U}\cdot\underset{m \times m}{\Sigma}\cdot\underset{m \times n}{V^\top} \\
+&= 
+\underbrace{\begin{bmatrix} \vert & \vert & \ldots & \vert \\ u_1 & u_2 & \ldots & u_m \\ \vert & \vert & \ldots & \vert \end{bmatrix}}_\text{Rotation} 
+\cdot 
+\underbrace{\begin{bmatrix} \sigma_i & 0 & \ldots & 0 \\ 0 & \sigma_2 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \sigma_m \end{bmatrix}}_\text{Stretching} 
+\cdot 
+\underbrace{\begin{bmatrix} \vert & \vert & \ldots & \vert \\ v_1 & v_2 & \ldots & v_m \\ \vert & \vert & \ldots & \vert \end{bmatrix}^\top}_\text{Rotation}
+\end{aligned}
+$$
+
+
+
+$$
+\begin{aligned}
+
+\end{aligned}
+$$
 
 
 

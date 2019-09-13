@@ -43,9 +43,8 @@
   sections:
     - title: Exploring Condominiums in Singapore
       url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
-- title: Google Street View Sign Detection with CAIS++ and SLAB @ USC
-  url: https://github.com/usc-caisplusplus/SLAB
-  external: true
+- title: Beating Google's OCR with CAIS++ and SLAB @ USC
+  url: /machine-learning/09-miscellaneous-topics/cais/beating-google-ocr-with-slab
   not_numbered: true
 - title: Education Deserts
   url: https://github.com/lucashu1/education-deserts

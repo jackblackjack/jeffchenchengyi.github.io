@@ -822,35 +822,6 @@ Seems like a shift of about 2 days +/- aligns our peaks and troughs, meaning tha
 
 
 
-<div markdown="1" class="cell code_cell">
-<div class="input_area" markdown="1">
-```python
-fig, ax = plt.subplots(1, 1)
-ax.scatter(
-    ads_sales_data_mailing_with_sales_2_days_in_future['ad_mail'],
-    ads_sales_data_mailing_with_sales_2_days_in_future['sales']
-)
-ax.set_xlabel('ad_mail')
-ax.set_ylabel('sales')
-ax.grid()
-ax.set_title('Ad Mail Vs. Sales 2 days into the future')
-plt.show();
-
-```
-</div>
-
-<div class="output_wrapper" markdown="1">
-<div class="output_subarea" markdown="1">
-
-{:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_35_0.png)
-
-</div>
-</div>
-</div>
-
-
-
 We see now that there is indeed a positive correlation, let's look at how much they are correlated now.
 
 
@@ -919,6 +890,35 @@ ads_sales_data_mailing_with_sales_2_days_in_future.corr()
 
 
 
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+fig, ax = plt.subplots(1, 1)
+ax.scatter(
+    ads_sales_data_mailing_with_sales_2_days_in_future['ad_mail'],
+    ads_sales_data_mailing_with_sales_2_days_in_future['sales']
+)
+ax.set_xlabel('ad_mail')
+ax.set_ylabel('sales')
+ax.grid()
+ax.set_title('Ad Mail Vs. Sales 2 days into the future')
+plt.show();
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_37_0.png)
+
+</div>
+</div>
+</div>
+
+
+
 $\rho = 0.55$, a reasonable level of correlation between `ad_mail` and `sales`, let's find the OLS solution ("best fit line"), AKA:
 
 $$
@@ -972,9 +972,132 @@ plt.show();
 
 
 
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+r**2
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+0.2984606483222848
+```
+
+
+</div>
+</div>
+</div>
+
+
+
 ### Conclusion
 
 Seems like there's a lag of 2 days + between when the ad is launched and when it has taken effect. Specifically, it looks like the company starts increasing ad mail volume mid-week and sales peak on the weekends and this trend continues throughout the year. This could possibly be because no one is in the office in the weekends or because the company expects ad delivery to reach the customer only after 2 days +. Also, from our OLS estimate, we observe that whenever we increase \\$1 of `ad_mail`, we increase our `sales` revenue by \\$1.14. Furthermore, when we have absolutely no ads at all, our regression prediction is that our base sales revenue would be \\$106.66.
+
+
+
+### Filter out the Discount Days and sales after november 15th
+
+We will remove the days with discounts and days after November 15th because we want to isolate the effect that advertising and advertising alone has on sales. Discounts and Holiday periods after November 15th merely serve as noise for our model.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+ads_sales_data_mailing_removed_discount_days = ads_sales_data_mailing_with_sales_2_days_in_future[ads_sales_data_mailing['discount'] == 0]
+ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15 = ads_sales_data_mailing_removed_discount_days[ads_sales_data_mailing_removed_discount_days.index < pd.datetime(2017, 11, 15)]
+
+```
+</div>
+
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+fig, ax = plt.subplots(1, 1)
+ax.scatter(
+    ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['ad_mail'],
+    ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['sales']
+)
+ax.set_xlabel('ad_mail')
+ax.set_ylabel('sales')
+ax.grid()
+ax.set_title('Ad Mail Vs. Sales (Before November 15th and Discount Days removed)')
+plt.show();
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_44_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+r = ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15.corr().iloc[0, 1]
+s_y = ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['sales'].std()
+s_x = ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['ad_mail'].std()
+y_bar = ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['sales'].std()
+x_bar = ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['ad_mail'].mean()
+gradient = r * s_y / s_x
+y_intercept = y_bar - (gradient * x_bar)
+x = np.linspace(
+    ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['ad_mail'].min(),
+    ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['ad_mail'].max(),
+    num=100
+)
+y_hat = np.add(np.dot(gradient, x), y_intercept)
+
+fig, ax = plt.subplots(1, 1)
+ax.plot(x, y_hat, label='OLS estimate $y = {}x + {}$'.format(round(gradient, 2), round(y_intercept, 2)))
+ax.scatter(
+    ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['ad_mail'],
+    ads_sales_data_mailing_removed_discount_days_removed_date_after_nov_15['sales']
+)
+ax.set_xlabel('ad_mail')
+ax.set_ylabel('sales')
+ax.grid()
+ax.set_title('Ad Mail Vs. Sales 2 days into the future')
+ax.legend()
+plt.show();
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_45_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+### Filter out the Weekends too
+
+We will remove the weekends too
 
 
 
@@ -1007,9 +1130,66 @@ ad_online_sales_decomposed.trend.plot().grid();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_43_0.png)
+![png](../../../images/machine-learning/09-miscellaneous-topics/classes/buad307_49_0.png)
 
 </div>
 </div>
 </div>
+
+
+
+---
+# 4 Ps (Marketing Mix)
+
+### Price
+
+### Product
+- *Product Line*: Breadth of product line is how many products that are  being offered
+
+### Promotion
+
+### Place
+
+
+
+---
+# 5 Cs
+
+1. Company
+2. Customers
+3. Competitors
+4. Collaborators
+5. Climate
+
+
+
+---
+# Communication Channels
+
+## One-Way
+- Radio, Newspapers, Magazines, Television
+
+## Two-Way
+- 
+
+
+
+---
+# Push Strategy Vs. Pull Strategy
+
+- When we already have the product we advertize and try to convince consumer to buy
+- When we don't have product we ask consumer what they want
+
+
+
+Willingness to Pay <-> Perceived Value
+
+True Economic Value -> WTP when there is no uncertainty
+
+True Economic Value - WTP = Risk Premium
+
+
+
+Price Sensitivity
+- Buyer Stickiness is the state dependence
 

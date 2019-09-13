@@ -21,8 +21,9 @@ We'll walkthrough the modeling phase of statistical regression analysis in this 
 1. [Simple Linear Regression](#simplelinreg)
 2. [Multiple Linear Regression](#multiplelinreg)
 3. [Polynomial Regression](#polyreg)
-3. [General Linear Models](#glm)
-4. [Generalized Linear Models](#glim)
+4. [Quantile Regression](#quantilereg)
+5. [General Linear Models](#glm)
+6. [Generalized Linear Models](#glim)
 
 ## Preliminaries
 
@@ -226,6 +227,12 @@ $$
 $$
 y = w_0 + w_1x_1 + w_2x_2 +w_3x_3 + \ldots + w_nx_n
 $$
+
+
+
+---
+# Quantile Regression
+- If data is highly skewed, quantile regression preferred because linear regression models the mean which is highly affected by the skew.
 
 
 
