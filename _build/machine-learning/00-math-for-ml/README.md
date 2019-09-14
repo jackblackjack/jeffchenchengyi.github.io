@@ -3,8 +3,8 @@ redirect_from:
   - "/machine-learning/00-math-for-ml/readme"
 title: 'Math for Machine Learning'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/sequence-models/intro
-  title: 'Types of Sequence Models'
+  url: /machine-learning/08-genetic-algorithms/saga-fpga
+  title: 'Evolutionary Algorithms on FPGAs'
 next_page:
   url: /machine-learning/00-math-for-ml/calculus
   title: 'Calculus'
