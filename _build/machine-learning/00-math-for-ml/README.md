@@ -10,44 +10,13 @@ next_page:
   title: 'Calculus'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-# Exploring Housing Prices in Singapore
+# Math for Machine Learning
 
-<img src="https://thesmartlocal.com/wp-content/uploads/2014/09/images_easyblog_images_2088_Beautiful-Homes_Hillside-House-1.jpg" />
+<img src='https://media.tenor.com/images/f6452676b8ebe26bbac383ba74ab22af/tenor.gif' style='border: 5px solid black; border-radius: 5px;'/>
+
+The area of data science is the intersection of many fields of math, programming, and business. Here we will focus on the math aspect to ensure that there's a solid foundation on which we can build programming logic and develop business acumen over.
 
 ### Table of Contents
-
-1. [Installation](#installation)
-2. [Project Motivation](#motivation)
-3. [File Descriptions](#files)
-4. [Results](#results)
-5. [Licensing, Authors, and Acknowledgements](#licensing)
-
-## Installation <a name="installation"></a>
-
-You can install all required packages to run this project through `pip install -r requirements.txt`.
-
-## Project Motivation<a name="motivation"></a>
-
-For this project, I was interestested in scraping property listing data from www.99.co to better understand:
-
-1. The Distribution of Property listings by districts and whether the clusters we form by clustering the property listings by their features such as `sqft` and `number of bus stops nearby` will correspond to the 28 designated districts in Singapore.
-2. What are the most important features for predicting the price of a property?
-3. What are the properties with the largest land plots in the District 9, 10, 11 (Central) area of Singapore?
-
-## File Descriptions <a name="files"></a>
-
-There are 4 notebooks available here to showcase work related to the above questions:
-1. `exploring-house-prices-singapore-part-1-extract-transform.ipynb` - Part 1 of the ETL operations (Webscraping www.99.co)
-2. `exploring-house-prices-singapore-part-2-transform-load.ipynb` - Part 2 of the ETL operations (Transforming and Saving the files to `.csv` for later use)
-3. `exploring-house-prices-singapore-part-3-crispdm.ipynb` - The main analysis with all the code
-4. `exploring-house-prices-singapore-part-3-crispdm-non-technical` - Analysis without the code
-
-Along with the notebooks, we also have a few scripts such as `clean_99co.py`, `scrape_99co.py`, and `webscraper_99co.py` that contain the functions required for scraping, cleaning, and transforming the data from 99.co for use in our machine learning models and analysis.
-
-## Results<a name="results"></a>
-
-The main findings of the code can be found at the post available [here](https://jeffchenchengyi.github.io/portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical.html).
-
-## Licensing, Authors, Acknowledgements<a name="licensing"></a>
-
-Must give credit to www.99.co for the data.
+1. [Calculus](https://jeffchenchengyi.github.io/machine-learning/00-math-for-ml/calculus.html)
+2. [Linear Algebra and Differential Equations](https://jeffchenchengyi.github.io/machine-learning/00-math-for-ml/linalg-de.html)
+3. [Probability Theory and Statistics](https://jeffchenchengyi.github.io/machine-learning/00-math-for-ml/probability-statistics.html)
