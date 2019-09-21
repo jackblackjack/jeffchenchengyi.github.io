@@ -1,13 +1,13 @@
 ---
 redirect_from:
   - "/machine-learning/09-miscellaneous-topics/readme"
-title: 'USC Classes'
+title: 'BUAD 307 - Marketing Fundamentals'
 prev_page:
   url: /machine-learning/00-math-for-ml/probability-statistics
   title: 'Probability Theory and Statistics'
 next_page:
-  url: /machine-learning/09-miscellaneous-topics/classes/buad307
-  title: 'BUAD 307 - Marketing Fundamentals'
+  url: /machine-learning/09-miscellaneous-topics/classes/fall19/buad307/ad_sales_analysis
+  title: 'Ad Analysis'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 # USC Classes

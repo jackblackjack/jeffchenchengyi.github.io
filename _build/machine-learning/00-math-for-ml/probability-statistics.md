@@ -8,7 +8,7 @@ prev_page:
   title: 'Linear Algebra and Differential Equations'
 next_page:
   url: /machine-learning/09-miscellaneous-topics/README
-  title: 'USC Classes'
+  title: 'BUAD 307 - Marketing Fundamentals'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -161,11 +161,20 @@ plt.rcParams['figure.figsize'] = (18, 12)
 
 
 
-## Geometric
+## [Geometric](https://en.wikipedia.org/wiki/Geometric_distribution)
 
 - Special case of **Negative Binomial** where $k=1$
 - Distribution of the number of **i.i.d.** Bernoulli trials needed to get the first success
     - e.g. If a coin is repeatedly tossed, what is the probability that the **first** time heads appears occurs on the 8th toss?
+    - e.g. Expected number of rounds it takes for consumer to find something that they want to buy can be modelled by a geometric distribution
+    
+$$
+\begin{aligned}
+PMF &= {(1-p)}^{k-1}p \\
+\mathbb{E}[X] &= \mu = \frac{1}{p} \\
+\mathbb{E}[X^2] - \mathbb{E}[X]^2 &= \sigma^2 = \frac{1 - p}{p^2}
+\end{aligned}
+$$
 
 
 
