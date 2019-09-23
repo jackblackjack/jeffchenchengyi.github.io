@@ -74,7 +74,7 @@ plt.rcParams['figure.figsize'] = (18, 12)
 ---
 # Game 1:
 
-<img src='./data/sequential_search_example.png' />
+<img src='sequential_search_example.png' />
 
 
 
@@ -137,15 +137,15 @@ max_E_S = E_S(opt_C)
 fig, ax = plt.subplots(2, 1)
 
 ax[0].plot(C, E_S(C), label='$\mathbb{E}[S] Vs. C$')
-ax[0].plot([opt_C]*len(C), E_S(C), label='Optimal C = {}'.format(round(opt_C, 2)))
-ax[0].plot(np.arange(0, opt_C, 0.01), [max_E_S]*len(np.arange(0, opt_C, 0.01)), label='Maximimum $\mathbb{E}[S]$ = '+str(round(max_E_S, 2)))
+ax[0].plot([opt_C]*len(C), E_S(C), 'r--', label='Optimal C = {}'.format(round(opt_C, 2)))
+ax[0].plot(np.arange(0, opt_C, 0.01), [max_E_S]*len(np.arange(0, opt_C, 0.01)), 'r--', label='Maximimum $\mathbb{E}[S]$ = '+str(round(max_E_S, 2)))
 ax[0].grid()
 ax[0].set_xlabel('Cut-Off $C$')
 ax[0].set_ylabel('$\mathbb{E}[S]$')
 ax[0].legend()
 
 ax[1].plot(C, dE_SdC(C), label='$d\mathbb{E}[S]/dC Vs. C$')
-ax[1].plot([opt_C]*len(C), dE_SdC(C), label='Optimal C')
+ax[1].plot([opt_C]*len(C), dE_SdC(C), 'r--', label='Optimal C')
 ax[1].grid()
 ax[1].set_xlabel('Cut-Off $C$')
 ax[1].set_ylabel('$d\mathbb{E}[S]/dC$')
@@ -237,15 +237,15 @@ max_E_S = E_S(opt_C)
 fig, ax = plt.subplots(2, 1)
 
 ax[0].plot(C, E_S(C), label='$\mathbb{E}[S] Vs. C$')
-ax[0].plot([opt_C]*len(C), E_S(C), label='Optimal C = {}'.format(round(opt_C, 2)))
-ax[0].plot(np.arange(0, opt_C, 0.01), [max_E_S]*len(np.arange(0, opt_C, 0.01)), label='Maximimum $\mathbb{E}[S]$ = '+str(round(max_E_S, 2)))
+ax[0].plot([opt_C]*len(C), E_S(C), 'r--', label='Optimal C = {}'.format(round(opt_C, 2)))
+ax[0].plot(np.arange(0, opt_C, 0.01), [max_E_S]*len(np.arange(0, opt_C, 0.01)), 'r--', label='Maximimum $\mathbb{E}[S]$ = '+str(round(max_E_S, 2)))
 ax[0].grid()
 ax[0].set_xlabel('Cut-Off $C$')
 ax[0].set_ylabel('$\mathbb{E}[S]$')
 ax[0].legend()
 
 ax[1].plot(C, dE_SdC(C), label='$d\mathbb{E}[S]/dC Vs. C$')
-ax[1].plot([opt_C]*len(C), dE_SdC(C), label='Optimal C')
+ax[1].plot([opt_C]*len(C), dE_SdC(C), 'r--', label='Optimal C')
 ax[1].grid()
 ax[1].set_xlabel('Cut-Off $C$')
 ax[1].set_ylabel('$d\mathbb{E}[S]/dC$')
@@ -337,15 +337,15 @@ max_E_S = E_S(opt_C)
 fig, ax = plt.subplots(2, 1)
 
 ax[0].plot(C, E_S(C), label='$\mathbb{E}[S] Vs. C$')
-ax[0].plot([opt_C]*len(C), E_S(C), label='Optimal C = {}'.format(round(opt_C, 2)))
-ax[0].plot(np.arange(0, opt_C, 0.01), [max_E_S]*len(np.arange(0, opt_C, 0.01)), label='Maximimum $\mathbb{E}[S]$ = '+str(round(max_E_S, 2)))
+ax[0].plot([opt_C]*len(C), E_S(C), 'r--', label='Optimal C = {}'.format(round(opt_C, 2)))
+ax[0].plot(np.arange(0, opt_C, 0.01), [max_E_S]*len(np.arange(0, opt_C, 0.01)), 'r--', label='Maximimum $\mathbb{E}[S]$ = '+str(round(max_E_S, 2)))
 ax[0].grid()
 ax[0].set_xlabel('Cut-Off $C$')
 ax[0].set_ylabel('$\mathbb{E}[S]$')
 ax[0].legend()
 
 ax[1].plot(C, dE_SdC(C), label='$d\mathbb{E}[S]/dC Vs. C$')
-ax[1].plot([opt_C]*len(C), dE_SdC(C), label='Optimal C')
+ax[1].plot([opt_C]*len(C), dE_SdC(C), 'r--', label='Optimal C')
 ax[1].grid()
 ax[1].set_xlabel('Cut-Off $C$')
 ax[1].set_ylabel('$d\mathbb{E}[S]/dC$')
