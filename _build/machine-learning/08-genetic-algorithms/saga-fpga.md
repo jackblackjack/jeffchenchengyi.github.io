@@ -7,8 +7,8 @@ prev_page:
   url: /machine-learning/08-genetic-algorithms/README
   title: 'Species Adaptation Genetic Algorithms'
 next_page:
-  url: /machine-learning/00-math-for-ml/README
-  title: 'Math for Machine Learning'
+  url: /machine-learning/08-genetic-algorithms/overview-of-es
+  title: 'Overview of Evolutionary Strategies'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

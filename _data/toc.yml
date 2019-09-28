@@ -201,6 +201,16 @@
   sections:
   - title: Evolutionary Algorithms on FPGAs
     url: /machine-learning/08-genetic-algorithms/saga-fpga
+  - title: Overview of Evolutionary Strategies
+    url: /machine-learning/08-genetic-algorithms/overview-of-es
+  - title: Evolutionary Strategies
+    url: /machine-learning/08-genetic-algorithms/evolutionary-strategies
+  - title: Evolutionary Strategies Vs. Reinforcement Learning
+    url: /machine-learning/08-genetic-algorithms/es-vs-rl
+  - title: Novelty Search
+    url: /machine-learning/08-genetic-algorithms/novelty-search
+  - title: Human Behavior Particle Swarm Optimization on Hardware Configuration
+    url: /machine-learning/08-genetic-algorithms/hbpso-ehw
 
 - divider: true
 - header: Other Topics
