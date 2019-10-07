@@ -7,8 +7,8 @@ prev_page:
   url: /portfolio/dengai/06b-dengai
   title: '06b - Time Series Analysis (Continued)'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/README
-  title: 'Models'
+  url: /machine-learning/09-miscellaneous-topics/extras/README
+  title: 'Other Challenges'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -677,6 +677,22 @@ Probability distribution families:
 
 
 ---
+# Frequentist Statistics
+
+Confidence Intervals:
+- 
+
+
+
+---
+# Bayesian Statistics
+
+Credible Intervals:
+- 
+
+
+
+---
 # Hypothesis Testing
 
 There are 2 probability distributions that we deal with when talking about Hypothesis testing:
@@ -798,7 +814,7 @@ plot_dists_given_H0_true(mean=50, std=21, n=36, alpha=0.09)
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_41_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_43_0.png)
 
 </div>
 </div>
@@ -869,7 +885,7 @@ plot_H0_true_dist_and_actual_dist(ax=ax, H0_mean=50, actual_mean=43, std=21, n=3
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_44_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_46_0.png)
 
 </div>
 </div>
@@ -933,7 +949,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_49_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_51_0.png)
 
 </div>
 </div>
@@ -972,7 +988,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_52_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_54_0.png)
 
 </div>
 </div>
@@ -1006,7 +1022,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_55_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_57_0.png)
 
 </div>
 </div>

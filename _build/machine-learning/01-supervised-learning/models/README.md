@@ -3,8 +3,8 @@ redirect_from:
   - "/machine-learning/01-supervised-learning/models/readme"
 title: 'Models'
 prev_page:
-  url: /portfolio/dengai/07-dengai
-  title: '07 - Eliminating Seasonality'
+  url: /machine-learning/09-miscellaneous-topics/extras/review-ratings-challenge-v3
+  title: 'QuantHub Review Ratings Data Challenge'
 next_page:
   url: /machine-learning/01-supervised-learning/models/bayes-optimal-classifier
   title: 'Bayes Optimal Classifier'
