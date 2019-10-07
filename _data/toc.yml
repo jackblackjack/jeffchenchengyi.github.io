@@ -92,6 +92,12 @@
       url: /portfolio/dengai/06b-dengai
     - title: 07 - Eliminating Seasonality
       url: /portfolio/dengai/07-dengai
+- title: Other Challenges
+  url: /portfolio/
+  not_numbered: true
+  sections:
+    - title: QuantHub Review Ratings Data Challenge
+      url: /machine-learning/09-miscellaneous-topics/extras/review-ratings-challenge-v3
 
 - divider: true
 - header: Supervised Learning

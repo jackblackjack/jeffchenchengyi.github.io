@@ -9,6 +9,7 @@
 
 # Specially ignore these files / subfolders
 **/portfolio/udacity/05-disaster-response/flask_exercise/
+**/machine-learning/09-miscellaneous-topics/internships/
 **/machine-learning/09-miscellaneous-topics/aws/aws-big-data/AWSCertBigData-Materials/
 **/machine-learning/09-miscellaneous-topics/aws/aws-big-data/BigData.pem
 **/machine-learning/09-miscellaneous-topics/aws/aws-machine-learning/AmazonSageMakerCourse-master/
