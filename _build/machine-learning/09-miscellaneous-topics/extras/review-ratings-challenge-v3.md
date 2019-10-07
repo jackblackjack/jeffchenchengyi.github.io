@@ -737,7 +737,7 @@ review_ratings_with_headers['user_id'].describe()
 ```
 count          4456
 unique         4456
-top       User 4404
+top       User 4289
 freq              1
 Name: user_id, dtype: object
 ```
@@ -2882,7 +2882,7 @@ for edge in edges:
         dest = graph.get_node(str(edges[edge][i]))[0]
         dest.set_fillcolor(colors[i])
 
-graph.write_png('./data/first_tree.png')
+graph.write_png('first_tree.png')
 
 ```
 </div>
@@ -2903,7 +2903,7 @@ True
 
 
 
-<img src='./data/first_tree.png' />
+<img src='./first_tree.png' />
 
 
 
