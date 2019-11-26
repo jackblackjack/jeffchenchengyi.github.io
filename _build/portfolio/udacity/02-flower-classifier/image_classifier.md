@@ -6,10 +6,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Flower Classifier with Transfer Learning'
 prev_page:
-  url: /portfolio/udacity/01-finding-donors/finding_donors
+  url: /portfolio/udacity/01-finding-donors/finding_donors.html
   title: 'Finding Donors with US Census Burea Data'
 next_page:
-  url: /portfolio/udacity/03-identifying-customer-segments/identifying-customer-segments
+  url: /portfolio/udacity/03-identifying-customer-segments/identifying-customer-segments.html
   title: 'Identifying Customer Segments with Arvato'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

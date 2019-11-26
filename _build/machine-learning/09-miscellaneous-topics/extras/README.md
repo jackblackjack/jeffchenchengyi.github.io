@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/09-miscellaneous-topics/extras/readme"
 title: 'Other Challenges'
 prev_page:
-  url: /portfolio/dengai/07-dengai
+  url: /portfolio/dengai/07-dengai.html
   title: '07 - Eliminating Seasonality'
 next_page:
-  url: /machine-learning/09-miscellaneous-topics/extras/review-ratings-challenge-v3
+  url: /machine-learning/09-miscellaneous-topics/extras/review-ratings-challenge-v3.html
   title: 'QuantHub Review Ratings Data Challenge'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

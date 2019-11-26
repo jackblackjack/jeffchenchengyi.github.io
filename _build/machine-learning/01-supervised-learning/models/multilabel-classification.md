@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Multi-Label models'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/statistical-regression-analysis
+  url: /machine-learning/01-supervised-learning/models/statistical-regression-analysis.html
   title: 'Statistical Regression Analysis'
 next_page:
-  url: /machine-learning/01-supervised-learning/estimation/README
+  url: /machine-learning/01-supervised-learning/estimation/README.html
   title: 'Estimation'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

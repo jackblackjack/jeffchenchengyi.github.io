@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Continuous Bag of Words'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/word2vec/README
+  url: /machine-learning/06-natural-language-processing/word2vec/README.html
   title: 'Word2Vec'
 next_page:
-  url: /machine-learning/06-natural-language-processing/word2vec/skipngram
+  url: /machine-learning/06-natural-language-processing/word2vec/skipngram.html
   title: 'Skip N-gram'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

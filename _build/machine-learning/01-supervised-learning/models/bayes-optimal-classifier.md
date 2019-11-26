@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Bayes Optimal Classifier'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/README
+  url: /machine-learning/01-supervised-learning/models/README.html
   title: 'Models'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/nn
+  url: /machine-learning/01-supervised-learning/models/nn.html
   title: 'K-Nearest Neighbours'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

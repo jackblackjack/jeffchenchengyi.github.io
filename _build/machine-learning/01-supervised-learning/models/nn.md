@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'K-Nearest Neighbours'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/bayes-optimal-classifier
+  url: /machine-learning/01-supervised-learning/models/bayes-optimal-classifier.html
   title: 'Bayes Optimal Classifier'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/perceptron
+  url: /machine-learning/01-supervised-learning/models/perceptron.html
   title: 'Perceptron'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

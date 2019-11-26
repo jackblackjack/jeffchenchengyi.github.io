@@ -1,0 +1,10 @@
+digraph {
+	node [shape=box]
+	course
+	institute
+	student
+	node [shape=ellipse]
+	name0 [label=name]
+	label="\n\nEntity Relation Diagram\ndrawn by NEATO"
+	fontsize=20
+}

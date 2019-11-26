@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Gaussian Mixture Models'
 prev_page:
-  url: /machine-learning/02-unsupervised-learning/clustering/k-means
+  url: /machine-learning/02-unsupervised-learning/clustering/k-means.html
   title: 'K-Means'
 next_page:
-  url: /machine-learning/03-neural-networks/basics/README
+  url: /machine-learning/03-neural-networks/basics/README.html
   title: 'Basics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -219,4 +219,5 @@ If there is no convergence, go back to Step 2: Expectation Step
 - [GMM-EM Wiki](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm#Gaussian_mixture)
 - [Deriving MLE estimates for Gaussian Distribution Parameters](https://stats.stackexchange.com/questions/351549/maximum-likelihood-estimators-multivariate-gaussian)
 - [Indian Institute of Technology notes](http://www.cse.iitm.ac.in/~vplab/courses/DVP/PDF/gmm.pdf)
+- [David Rosenberg on GMM](https://davidrosenberg.github.io/mlcourse/Archive/2017/Lectures/13.lab.mixture-models.pdf)
 

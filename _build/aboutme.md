@@ -4,7 +4,7 @@ kernel_name: python3
 has_widgets: false
 title: 'About Me'
 prev_page:
-  url: /intro
+  url: /intro.html
   title: 'Home'
 next_page:
   url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io

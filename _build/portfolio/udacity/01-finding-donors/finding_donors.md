@@ -6,10 +6,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Finding Donors with US Census Burea Data'
 prev_page:
-  url: /portfolio/udacity/README
+  url: /portfolio/udacity/README.html
   title: 'Udacity Data Scientist Nanodegree Program Projects'
 next_page:
-  url: /portfolio/udacity/02-flower-classifier/image_classifier
+  url: /portfolio/udacity/02-flower-classifier/image_classifier.html
   title: 'Flower Classifier with Transfer Learning'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

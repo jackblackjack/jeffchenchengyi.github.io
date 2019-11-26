@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Perceptron'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/nn
+  url: /machine-learning/01-supervised-learning/models/nn.html
   title: 'K-Nearest Neighbours'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/svm
+  url: /machine-learning/01-supervised-learning/models/svm.html
   title: 'SVM'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

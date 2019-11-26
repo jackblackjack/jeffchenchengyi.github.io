@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/00-math-for-ml/readme"
 title: 'Math for Machine Learning'
 prev_page:
-  url: /machine-learning/08-genetic-algorithms/hbpso-ehw
+  url: /machine-learning/08-genetic-algorithms/hbpso-ehw.html
   title: 'Human Behavior Particle Swarm Optimization on Hardware Configuration'
 next_page:
-  url: /machine-learning/00-math-for-ml/calculus
+  url: /machine-learning/00-math-for-ml/calculus.html
   title: 'Calculus'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

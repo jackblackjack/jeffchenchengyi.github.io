@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/06-natural-language-processing/basics/readme"
 title: 'Basics'
 prev_page:
-  url: /machine-learning/10-bayesian-methods/hmm
+  url: /machine-learning/10-bayesian-methods/hmm.html
   title: 'Hidden Markov Models'
 next_page:
-  url: /machine-learning/06-natural-language-processing/basics/nlp-pipeline
+  url: /machine-learning/06-natural-language-processing/basics/nlp-pipeline.html
   title: 'Natural Language Processing Pipeline'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

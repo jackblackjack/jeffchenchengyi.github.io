@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '03b - Reducing number of PCA components'
 prev_page:
-  url: /portfolio/dengai/03a-dengai
+  url: /portfolio/dengai/03a-dengai.html
   title: '03a - Feature Scaling and PCA'
 next_page:
-  url: /portfolio/dengai/04-dengai
+  url: /portfolio/dengai/04-dengai.html
   title: '04 - Looking at the Benchmark'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

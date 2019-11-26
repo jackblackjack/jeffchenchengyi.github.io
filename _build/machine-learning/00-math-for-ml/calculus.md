@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Calculus'
 prev_page:
-  url: /machine-learning/00-math-for-ml/README
+  url: /machine-learning/00-math-for-ml/README.html
   title: 'Math for Machine Learning'
 next_page:
-  url: /machine-learning/00-math-for-ml/linalg-de
+  url: /machine-learning/00-math-for-ml/linalg-de.html
   title: 'Linear Algebra and Differential Equations'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

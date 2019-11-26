@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Overview of Evolutionary Strategies'
 prev_page:
-  url: /machine-learning/08-genetic-algorithms/saga-fpga
+  url: /machine-learning/08-genetic-algorithms/saga-fpga.html
   title: 'Evolutionary Algorithms on FPGAs'
 next_page:
-  url: /machine-learning/08-genetic-algorithms/evolutionary-strategies
+  url: /machine-learning/08-genetic-algorithms/evolutionary-strategies.html
   title: 'Evolutionary Strategies'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

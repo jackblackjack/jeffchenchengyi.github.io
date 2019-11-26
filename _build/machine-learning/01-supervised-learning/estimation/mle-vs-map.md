@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Maximum Likelihood Estimation Vs Maximum A Priori'
 prev_page:
-  url: /machine-learning/01-supervised-learning/estimation/README
+  url: /machine-learning/01-supervised-learning/estimation/README.html
   title: 'Estimation'
 next_page:
-  url: /machine-learning/01-supervised-learning/estimation/convex-optimization
+  url: /machine-learning/01-supervised-learning/estimation/convex-optimization.html
   title: 'Convex Optimization'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

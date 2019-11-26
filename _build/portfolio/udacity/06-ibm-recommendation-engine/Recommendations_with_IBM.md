@@ -6,10 +6,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Recommendation Systems for Articles with IBM'
 prev_page:
-  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
+  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation.html
   title: 'Disaster Response'
 next_page:
-  url: /portfolio/udacity/07-datascience-capstone/Sparkify
+  url: /portfolio/udacity/07-datascience-capstone/Sparkify.html
   title: 'Predicting Churn Rates for "Sparkify"'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

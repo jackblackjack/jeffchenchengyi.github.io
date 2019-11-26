@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'K-Means'
 prev_page:
-  url: /machine-learning/02-unsupervised-learning/clustering/README
+  url: /machine-learning/02-unsupervised-learning/clustering/README.html
   title: 'Clustering'
 next_page:
-  url: /machine-learning/02-unsupervised-learning/clustering/gmm
+  url: /machine-learning/02-unsupervised-learning/clustering/gmm.html
   title: 'Gaussian Mixture Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

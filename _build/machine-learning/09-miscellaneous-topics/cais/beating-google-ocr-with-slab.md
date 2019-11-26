@@ -4,7 +4,7 @@ kernel_name: python3
 has_widgets: false
 title: 'Beating Google's OCR with CAIS++ and SLAB @ USC'
 prev_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical.html
   title: 'Exploring Condominiums in Singapore'
 next_page:
   url: https://github.com/lucashu1/education-deserts

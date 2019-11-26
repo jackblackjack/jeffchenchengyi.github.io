@@ -3,10 +3,10 @@ redirect_from:
   - "/portfolio/dengai/readme"
 title: 'DengAI'
 prev_page:
-  url: /portfolio/udacity/07-datascience-capstone/Sparkify
+  url: /portfolio/udacity/07-datascience-capstone/Sparkify.html
   title: 'Predicting Churn Rates for "Sparkify"'
 next_page:
-  url: /portfolio/dengai/00-dengai
+  url: /portfolio/dengai/00-dengai.html
   title: '00 - Data Preprocessing'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

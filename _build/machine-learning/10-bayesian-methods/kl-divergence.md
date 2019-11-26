@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Kullback-Liebler Divergence'
 prev_page:
-  url: /machine-learning/10-bayesian-methods/generative-vs-discriminative
+  url: /machine-learning/10-bayesian-methods/generative-vs-discriminative.html
   title: 'Generative Vs Discriminative'
 next_page:
-  url: /machine-learning/10-bayesian-methods/pgm
+  url: /machine-learning/10-bayesian-methods/pgm.html
   title: 'Probabilistic Graphical Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

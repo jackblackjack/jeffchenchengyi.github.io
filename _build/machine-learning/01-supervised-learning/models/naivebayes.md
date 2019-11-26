@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Naive Bayes Classifier'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/svm
+  url: /machine-learning/01-supervised-learning/models/svm.html
   title: 'SVM'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/logistic-regression
+  url: /machine-learning/01-supervised-learning/models/logistic-regression.html
   title: 'Logistic Regression'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

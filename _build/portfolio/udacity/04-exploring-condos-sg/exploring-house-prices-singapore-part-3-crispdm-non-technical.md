@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Exploring Condominiums in Singapore'
 prev_page:
-  url: /portfolio/README
+  url: /portfolio/README.html
   title: 'Non-Technical Posts'
 next_page:
-  url: /machine-learning/09-miscellaneous-topics/cais/beating-google-ocr-with-slab
+  url: /machine-learning/09-miscellaneous-topics/cais/beating-google-ocr-with-slab.html
   title: 'Beating Google's OCR with CAIS++ and SLAB @ USC'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

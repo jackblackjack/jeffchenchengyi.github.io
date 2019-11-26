@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Skip N-gram'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/word2vec/cbow
+  url: /machine-learning/06-natural-language-processing/word2vec/cbow.html
   title: 'Continuous Bag of Words'
 next_page:
-  url: /machine-learning/06-natural-language-processing/sequence-models/README
+  url: /machine-learning/06-natural-language-processing/sequence-models/README.html
   title: 'Sequence Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

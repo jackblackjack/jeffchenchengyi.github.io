@@ -4,7 +4,7 @@ kernel_name: python3
 has_widgets: false
 title: 'Sequential Search Simulation'
 prev_page:
-  url: /machine-learning/09-miscellaneous-topics/classes/fall19/buad307/ad_sales_analysis
+  url: /machine-learning/09-miscellaneous-topics/classes/fall19/buad307/ad_sales_analysis.html
   title: 'Ad Analysis'
 next_page:
   url: 

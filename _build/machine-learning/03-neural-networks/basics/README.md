@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/03-neural-networks/basics/readme"
 title: 'Basics'
 prev_page:
-  url: /machine-learning/02-unsupervised-learning/clustering/gmm
+  url: /machine-learning/02-unsupervised-learning/clustering/gmm.html
   title: 'Gaussian Mixture Models'
 next_page:
-  url: /machine-learning/03-neural-networks/basics/math-of-nn
+  url: /machine-learning/03-neural-networks/basics/math-of-nn.html
   title: 'Math of Neural Nets'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

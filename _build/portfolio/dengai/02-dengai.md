@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '02 - Gauss-Markov Assumptions (OLS)'
 prev_page:
-  url: /portfolio/dengai/01-dengai
+  url: /portfolio/dengai/01-dengai.html
   title: '01 - Naive Regressors'
 next_page:
-  url: /portfolio/dengai/03a-dengai
+  url: /portfolio/dengai/03a-dengai.html
   title: '03a - Feature Scaling and PCA'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

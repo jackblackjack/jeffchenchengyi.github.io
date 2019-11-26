@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '04 - Looking at the Benchmark'
 prev_page:
-  url: /portfolio/dengai/03b-dengai
+  url: /portfolio/dengai/03b-dengai.html
   title: '03b - Reducing number of PCA components'
 next_page:
-  url: /portfolio/dengai/05-dengai
+  url: /portfolio/dengai/05-dengai.html
   title: '05 - TPOT'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

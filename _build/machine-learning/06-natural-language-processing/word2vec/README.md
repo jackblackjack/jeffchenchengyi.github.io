@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/06-natural-language-processing/word2vec/readme"
 title: 'Word2Vec'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/basics/nlp-pipeline
+  url: /machine-learning/06-natural-language-processing/basics/nlp-pipeline.html
   title: 'Natural Language Processing Pipeline'
 next_page:
-  url: /machine-learning/06-natural-language-processing/word2vec/cbow
+  url: /machine-learning/06-natural-language-processing/word2vec/cbow.html
   title: 'Continuous Bag of Words'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

@@ -6,10 +6,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Predicting Churn Rates for "Sparkify"'
 prev_page:
-  url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
+  url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM.html
   title: 'Recommendation Systems for Articles with IBM'
 next_page:
-  url: /portfolio/dengai/README
+  url: /portfolio/dengai/README.html
   title: 'DengAI'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

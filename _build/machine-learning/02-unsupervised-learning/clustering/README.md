@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/02-unsupervised-learning/clustering/readme"
 title: 'Clustering'
 prev_page:
-  url: /machine-learning/01-supervised-learning/estimation/convex-optimization
+  url: /machine-learning/01-supervised-learning/estimation/convex-optimization.html
   title: 'Convex Optimization'
 next_page:
-  url: /machine-learning/02-unsupervised-learning/clustering/k-means
+  url: /machine-learning/02-unsupervised-learning/clustering/k-means.html
   title: 'K-Means'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

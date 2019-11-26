@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Evolutionary Strategies Vs. Reinforcement Learning'
 prev_page:
-  url: /machine-learning/08-genetic-algorithms/evolutionary-strategies
+  url: /machine-learning/08-genetic-algorithms/evolutionary-strategies.html
   title: 'Evolutionary Strategies'
 next_page:
-  url: /machine-learning/08-genetic-algorithms/novelty-search
+  url: /machine-learning/08-genetic-algorithms/novelty-search.html
   title: 'Novelty Search'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

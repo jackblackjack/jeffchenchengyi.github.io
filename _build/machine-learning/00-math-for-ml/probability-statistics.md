@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Probability Theory and Statistics'
 prev_page:
-  url: /machine-learning/00-math-for-ml/linalg-de
+  url: /machine-learning/00-math-for-ml/linalg-de.html
   title: 'Linear Algebra and Differential Equations'
 next_page:
-  url: /machine-learning/09-miscellaneous-topics/README
+  url: /machine-learning/09-miscellaneous-topics/README.html
   title: 'BUAD 307 - Marketing Fundamentals'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -22,53 +22,6 @@ We'll review some fundamental statistical and probability theory you need to kno
 2. [Basic Statistics](#bs)
 3. [Hypothesis Testing](#hyptest)
 4. [A/B Testing](#abtest)
-
-## Preliminaries
-
-### Basic Probability Rules
-
-Independence: $P(A \cap B) = P(A) \times P(B)$
-
-### Expectation and Moments of Random Variable
-
-Discrete:
-- 1st Moment - $\mathbb{E}[X] = \sum^N_{i = 1}xf_xdx = \mu$
-    - 1st Central Moment / Mean = 0
-- [2nd Moment](https://www.youtube.com/watch?v=cwa2xONQFOc) - $\mathbb{E}[X^2] = \sum^N_{i = 1}x^2f_xdx$
-    - 2nd Central Moment / Variance - $Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \sum^N_{i = 1}(x - \mu)^2f_xdx \underset{\text{expand}}{=} \mathbb{E}[X^2] - \mathbb{E}[X]^2 = \sigma^2$
-- 3rd Moment - $\mathbb{E}[X^2] = \sum^N_{i = 1}x^2f_xdx$
-
-Continuous:
-- 1st Moment - $\mathbb{E}[X] = \int^\infty_{-\infty}xf_xdx$
-- 2nd Moment - $\mathbb{E}[X^2] = \int^\infty_{-\infty}x^2f_xdx$
-
-$f_x$ is the output of the probability mass / distribution function @ $x$ 
-
-### Kurtosis
-
-### Skewness
-
-### Expectation and Variance Properties
-
-### Covariance
-
-### Correlation (Pearson's $R$)
-
-### Coefficient of Determination ($R^2$)
-
-### Coefficient of Variation
-
-### Population Vs. Sample Parameters
-
-Population:
-$$
-\mathbb{E}[X] = \mu,\,Var(X) = \sigma^2
-$$
-
-Sample:
-$$
-\bar{x} = \frac{1}{N}\sum^N_{i=1}x_i,\,s^2 = \frac{1}{N-1}\sum^N_{i=1}{(x_i - \bar{x})}^2
-$$
 
 
 
@@ -113,8 +66,150 @@ plt.rcParams['figure.figsize'] = (18, 12)
 
 
 
+## Preliminaries
+
+### Basic Probability Rules
+
+Independence: $P(A \cap B) = P(A) \times P(B)$
+
+### Expectation and Moments of Random Variable
+
+Discrete:
+- 1st Moment - $\mathbb{E}[X] = \sum^N_{i = 1}xf_xdx = \mu$
+    - 1st Central Moment / Mean = 0
+- [2nd Moment](https://www.youtube.com/watch?v=cwa2xONQFOc) - $\mathbb{E}[X^2] = \sum^N_{i = 1}x^2f_xdx$
+    - 2nd Central Moment / Variance - $Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \sum^N_{i = 1}(x - \mu)^2f_xdx \underset{\text{expand}}{=} \mathbb{E}[X^2] - \mathbb{E}[X]^2 = \sigma^2$
+- 3rd Moment - $\mathbb{E}[X^2] = \sum^N_{i = 1}x^2f_xdx$
+
+Continuous:
+- 1st Moment - $\mathbb{E}[X] = \int^\infty_{-\infty}xf_xdx$
+- 2nd Moment - $\mathbb{E}[X^2] = \int^\infty_{-\infty}x^2f_xdx$
+
+$f_x$ is the output of the probability mass / distribution function @ $x$ 
+
+### Kurtosis
+
+### Skewness
+
+### Expectation and Variance Properties
+
+
+
+### Covariance
+
+In both covariance / correlation matrices, if the off-diagonal element is 0, this does not necessarily imply independence. However, if 2 covariates are independent, their off-diagonal entry (covariance / correlation) will definitely be 0.
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+x_1 = [-3, -2, -1, 1, 2, 3]
+x_2 = [9, 4, 1, 1, 4, 9]
+np.cov([x_1, x_2])
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+
+{:.output_data_text}
+```
+array([[ 5.60000000e+00, -1.77635684e-16],
+       [-1.77635684e-16,  1.30666667e+01]])
+```
+
+
+</div>
+</div>
+</div>
+
+
+
+<div markdown="1" class="cell code_cell">
+<div class="input_area" markdown="1">
+```python
+fig, ax = plt.subplots(1, 1)
+ax.plot(x_1, x_2)
+ax.grid()
+ax.set_xlabel('x_1')
+ax.set_ylabel('x_2')
+plt.show();
+
+```
+</div>
+
+<div class="output_wrapper" markdown="1">
+<div class="output_subarea" markdown="1">
+
+{:.output_png}
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_6_0.png)
+
+</div>
+</div>
+</div>
+
+
+
+### Correlation (Pearson's $R$)
+
+### Coefficient of Determination ($R^2$)
+- [Only relevant for linear models](https://www.investopedia.com/terms/r/r-squared.asp)
+
+### Coefficient of Variation
+
+### Population Vs. Sample Parameters
+
+- Parameters are any values you need to describe a relationship, this will include mean, variance, gradient of a slope, y-intercept of a slope...
+
+Population:
+$$
+\mathbb{E}[X] = \mu,\,Var(X) = \sigma^2
+$$
+
+Sample:
+$$
+\bar{x} = \frac{1}{N}\sum^N_{i=1}x_i,\,s^2 = \frac{1}{N-1}\sum^N_{i=1}{(x_i - \bar{x})}^2
+$$
+
+### Minimum Variance, Unbiased Estimators
+- An estimator / model is a function used to provide an estimate $\hat{\beta}$ of the true population parameter $\beta^p$ / target variable we're modelling. Note that using the same estimator but with different samples may often result in different estimates
+
+- [Why divide the sample variance by N-1?](https://www.visiondummy.com/2014/03/divide-variance-n-1/#id2404251598)
+
+
+
 ---
 # Probability Distributions<a id='distributions'></a>
+
+
+
+### Examples of exponential family distributions
+Exponential families include many of the most common distributions. Among many others, exponential families includes the following:
+- normal
+- exponential
+- gamma
+- chi-squared
+- beta
+- Dirichlet
+- Bernoulli
+- categorical
+- Poisson
+- Wishart
+- inverse Wishart
+- geometric
+
+A number of common distributions are exponential families, but only when certain parameters are fixed and known. For example:
+
+- binomial (with fixed number of trials)
+- multinomial (with fixed number of trials)
+- negative binomial (with fixed number of failures)
+
+Notice that in each case, the parameters which must be fixed determine a limit on the size of observation values.
+
+Examples of common distributions that are not exponential families are Student's t, most mixture distributions, and even the family of uniform distributions when the bounds are not fixed. See the section below on examples for more discussion.
 
 
 
@@ -385,20 +480,6 @@ $$
 $$A = A^{H} (\text{Conjugate Transpose})$$
 - The complex extension of real symmetric matrices $(A = A^\top , a_{ij} = a_{ji} \in \mathbb{R})$
 
-#### Positive Semi-definiteness
-
-A $n \times n$ symmetric real matrix $M$ is said to be `positive semidefinite` or `non-negative definite` if $x^\textsf{T} Mx \geq 0$ for all non-zero $x$ in $\mathbb{R}^n$.
-
-$$
-M \text{ positive semi-definite} \quad \iff \quad x^\textsf{T} Mx \geq 0 \text{ for all } x \in \mathbb{R}^n \setminus \mathbf{0}
-$$
-
-A $n \times n$ Hermitian complex matrix $M$ is said to be `positive semi-definite` or `non-negative definite` if $x^* Mx \geq 0$ for all non-zero $x$ in $\mathbb{C}^n$.
-
-$$
-M \text{ positive semi-definite} \quad \iff \quad x^* Mx \geq 0 \text{ for all } x \in \mathbb{C}^n \setminus \mathbf{0}
-$$
-
 #### Cholesky Decomposition
 - Decomposes a Hermitian, Positive semi-definite matrix into a product of a lower triangular matrix and its conjugate transpose
 
@@ -455,7 +536,7 @@ plt.grid();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_22_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_28_0.png)
 
 </div>
 </div>
@@ -578,7 +659,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_28_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_34_0.png)
 
 </div>
 </div>
@@ -814,7 +895,7 @@ plot_dists_given_H0_true(mean=50, std=21, n=36, alpha=0.09)
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_43_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_49_0.png)
 
 </div>
 </div>
@@ -885,7 +966,7 @@ plot_H0_true_dist_and_actual_dist(ax=ax, H0_mean=50, actual_mean=43, std=21, n=3
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_46_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_52_0.png)
 
 </div>
 </div>
@@ -949,7 +1030,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_51_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_57_0.png)
 
 </div>
 </div>
@@ -988,7 +1069,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_54_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_60_0.png)
 
 </div>
 </div>
@@ -1022,7 +1103,7 @@ plt.show();
 <div class="output_subarea" markdown="1">
 
 {:.output_png}
-![png](../../images/machine-learning/00-math-for-ml/probability-statistics_57_0.png)
+![png](../../images/machine-learning/00-math-for-ml/probability-statistics_63_0.png)
 
 </div>
 </div>
@@ -1844,25 +1925,32 @@ Hence, since the $p$-value $= 0.018 < \alpha = 0.05$, we reject the $H_0$ becaus
 ---
 # Metrics
 
-## False Positive Rate:
+## Regression
+
+### $R^2$
+- Coefficient of Determination
+
+## Classification
+
+### False Positive Rate:
 - Ratio of false positives to total negatives, $\frac{\text{FP} }{\text{N} }=\frac{\text{FP} }{\text{FP + TN} }$
 
-## False Negative Rate:
+### False Negative Rate:
 - Ratio of false negatives to total positives, $\frac{\text{FN} }{\text{P} }=\frac{\text{FN} }{\text{FN + TP} }$
 
-## Precision:
+### Precision:
 - Ratio of true positives to total positives and false positives, $\frac{\text{TP} }{\text{TP + FP} }$
 
-## Recall:
+### Recall:
 - Ratio of true positives to total positives and false negatives, $\frac{\text{TP} }{\text{TP + FN} }$
 
-## Accuracy:
+### Accuracy:
 - Ratio of correct classifications to total classifications, $\frac{\text{TP + TN} }{\text{TP + FP + TN + FN} }$
 
-## F-beta:
+### F-beta:
 - Weighted Harmonic Mean of precision and recall, $(1 + \beta^2) \times \frac{\text{precision } \times \text{ recall} }{\beta^2 \times \text{precision } + \text{ recall} }$
 
-## ROC-AUC:
+### ROC-AUC:
 
 
 

@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Identifying Customer Segments with Arvato'
 prev_page:
-  url: /portfolio/udacity/02-flower-classifier/image_classifier
+  url: /portfolio/udacity/02-flower-classifier/image_classifier.html
   title: 'Flower Classifier with Transfer Learning'
 next_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm.html
   title: 'Exploring Condominiums in Singapore'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

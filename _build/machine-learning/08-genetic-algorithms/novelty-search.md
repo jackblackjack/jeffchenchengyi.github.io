@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Novelty Search'
 prev_page:
-  url: /machine-learning/08-genetic-algorithms/es-vs-rl
+  url: /machine-learning/08-genetic-algorithms/es-vs-rl.html
   title: 'Evolutionary Strategies Vs. Reinforcement Learning'
 next_page:
-  url: /machine-learning/08-genetic-algorithms/hbpso-ehw
+  url: /machine-learning/08-genetic-algorithms/hbpso-ehw.html
   title: 'Human Behavior Particle Swarm Optimization on Hardware Configuration'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

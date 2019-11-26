@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '07 - Eliminating Seasonality'
 prev_page:
-  url: /portfolio/dengai/06b-dengai
+  url: /portfolio/dengai/06b-dengai.html
   title: '06b - Time Series Analysis (Continued)'
 next_page:
-  url: /machine-learning/09-miscellaneous-topics/extras/README
+  url: /machine-learning/09-miscellaneous-topics/extras/README.html
   title: 'Other Challenges'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

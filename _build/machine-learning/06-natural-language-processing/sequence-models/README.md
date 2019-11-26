@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/06-natural-language-processing/sequence-models/readme"
 title: 'Sequence Models'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/word2vec/skipngram
+  url: /machine-learning/06-natural-language-processing/word2vec/skipngram.html
   title: 'Skip N-gram'
 next_page:
-  url: /machine-learning/06-natural-language-processing/sequence-models/intro
+  url: /machine-learning/06-natural-language-processing/sequence-models/intro.html
   title: 'Types of Sequence Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

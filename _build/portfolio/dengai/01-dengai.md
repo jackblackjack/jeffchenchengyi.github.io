@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '01 - Naive Regressors'
 prev_page:
-  url: /portfolio/dengai/00-dengai
+  url: /portfolio/dengai/00-dengai.html
   title: '00 - Data Preprocessing'
 next_page:
-  url: /portfolio/dengai/02-dengai
+  url: /portfolio/dengai/02-dengai.html
   title: '02 - Gauss-Markov Assumptions (OLS)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

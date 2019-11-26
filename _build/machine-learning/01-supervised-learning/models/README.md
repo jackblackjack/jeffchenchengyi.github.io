@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/01-supervised-learning/models/readme"
 title: 'Models'
 prev_page:
-  url: /machine-learning/09-miscellaneous-topics/extras/review-ratings-challenge-v3
-  title: 'QuantHub Review Ratings Data Challenge'
+  url: /machine-learning/12-operations-research/supply-chain.html
+  title: 'Supply Chain Management'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/bayes-optimal-classifier
+  url: /machine-learning/01-supervised-learning/models/bayes-optimal-classifier.html
   title: 'Bayes Optimal Classifier'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

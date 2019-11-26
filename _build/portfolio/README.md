@@ -6,7 +6,7 @@ prev_page:
   url: https://github.com/jeffchenchengyi/jeffchenchengyi.github.io
   title: 'GitHub repository'
 next_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm-non-technical.html
   title: 'Exploring Condominiums in Singapore'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'SVM'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/perceptron
+  url: /machine-learning/01-supervised-learning/models/perceptron.html
   title: 'Perceptron'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/naivebayes
+  url: /machine-learning/01-supervised-learning/models/naivebayes.html
   title: 'Naive Bayes Classifier'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

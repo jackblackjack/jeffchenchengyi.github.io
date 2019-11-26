@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Statistical Regression Analysis'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/logistic-regression
+  url: /machine-learning/01-supervised-learning/models/logistic-regression.html
   title: 'Logistic Regression'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/multilabel-classification
+  url: /machine-learning/01-supervised-learning/models/multilabel-classification.html
   title: 'Multi-Label models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -16,6 +16,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 # Statistical Regression Analysis
 
 We'll walkthrough the modeling phase of statistical regression analysis in this notebook and also the bulk of the basics of econometrics.
+
+- [**CLEAREST EXPLANATION OF Generalized Linear Models (GLIM)**](https://newonlinecourses.science.psu.edu/stat504/node/216/)
 
 ### Table of Contents
 1. [Simple Linear Regression](#simplelinreg)
@@ -36,6 +38,7 @@ Desirable Properties of Estimator:
 2. Consistent - As the sample size $n \rightarrow \infty$, $\hat{\beta} \rightarrow \beta^p$
 3. Efficient - One estimator is more efficient than another if the standard deviation of $\hat{\beta}$ is lower ($\hat{\beta}$s hover very near the same value)
 4. Linear in parameters - $\hat{\beta}$ is a linear function of parameters from sample
+    - $f(x, \beta) = \sum^{m}_{j=1}\beta_j \phi_j(x)$, where the function $\phi_j$ is a function of $x$
 
 E.g. Biased but Consistent Estimator:
 1. Suppose we are trying to estimate a population parameter $\mu$ from a population such that a sample $x_i = \mu + \epsilon,\,\epsilon \sim N(0, 1)$ - errors are normally distributed with mean of 0
@@ -43,9 +46,9 @@ E.g. Biased but Consistent Estimator:
 3. To test Unbiasedness, we take $\mathbb{E}[\tilde{x}] = \frac{1}{N-1}\sum^{N}_{i=1} \mathbb{E}[x_i]$ because of the *linearity of expectations*
 4. Since $\mathbb{E}[x_i] = \mathbb{E}[\mu] + \mathbb{E}[\epsilon] = \mu$, $\mathbb{E}[\tilde{x}] = \frac{N \mu}{N-1}$
 5. Hence, if we have a finite sample size, our estimator does not equal the population parameter, making this a biased estimator.
-6. However, as $n \rightarrow \infty$, $\frac{N \mu}{N-1} \rightarrow \mu$, making this a consistent estimator as we get the true population paarmeter as our sample size increases infinitely.
+6. However, as $n \rightarrow \infty$, $\frac{N \mu}{N-1} \rightarrow \mu$, making this a consistent estimator as we get the true population parameter as our sample size increases infinitely.
 
-Least Squares Estimators are **Best Linear Unbiased Estimators (BLUE)** under *Gauss-Markov* Assumptions.
+Least Squares Estimators are **Best Linear Unbiased Estimators (BLUE)** under *Gauss-Markov* Assumptions. (**Best** being the estimator with **minimum variance**)
 
 ### Gauss-Markov Assumptions<a id='gauss-markov'></a>
 1. Linear in Parameters
@@ -155,7 +158,9 @@ $$ $X$ is the [*Design Matrix*](https://en.wikipedia.org/wiki/Design_matrix)
 
 
 
-### Least Squares Estimator
+### Ordinary Least Squares Estimator
+- The OLS estimator is consistent when the regressors are exogenous, and optimal in the class of linear unbiased estimators when the errors are homoscedastic and serially uncorrelated. (GAUSS-MARKOV ASSUMPTIONS) Under these conditions, the method of OLS provides minimum-variance mean-unbiased estimation when the errors have finite variances. **Under the additional assumption that the errors are normally distributed, OLS is the maximum likelihood estimator. (The errors with OLS do not need to be normal, nor do they need to be independent and identically distributed )**
+
 $$
 \hat{y_i} = \hat{w_0} + \hat{w_1}{(x_1)}_i
 $$
@@ -247,6 +252,13 @@ $$
 ---
 # General Linear Models<a id='glm'></a>
 
+- Linear Regression, OLS Regression, LS regression, ordinary regression, ANOVA, ANCOVA are all **general linear models**
+
+2 things that define a General Linear Model:
+1. The residuals (aka errors) are normally distributed.
+2. The model parameters–regression coefficients, means, residual variance–are estimated using a technique called Ordinary Least Squares.
+    - many of the nice statistics we get from these models–R-squared, MSE, Eta-Squared–come directly from OLS methods.
+
 ### Anova
 --- Refer to [Statistics Review]() ---
 
@@ -258,6 +270,41 @@ $$
 
 ---
 # Generalized Linear Models<a id='glim'></a>
+
+- Logistic regression, Poisson regression, Probit regression, Negative Binomial regression are all **generalized linear models**
+- Not all dependent variables can result in residuals that are normally distributed.
+- Count variables and categorical variables are both good examples.  But it turns out that as long as the errors follow a distribution within a certain family of distributions, we can still fit a model.
+
+3 Things that define a Generalized Linear Model:
+1. The residuals come from a distribution in the exponential family.  (And yes, you need to specify which one).
+    - Exponential families include many of the most common distributions. Among many others, exponential families includes the following:
+        - normal
+        - exponential
+        - gamma
+        - chi-squared
+        - beta
+        - Dirichlet
+        - Bernoulli
+        - categorical
+        - Poisson
+        - Wishart
+        - inverse Wishart
+        - geometric
+    - A number of common distributions are exponential families, but only when certain parameters are fixed and known. For example:
+        - binomial (with fixed number of trials)
+        - multinomial (with fixed number of trials)
+        - negative binomial (with fixed number of failures)
+2. The mean of y has a linear form with model parameters only through a link function.
+    - All types of link functions are functions of the conditional mean / expectation of $\mathbb{E}[Y\vert X]$ (**In binary logistic regression, where we model the response variable $y_i = 0, 1$, the $\mathbb{E}[Y\vert X] = P(Success) = P(y=1)$**)
+3. The model parameters are estimated using Maximum Likelihood Estimation.  OLS doesn’t work.
+
+
+
+### Linear Model
+
+
+
+
 
 ### Poisson Regression
 - Used to model Count data
@@ -287,6 +334,8 @@ $$
 \end{aligned}
 $$
 
+
+
 ### Logistic Regression and Probit Regression
 - Used for Binary data
 
@@ -294,11 +343,17 @@ $$
 
 $$
 
+
+
 ### Multinomial Logistic Regression and Multinomial Probit Regression
 - Used for Categorical data
 
+
+
+
 ### Ordered Logit and Ordered Probit Regression
 - Used for Ordinal data
+
 
 
 
@@ -307,4 +362,7 @@ $$
 - [Ben Lambert's Full course of Undergrad Econometrics Part 1](https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU)
 - [Ben Lambert's Full course of Graduate Econometrics](https://www.youtube.com/playlist?list=PLwJRxp3blEvaxmHgI2iOzNP6KGLSyd4dz)
 - [Casualty Actuarial Society Forum Spring 2013](https://www.casact.org/pubs/forum/13spforum/Semenovich.pdf)
+- [Understanding confusing terminology_ Generalized Additive Model/ Generalized Linear Model /General Additive Model](https://learnerworld.tumblr.com/post/152330635640/enjoystatisticswithme)
+- [Difference between General Linear Model and Generalized Linear Model](https://www.theanalysisfactor.com/confusing-statistical-term-7-glm/)
+- [CLEAREST EXPLANATION OF Generalized Linear Models (GLIM)](https://newonlinecourses.science.psu.edu/stat504/node/216/)
 

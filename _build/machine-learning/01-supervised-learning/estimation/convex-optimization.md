@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Convex Optimization'
 prev_page:
-  url: /machine-learning/01-supervised-learning/estimation/mle-vs-map
+  url: /machine-learning/01-supervised-learning/estimation/mle-vs-map.html
   title: 'Maximum Likelihood Estimation Vs Maximum A Priori'
 next_page:
-  url: /machine-learning/02-unsupervised-learning/clustering/README
+  url: /machine-learning/02-unsupervised-learning/clustering/README.html
   title: 'Clustering'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -120,6 +120,7 @@ plt.rcParams['figure.figsize'] = (18, 12)
 
 ### Convex Combination
 - Generalization of the convex set so that we include all combinations of points ${x_1, \ldots, x_k}$ such that $x = \theta_1x_1 + \ldots + \theta_kx_k$ with $\theta_1 + \ldots + \theta_k = 1\,,\theta_i \geq 0$
+- Each $\mathbf{x}$ in Gaussian Mixture Model is modelled as drawn from a convex combination  of Multivariate Gaussians
 
 ### Convex Hull
 - The smallest set of all convex combinations of the points in our space (the smallest shaded region of the shape so that any two points in the shaded regoion can see each other)
@@ -764,4 +765,7 @@ The Dual formulation of the SVM objective is important as it expresses the objec
 - [Least Squares Notes by Stephen Boyd](https://www.maplesoft.com/applications/download.aspx?SF=129826/LL_74\)_Least_Square.pdf)
 - [Least Squares Notes from Stanford's EE104](http://ee104.stanford.edu/lectures/regression.pdf)
 - [Least Squares Notes from UCLA's ECE113A](http://www.seas.ucla.edu/~vandenbe/133A/lectures/ls.pdf)
+
+Linear Programming:
+- [MIT OCW Optimization Methods in Management Science](https://ocw.mit.edu/courses/sloan-school-of-management/15-053-optimization-methods-in-management-science-spring-2013/lecture-notes/)
 

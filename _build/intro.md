@@ -7,7 +7,7 @@ prev_page:
   url: 
   title: ''
 next_page:
-  url: /aboutme
+  url: /aboutme.html
   title: 'About Me'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

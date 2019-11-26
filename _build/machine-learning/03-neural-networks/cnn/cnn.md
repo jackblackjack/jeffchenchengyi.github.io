@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Introduction'
 prev_page:
-  url: /machine-learning/03-neural-networks/cnn/README
+  url: /machine-learning/03-neural-networks/cnn/README.html
   title: 'Convolutional Neural Networks'
 next_page:
-  url: /machine-learning/10-bayesian-methods/README
+  url: /machine-learning/10-bayesian-methods/README.html
   title: 'Basics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

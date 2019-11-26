@@ -4,11 +4,11 @@ kernel_name: python3
 has_widgets: false
 title: 'QuantHub Review Ratings Data Challenge'
 prev_page:
-  url: /machine-learning/09-miscellaneous-topics/extras/README
+  url: /machine-learning/09-miscellaneous-topics/extras/README.html
   title: 'Other Challenges'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/README
-  title: 'Models'
+  url: /machine-learning/12-operations-research/supply-chain.html
+  title: 'Supply Chain Management'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

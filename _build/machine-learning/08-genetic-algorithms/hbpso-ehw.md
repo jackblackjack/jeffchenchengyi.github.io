@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Human Behavior Particle Swarm Optimization on Hardware Configuration'
 prev_page:
-  url: /machine-learning/08-genetic-algorithms/novelty-search
+  url: /machine-learning/08-genetic-algorithms/novelty-search.html
   title: 'Novelty Search'
 next_page:
-  url: /machine-learning/00-math-for-ml/README
+  url: /machine-learning/00-math-for-ml/README.html
   title: 'Math for Machine Learning'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

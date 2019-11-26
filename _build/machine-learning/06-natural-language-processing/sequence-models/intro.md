@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Types of Sequence Models'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/sequence-models/README
+  url: /machine-learning/06-natural-language-processing/sequence-models/README.html
   title: 'Sequence Models'
 next_page:
-  url: /machine-learning/08-genetic-algorithms/README
+  url: /machine-learning/08-genetic-algorithms/README.html
   title: 'Species Adaptation Genetic Algorithms'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Natural Language Processing Pipeline'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/basics/README
+  url: /machine-learning/06-natural-language-processing/basics/README.html
   title: 'Basics'
 next_page:
-  url: /machine-learning/06-natural-language-processing/word2vec/README
+  url: /machine-learning/06-natural-language-processing/word2vec/README.html
   title: 'Word2Vec'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

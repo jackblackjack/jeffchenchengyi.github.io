@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Hidden Markov Models'
 prev_page:
-  url: /machine-learning/10-bayesian-methods/markov-chains
+  url: /machine-learning/10-bayesian-methods/markov-chains.html
   title: 'Markov Chains'
 next_page:
-  url: /machine-learning/06-natural-language-processing/basics/README
+  url: /machine-learning/06-natural-language-processing/basics/README.html
   title: 'Basics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

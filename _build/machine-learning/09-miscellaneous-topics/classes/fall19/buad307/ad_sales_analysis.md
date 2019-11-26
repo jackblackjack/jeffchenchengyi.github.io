@@ -6,10 +6,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Ad Analysis'
 prev_page:
-  url: /machine-learning/09-miscellaneous-topics/README
+  url: /machine-learning/09-miscellaneous-topics/README.html
   title: 'BUAD 307 - Marketing Fundamentals'
 next_page:
-  url: /machine-learning/09-miscellaneous-topics/classes/fall19/buad307/sequential-search-game
+  url: /machine-learning/09-miscellaneous-topics/classes/fall19/buad307/sequential-search-game.html
   title: 'Sequential Search Simulation'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

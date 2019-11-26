@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Linear Algebra and Differential Equations'
 prev_page:
-  url: /machine-learning/00-math-for-ml/calculus
+  url: /machine-learning/00-math-for-ml/calculus.html
   title: 'Calculus'
 next_page:
-  url: /machine-learning/00-math-for-ml/probability-statistics
+  url: /machine-learning/00-math-for-ml/probability-statistics.html
   title: 'Probability Theory and Statistics'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -432,6 +432,12 @@ $$
 
 
 
+### Orthonormal Matrix
+
+- All column vectors in orthonormal matrix are orthogonal (perpendicular) to each other and are unit vectors (length = 1)
+
+
+
 ## Properties of Systems of Linear Equations $\underset{m x n}{\mathbf{A}}\,\underset{nx1}{\mathbf{x}} = \underset{mx1}{\mathbf{b}}$<a id='sleproperties'></a>
 
 
@@ -740,12 +746,12 @@ $$
 
 ### [Eigendecomposition / Spectral Decomposition](https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix#Eigendecomposition_of_a_matrix)
 
-Let $\Sigma$ be a square $m \times m$ matrix with $m$ linearly independent eigenvectors $v_{i = 1, \ldots, m}$ (E.g. Covariance Matrix $\because \Sigma \in S_{+}^m$), we can find the eigendecomposition of $\Sigma$ by finding:
+Let $\Sigma$ be a square $m \times m$ matrix with $m$ linearly independent eigenvectors $q_{i = 1, \ldots, m}$ (E.g. Covariance Matrix $\because \Sigma \in S_{+}^m$), we can find the eigendecomposition of $\Sigma$ by finding:
 
 $$
 \begin{aligned}
-\underset{m \times m}{\Sigma} &= \underset{m \times m}{V}\cdot\underset{m \times m}{\Lambda}\cdot\underset{m \times m}{V^{-1}} \\
-&= \begin{bmatrix} \vert & \vert & \ldots & \vert \\ v_1 & v_2 & \ldots & v_m \\ \vert & \vert & \ldots & \vert \end{bmatrix} \cdot \begin{bmatrix} \lambda_i & 0 & \ldots & 0 \\ 0 & \lambda_2 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \lambda_m \end{bmatrix} \cdot \begin{bmatrix} \vert & \vert & \ldots & \vert \\ v_1 & v_2 & \ldots & v_m \\ \vert & \vert & \ldots & \vert \end{bmatrix}^{-1}
+\underset{m \times m}{\Sigma} &= \underset{m \times m}{Q}\cdot\underset{m \times m}{\Lambda}\cdot\underset{m \times m}{Q^{-1}} \\
+&= \underbrace{\begin{bmatrix} \vert & \vert & \ldots & \vert \\ q_1 & q_2 & \ldots & q_m \\ \vert & \vert & \ldots & \vert \end{bmatrix}}_{\text{Orthogonal Matrix}} \cdot \begin{bmatrix} \lambda_i & 0 & \ldots & 0 \\ 0 & \lambda_2 & \ldots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \ldots & \lambda_m \end{bmatrix} \cdot \underbrace{\begin{bmatrix} \vert & \vert & \ldots & \vert \\ q_1 & q_2 & \ldots & q_m \\ \vert & \vert & \ldots & \vert \end{bmatrix}^{-1}}_{\text{Orthogonal Matrix}}
 \end{aligned}
 $$
 

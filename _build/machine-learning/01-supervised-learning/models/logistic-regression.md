@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Logistic Regression'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/naivebayes
+  url: /machine-learning/01-supervised-learning/models/naivebayes.html
   title: 'Naive Bayes Classifier'
 next_page:
-  url: /machine-learning/01-supervised-learning/models/statistical-regression-analysis
+  url: /machine-learning/01-supervised-learning/models/statistical-regression-analysis.html
   title: 'Statistical Regression Analysis'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

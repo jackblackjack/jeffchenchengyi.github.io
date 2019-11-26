@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '06a - Time Series Analysis'
 prev_page:
-  url: /portfolio/dengai/05-dengai
+  url: /portfolio/dengai/05-dengai.html
   title: '05 - TPOT'
 next_page:
-  url: /portfolio/dengai/06b-dengai
+  url: /portfolio/dengai/06b-dengai.html
   title: '06b - Time Series Analysis (Continued)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

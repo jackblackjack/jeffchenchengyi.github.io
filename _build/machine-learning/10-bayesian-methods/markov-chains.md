@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Markov Chains'
 prev_page:
-  url: /machine-learning/10-bayesian-methods/pgm
+  url: /machine-learning/10-bayesian-methods/pgm.html
   title: 'Probabilistic Graphical Models'
 next_page:
-  url: /machine-learning/10-bayesian-methods/hmm
+  url: /machine-learning/10-bayesian-methods/hmm.html
   title: 'Hidden Markov Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

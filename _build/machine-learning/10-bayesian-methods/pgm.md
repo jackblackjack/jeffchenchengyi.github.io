@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Probabilistic Graphical Models'
 prev_page:
-  url: /machine-learning/10-bayesian-methods/kl-divergence
+  url: /machine-learning/10-bayesian-methods/kl-divergence.html
   title: 'Kullback-Liebler Divergence'
 next_page:
-  url: /machine-learning/10-bayesian-methods/markov-chains
+  url: /machine-learning/10-bayesian-methods/markov-chains.html
   title: 'Markov Chains'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

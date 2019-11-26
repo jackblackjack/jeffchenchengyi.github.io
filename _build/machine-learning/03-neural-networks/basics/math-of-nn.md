@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Math of Neural Nets'
 prev_page:
-  url: /machine-learning/03-neural-networks/basics/README
+  url: /machine-learning/03-neural-networks/basics/README.html
   title: 'Basics'
 next_page:
-  url: /machine-learning/03-neural-networks/cnn/README
+  url: /machine-learning/03-neural-networks/cnn/README.html
   title: 'Convolutional Neural Networks'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

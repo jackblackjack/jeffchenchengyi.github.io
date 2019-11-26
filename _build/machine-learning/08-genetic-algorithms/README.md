@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/08-genetic-algorithms/readme"
 title: 'Species Adaptation Genetic Algorithms'
 prev_page:
-  url: /machine-learning/06-natural-language-processing/sequence-models/intro
+  url: /machine-learning/06-natural-language-processing/sequence-models/intro.html
   title: 'Types of Sequence Models'
 next_page:
-  url: /machine-learning/08-genetic-algorithms/saga-fpga
+  url: /machine-learning/08-genetic-algorithms/saga-fpga.html
   title: 'Evolutionary Algorithms on FPGAs'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

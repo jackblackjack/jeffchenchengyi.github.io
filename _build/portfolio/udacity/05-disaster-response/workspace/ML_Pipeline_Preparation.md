@@ -6,10 +6,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Disaster Response'
 prev_page:
-  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm
+  url: /portfolio/udacity/04-exploring-condos-sg/exploring-house-prices-singapore-part-3-crispdm.html
   title: 'Exploring Condominiums in Singapore'
 next_page:
-  url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM
+  url: /portfolio/udacity/06-ibm-recommendation-engine/Recommendations_with_IBM.html
   title: 'Recommendation Systems for Articles with IBM'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

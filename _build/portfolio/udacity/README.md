@@ -6,7 +6,7 @@ prev_page:
   url: https://github.com/lucashu1/education-deserts
   title: 'Education Deserts'
 next_page:
-  url: /portfolio/udacity/01-finding-donors/finding_donors
+  url: /portfolio/udacity/01-finding-donors/finding_donors.html
   title: 'Finding Donors with US Census Burea Data'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

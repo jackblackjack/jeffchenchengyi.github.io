@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/01-supervised-learning/estimation/readme"
 title: 'Estimation'
 prev_page:
-  url: /machine-learning/01-supervised-learning/models/multilabel-classification
+  url: /machine-learning/01-supervised-learning/models/multilabel-classification.html
   title: 'Multi-Label models'
 next_page:
-  url: /machine-learning/01-supervised-learning/estimation/mle-vs-map
+  url: /machine-learning/01-supervised-learning/estimation/mle-vs-map.html
   title: 'Maximum Likelihood Estimation Vs Maximum A Priori'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

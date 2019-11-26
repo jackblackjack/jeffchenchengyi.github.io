@@ -3,10 +3,10 @@ redirect_from:
   - "/machine-learning/03-neural-networks/cnn/readme"
 title: 'Convolutional Neural Networks'
 prev_page:
-  url: /machine-learning/03-neural-networks/basics/math-of-nn
+  url: /machine-learning/03-neural-networks/basics/math-of-nn.html
   title: 'Math of Neural Nets'
 next_page:
-  url: /machine-learning/03-neural-networks/cnn/cnn
+  url: /machine-learning/03-neural-networks/cnn/cnn.html
   title: 'Introduction'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

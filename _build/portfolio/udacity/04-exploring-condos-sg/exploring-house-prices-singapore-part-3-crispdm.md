@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: 'Exploring Condominiums in Singapore'
 prev_page:
-  url: /portfolio/udacity/03-identifying-customer-segments/identifying-customer-segments
+  url: /portfolio/udacity/03-identifying-customer-segments/identifying-customer-segments.html
   title: 'Identifying Customer Segments with Arvato'
 next_page:
-  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation
+  url: /portfolio/udacity/05-disaster-response/workspace/ML_Pipeline_Preparation.html
   title: 'Disaster Response'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

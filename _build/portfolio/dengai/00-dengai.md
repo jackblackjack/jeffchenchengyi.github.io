@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '00 - Data Preprocessing'
 prev_page:
-  url: /portfolio/dengai/README
+  url: /portfolio/dengai/README.html
   title: 'DengAI'
 next_page:
-  url: /portfolio/dengai/01-dengai
+  url: /portfolio/dengai/01-dengai.html
   title: '01 - Naive Regressors'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

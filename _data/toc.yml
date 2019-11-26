@@ -86,7 +86,7 @@
       url: /portfolio/dengai/04-dengai
     - title: 05 - TPOT
       url: /portfolio/dengai/05-dengai
-    - title: 06a - Time Series Analysis 
+    - title: 06a - Time Series Analysis
       url: /portfolio/dengai/06a-dengai
     - title: 06b - Time Series Analysis (Continued)
       url: /portfolio/dengai/06b-dengai
@@ -98,6 +98,11 @@
   sections:
     - title: QuantHub Review Ratings Data Challenge
       url: /machine-learning/09-miscellaneous-topics/extras/review-ratings-challenge-v3
+
+- divider: true
+- header: Operations Research
+- title: Supply Chain Management
+  url: /machine-learning/12-operations-research/supply-chain
 
 - divider: true
 - header: Supervised Learning
@@ -187,7 +192,7 @@
 - title: Word2Vec
   url: /machine-learning/06-natural-language-processing/word2vec/README
   not_numbered: true
-  sections:  
+  sections:
   - title: Continuous Bag of Words
     url: /machine-learning/06-natural-language-processing/word2vec/cbow
   - title: Skip N-gram

@@ -4,10 +4,10 @@ kernel_name: python3
 has_widgets: false
 title: '03a - Feature Scaling and PCA'
 prev_page:
-  url: /portfolio/dengai/02-dengai
+  url: /portfolio/dengai/02-dengai.html
   title: '02 - Gauss-Markov Assumptions (OLS)'
 next_page:
-  url: /portfolio/dengai/03b-dengai
+  url: /portfolio/dengai/03b-dengai.html
   title: '03b - Reducing number of PCA components'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
