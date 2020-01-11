@@ -163,6 +163,8 @@ if __name__ == '__main__':
     else:
         reconstruction_loss = binary_crossentropy(inputs,
                                                   outputs)
+        
+    import pdb; pdb.set_trace()
 
     reconstruction_loss *= original_dim
     kl_loss = 1 + z_log_var - K.square(z_mean) - K.exp(z_log_var)
